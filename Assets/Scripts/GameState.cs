@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
@@ -47,8 +48,6 @@ public class GameState
         GetWordList(wordPacksToUse);
     }
 
-    public GameState() { }
-
     void GetWordList(List<WordPackProduct> wordPacksToUse)
     {
         wordList.Clear();
@@ -94,6 +93,7 @@ public class GameState
             wordListIndex += 1;
         }
         hiddenBoardList.Shuffle();
+        Debug.Log("hidden board is created. It's size is: " + hiddenBoardList.Count);
     }
 
     public void LaunchEOGScreen()

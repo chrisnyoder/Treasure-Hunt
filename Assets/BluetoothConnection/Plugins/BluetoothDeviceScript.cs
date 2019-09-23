@@ -102,14 +102,12 @@ public class BluetoothDeviceScript : MonoBehaviour
 			}
 			else if (message.Length >= deviceStartedAdvertising.Length && message.Substring (0, deviceStartedAdvertising.Length) == deviceStartedAdvertising)
 			{
-                BluetoothLEHardwareInterface.Log("Started Advertising, bluetooth hardware interface");
 
 				if (StartedAdvertisingAction != null)
 					StartedAdvertisingAction ();
 			}
 			else if (message.Length >= deviceStoppedAdvertising.Length && message.Substring (0, deviceStoppedAdvertising.Length) == deviceStoppedAdvertising)
 			{
-				BluetoothLEHardwareInterface.Log("Stopped Advertising");
 
 				if (StoppedAdvertisingAction != null)
 					StoppedAdvertisingAction ();

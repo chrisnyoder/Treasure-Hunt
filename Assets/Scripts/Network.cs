@@ -8,9 +8,14 @@ using System.IO;
 
 public class Network : MonoBehaviour
 {
-
+    
+    public GameState initialGameState;
+    private Networking networking = null;
+    private Text textStatus;
+    private bool serverOn;
+    private List<Networking.NetworkDevice> connectedDeviceList = null;
     private static Network instance; 
-    public static Network Instance 
+    public static Network Instance
     {
         get 
         {
@@ -29,19 +34,10 @@ public class Network : MonoBehaviour
             instance = this; 
         }
     }
-
-    public GameState initialGameState; 
-    private bool isServer;
-    private Networking networking = null;
-    private Text textStatus;
-    private List<Networking.NetworkDevice> connectedDeviceList = null;
     
-    public void netWorkInitialGameState(GameState gameState, bool isServer)
+    public void networkInitialGameState(GameState gameState)
     {
         this.initialGameState = gameState;
-        this.isServer = isServer;
-
-        startClientOrServer();
     }
 
     void Start()
@@ -64,22 +60,9 @@ public class Network : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void startClientOrServer()
-    {
-
-        if (isServer)
-        {
-            StartServer();
-        }
-        else
-        {
-            StartClient();
-        }
-
-    }
-
-    void StartServer(){
+    public void StartServer(){
         print("starting server");
+        serverOn = true;
         connectedDeviceList = null;     
         networking.StartServer("treasure_hunt", DeviceReadyCallBack, DeviceOnDisconnectCallBack, onDeviceDataCallBack);
     }
@@ -97,18 +80,12 @@ public class Network : MonoBehaviour
             connectedDeviceList.Add(connectedDevice);
         }
 
-        print("the number of devices in the connected NetworkDeivce list is: " + connectedDeviceList.Count);
-        print("The devices that are connected are the following:");
-
         foreach(Networking.NetworkDevice device in connectedDeviceList)
         {
             print(device);
         }
 
-        if(isServer)
-        {
-            sendWordsAsBytes(); 
-        }
+        sendWordsAsBytes();
     }
 
     void DeviceOnDisconnectCallBack(Networking.NetworkDevice disconnectedDevice)
@@ -123,7 +100,7 @@ public class Network : MonoBehaviour
 
     }
 
-    void StartClient()
+    public void StartClient()
     {
         print("client started");
         networking.StartClient("treasure_hunt", SystemInfo.deviceUniqueIdentifier, StartedAdvertisingCallBack, CharacteristicWrittentCallback);
@@ -136,7 +113,11 @@ public class Network : MonoBehaviour
 
     void CharacteristicWrittentCallback(string someString, string deviceCharacteristic, Byte[] bytes)
     {
-        print("characteristic written callback, here is the data: " + bytes);
+        print("characteristic written callback, here is the data: ");
+        foreach(Byte bt in bytes)
+        {
+            print(bt);
+        }
     }
 
     public void StopServer()
@@ -147,6 +128,7 @@ public class Network : MonoBehaviour
     void onStopServerCallback()
     {
         print("Server stopped call back received");
+        serverOn = false;
     }
 
     public void StopClient()
@@ -167,12 +149,15 @@ public class Network : MonoBehaviour
 
     void sendWordsAsBytes()
     {
-        print("converting data");
-        var seriablizableDict = returnCardObjectsAsSerializableDictionary(initialGameState.hiddenBoardList);
-        var byteArray = returnSerializableDictionaryAsByteArray(seriablizableDict);
 
-        networking.WriteDevice(connectedDeviceList[0], byteArray, onWrittenCallBack);
-        print("write device function called");
+        print("hidden board list size at time of networking");
+        print(initialGameState.hiddenBoardList.Count);
+        // var seriablizableDict = returnCardObjectsAsSerializableDictionary(initialGameState.hiddenBoardList);
+        // var byteArray = returnSerializableDictionaryAsByteArray(seriablizableDict);
+
+        var bitArray = new Byte[] {0, 1, 2, 3, 4};
+
+        networking.WriteDevice(connectedDeviceList[0], bitArray, onWrittenCallBack);
     }
 
     Dictionary<CardType, List<string>> returnCardObjectsAsSerializableDictionary(List<CardObject> cards){
@@ -230,10 +215,9 @@ public class Network : MonoBehaviour
         newDict = returnBinFormatter.Deserialize(returnStream) as Dictionary<CardType, List<string>>;
         return newDict;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

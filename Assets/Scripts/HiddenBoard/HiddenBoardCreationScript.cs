@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class HiddenBoardCreationScript : MonoBehaviour
 
         initialGameState = new GameState(25, wordProductList);
         hiddenBoardViewController.receiveGameStateObject(initialGameState);
-        network.netWorkInitialGameState(initialGameState, false);
+        network.networkInitialGameState(initialGameState);
+        network.StartClient();
     }
+
 }

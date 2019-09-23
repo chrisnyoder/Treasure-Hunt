@@ -12,8 +12,7 @@ public class GameCreationScript : MonoBehaviour
 
     void Start()
     {
-        // network = GameObject.Find("NetworkManager").GetComponent<Network>();
-        // network.netWorkInitialGameState(initialGameState, true);
+        network = GameObject.Find("NetworkManager").GetComponent<Network>();
     }
 
     public void generateGameState()
@@ -21,17 +20,21 @@ public class GameCreationScript : MonoBehaviour
 
         if(!wordPacksToUse.Any())
         {
-            print("No word lists to use: " + wordPacksToUse.Count);
+            print("No word lists to use, put in error message");
         } else 
         {
-            print("generate game state: " + wordPacksToUse.Count);
-
             var storeCanvasRT = GameObject.Find("StoreCanvas").GetComponent<RectTransform>();
             storeCanvasRT.localPosition = new Vector3(storeCanvasRT.localPosition.x, -1500, 0);
 
             initialGameState = new GameState(25, wordPacksToUse);
+            network.networkInitialGameState(initialGameState);
+            network.StartServer();
             boardLayoutScript.receiveGameStateObject(initialGameState);
         }
+    }
+
+    public void GameStateCreated()
+    {
     }
 
     void Update()
