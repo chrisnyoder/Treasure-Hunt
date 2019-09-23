@@ -5,11 +5,18 @@ using Shatalmic;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Linq;
 
 public class Network : MonoBehaviour
 {
     
     public GameState initialGameState;
+
+    private bool dataTransmissionFinished = false; 
+    private int previousByteArraySize;
+    private Action<Dictionary<CardType, List<string>>> dictionaryCallback;
+
+    private Byte[] receivedByteArray; 
     private Networking networking = null;
     private Text textStatus;
     private bool serverOn;
@@ -60,14 +67,16 @@ public class Network : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void StartServer(){
+    public void StartServer()
+    {
         print("starting server");
         serverOn = true;
         connectedDeviceList = null;     
         networking.StartServer("treasure_hunt", DeviceReadyCallBack, DeviceOnDisconnectCallBack, onDeviceDataCallBack);
     }
 
-    void DeviceReadyCallBack(Networking.NetworkDevice connectedDevice){
+    void DeviceReadyCallBack(Networking.NetworkDevice connectedDevice)
+    {
         print("the device is ready callback");
         
         if (connectedDeviceList == null)
@@ -100,10 +109,12 @@ public class Network : MonoBehaviour
 
     }
 
-    public void StartClient()
+    public void StartClient(Action<Dictionary<CardType, List<string>>> dictionaryCallback)
     {
         print("client started");
-        networking.StartClient("treasure_hunt", SystemInfo.deviceUniqueIdentifier, StartedAdvertisingCallBack, CharacteristicWrittentCallback);
+        receivedByteArray = new Byte[]{};
+        networking.StartClient("treasure_hunt", SystemInfo.deviceUniqueIdentifier, StartedAdvertisingCallBack, ReceivedDataCallBack);
+        this.dictionaryCallback = dictionaryCallback;
     }
 
     void StartedAdvertisingCallBack()
@@ -111,13 +122,27 @@ public class Network : MonoBehaviour
         print("started advertising callback");
     }
 
-    void CharacteristicWrittentCallback(string someString, string deviceCharacteristic, Byte[] bytes)
+    public void ReceivedDataCallBack(string someString, string deviceCharacteristic, Byte[] bytes)
     {
-        print("characteristic written callback, here is the data: ");
-        foreach(Byte bt in bytes)
+        var byteArrayLength = bytes.Length;
+
+        if(byteArrayLength < previousByteArraySize)
         {
-            print(bt);
+            dataTransmissionFinished = true;
+        } 
+        else
+        {
+            dataTransmissionFinished = false;
+            previousByteArraySize = byteArrayLength;
         }
+
+        receivedByteArray = receivedByteArray.Concat(bytes).ToArray();
+
+        if(dataTransmissionFinished)
+        {
+            var dict = returnByteArrayAsDictionary(receivedByteArray);
+            dictionaryCallback(dict);
+        }     
     }
 
     public void StopServer()
@@ -149,15 +174,37 @@ public class Network : MonoBehaviour
 
     void sendWordsAsBytes()
     {
+        dataTransmissionFinished = false;
+        var seriablizableDict = returnCardObjectsAsSerializableDictionary(initialGameState.hiddenBoardList);
 
-        print("hidden board list size at time of networking");
-        print(initialGameState.hiddenBoardList.Count);
-        // var seriablizableDict = returnCardObjectsAsSerializableDictionary(initialGameState.hiddenBoardList);
-        // var byteArray = returnSerializableDictionaryAsByteArray(seriablizableDict);
+        print("original dictionary: ");
+        foreach(KeyValuePair<CardType, List<string>> entry in seriablizableDict)
+        {
+            print("key: " + entry.Key);
+            foreach(string st in entry.Value)
+            {
+                print(st);
+            }
+        }
 
-        var bitArray = new Byte[] {0, 1, 2, 3, 4};
+        var byteArray = returnSerializableDictionaryAsByteArray(seriablizableDict);
 
-        networking.WriteDevice(connectedDeviceList[0], bitArray, onWrittenCallBack);
+        var whatsLeftInTheArray = byteArray.Length;
+        for(int i = 0; i <= byteArray.Length; i += 300)
+        { 
+            var smallArrayLength = 300;
+
+            if (whatsLeftInTheArray < 300)
+            {
+                smallArrayLength = whatsLeftInTheArray;
+            }
+
+            var smallByteArray = new ArraySegment<Byte>(byteArray, i, smallArrayLength).ToArray();
+
+            networking.WriteDevice(connectedDeviceList[0], smallByteArray, onWrittenCallBack);
+
+            whatsLeftInTheArray -= smallArrayLength;
+        }            
     }
 
     Dictionary<CardType, List<string>> returnCardObjectsAsSerializableDictionary(List<CardObject> cards){

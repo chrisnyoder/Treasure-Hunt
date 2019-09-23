@@ -15,7 +15,7 @@ public class HiddenBoardViewController : MonoBehaviour
 {
 
     public List<string> redWords;
-    public List<string> blueWords;
+    public List<string> blueWords; 
     public List<string> neutralWords;
 
     private tabs tabSelected = tabs.RedTab;
@@ -44,39 +44,50 @@ public class HiddenBoardViewController : MonoBehaviour
 
     // Start is called before the first frame update
 
-    public void receiveGameStateObject(GameState initialGameState)
+
+    public void receiveMainBoardDictionary(Dictionary<CardType, List<string>> WordListDictionary)
     {
-        print("hidden board layout being made");
+        print("hidden dictionary has been received");
 
-        redWords = new List<string>() { };
-        blueWords = new List<string>() { };
-        neutralWords = new List<string>() { };
 
-        foreach (CardObject word in initialGameState.hiddenBoardList)
+
+        foreach (KeyValuePair<CardType, List<string>> entry in WordListDictionary)
         {
-            if (word.cardType == CardType.redCard)
+            if (entry.Key == CardType.redCard)
             {
-                redWords.Add(word.labelText);
+                redWords = entry.Value;
             }
-            else if (word.cardType == CardType.blueCard)
+            else if (entry.Key == CardType.blueCard)
             {
-                blueWords.Add(word.labelText);
+                blueWords = entry.Value;
             }
-            else if (word.cardType == CardType.neutralCard)
+            else if (entry.Key == CardType.neutralCard)
             {
-                neutralWords.Add(word.labelText);
-            }
+                neutralWords = entry.Value;
+            }   
             else
             {
                 print("card is the ship wreck card... deal with later");
             }
         }
+        
+        getTextObjectSize();
+    }
 
-        numberOfWordObjectsToBeCreated = redWords.Count;
+    public void initializeHiddenBoard()
+    {   
+        
+        redWords = new List<string>(){"searching"};
+        blueWords = new List<string>(){"searching"};
+        neutralWords = new List<string>(){"searching"};
+
         wordList = redWords;
-
         textObjects = new List<GameObject>() { };
         textPositions = new List<RectTransform>() { };
+
+        defaultBlueButtonPosition = blueButton.transform.localPosition;
+        defaultRedButtonPosition = redButton.transform.localPosition;
+        defaultNeutralButtonPosition = neutralButton.transform.localPosition;
 
         getTextObjectSize();
     }
@@ -84,22 +95,34 @@ public class HiddenBoardViewController : MonoBehaviour
     void getTextObjectSize()
     {
 
+        switch(tabSelected)
+        {
+            case tabs.RedTab:
+                numberOfWordObjectsToBeCreated = redWords.Count;
+                break;
+            case tabs.BlueTab:
+                numberOfWordObjectsToBeCreated = blueWords.Count;
+                break;
+            case tabs.NeutralTab: 
+                numberOfWordObjectsToBeCreated = neutralWords.Count;
+                break;
+        }
+
         collectionViewRT = collectionView.GetComponent<RectTransform>();
         var scrollImageRT = scrollImage.GetComponent<RectTransform>();
         var textObjectRT = textObject.GetComponent<RectTransform>();
         collectionViewRT.sizeDelta = new Vector2(scrollImageRT.rect.width * (float)(0.9), scrollImageRT.rect.height * (float)(0.66));
 
-        textObjectRT.sizeDelta = new Vector2(collectionViewRT.rect.width, collectionViewRT.rect.height / numberOfWordObjectsToBeCreated);
+        var textObjectHeight = collectionViewRT.rect.height / 7;
+        if(redWords.Count > 1)
+        {
+            textObjectHeight = collectionViewRT.rect.height / numberOfWordObjectsToBeCreated;      
+        }  
+    
+        textObjectRT.sizeDelta = new Vector2(collectionViewRT.rect.width, textObjectHeight);
 
-        getInitialButtonPositions();
-    }
-
-    void getInitialButtonPositions()
-    {
-        defaultBlueButtonPosition = blueButton.transform.localPosition;
-        defaultRedButtonPosition = redButton.transform.localPosition;
-        defaultNeutralButtonPosition = neutralButton.transform.localPosition;
         createTextPrefabs();
+
     }
 
     void createTextPrefabs()
@@ -148,6 +171,7 @@ public class HiddenBoardViewController : MonoBehaviour
 
             var textObjectData = textClone.GetComponent<Text>();
             textObjectData.text = wordList[n];
+            print("text obect text is: " + textObjectData.text);
             textObjectData.fontSize = 30;
             textObjects.Add(textClone);
         }
@@ -169,6 +193,7 @@ public class HiddenBoardViewController : MonoBehaviour
         float yOrigin = 0;
 
         var textHeight = collectionViewRT.rect.height / numberOfWordObjectsToBeCreated;
+
         float verticalSpaceRemaining = collectionViewRT.rect.height;
 
         print("number of objects in RT list" + listOfTextRTs.Count);
