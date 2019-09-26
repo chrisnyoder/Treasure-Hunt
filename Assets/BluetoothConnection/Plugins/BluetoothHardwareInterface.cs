@@ -159,6 +159,7 @@ public class BluetoothLEHardwareInterface
 	
 		if (bluetoothLEReceiver != null)
 		{
+			bluetoothLEReceiver.GetComponent<BluetoothDeviceScript>();
 			bluetoothDeviceScript = bluetoothLEReceiver.AddComponent<BluetoothDeviceScript>();
 			if (bluetoothDeviceScript != null)
 			{
@@ -169,7 +170,7 @@ public class BluetoothLEHardwareInterface
 		else
 			bluetoothDeviceScript = bluetoothLEReceiver.GetComponent<BluetoothDeviceScript> ();
 
-		GameObject.DontDestroyOnLoad (bluetoothLEReceiver);
+		// GameObject.DontDestroyOnLoad (bluetoothLEReceiver);
 
 		if (Application.isEditor)
 		{

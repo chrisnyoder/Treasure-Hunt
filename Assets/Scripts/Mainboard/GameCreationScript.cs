@@ -24,11 +24,11 @@ public class GameCreationScript : MonoBehaviour
         } else 
         {
             var storeCanvasRT = GameObject.Find("StoreCanvas").GetComponent<RectTransform>();
-            storeCanvasRT.localPosition = new Vector3(storeCanvasRT.localPosition.x, -1500, 0);
+            storeCanvasRT.localPosition = new Vector3(storeCanvasRT.localPosition.x, -1500, 0); 
 
             initialGameState = new GameState(25, wordPacksToUse);
             network.networkInitialGameState(initialGameState);
-            network.StartServer();
+            network.setNetworkAsServer();
             boardLayoutScript.receiveGameStateObject(initialGameState);
         }
     }

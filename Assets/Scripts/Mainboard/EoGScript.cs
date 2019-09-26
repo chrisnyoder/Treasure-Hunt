@@ -7,6 +7,7 @@ public class EoGScript : MonoBehaviour
 {
 
     private GameObject eogImage;
+    public Network network; 
 
     public Sprite blueWins;
     public Sprite redWins;

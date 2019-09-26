@@ -834,6 +834,10 @@ extern "C" {
     }
 }
 
+-(void)peripheral:(CBPeripheral *)peripheral didModifyServives:(NSArray<CBService *> *)InvalidatedService
+{
+} 
+
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if (error)

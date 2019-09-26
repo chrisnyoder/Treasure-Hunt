@@ -6,48 +6,62 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 public class Network : MonoBehaviour
 {
-    
     public GameState initialGameState;
 
-    private bool dataTransmissionFinished = false; 
-    private int previousByteArraySize;
-    private Action<Dictionary<CardType, List<string>>> dictionaryCallback;
+    private Action<Dictionary<CardType, List<string>>> DictionaryReceivedCallback;
+    private Action<Dictionary<string, bool>> WordsSelectedCallback;
+    private Action<CurrentGameState> GameStateChangedCallback;
+    private Action<string> languageChangedCallBack;
 
+    private Byte[] byteArrayToSend;
     private Byte[] receivedByteArray; 
-    private Networking networking = null;
-    private Text textStatus;
-    private bool serverOn;
-    private List<Networking.NetworkDevice> connectedDeviceList = null;
-    private static Network instance; 
-    public static Network Instance
-    {
-        get 
-        {
-            return instance;
-        }
-    }
 
-    private void Awake() 
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        } 
-        else 
-        {
-            instance = this; 
-        }
-    }
+    private Text textStatus;
+    private bool isServer = true;
+
+    public static Networking networking;
+   
+    private bool dictionaryReadyToBeSent = false; 
+
+    private List<Networking.NetworkDevice> connectedDeviceList = null;
+    private List<Networking.NetworkDevice> devicesDataSentTo = null; 
+    
+    // private void Awake()  
+    // {
+    //     if(NetworkManagerObjectInstance == null) 
+    //     {
+    //         NetworkManagerObjectInstance = new List<GameObject>();
+    //         NetworkManagerObjectInstance.Add(this.gameObject);
+    //     } 
+    //     else
+    //     {
+    //         NetworkManagerObjectInstance.Add(this.gameObject);
+    //         networking = NetworkManagerObjectInstance[0].GetComponent<Networking>();
+    //     }
+    // }
     
     public void networkInitialGameState(GameState gameState)
     {
         this.initialGameState = gameState;
     }
 
-    void Start()
+    public void setNetworkAsServer()
+    {
+        isServer = true;
+        startNetworkingClass();
+    }
+
+    public void setNetworkAsClient()
+    {
+        isServer = false;
+        startNetworkingClass();
+    }
+
+    void startNetworkingClass()
     {
         if (networking == null)
         {
@@ -61,16 +75,24 @@ public class Network : MonoBehaviour
                     textStatus.text = message;
 
                 BluetoothLEHardwareInterface.Log("Message: " + message);
-            });
+            }, () => 
+            {
+                if(isServer)
+                {
+                    startServer();
+                }
+                else
+                {
+                    startClient();
+                }
+            }
+            );
         }
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
-    public void StartServer()
+    public void startServer()
     {
-        print("starting server");
-        serverOn = true;
+        print("server started");
         connectedDeviceList = null;     
         networking.StartServer("treasure_hunt", DeviceReadyCallBack, DeviceOnDisconnectCallBack, onDeviceDataCallBack);
     }
@@ -89,32 +111,51 @@ public class Network : MonoBehaviour
             connectedDeviceList.Add(connectedDevice);
         }
 
-        foreach(Networking.NetworkDevice device in connectedDeviceList)
-        {
-            print(device);
-        }
-
-        sendWordsAsBytes();
+        dictionaryReadyToBeSent = true;
     }
 
     void DeviceOnDisconnectCallBack(Networking.NetworkDevice disconnectedDevice)
     {
-        print("Device disconnected callback: " + disconnectedDevice.Name);
 
+        print("disconnected callback happening");
+        if(connectedDeviceList != null)
+        {
+            if (connectedDeviceList.Contains(disconnectedDevice))
+            {
+                connectedDeviceList.Remove(disconnectedDevice);
+            }
+        }
+
+        if(devicesDataSentTo != null)
+        {
+            if (devicesDataSentTo.Contains(disconnectedDevice))
+            {
+                devicesDataSentTo.Remove(disconnectedDevice);
+            }
+        }
+
+        dictionaryReadyToBeSent = false;
     }
 
     void onDeviceDataCallBack(Networking.NetworkDevice dataDevice, string deviceCharacteristic, Byte[] bytes)
     {
-        print("on data callback, here is the data: " + bytes);
-
+        print("on data callback");
     }
 
-    public void StartClient(Action<Dictionary<CardType, List<string>>> dictionaryCallback)
+    public void ProvideHiddenBoardNetworkCallbacks(Action<Dictionary<CardType, List<string>>> DictionaryReceivedCallback, Action<Dictionary<string, bool>> WordsSelectedCallback, Action<CurrentGameState> GameStateChangedCallback, Action<string> languageChangedCallBack)
     {
-        print("client started");
-        receivedByteArray = new Byte[]{};
-        networking.StartClient("treasure_hunt", SystemInfo.deviceUniqueIdentifier, StartedAdvertisingCallBack, ReceivedDataCallBack);
-        this.dictionaryCallback = dictionaryCallback;
+        this.DictionaryReceivedCallback = DictionaryReceivedCallback;
+        this.WordsSelectedCallback = WordsSelectedCallback; 
+        this.GameStateChangedCallback = GameStateChangedCallback; 
+        this.languageChangedCallBack = languageChangedCallBack;
+    }
+
+    void startClient()
+    {
+        print("starting client...");
+        startNetworkingClass();
+        receivedByteArray = new Byte[] { };
+        networking.StartClient("treasure_hunt", SystemInfo.deviceUniqueIdentifier, StartedAdvertisingCallBack, receivedDataCallBack);
     }
 
     void StartedAdvertisingCallBack()
@@ -122,27 +163,31 @@ public class Network : MonoBehaviour
         print("started advertising callback");
     }
 
-    public void ReceivedDataCallBack(string someString, string deviceCharacteristic, Byte[] bytes)
+    public void receivedDataCallBack(string someString, string deviceCharacteristic, Byte[] bytes)
     {
-        var byteArrayLength = bytes.Length;
-
-        if(byteArrayLength < previousByteArraySize)
-        {
-            dataTransmissionFinished = true;
-        } 
-        else
-        {
-            dataTransmissionFinished = false;
-            previousByteArraySize = byteArrayLength;
-        }
-
         receivedByteArray = receivedByteArray.Concat(bytes).ToArray();
 
-        if(dataTransmissionFinished)
+        if(Encoding.Unicode.GetString(bytes) == "dictionaryFinished")
         {
             var dict = returnByteArrayAsDictionary(receivedByteArray);
-            dictionaryCallback(dict);
+            DictionaryReceivedCallback(dict);
+            receivedByteArray = new Byte[]{};
         }     
+
+        if(Encoding.Unicode.GetString(bytes) == "cardSelected")
+        {
+            receivedByteArray = new Byte[]{};
+        }
+
+        if(Encoding.Unicode.GetString(bytes) == "languageChanged")
+        {
+            receivedByteArray = new Byte[]{};
+        }
+
+        if(Encoding.Unicode.GetString(bytes) == "gameStateChanged")
+        {
+            receivedByteArray = new Byte[]{};
+        }
     }
 
     public void StopServer()
@@ -152,46 +197,33 @@ public class Network : MonoBehaviour
 
     void onStopServerCallback()
     {
-        print("Server stopped call back received");
-        serverOn = false;
+        print("server stopped callbacked");
     }
 
     public void StopClient()
     {
         networking.StopClient(onStopClientCallback); 
-        print("client stopped");       
     }
 
     void onStopClientCallback()
     {
-        print("Client stopped call back received");
-    }
- 
-    void onWrittenCallBack()
-    {
-        print("data written");
+        print("client stopped callback");
     }
 
-    void sendWordsAsBytes()
+    void convertDataBeforeSending()
     {
-        dataTransmissionFinished = false;
         var seriablizableDict = returnCardObjectsAsSerializableDictionary(initialGameState.hiddenBoardList);
+        byteArrayToSend = returnSerializableDictionaryAsByteArray(seriablizableDict);
+        sendToNextDevice();
+    }
 
-        print("original dictionary: ");
-        foreach(KeyValuePair<CardType, List<string>> entry in seriablizableDict)
+    void sendToNextDevice()
+    {
+        var deviceIndex = devicesDataSentTo.Count;
+        var whatsLeftInTheArray = byteArrayToSend.Length;
+
+        for (int i = 0; i <= byteArrayToSend.Length; i += 300)
         {
-            print("key: " + entry.Key);
-            foreach(string st in entry.Value)
-            {
-                print(st);
-            }
-        }
-
-        var byteArray = returnSerializableDictionaryAsByteArray(seriablizableDict);
-
-        var whatsLeftInTheArray = byteArray.Length;
-        for(int i = 0; i <= byteArray.Length; i += 300)
-        { 
             var smallArrayLength = 300;
 
             if (whatsLeftInTheArray < 300)
@@ -199,12 +231,28 @@ public class Network : MonoBehaviour
                 smallArrayLength = whatsLeftInTheArray;
             }
 
-            var smallByteArray = new ArraySegment<Byte>(byteArray, i, smallArrayLength).ToArray();
+            var smallByteArray = new ArraySegment<Byte>(byteArrayToSend, i, smallArrayLength).ToArray();
 
-            networking.WriteDevice(connectedDeviceList[0], smallByteArray, onWrittenCallBack);
+            networking.WriteDevice(connectedDeviceList[deviceIndex], smallByteArray, () =>
+            {
+                print("small array written");
+            }
+            );
 
             whatsLeftInTheArray -= smallArrayLength;
-        }            
+        }
+        byte[] transmissionFinishedIndicator = Encoding.Unicode.GetBytes("dictionaryFinished");
+        networking.WriteDevice(connectedDeviceList[deviceIndex], transmissionFinishedIndicator, dictionarySuccessfullySentToDevice);
+        devicesDataSentTo.Add(connectedDeviceList[deviceIndex]);
+    }
+
+    void dictionarySuccessfullySentToDevice()
+    {
+        print("data written");
+        if(devicesDataSentTo.Count < connectedDeviceList.Count)
+        {
+            dictionaryReadyToBeSent = true;
+        }
     }
 
     Dictionary<CardType, List<string>> returnCardObjectsAsSerializableDictionary(List<CardObject> cards){
@@ -266,5 +314,19 @@ public class Network : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(dictionaryReadyToBeSent)
+        {
+            dictionaryReadyToBeSent = false;
+            if (devicesDataSentTo == null)
+            {
+                devicesDataSentTo = new List<Networking.NetworkDevice>(){};
+            }
+
+            if (devicesDataSentTo.Count < connectedDeviceList.Count)
+            {
+                print("The number of devices that data has been sent to is less than the number of connected devices, so data will be sent");
+                convertDataBeforeSending();
+            }  
+        }
     }
 }

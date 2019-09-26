@@ -73,7 +73,9 @@ public class BluetoothDeviceScript : MonoBehaviour
 			if (message.Length >= deviceInitializedString.Length && message.Substring (0, deviceInitializedString.Length) == deviceInitializedString)
 			{
 				if (InitializedAction != null)
-					InitializedAction ();
+				{
+                    InitializedAction();
+				}
 			}
 			else if (message.Length >= deviceDeInitializedString.Length && message.Substring (0, deviceDeInitializedString.Length) == deviceDeInitializedString)
 			{
@@ -116,19 +118,7 @@ public class BluetoothDeviceScript : MonoBehaviour
 			{
 				if (parts.Length >= 3)
 				{
-					// the first callback will only get called the first time this device is seen
-					// this is because it gets added to the a list in the DiscoveredDeviceList
-					// after that only the second callback will get called and only if there is
-					// advertising data available
-					if (!DiscoveredDeviceList.Contains (parts[1]))
-					{
-						DiscoveredDeviceList.Add (parts[1]);
-
-						if (DiscoveredPeripheralAction != null)
-						{
-							DiscoveredPeripheralAction (parts[1], parts[2]);
-						}
-					}
+					DiscoveredPeripheralAction (parts[1], parts[2]);
 					
 					if (parts.Length >= 5 && DiscoveredPeripheralWithAdvertisingInfoAction != null)
 					{

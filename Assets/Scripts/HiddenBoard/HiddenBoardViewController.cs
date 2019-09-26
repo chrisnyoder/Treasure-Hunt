@@ -49,8 +49,6 @@ public class HiddenBoardViewController : MonoBehaviour
     {
         print("hidden dictionary has been received");
 
-
-
         foreach (KeyValuePair<CardType, List<string>> entry in WordListDictionary)
         {
             if (entry.Key == CardType.redCard)
@@ -246,5 +244,20 @@ public class HiddenBoardViewController : MonoBehaviour
     {
         tabSelected = tabs.NeutralTab;
         createTextPrefabs();
+    }
+
+    public void gameStateChanged(CurrentGameState newGameState)
+    {
+        print("some logic here about how to handle the EOG screen");
+    }
+
+    public void wordSelected(Dictionary<string, bool> wordSelected)
+    {
+        print("some logic about how to handle selected words");
+    }
+
+    public void newLanguage()
+    {
+        print("some logic about how to handle language change");
     }
 }

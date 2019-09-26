@@ -82,7 +82,7 @@ namespace Shatalmic
 		public Action<NetworkDevice> OnDeviceDisconnected;
 		public Action<NetworkDevice, string, byte[]> OnDeviceData;
 
-		public void Initialize (Action<string> onError, Action<string> onStatusMessage)
+		public void Initialize (Action<string> onError, Action<string> onStatusMessage, Action initalizationFinished)
 		{
 			BluetoothLEHardwareInterface.Log ("BLNE: Bluetooth Low Energy Networking Initialize");
 
@@ -91,9 +91,7 @@ namespace Shatalmic
 			if (onStatusMessage != null)
 				OnStatusMessage = onStatusMessage;
 
-			BluetoothLEHardwareInterface.Initialize (true, true, () => {
-
-			}, (error1) => {
+			BluetoothLEHardwareInterface.Initialize (true, true, initalizationFinished, (error1) => {
 				if (error1.Contains("Peripheral mode is Not Available"))
 				{
 					if (OnError != null)
@@ -121,6 +119,7 @@ namespace Shatalmic
 		{
 			if (!_serverStarted)
 			{
+				print("server was not started, so will start");
 				Reset ();
 
 				_serverStarted = true;
@@ -131,6 +130,9 @@ namespace Shatalmic
 				OnDeviceData = onDeviceData;
 
 				SetState (States.StartScan, 0.1f);
+			} else
+			{
+				print("server already started");
 			}
 		}
 
@@ -271,8 +273,7 @@ namespace Shatalmic
 
 								if (_deviceToConnect == null)
 									SetState (States.None, 0.01f);
-							}
-
+							} 
 						}, null, true);
 						break;
 
@@ -290,7 +291,7 @@ namespace Shatalmic
 									if (AllCharacteristicsFound)
 									{
 										_deviceToConnect.Connected = true;
-										SetState (States.Subscribe, 3f);
+										SetState (States.Subscribe, 2f);
 									}
 								}
 							}, (disconnectAddress) => {

@@ -10,14 +10,11 @@ public class UIManager : MonoBehaviour
 
     public void GoToMainBoard()
     {
-        print("go to mainboard function being called");
-        print("make some changes to UI managers");
         SceneManager.LoadScene("MainBoardContainer");
     }
 
     public void GoToHiddenBoard()
     {
-        print("hidden board function is called");
         SceneManager.LoadScene("HiddenBoardScene");
     }
 
@@ -25,7 +22,6 @@ public class UIManager : MonoBehaviour
     {
         network = GameObject.Find("NetworkManager").GetComponent<Network>();
         network.StopServer();
-    
         SceneManager.LoadScene("IntroScene");
     }
 
@@ -33,7 +29,6 @@ public class UIManager : MonoBehaviour
     {
         network = GameObject.Find("NetworkManager").GetComponent<Network>();
         network.StopClient();
-
         SceneManager.LoadScene("IntroScene");
     }
 
