@@ -44,7 +44,7 @@ namespace Shatalmic
 
 		public List<NetworkDevice> NetworkDeviceList;
 
-		enum States
+		public enum States
 		{
 			None,
 			StartScan,
@@ -54,13 +54,13 @@ namespace Shatalmic
 			Disconnecting,
 		}
 
-		void SetState (States newState, float timeout)
+		public void SetState (States newState, float timeout)
 		{
 			_state = newState;
 			_timeout = timeout;
 		}
 
-		void Reset ()
+		public void Reset ()
 		{
 			_timeout = 0f;
 			_state = States.None;
@@ -216,7 +216,9 @@ namespace Shatalmic
 		{
 			BluetoothLEHardwareInterface.StopAdvertising (() => {
 				if (onStoppedAdvertising != null)
+				{
 					onStoppedAdvertising ();
+				}
 			});
 		}
 
@@ -243,7 +245,7 @@ namespace Shatalmic
 				if (_timeout <= 0f)
 				{
 					_timeout = 0f;
-
+					print("state is " + _state);
 					switch (_state)
 					{
 					case States.None:
@@ -262,19 +264,33 @@ namespace Shatalmic
 					case States.StartScan:
 						_state = States.None;
 						BluetoothLEHardwareInterface.ScanForPeripheralsWithServices (null, (address, deviceName) => {
+
 							if (deviceName.StartsWith (_networkName))
 							{
-								StatusMessage = "Found " + address;
+								var nameInDeviceList = false; 
 
-								if (NetworkDeviceList == null)
-									NetworkDeviceList = new List<NetworkDevice> ();
+								foreach(NetworkDevice nd in NetworkDeviceList)
+								{
+									if(nd.Name == deviceName)
+									{
+										nameInDeviceList = true;
+									}
+								}
 
-								NetworkDeviceList.Add (new NetworkDevice { Name = deviceName, Address = address, Connected = false });
+								if(!nameInDeviceList)
+								{
+                                    StatusMessage = "Found " + address;
 
-								if (_deviceToConnect == null)
-									SetState (States.None, 0.01f);
+                                    if (NetworkDeviceList == null)
+                                        NetworkDeviceList = new List<NetworkDevice>();
+
+                                    NetworkDeviceList.Add(new NetworkDevice { Name = deviceName, Address = address, Connected = false });
+
+                                    if (_deviceToConnect == null)
+                                        SetState(States.None, 0.01f);
+								}
 							} 
-						}, null, true);
+						}, null, true);	
 						break;
 
 					case States.Connect:
@@ -283,13 +299,16 @@ namespace Shatalmic
 							StatusMessage = string.Format ("Connecting to {0}...", _deviceToConnect.Name);
 
 							BluetoothLEHardwareInterface.ConnectToPeripheral (_deviceToConnect.Address, null, null, (address, serviceUUID, characteristicUUID) => {
+								print("call back received for 'connect to peripherial'");
 								var characteristic = GetCharacteristic (serviceUUID, characteristicUUID);
 								if (characteristic != null)
 								{
 									characteristic.Found = true;
+									print("characteristic found");
 
 									if (AllCharacteristicsFound)
 									{
+										print("running the 'states.subscribed function'...");
 										_deviceToConnect.Connected = true;
 										SetState (States.Subscribe, 2f);
 									}
@@ -336,10 +355,11 @@ namespace Shatalmic
 					case States.Disconnect:
 						_deviceToDisconnect = NetworkDeviceList.Where (d => d.DoDisconnect).Select (d => d).FirstOrDefault ();
 						if (_deviceToDisconnect != null)
-						{
+						{	print("device to disconnect does not equal null");
 							SetState (States.Disconnecting, 5f);
 							if (_deviceToDisconnect.Connected)
 							{
+								print("disconnected peripherial function called");
 								BluetoothLEHardwareInterface.DisconnectPeripheral (_deviceToDisconnect.Address, (address) => {
 									// since we have a callback for disconnect in the connect method above, we don't
 									// need to process the callback here.
@@ -347,6 +367,7 @@ namespace Shatalmic
 							}
 							else
 							{
+								print("disconnected perihperal function not called, removed from the device list");
 								NetworkDeviceList.Remove (_deviceToDisconnect);
 								StatusMessage = string.Format ("2 device count: {0}", NetworkDeviceList.Count);
 

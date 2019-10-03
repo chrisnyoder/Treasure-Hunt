@@ -54,14 +54,26 @@ public class GameState
 
         foreach(WordPackProduct wordPack in wordPacksToUse)
         {
-            var wordListPath = Path.Combine(Application.streamingAssetsPath, wordPack.wordPackProductIdentifier + ".txt");   
-            var wordsAsList = System.IO.File.ReadAllLines(wordListPath).ToList();
+            TextAsset textFile = Resources.Load<TextAsset>(wordPack.wordPackProductIdentifier);
+            var wordsAsList = ReadLinesFromTextFile(textFile).ToList();
             wordList = wordList.Concat(wordsAsList).ToList();
-        }
-        
+        }  
+
         wordList.Shuffle();
 
         CreateHiddenBoard();
+    }
+
+    public IEnumerable<string> ReadLinesFromTextFile(TextAsset textFile)
+    {
+        using (StreamReader sr = new StreamReader(new MemoryStream(textFile.bytes)))
+        {
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                yield return line;
+            }
+        }
     }
 
     void CreateHiddenBoard()

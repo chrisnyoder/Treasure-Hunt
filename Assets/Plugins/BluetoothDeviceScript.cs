@@ -118,8 +118,10 @@ public class BluetoothDeviceScript : MonoBehaviour
 			{
 				if (parts.Length >= 3)
 				{
-					DiscoveredPeripheralAction (parts[1], parts[2]);
-					
+						
+					DiscoveredPeripheralAction(parts[1], parts[2]);
+					print("parts 1: " + parts[1] + " and 2: " + parts[2]);
+						
 					if (parts.Length >= 5 && DiscoveredPeripheralWithAdvertisingInfoAction != null)
 					{
 						// get the rssi from the 4th value

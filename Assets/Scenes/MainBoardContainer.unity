@@ -847,6 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064f57b105085408bb2ac7b6433c14a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  network: {fileID: 0}
   blueWins: {fileID: 21300000, guid: edff4ba09e026453d8145cb2139755f2, type: 3}
   redWins: {fileID: 21300000, guid: 89be428904b1c4bd98be5ab7c669bd2e, type: 3}
   lose: {fileID: 21300000, guid: 8faf78a515f1b4741a765bf89c96ff1c, type: 3}
@@ -1949,6 +1950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064f57b105085408bb2ac7b6433c14a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  network: {fileID: 0}
   blueWins: {fileID: 21300000, guid: edff4ba09e026453d8145cb2139755f2, type: 3}
   redWins: {fileID: 21300000, guid: 89be428904b1c4bd98be5ab7c669bd2e, type: 3}
   lose: {fileID: 21300000, guid: 8faf78a515f1b4741a765bf89c96ff1c, type: 3}
