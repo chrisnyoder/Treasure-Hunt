@@ -148,7 +148,6 @@ public class Network : MonoBehaviour
             if(connectedDeviceList.Contains(dataDevice))
             {
                 dataDevice.DoDisconnect = true;
-                dataDevice.Connected = false;
                 networking.SetState(Networking.States.Disconnect, 0.1f);
                 connectedDeviceList.Remove(dataDevice);
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Purchasing;
 
 public class StoreLayoutScript : MonoBehaviour
 {
@@ -81,6 +82,18 @@ public class StoreLayoutScript : MonoBehaviour
             {
                 wordPackCloneImage.sprite = celebrityWordPackImage;
             }
+
+            if(wordPack.state == ProductState.unpurchased)
+            {
+                var iAPButton = wordPackClone.GetComponent<IAPButton>();
+                iAPButton.productId = wordPack.wordPackProductIdentifier;
+                iAPButton.UpdateText();
+            } else 
+            {
+                Destroy(wordPackClone.GetComponent<IAPButton>());
+            }
+
+            print("word pack that would be purchased: " + wordPackClone.GetComponent<IAPButton>().productId);
 
             var wordPackCloneRT = wordPackClone.GetComponent<RectTransform>();
             wordPackCloneRT.sizeDelta = new Vector2(wordPackWidth, wordPackWidth * 1.7f);

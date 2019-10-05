@@ -269,7 +269,7 @@ namespace Shatalmic
 							{
 								var nameInDeviceList = false; 
 
-								foreach(NetworkDevice nd in NetworkDeviceList)
+								foreach(NetworkDevice nd in NetworkDeviceList) 
 								{
 									if(nd.Name == deviceName)
 									{
@@ -361,8 +361,8 @@ namespace Shatalmic
 							{
 								print("disconnected peripherial function called");
 								BluetoothLEHardwareInterface.DisconnectPeripheral (_deviceToDisconnect.Address, (address) => {
-									// since we have a callback for disconnect in the connect method above, we don't
-									// need to process the callback here.
+									print("product disconnected callback reveived");
+									NetworkDeviceList.Remove(_deviceToDisconnect);
 								});
 							}
 							else

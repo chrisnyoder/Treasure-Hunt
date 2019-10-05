@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public enum ProductLanguage
 {
@@ -43,7 +44,7 @@ public class WordPackProduct
     public WordPackProduct(string wordPackIdentifier)
     {
         this.wordPackProductIdentifier = wordPackIdentifier;
-        this.state = ProductState.enabled;
+        this.state = (ProductState) Enum.Parse(typeof(ProductState), PlayerPrefs.GetString(wordPackIdentifier));
         
         switch (wordPackIdentifier)
         {

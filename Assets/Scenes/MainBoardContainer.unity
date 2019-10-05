@@ -2521,6 +2521,26 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: productId
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73c025780a45e4c10b1ef21ffc1b33ba, type: 3}
 --- !u!224 &986787344918841441 stripped

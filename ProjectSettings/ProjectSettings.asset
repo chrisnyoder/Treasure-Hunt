@@ -680,10 +680,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 6fe30909-23fa-4246-9d26-2d53cf9d4004
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: treasure_hunt_recreate
+  organizationId: chrisnyoder
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
