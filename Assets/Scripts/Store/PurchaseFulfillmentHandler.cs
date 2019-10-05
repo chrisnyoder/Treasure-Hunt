@@ -11,6 +11,10 @@ public class PurchaseFulfillmentHandler : MonoBehaviour
         var productId = gameObject.GetComponent<IAPButton>().productId;
         PlayerPrefs.SetString(productId, "enabled");
 
+        print("purchase fulfilled");
+        var storeButtonHandler = this.GetComponent<StoreButtonHandler>();
+        storeButtonHandler.wordPackProduct.state = ProductState.enabled;
+
         var storeLayout = this.GetComponentInParent<StoreLayoutScript>();
         storeLayout.displayProductState(this.gameObject);
         storeLayout.populateSelectedWordPacks();

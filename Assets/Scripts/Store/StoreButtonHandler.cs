@@ -34,7 +34,7 @@ public class StoreButtonHandler : MonoBehaviour
                 print("word pack has been eneabled");
                 break;
             case ProductState.unpurchased:
-                print("purchase products");
+                print("product purchased using the codeless IAP");
                 break;
             case ProductState.unavailable:
                 print("product unavailable");

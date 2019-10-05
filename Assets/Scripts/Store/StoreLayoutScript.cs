@@ -83,15 +83,7 @@ public class StoreLayoutScript : MonoBehaviour
                 wordPackCloneImage.sprite = celebrityWordPackImage;
             }
 
-            if(wordPack.state == ProductState.unpurchased)
-            {
-                var iAPButton = wordPackClone.GetComponent<IAPButton>();
-                iAPButton.productId = wordPack.wordPackProductIdentifier;
-                iAPButton.UpdateText();
-            } else 
-            {
-                Destroy(wordPackClone.GetComponent<IAPButton>());
-            }
+
 
             print("word pack that would be purchased: " + wordPackClone.GetComponent<IAPButton>().productId);
 
@@ -109,6 +101,7 @@ public class StoreLayoutScript : MonoBehaviour
 
     public void displayProductState(GameObject wordPackClone)
     {
+
         Image star = wordPackClone.transform.GetChild(0).GetComponent<Image>();
         var wordPackData = wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct;
 
@@ -116,17 +109,29 @@ public class StoreLayoutScript : MonoBehaviour
         {
             case ProductState.enabled:
                 star.sprite = enabledStar;
+                StartCoroutine(disableIAPButton(wordPackClone));
                 break;
             case ProductState.disabled:
-                star.sprite = disabledStar;
+                star.sprite = disabledStar;        
+                StartCoroutine(disableIAPButton(wordPackClone));
                 break;
             case ProductState.unpurchased:
+                var iAPButton = wordPackClone.GetComponent<IAPButton>();
+                iAPButton.productId = wordPackData.wordPackProductIdentifier;
+                iAPButton.UpdateText();
                 star.sprite = lockImage;
                 break;
             case ProductState.unavailable:
                 star.sprite = lockImage;
                 break;
         }
+    }
+
+    IEnumerator disableIAPButton(GameObject wordPackClone)
+    {
+        yield return new WaitForSeconds(0.1f);
+        Destroy(wordPackClone.GetComponent<IAPButton>());
+        print("IAP Component Destroyed");
     }
 
     public void populateSelectedWordPacks()
