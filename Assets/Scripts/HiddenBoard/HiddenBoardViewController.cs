@@ -35,6 +35,8 @@ public class HiddenBoardViewController : MonoBehaviour
     public Button blueButton;
     public Button neutralButton;
 
+    public Text shipwreckCardText;
+
     private Vector3 defaultRedButtonPosition;
     private Vector3 defaultBlueButtonPosition;
     private Vector3 defaultNeutralButtonPosition;
@@ -63,9 +65,9 @@ public class HiddenBoardViewController : MonoBehaviour
             {
                 neutralWords = entry.Value;
             }   
-            else
+            else if(entry.Key == CardType.shipwreckCard)
             {
-                print("card is the ship wreck card... deal with later");
+                shipwreckCardText.text = entry.Value[0];
             }
         }
         

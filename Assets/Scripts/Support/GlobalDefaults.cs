@@ -7,20 +7,18 @@ public class GlobalDefaults : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
 
         if(PlayerPrefs.HasKey("appHasStartedBefore"))
         {
             print("app has started before");
 
-            PlayerPrefs.SetString("initialWordList", PlayerPrefs.GetString("initialWordList"));
-            PlayerPrefs.SetString("initialWordListExpansion", PlayerPrefs.GetString("initialWordListExpansion"));
-            PlayerPrefs.SetString("fantasyWordList", PlayerPrefs.GetString("fantasyWordList"));
-            PlayerPrefs.SetString("celebritiesWordList", PlayerPrefs.GetString("celebritiesWordList"));
+            var allWordPackIds = WordPackProductIdentifiers.returnAllProucts();
 
-            PlayerPrefs.SetString("initialWordListJP", PlayerPrefs.GetString("initialWordListJP"));
-            PlayerPrefs.SetString("initialWordListExpansionJP", PlayerPrefs.GetString("initialWordListExpansionJP"));
-
+            foreach(string wp in allWordPackIds)
+            {
+                PlayerPrefs.SetString(wp, PlayerPrefs.GetString(wp));
+            }
         } 
         else
         {
