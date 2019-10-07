@@ -51,6 +51,12 @@ public class HiddenBoardViewController : MonoBehaviour
     {
         print("hidden dictionary has been received");
 
+        foreach(KeyValuePair<CardType, List<string>> entry in WordListDictionary)
+        {
+            print(entry.Key);
+            print(entry.Value);
+        }
+
         foreach (KeyValuePair<CardType, List<string>> entry in WordListDictionary)
         {
             if (entry.Key == CardType.redCard)

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Globalization;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -117,7 +119,14 @@ public class StoreLayoutScript : MonoBehaviour
                 break;
             case ProductState.unpurchased:
                 var iAPButton = wordPackClone.GetComponent<IAPButton>();
+
                 iAPButton.productId = wordPackData.wordPackProductIdentifier;
+                
+                // #if UNITY_ANDROID
+                // iAPButton.productId = wordPackData.wordPackProductIdentifier.ToLower();
+                // print("Google Play id is: " + wordPackData.wordPackProductIdentifier.ToLower());
+                // #endif
+
                 iAPButton.UpdateText();
                 star.sprite = lockImage;
                 break;

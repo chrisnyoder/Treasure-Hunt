@@ -7,7 +7,7 @@ public class GlobalDefaults : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         if(PlayerPrefs.HasKey("appHasStartedBefore"))
         {
