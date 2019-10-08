@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class CardFlipHandler : MonoBehaviour
 {
 
-    private EoGScript eoGScript;
     public GameState gameState;
 
     public Button card;
@@ -23,39 +22,22 @@ public class CardFlipHandler : MonoBehaviour
     {
         if (gameState.currentGameState == CurrentGameState.gameInPlay)
         {
-            var txt = card.GetComponentInChildren<Text>();
-            Destroy(txt);
             card.interactable = false;
             switch (cardType)
             {
                 case CardType.blueCard:
-                    card.GetComponent<Image>().sprite = blueImage;
-                    gameState.blueTeamScore += 1;
-                    if (gameState.blueTeamScore >= 8)
-                    {
-                        gameState.currentGameState = CurrentGameState.blueWins;
-                        gameState.LaunchEOGScreen();
-                    }
+                    card.GetComponentInChildren<Text>().text = "Blue Card";
                     break;
                 case CardType.redCard:
-                    card.GetComponent<Image>().sprite = redImage;
-                    gameState.redTeamScore += 1;
-                    if (gameState.redTeamScore >= 7)
-                    {
-                        gameState.currentGameState = CurrentGameState.redWins;
-                        gameState.LaunchEOGScreen();
-                    }
+                    card.GetComponentInChildren<Text>().text = "Red Card";
                     break;
                 case CardType.neutralCard:
-                    card.GetComponent<Image>().sprite = neutralImage;
+                    card.GetComponentInChildren<Text>().text = "Neutral Card";
                     break;
                 case CardType.shipwreckCard:
-                    card.GetComponent<Image>().sprite = shipwreckImage;
-                    gameState.currentGameState = CurrentGameState.loses;
-                    gameState.LaunchEOGScreen();
+                    card.GetComponentInChildren<Text>().text = "Shipwreck Card";
                     break;
             }
         }
     }
-
 }
