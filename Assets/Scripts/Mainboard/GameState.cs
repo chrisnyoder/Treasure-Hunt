@@ -31,10 +31,8 @@ public class GameState
 
     public CurrentGameState currentGameState;
 
-    public GameState(int numberOfCards)
+    public GameState(int numberOfCards, List<WordPackProduct> wordPacksToUse)
     {
-
-
         this.numberOfCards = numberOfCards;
 
         if (numberOfCards == 25)
@@ -47,18 +45,19 @@ public class GameState
 
         eogCanvas = GameObject.Find("ResultsCanvas");
 
-        GetWordList();
+        GetWordList(wordPacksToUse);
     }
 
-    void GetWordList()
+    void GetWordList(List<WordPackProduct> wordPacksToUse)
     {
         wordList.Clear();
 
-
-        TextAsset textFile = Resources.Load<TextAsset>("initialWordList");
-        var wordsAsList = ReadLinesFromTextFile(textFile).ToList();
-        wordList = wordList.Concat(wordsAsList).ToList();
-          
+        foreach(WordPackProduct wordPack in wordPacksToUse)
+        {
+            TextAsset textFile = Resources.Load<TextAsset>(wordPack.wordPackProductIdentifier);
+            var wordsAsList = ReadLinesFromTextFile(textFile).ToList();
+            wordList = wordList.Concat(wordsAsList).ToList();
+        }  
 
         wordList.Shuffle();
 
@@ -109,4 +108,9 @@ public class GameState
         Debug.Log("hidden board is created. It's size is: " + hiddenBoardList.Count);
     }
 
+    public void LaunchEOGScreen()
+    {
+        var script = eogCanvas.GetComponent<EoGScript>();
+        script.DisplayEOGImage(this);
+    }
 }
