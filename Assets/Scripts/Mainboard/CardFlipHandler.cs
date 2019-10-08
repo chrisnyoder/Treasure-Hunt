@@ -29,6 +29,8 @@ public class CardFlipHandler : MonoBehaviour
             switch (cardType)
             {
                 case CardType.blueCard:
+
+                    print("blue card clicked");
                     card.GetComponent<Image>().sprite = blueImage;
                     gameState.blueTeamScore += 1;
                     if (gameState.blueTeamScore >= 8)
@@ -38,6 +40,7 @@ public class CardFlipHandler : MonoBehaviour
                     }
                     break;
                 case CardType.redCard:
+                    print("red card clicked");
                     card.GetComponent<Image>().sprite = redImage;
                     gameState.redTeamScore += 1;
                     if (gameState.redTeamScore >= 7)
@@ -47,6 +50,7 @@ public class CardFlipHandler : MonoBehaviour
                     }
                     break;
                 case CardType.neutralCard:
+                    print("neutral card clicked");
                     card.GetComponent<Image>().sprite = neutralImage;
                     break;
                 case CardType.shipwreckCard:

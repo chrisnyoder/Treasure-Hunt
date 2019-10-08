@@ -33,7 +33,7 @@ public class EoGScript : MonoBehaviour
                 break;
         }
 
-        var canvasRT = GetComponent<RectTransform>();
-        canvasRT.localPosition = new Vector2(canvasRT.localPosition.x, 0);
+        var animator = GetComponent<Animator>();
+        animator.Play("ResultsCanvasAnimation");
     }
 }

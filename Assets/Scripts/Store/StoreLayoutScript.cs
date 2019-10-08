@@ -159,6 +159,12 @@ public class StoreLayoutScript : MonoBehaviour
         print("number of word packs to use: " + gameCreation.wordPacksToUse.Count);
     }
 
+    public void runMainBoardAnimation()
+    {
+        var mainBoardAnimator =  GameObject.Find("MainBoardCanvas").GetComponent<Animator>();
+        mainBoardAnimator.Play("MainBoardAnimation");
+    }
+
     // Update is called once per frame
     void Update()
     {

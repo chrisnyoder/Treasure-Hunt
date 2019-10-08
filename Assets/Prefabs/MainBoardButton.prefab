@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 1134155324896287547}
   - component: {fileID: 9193137623775572015}
   - component: {fileID: 4688721807882564350}
+  - component: {fileID: 363382544144449231}
   m_Layer: 0
   m_Name: MainBoardButton
   m_TagString: Untagged
@@ -233,3 +234,22 @@ MonoBehaviour:
   redImage: {fileID: 21300000, guid: 51e2d897726e94998923e53fa0ec4f3d, type: 3}
   neutralImage: {fileID: 21300000, guid: de1b2e0c773b3405fb6803c9ed39894a, type: 3}
   shipwreckImage: {fileID: 21300000, guid: 7c5f826f861da4401b6697b9b0917c67, type: 3}
+--- !u!95 &363382544144449231
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5448850801748092012}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 702a1e95b64b540f78cfc020cc658454, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -33,7 +33,10 @@ public class BoardLayoutScript : MonoBehaviour
         this.initialGameState = initialGameState;
 
         mainBoardRT = mainBoard.GetComponent<RectTransform>();
-        mainBoardRT.localPosition = new Vector3(mainBoardRT.localPosition.x, 0, 0);
+        // mainBoardRT.localPosition = new Vector3(mainBoardRT.localPosition.x, 0, 0);
+
+        // var mainBoardAnimator = mainBoard.GetComponent<Animator>();
+        // mainBoardAnimator.Play("MainBoardAnimation");
 
         collectionViewRT = collectionView.GetComponent<RectTransform>();
         buttonRT = buttonObject.GetComponent<RectTransform>();
