@@ -11,17 +11,17 @@ public class EoGButtonHandler : MonoBehaviour
     public void restartGame()
     {
         var EoGCanvasObject = GameObject.Find("ResultsCanvas");
-        var EoGCanvasRT = EoGCanvasObject.GetComponent<RectTransform>();
+        var EoGCanvasAninmator = EoGCanvasObject.GetComponent<Animator>();
 
         var StoreCanvasObject = GameObject.Find("StoreCanvas");
-        var StoreCanvasRT = StoreCanvasObject.GetComponent<RectTransform>();
+        var StoreCanvasAnimator = StoreCanvasObject.GetComponent<Animator>();
 
         var MainBoardCanvasObject = GameObject.Find("MainBoardCanvas");
-        var MainBoardCanvasRT = MainBoardCanvasObject.GetComponent<RectTransform>();
+        var MainBoardCanvasAnimator = MainBoardCanvasObject.GetComponent<Animator>();
        
-        EoGCanvasRT.localPosition = new Vector3(EoGCanvasRT.localPosition.x, -1500, 0);
-        StoreCanvasRT.localPosition = new Vector3(StoreCanvasRT.localPosition.x, 0, 0);
-        MainBoardCanvasRT.localPosition = new Vector3(EoGCanvasRT.localPosition.x, -3000, 0);
+        EoGCanvasAninmator.Play("ResultsAnimationReverse");
+        StoreCanvasAnimator.Play("StoreAnimationReverse");
+        MainBoardCanvasAnimator.Play("MainboardCanvasReverseAnimation");
 
         network = GameObject.Find("NetworkManager").GetComponent<Network>();
         network.StopServer();
