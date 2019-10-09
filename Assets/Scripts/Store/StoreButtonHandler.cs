@@ -21,6 +21,9 @@ public class StoreButtonHandler : MonoBehaviour
 
     public void wordPackStatusChanged()
     {
+        var animator = GetComponent<Animator>();
+        animator.Play("WordPackSelectedAnimation");
+
         switch(wordPackProduct.state)
         {
             case ProductState.enabled:
@@ -40,6 +43,7 @@ public class StoreButtonHandler : MonoBehaviour
                 print("product unavailable");
                 break;
         }
+
         var storeLayout = this.GetComponentInParent<StoreLayoutScript>();
         storeLayout.displayProductState(this.gameObject);
         storeLayout.populateSelectedWordPacks();
