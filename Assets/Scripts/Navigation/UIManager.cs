@@ -31,18 +31,29 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("IntroScene");
     }
 
-    public void bringUpExitPopUp()
+    public void bringUpExitPopUpOnMainboard()
     {
-        var exitPopUpCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
-
-        exitPopUpCanvasRT.localPosition = new Vector3(0, 0, 0);
+        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
+        exitPopUpCanvasAnimator.Play("BackToMainMenuAnimation");
     }
 
-    public void DismissExitMenuPopUP()
+    public void DismissExitMenuPopUpOnMainboard()
     {
-        var backToMainMenuCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
 
-        backToMainMenuCanvasRT.localPosition = new Vector3(-3000, 0, 0);
+        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
+        exitPopUpCanvasAnimator.Play("BackToMainMenuAnimationReverse");
+    }
+
+    public void bringUpExitPopUpOnHiddenboard()
+    {
+        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
+        exitPopUpCanvasAnimator.Play("BackToMainMenuFromHiddenboardAnimation");
+    }
+
+    public void DismissExitMenuPopUpOnHiddenboard()
+    {
+        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
+        exitPopUpCanvasAnimator.Play("BackToMainMenuFromHiddenboardAnimationReverse");
     }
 
     public void GoToIntroScreenFromHiddenBoard()
