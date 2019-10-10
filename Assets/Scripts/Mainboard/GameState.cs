@@ -109,7 +109,7 @@ public class GameState
     }
 
     public void LaunchEOGScreen()
-    {
+    {     
         var script = eogCanvas.GetComponent<EoGScript>();
         script.DisplayEOGImage(this);
     }

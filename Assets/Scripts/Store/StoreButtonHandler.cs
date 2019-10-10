@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StoreButtonHandler : MonoBehaviour
 {
 
     public WordPackProduct wordPackProduct;
+    public Canvas wordPackProductInfoCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -47,5 +49,20 @@ public class StoreButtonHandler : MonoBehaviour
         var storeLayout = this.GetComponentInParent<StoreLayoutScript>();
         storeLayout.displayProductState(this.gameObject);
         storeLayout.populateSelectedWordPacks();
+    }
+
+    public void infoButtonSelected()
+    {
+        var productImage = wordPackProductInfoCanvas.GetComponentsInChildren<Image>();
+        productImage[1].sprite = wordPackProduct.wordPackImage;
+
+        var txtTitle = wordPackProductInfoCanvas.GetComponentsInChildren<Text>();
+        txtTitle[0].text = wordPackProduct.wordPackProductTitle;
+
+        var txtDescription = wordPackProductInfoCanvas.GetComponentsInChildren<Text>();
+        txtDescription[1].text = wordPackProduct.wordPackDescription;
+
+        var animator = wordPackProductInfoCanvas.GetComponent<Animator>();
+        animator.Play("StoreInfoPopUpAnimation");
     }
 }

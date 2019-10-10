@@ -70,11 +70,17 @@ public class CardFlipHandler : MonoBehaviour
             case CardType.shipwreckCard:
                 card.GetComponent<Image>().sprite = shipwreckImage;
                 gameState.currentGameState = CurrentGameState.loses;
-                gameState.LaunchEOGScreen();
+                StartCoroutine(LaunchEoGAfterDelay());
                 break;
         }
 
         animator.enabled = true;
         animator.Play("MainboardButtonAnimationComplete");
+    }
+
+    IEnumerator LaunchEoGAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        gameState.LaunchEOGScreen();
     }
 }

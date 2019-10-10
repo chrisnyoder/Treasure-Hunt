@@ -67,24 +67,8 @@ public class StoreLayoutScript : MonoBehaviour
 
             Image wordPackCloneImage = wordPackClone.GetComponent<Image>();
             wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct = wordPack;
-            
-            if (wordPack.wordPackProductIdentifier == "initialWordList" || wordPack.wordPackProductIdentifier == "initialWordListJP")
-            {
-                wordPackCloneImage.sprite = starterWordPackImage;
-            }
-            else if (wordPack.wordPackProductIdentifier == "initialWordListExpansion" || wordPack.wordPackProductIdentifier == "initialWordListExpansionJP")
-            {
-                wordPackCloneImage.sprite = expansionWordPackImage;
-            }
-            else if (wordPack.wordPackProductIdentifier == "fantasyWordList")
-            {
-                wordPackCloneImage.sprite = fantasyWordPackImage;
-            }
-            else if (wordPack.wordPackProductIdentifier == "celebritiesWordList")
-            {
-                wordPackCloneImage.sprite = celebrityWordPackImage;
-            }
 
+            wordPackCloneImage.sprite = wordPack.wordPackImage;
 
             var wordPackCloneRT = wordPackClone.GetComponent<RectTransform>();
             wordPackCloneRT.sizeDelta = new Vector2(wordPackWidth, wordPackWidth * 1.7f);
