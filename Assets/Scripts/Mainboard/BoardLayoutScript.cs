@@ -10,12 +10,12 @@ public class BoardLayoutScript : MonoBehaviour
 
     public Canvas mainBoard;
     public Canvas eogBoard;
-    public GameObject buttonObject;
+    public GameObject buttonParentObject;
     public GameObject collectionView;
 
     RectTransform mainBoardRT;
     RectTransform collectionViewRT;
-    RectTransform buttonRT;
+    RectTransform buttonParentRT;
 
     float boardHeight;
     float boardWidth;
@@ -39,7 +39,7 @@ public class BoardLayoutScript : MonoBehaviour
         // mainBoardAnimator.Play("MainBoardAnimation");
 
         collectionViewRT = collectionView.GetComponent<RectTransform>();
-        buttonRT = buttonObject.GetComponent<RectTransform>();
+        buttonParentRT = buttonParentObject.GetComponent<RectTransform>();
         determineIfTablet();
     }
 
@@ -67,7 +67,9 @@ public class BoardLayoutScript : MonoBehaviour
             totalVerticalButtonSpacing = mainBoardRT.rect.height-(cardHeight*5);
 
             collectionViewRT.sizeDelta = new Vector2(cardWidth * 5, boardHeight);
-            buttonRT.sizeDelta = new Vector2(cardWidth, cardHeight);
+            buttonParentRT.sizeDelta = new Vector2(cardWidth, cardHeight);
+            var image = buttonParentObject.GetComponentInChildren<Image>();
+            image.rectTransform.sizeDelta = buttonParentRT.sizeDelta;
         }
 
         createCardPrefabs();
@@ -75,7 +77,7 @@ public class BoardLayoutScript : MonoBehaviour
 
     void createCardPrefabs()
     {
-        buttonObject.SetActive(true);
+        buttonParentObject.SetActive(true);
         if (cardPositions == null)
         {
             cardPositions = new RectTransform[numberOfCards];
@@ -90,12 +92,12 @@ public class BoardLayoutScript : MonoBehaviour
     
         for (int n = 0; n < numberOfCards; ++n)
         {
-            GameObject cardClone = Instantiate(buttonObject, new Vector3(0, 0, 0), Quaternion.identity, collectionView.transform);
+            GameObject cardClone = Instantiate(buttonParentObject, new Vector3(0, 0, 0), Quaternion.identity, collectionView.transform);
             var cardCloneRT = cardClone.GetComponent<RectTransform>();
             cardClone.transform.SetParent(collectionView.transform, false);
             cardPositions[n] = cardCloneRT;
 
-            var buttonData = cardClone.GetComponent<CardFlipHandler>();
+            var buttonData = cardClone.GetComponentInChildren<CardFlipHandler>();
             buttonData.cardType = initialGameState.hiddenBoardList[n].cardType;
             buttonData.cardText = initialGameState.hiddenBoardList[n].labelText;
 
@@ -133,6 +135,6 @@ public class BoardLayoutScript : MonoBehaviour
             yOrigin -= (cardHeight + totalVerticalButtonSpacing / 6);
             verticalSpaceRemaining -= (cardHeight + totalVerticalButtonSpacing / 6);
         }
-        buttonObject.SetActive(false);
+        buttonParentObject.SetActive(false);
     }
 }

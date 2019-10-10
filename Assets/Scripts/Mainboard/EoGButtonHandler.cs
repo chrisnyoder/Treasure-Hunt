@@ -27,6 +27,13 @@ public class EoGButtonHandler : MonoBehaviour
         network.StopServer();
     }
     
+    public void showBoard()
+    {
+        var EoGCanvasObject = GameObject.Find("ResultsCanvas");
+        var EoGCanvasAninmator = EoGCanvasObject.GetComponent<Animator>();
+        EoGCanvasAninmator.Play("ResultsAnimationReverse");
+    }
+    
     // Start is called before the first frame update
     void Start()
     {

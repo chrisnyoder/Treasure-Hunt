@@ -59,7 +59,7 @@ public class StoreLayoutScript : MonoBehaviour
         var storeCollectionViewRT = storeCollectionView.GetComponent<RectTransform>();
         var wordPackWidth = (storeCollectionViewRT.rect.width*0.75f)/4;
         var emptySpace = (storeCollectionViewRT.rect.width - (wordPackWidth*wordPacksToSelect.Count))/(wordPacksToSelect.Count+1);
-        float xCardPosition = 0f + emptySpace; 
+        float xCardPosition = emptySpace + (wordPackWidth/2); 
 
         foreach(WordPackProduct wordPack in wordPacksToSelect)
         {
@@ -67,27 +67,8 @@ public class StoreLayoutScript : MonoBehaviour
 
             Image wordPackCloneImage = wordPackClone.GetComponent<Image>();
             wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct = wordPack;
-            
-            if (wordPack.wordPackProductIdentifier == "initialWordList" || wordPack.wordPackProductIdentifier == "initialWordListJP")
-            {
-                wordPackCloneImage.sprite = starterWordPackImage;
-            }
-            else if (wordPack.wordPackProductIdentifier == "initialWordListExpansion" || wordPack.wordPackProductIdentifier == "initialWordListExpansionJP")
-            {
-                wordPackCloneImage.sprite = expansionWordPackImage;
-            }
-            else if (wordPack.wordPackProductIdentifier == "fantasyWordList")
-            {
-                wordPackCloneImage.sprite = fantasyWordPackImage;
-            }
-            else if (wordPack.wordPackProductIdentifier == "celebritiesWordList")
-            {
-                wordPackCloneImage.sprite = celebrityWordPackImage;
-            }
 
-
-
-            print("word pack that would be purchased: " + wordPackClone.GetComponent<IAPButton>().productId);
+            wordPackCloneImage.sprite = wordPack.wordPackImage;
 
             var wordPackCloneRT = wordPackClone.GetComponent<RectTransform>();
             wordPackCloneRT.sizeDelta = new Vector2(wordPackWidth, wordPackWidth * 1.7f);
@@ -111,15 +92,16 @@ public class StoreLayoutScript : MonoBehaviour
         {
             case ProductState.enabled:
                 star.sprite = enabledStar;
-                StartCoroutine(disableIAPButton(wordPackClone));
+                if (wordPackClone.GetComponent<IAPButton>() != null)
+                    StartCoroutine(disableIAPButton(wordPackClone));
                 break;
             case ProductState.disabled:
-                star.sprite = disabledStar;        
-                StartCoroutine(disableIAPButton(wordPackClone));
+                star.sprite = disabledStar;
+                if (wordPackClone.GetComponent<IAPButton>() != null)
+                    StartCoroutine(disableIAPButton(wordPackClone));
                 break;
             case ProductState.unpurchased:
                 var iAPButton = wordPackClone.GetComponent<IAPButton>();
-
                 iAPButton.productId = wordPackData.wordPackProductIdentifier;
                 
                 // #if UNITY_ANDROID
@@ -139,8 +121,7 @@ public class StoreLayoutScript : MonoBehaviour
     IEnumerator disableIAPButton(GameObject wordPackClone)
     {
         yield return new WaitForSeconds(0.1f);
-        Destroy(wordPackClone.GetComponent<IAPButton>());
-        print("IAP Component Destroyed");
+        Destroy(wordPackClone.GetComponent<IAPButton>());   
     }
 
     public void populateSelectedWordPacks()

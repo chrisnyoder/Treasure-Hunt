@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public enum tabs
+public enum Tabs
 {
     RedTab,
     BlueTab,
@@ -18,7 +18,7 @@ public class HiddenBoardViewController : MonoBehaviour
     public List<string> blueWords; 
     public List<string> neutralWords;
 
-    private tabs tabSelected = tabs.RedTab;
+    private Tabs tabSelected = Tabs.RedTab;
     private int numberOfWordObjectsToBeCreated;
     private List<string> wordList;
 
@@ -103,13 +103,13 @@ public class HiddenBoardViewController : MonoBehaviour
 
         switch(tabSelected)
         {
-            case tabs.RedTab:
+            case Tabs.RedTab:
                 numberOfWordObjectsToBeCreated = redWords.Count;
                 break;
-            case tabs.BlueTab:
+            case Tabs.BlueTab:
                 numberOfWordObjectsToBeCreated = blueWords.Count;
                 break;
-            case tabs.NeutralTab: 
+            case Tabs.NeutralTab: 
                 numberOfWordObjectsToBeCreated = neutralWords.Count;
                 break;
         }
@@ -137,28 +137,29 @@ public class HiddenBoardViewController : MonoBehaviour
 
         switch (tabSelected)
         {
-            case tabs.RedTab:
-                redButton.transform.localPosition = returnPositionOfSelectedTab(defaultRedButtonPosition);
-                blueButton.transform.localPosition = defaultBlueButtonPosition;
-                neutralButton.transform.localPosition = defaultNeutralButtonPosition;
+            case Tabs.RedTab:
+                redButton.GetComponent<Animator>().Play("RedTabAnimationDown");
+                blueButton.GetComponent<Animator>().Play("BlueTabAnimationUp");
+                neutralButton.GetComponent<Animator>().Play("YellowTabAnimationUp");
 
                 scrollImage.sprite = redScrollImage;
                 numberOfWordObjectsToBeCreated = redWords.Count;
                 wordList = redWords;
                 break;
-            case tabs.BlueTab:
-                redButton.transform.localPosition = defaultRedButtonPosition;
-                blueButton.transform.localPosition = returnPositionOfSelectedTab(defaultBlueButtonPosition);
-                neutralButton.transform.localPosition = defaultNeutralButtonPosition;
+            case Tabs.BlueTab:
+                redButton.GetComponent<Animator>().Play("RedTabAnimationUp");
+                blueButton.GetComponent<Animator>().Play("BlueTabAnimationDown");
+                neutralButton.GetComponent<Animator>().Play("YellowTabAnimationUp");
 
                 scrollImage.sprite = blueScrollImage;
                 numberOfWordObjectsToBeCreated = blueWords.Count;
                 wordList = blueWords;
                 break;
-            case tabs.NeutralTab:
-                redButton.transform.localPosition = defaultRedButtonPosition;
-                blueButton.transform.localPosition = defaultBlueButtonPosition;
-                neutralButton.transform.localPosition = returnPositionOfSelectedTab(defaultNeutralButtonPosition);
+            case Tabs.NeutralTab:
+                redButton.GetComponent<Animator>().Play("RedTabAnimationUp");
+                blueButton.GetComponent<Animator>().Play("BlueTabAnimationUp");
+                neutralButton.GetComponent<Animator>().Play("YellowTabAnimationDown");
+
 
                 scrollImage.sprite = neutralScrollImage;
                 numberOfWordObjectsToBeCreated = neutralWords.Count;
@@ -183,14 +184,6 @@ public class HiddenBoardViewController : MonoBehaviour
         }
 
         layoutText(textPositions);
-    }
-
-    private Vector3 returnPositionOfSelectedTab(Vector3 oldTabPosition)
-    {
-        print("old position is: " + oldTabPosition);
-        var newTabPosition = oldTabPosition - new Vector3(0f, 50f, 0f);
-        print("new tab position is: " + newTabPosition);
-        return newTabPosition;
     }
 
     void layoutText(List<RectTransform> listOfTextRTs)
@@ -238,19 +231,19 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public void selectRedTab()
     {
-        tabSelected = tabs.RedTab;
+        tabSelected = Tabs.RedTab;
         createTextPrefabs();
     }
 
     public void selectBlueTab()
     {
-        tabSelected = tabs.BlueTab;
+        tabSelected = Tabs.BlueTab;
         createTextPrefabs();
     }
 
     public void selectNeutralTab()
     {
-        tabSelected = tabs.NeutralTab;
+        tabSelected = Tabs.NeutralTab;
         createTextPrefabs();
     }
 
