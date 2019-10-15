@@ -7,19 +7,25 @@ public class GlobalDefaults : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
+       setPlayerDefaults();
+       setFrameRate();
+    }
+
+    void setPlayerDefaults()
+    {
         PlayerPrefs.DeleteAll();
 
-        if(PlayerPrefs.HasKey("appHasStartedBefore"))
+        if (PlayerPrefs.HasKey("appHasStartedBefore"))
         {
             print("app has started before");
 
             var allWordPackIds = WordPackProductIdentifiers.returnAllProucts();
 
-            foreach(string wp in allWordPackIds)
+            foreach (string wp in allWordPackIds)
             {
                 PlayerPrefs.SetString(wp, PlayerPrefs.GetString(wp));
             }
-        } 
+        }
         else
         {
             PlayerPrefs.SetString("appHasStartedBefore", "true");
@@ -35,9 +41,8 @@ public class GlobalDefaults : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void setFrameRate()
     {
-        
+        Application.targetFrameRate = 60;
     }
 }
