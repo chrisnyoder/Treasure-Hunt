@@ -27,14 +27,28 @@ public class CardFlipHandler : MonoBehaviour
 
     public void FlipCard()
     {
-        print("card flipped");
+        switch(cardType)
+        {
+            case CardType.blueCard:
+                GlobalAudioScript.Instance.playSfxSound("coin_flip");
+                break;
+            case CardType.redCard:
+                GlobalAudioScript.Instance.playSfxSound("correct");
+                break;
+            case CardType.neutralCard:
+                GlobalAudioScript.Instance.playSfxSound("flip_stone");
+                break;
+            case CardType.shipwreckCard:
+                GlobalAudioScript.Instance.playSfxSound("sad_violin");
+                break;
+        }
+
         if (gameState.currentGameState == CurrentGameState.gameInPlay)
         {
             var txt = card.GetComponentInChildren<Text>();
             Destroy(txt);
             card.interactable = false;
             animator.Play("MainboardButtonAnimation");
-
         }
     }
 
@@ -45,7 +59,6 @@ public class CardFlipHandler : MonoBehaviour
         switch (cardType)
         {
             case CardType.blueCard:
-                print("blue card clicked");
                 card.GetComponent<Image>().sprite = blueImage;
                 gameState.blueTeamScore += 1;
                 if (gameState.blueTeamScore >= 8)
@@ -64,7 +77,6 @@ public class CardFlipHandler : MonoBehaviour
                 }
                 break;
             case CardType.neutralCard:
-                print("neutral card clicked");
                 card.GetComponent<Image>().sprite = neutralImage;
                 break;
             case CardType.shipwreckCard:

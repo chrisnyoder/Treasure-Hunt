@@ -9,18 +9,6 @@ public class StoreButtonHandler : MonoBehaviour
     public WordPackProduct wordPackProduct;
     public Canvas wordPackProductInfoCanvas;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void wordPackStatusChanged()
     {
         var animator = GetComponent<Animator>();
@@ -46,6 +34,8 @@ public class StoreButtonHandler : MonoBehaviour
                 break;
         }
 
+        GlobalAudioScript.Instance.playSfxSound("togglePack2");
+
         var storeLayout = this.GetComponentInParent<StoreLayoutScript>();
         storeLayout.displayProductState(this.gameObject);
         storeLayout.populateSelectedWordPacks();
@@ -54,13 +44,15 @@ public class StoreButtonHandler : MonoBehaviour
     public void infoButtonSelected()
     {
         var productImage = wordPackProductInfoCanvas.GetComponentsInChildren<Image>();
-        productImage[1].sprite = wordPackProduct.wordPackImage;
+        productImage[2].sprite = wordPackProduct.wordPackImage;
 
         var txtTitle = wordPackProductInfoCanvas.GetComponentsInChildren<Text>();
         txtTitle[0].text = wordPackProduct.wordPackProductTitle;
 
         var txtDescription = wordPackProductInfoCanvas.GetComponentsInChildren<Text>();
         txtDescription[1].text = wordPackProduct.wordPackDescription;
+
+        GlobalAudioScript.Instance.playSfxSound("openDrawer");
 
         var animator = wordPackProductInfoCanvas.GetComponent<Animator>();
         animator.Play("StoreInfoPopUpAnimation");

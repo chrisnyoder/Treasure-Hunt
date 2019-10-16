@@ -23,9 +23,11 @@ public class EoGScript : MonoBehaviour
         switch (currentGameState)
         {
             case CurrentGameState.blueWins:
+                GlobalAudioScript.Instance.playSfxSound("win_sfx");
                 image.sprite = blueWins;
                 break;
             case CurrentGameState.redWins:
+                GlobalAudioScript.Instance.playSfxSound("win_sfx");
                 image.sprite = redWins;
                 break;
             case CurrentGameState.loses:

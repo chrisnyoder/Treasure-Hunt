@@ -54,7 +54,7 @@ public class GameState
 
         foreach(WordPackProduct wordPack in wordPacksToUse)
         {
-            TextAsset textFile = Resources.Load<TextAsset>(wordPack.wordPackProductIdentifier);
+            TextAsset textFile = Resources.Load<TextAsset>("WordLists/" + wordPack.wordPackProductIdentifier);
             var wordsAsList = ReadLinesFromTextFile(textFile).ToList();
             wordList = wordList.Concat(wordsAsList).ToList();
         }  

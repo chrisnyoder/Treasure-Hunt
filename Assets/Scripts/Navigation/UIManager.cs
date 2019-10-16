@@ -5,40 +5,67 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-
     public Network network;
+
+    private Scene scene;
+
     public Canvas backToMainMenuCanvas;
+    public Canvas infoPopUp;
+
+    private void Start() 
+    {
+        scene = SceneManager.GetActiveScene();    
+
+        if(scene.name == "IntroScene")
+        {
+            GlobalAudioScript.Instance.playAmbientSounds("jungle_sfx");
+        }
+    }
 
     public void GoToMainBoard()
     {
+        GlobalAudioScript.Instance.ambientSounds.Stop();
+
+        GlobalAudioScript.Instance.playSfxSound("openMenu");
         SceneManager.LoadScene("MainBoardContainer");
     }
 
     public void GoToHiddenBoard()
     {
+        GlobalAudioScript.Instance.ambientSounds.Stop();
+
+        GlobalAudioScript.Instance.playSfxSound("openMenu");
         SceneManager.LoadScene("HiddenBoardScene");
     }
 
     public void GoToIntroScreenFromMainBoard()
     {
-        network = GameObject.Find("NetworkManager").GetComponent<Network>();
 
-        if(network != null)
+        if(GameObject.Find("NetworkManager") != null)
+        {
+            network = GameObject.Find("NetworkManager").GetComponent<Network>();
+        } 
+
+        if(Network.networking != null)
         {
             network.StopServer();
         }
 
+        GlobalAudioScript.Instance.playSfxSound("openMenu");
         SceneManager.LoadScene("IntroScene");
     }
 
     public void bringUpExitPopUpOnMainboard()
     {
+        GlobalAudioScript.Instance.playSfxSound("openDrawer");
+
         var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
         exitPopUpCanvasAnimator.Play("BackToMainMenuAnimation");
     }
 
     public void DismissExitMenuPopUpOnMainboard()
     {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
 
         var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
         exitPopUpCanvasAnimator.Play("BackToMainMenuAnimationReverse");
@@ -46,12 +73,16 @@ public class UIManager : MonoBehaviour
 
     public void bringUpExitPopUpOnHiddenboard()
     {
+        GlobalAudioScript.Instance.playSfxSound("openDrawer");
+
         var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
         exitPopUpCanvasAnimator.Play("BackToMainMenuFromHiddenboardAnimation");
     }
 
     public void DismissExitMenuPopUpOnHiddenboard()
     {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
+
         var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
         exitPopUpCanvasAnimator.Play("BackToMainMenuFromHiddenboardAnimationReverse");
     }
@@ -60,11 +91,25 @@ public class UIManager : MonoBehaviour
     {
         network = GameObject.Find("NetworkManager").GetComponent<Network>();
         network.StopClient();
+
+        GlobalAudioScript.Instance.playSfxSound("openMenu");
         SceneManager.LoadScene("IntroScene");
     }
 
-    public void GoToStoreScreen()
+    public void bringUpInfoPopUp()
     {
-        SceneManager.LoadScene("Store");
+        GlobalAudioScript.Instance.playSfxSound("openDrawer");
+
+        var animator = infoPopUp.GetComponent<Animator>();
+        animator.Play("StoreInfoPopUpAnimation");
     }
+
+    public void closeInfoPopUp()
+    {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
+
+        var animator = infoPopUp.GetComponent<Animator>();
+        animator.Play("StoreInfoPopUpAnimationReverse");
+    }
+
 }
