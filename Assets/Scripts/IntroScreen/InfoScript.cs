@@ -7,20 +7,6 @@ using UnityEngine.EventSystems;
 public class InfoScript : MonoBehaviour
 {
 
-    public Canvas InfoPopUp;
-
-    public void bringUpInfoPopUp()
-    {
-        var animator = InfoPopUp.GetComponent<Animator>();
-        animator.Play("StoreInfoPopUpAnimation");
-    }
-
-    public void closePopUp()
-    {
-        var animator = GetComponent<Animator>();
-        animator.Play("StoreInfoPopUpAnimationReverse");
-    }
-
     public void contactFriendlyPixel()
     {
         string email = "contact@friendlypixel.app";

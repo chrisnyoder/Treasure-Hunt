@@ -10,6 +10,22 @@ namespace UnityEngine.Purchasing
     [HelpURL("https://docs.unity3d.com/Manual/UnityIAP.html")]
     public class IAPListener : MonoBehaviour
     {
+
+        private static IAPListener _instance;
+
+        private static IAPListener Instance {get {return _instance; }}
+
+        private void Awake() 
+        {
+            if(_instance != null && _instance != this)
+            {   
+                Destroy(this.gameObject);
+            } else 
+            {
+                _instance = this;
+            }
+        }
+
         [System.Serializable]
         public class OnPurchaseCompletedEvent : UnityEvent<Product>
         {
