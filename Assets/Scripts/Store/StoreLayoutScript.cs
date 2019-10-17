@@ -11,6 +11,7 @@ public class StoreLayoutScript : MonoBehaviour
     public GameObject storeCollectionView;
     public GameObject wordPackButton; 
     public ProductLanguage languageSelected = ProductLanguage.English; 
+    public GameObject restorePurchaseButton;
     
     List<WordPackProduct> wordPacksToSelect = new List<WordPackProduct>{};
     List<WordPackProduct> selectedWordPacks = new List<WordPackProduct> { };
@@ -32,6 +33,14 @@ public class StoreLayoutScript : MonoBehaviour
         storeCanvasRT.localPosition = new Vector3(storeCanvasRT.localPosition.x, 0, 0);
 
         loadWordPacks();
+
+        #if UNITY_IOS
+            restorePurchaseButton.SetActive(true);
+        #elif UNITY_EDITOR
+            restorePurchaseButton.SetActive(true);
+        #else 
+            restorePurchaseButton.SetActive(false);
+        #endif
     }
 
     public void loadWordPacks()
@@ -103,12 +112,6 @@ public class StoreLayoutScript : MonoBehaviour
             case ProductState.unpurchased:
                 var iAPButton = wordPackClone.GetComponent<IAPButton>();
                 iAPButton.productId = wordPackData.wordPackProductIdentifier;
-                
-                // #if UNITY_ANDROID
-                // iAPButton.productId = wordPackData.wordPackProductIdentifier.ToLower();
-                // print("Google Play id is: " + wordPackData.wordPackProductIdentifier.ToLower());
-                // #endif
-
                 iAPButton.UpdateText();
                 star.sprite = lockImage;
                 break;
@@ -137,7 +140,7 @@ public class StoreLayoutScript : MonoBehaviour
 
         var gameCreation = gameObject.GetComponentInChildren<GameCreationScript>();
         gameCreation.wordPacksToUse = selectedWordPacks;
-        print("number of word packs to use: " + gameCreation.wordPacksToUse.Count);
+        gameCreation.checkIfAtLeastOneWordPack();
     }
 
     public void runMainBoardAnimation()

@@ -5,13 +5,18 @@ using UnityEngine.Purchasing;
 
 public class PurchaseFulfillmentHandler : MonoBehaviour
 {
+    public GameObject purchaseFailedCanvas;
 
-    public void purchaseFulfilled()
+    private void Start() 
+    {
+        purchaseFailedCanvas = GameObject.Find("PurchaseFailedCanvas");    
+    }
+
+    public void purchaseFulfilled(Product product)
     {
         var productId = gameObject.GetComponent<IAPButton>().productId;
         PlayerPrefs.SetString(productId, "enabled");
 
-        print("purchase fulfilled");
         var storeButtonHandler = this.GetComponent<StoreButtonHandler>();
         storeButtonHandler.wordPackProduct.state = ProductState.enabled;
 
@@ -20,9 +25,17 @@ public class PurchaseFulfillmentHandler : MonoBehaviour
         storeLayout.populateSelectedWordPacks();
     }
 
-    public void purchaseFailed()
+    public void purchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        print("purchase failed");
-    }
 
+        if(failureReason == PurchaseFailureReason.UserCancelled || failureReason == PurchaseFailureReason.DuplicateTransaction)
+        {
+            // do nothing
+        } 
+        else
+        {
+            var animator = purchaseFailedCanvas.GetComponent<Animator>();
+            animator.Play("StoreInfoPopUpAnimation");
+        }
+    }
 }
