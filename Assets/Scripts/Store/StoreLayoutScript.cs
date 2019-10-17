@@ -81,7 +81,7 @@ public class StoreLayoutScript : MonoBehaviour
 
             var wordPackCloneRT = wordPackClone.GetComponent<RectTransform>();
             wordPackCloneRT.sizeDelta = new Vector2(wordPackWidth, wordPackWidth * 1.7f);
-            wordPackCloneRT.anchoredPosition = new Vector3(xCardPosition, 0 , 0);
+            wordPackCloneRT.anchoredPosition = new Vector3(xCardPosition, 50 , 0);
 
             xCardPosition += wordPackWidth+emptySpace; 
             displayProductState(wordPackClone);
@@ -96,6 +96,8 @@ public class StoreLayoutScript : MonoBehaviour
 
         Image star = wordPackClone.transform.GetChild(0).GetComponent<Image>();
         var wordPackData = wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct;
+        Text price = wordPackClone.GetComponentInChildren<Text>();
+        price.enabled = false;
 
         switch (wordPackData.state)
         {
@@ -112,7 +114,12 @@ public class StoreLayoutScript : MonoBehaviour
             case ProductState.unpurchased:
                 var iAPButton = wordPackClone.GetComponent<IAPButton>();
                 iAPButton.productId = wordPackData.wordPackProductIdentifier;
-                iAPButton.UpdateText();
+                iAPButton.priceText = price;
+                iAPButton.UpdateText(
+                    () => {
+                    price.enabled = true; 
+                });
+                    
                 star.sprite = lockImage;
                 break;
             case ProductState.unavailable:

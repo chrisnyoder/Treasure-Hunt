@@ -155,7 +155,7 @@ namespace UnityEngine.Purchasing
 
             foreach (var button in activeButtons)
             {
-                button.UpdateText();
+                button.UpdateText(() => {});
             }
         }
 
