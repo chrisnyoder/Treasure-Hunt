@@ -102,7 +102,6 @@ namespace UnityEngine.Purchasing
         {
             if (controller != null && controller.products != null && !string.IsNullOrEmpty(productID))
             {
-                Debug.Log("IAP text updated scucessfully");
                 return controller.products.WithID(productID);
             }
             Debug.LogError("CodelessIAPStoreListener attempted to get unknown product " + productID);
@@ -154,10 +153,10 @@ namespace UnityEngine.Purchasing
             this.controller = controller;
             this.extensions = extensions;
 
-            // foreach (var button in activeButtons)
-            // {
-            //     button.UpdateText();
-            // }
+            foreach (var button in activeButtons)
+            {
+                button.UpdateText();
+            }
         }
 
         public void OnInitializeFailed(InitializationFailureReason error)
