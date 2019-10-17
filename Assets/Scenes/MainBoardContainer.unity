@@ -2736,6 +2736,7 @@ MonoBehaviour:
   storeCollectionView: {fileID: 440993688}
   wordPackButton: {fileID: 64876750}
   languageSelected: 0
+  restorePurchaseButton: {fileID: 196943571}
   starterWordPackImage: {fileID: 21300000, guid: c590355a9c4214746a458bafeb5aab7d,
     type: 3}
   expansionWordPackImage: {fileID: 21300000, guid: 4e38e308b606944dfadb131535276471,
