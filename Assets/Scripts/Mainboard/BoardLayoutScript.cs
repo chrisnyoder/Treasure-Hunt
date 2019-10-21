@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BoardLayoutScript : MonoBehaviour
 {
     private bool isTablet = false; 
-    private float totalVerticalButtonSpacing; 
+    private float totalSpacing; 
 
     public Canvas mainBoard;
     public Canvas eogBoard;
@@ -57,20 +57,29 @@ public class BoardLayoutScript : MonoBehaviour
 
         if(isTablet)
         {
-            //do button sizes for tablet
+            print("is tablet");
+            boardWidth = mainBoardRT.rect.width;
+            cardWidth = (boardHeight * 0.9f) / 5;
+            cardHeight = (float)(cardWidth*0.6);
+            totalSpacing = mainBoardRT.rect.height - (cardHeight * 5);
+
+            collectionViewRT.sizeDelta = new Vector2(boardWidth, cardHeight*5+totalSpacing);
         }
         else
         {
+            print("is phone");
             boardHeight = mainBoardRT.rect.height;
             cardHeight = (boardHeight*0.9f) / 5;
             cardWidth = (float)(cardHeight * 1.66);
-            totalVerticalButtonSpacing = mainBoardRT.rect.height-(cardHeight*5);
+            totalSpacing = mainBoardRT.rect.height-(cardHeight*5);
 
-            collectionViewRT.sizeDelta = new Vector2(cardWidth * 5, boardHeight);
-            buttonParentRT.sizeDelta = new Vector2(cardWidth, cardHeight);
-            var image = buttonParentObject.GetComponentInChildren<Image>();
-            image.rectTransform.sizeDelta = buttonParentRT.sizeDelta;
+            collectionViewRT.sizeDelta = new Vector2((cardWidth * 5)+totalSpacing, boardHeight);
+
         }
+
+        buttonParentRT.sizeDelta = new Vector2(cardWidth, cardHeight);
+        var image = buttonParentObject.GetComponentInChildren<Image>();
+        image.rectTransform.sizeDelta = buttonParentRT.sizeDelta;
 
         createCardPrefabs();
     }
@@ -113,27 +122,27 @@ public class BoardLayoutScript : MonoBehaviour
     void layoutCards()
     {
         float xOrigin = 0;
-        float yOrigin = 0-(totalVerticalButtonSpacing/6);
+        float yOrigin = 0-(totalSpacing/6);
         float verticalSpaceRemaining = collectionViewRT.rect.height;
 
         foreach (RectTransform card in cardPositions)
         {
             if (verticalSpaceRemaining < cardHeight)
             {
-                xOrigin += cardWidth + totalVerticalButtonSpacing/6;
+                xOrigin += cardWidth + totalSpacing/6;
                 verticalSpaceRemaining = collectionViewRT.rect.height;
 
-                yOrigin = 0 - (totalVerticalButtonSpacing / 6);
+                yOrigin = 0 - (totalSpacing / 6);
 
                 card.anchoredPosition = new Vector2(xOrigin, yOrigin);
 
-                yOrigin -= (cardHeight + totalVerticalButtonSpacing/6);
-                verticalSpaceRemaining -= (cardHeight + totalVerticalButtonSpacing / 6);
+                yOrigin -= (cardHeight + totalSpacing/6);
+                verticalSpaceRemaining -= (cardHeight + totalSpacing / 6);
                 continue;
             }
             card.anchoredPosition = new Vector2(xOrigin, yOrigin);
-            yOrigin -= (cardHeight + totalVerticalButtonSpacing / 6);
-            verticalSpaceRemaining -= (cardHeight + totalVerticalButtonSpacing / 6);
+            yOrigin -= (cardHeight + totalSpacing / 6);
+            verticalSpaceRemaining -= (cardHeight + totalSpacing / 6);
         }
         buttonParentObject.SetActive(false);
     }
