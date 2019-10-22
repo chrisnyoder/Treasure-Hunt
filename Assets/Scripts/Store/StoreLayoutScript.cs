@@ -9,12 +9,13 @@ using UnityEngine.Purchasing;
 public class StoreLayoutScript : MonoBehaviour
 {
     public GameObject storeCollectionView;
+    private RectTransform storeCollectionViewRT;
     public GameObject wordPackButton; 
     public ProductLanguage languageSelected = ProductLanguage.English; 
     public GameObject restorePurchaseButton;
     
     List<WordPackProduct> wordPacksToSelect = new List<WordPackProduct>{};
-    List<WordPackProduct> selectedWordPacks = new List<WordPackProduct> { };
+    List<WordPackProduct> selectedWordPacks = new List<WordPackProduct>{};
 
     public Sprite starterWordPackImage;
     public Sprite expansionWordPackImage;
@@ -57,15 +58,15 @@ public class StoreLayoutScript : MonoBehaviour
                 wordPacksToSelect.Add(wordPackObject);
             }
         }
-
         instantiateWordPackPrefabsAndPlaceImages();
     }
 
     public void instantiateWordPackPrefabsAndPlaceImages()
     {
         var wordPackPosition = new Vector3(0, 0, 0);
-        
         var storeCollectionViewRT = storeCollectionView.GetComponent<RectTransform>();
+        storeCollectionViewRT.sizeDelta = new Vector2(0, 0);
+
         var wordPackWidth = (storeCollectionViewRT.rect.width*0.75f)/4;
         var emptySpace = (storeCollectionViewRT.rect.width - (wordPackWidth*wordPacksToSelect.Count))/(wordPacksToSelect.Count+1);
         float xCardPosition = emptySpace + (wordPackWidth/2); 

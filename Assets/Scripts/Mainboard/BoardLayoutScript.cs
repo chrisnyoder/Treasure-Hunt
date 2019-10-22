@@ -28,6 +28,21 @@ public class BoardLayoutScript : MonoBehaviour
     float cardHeight;
     float cardWidth;
 
+    private void Start() 
+    {
+        if(GlobalDefaults.Instance.isTablet)
+        {
+            var backgroundImage = this.GetComponent<Image>();
+            var tabletBackgroundImage = Resources.Load<Sprite>("Images/Backgrounds/iPad_12_MB_Background");
+
+            if(tabletBackgroundImage != null && backgroundImage != null)
+            {
+                print("tablet background is available and background image is there");
+                backgroundImage.sprite = tabletBackgroundImage;
+            }
+        }    
+    }
+
     public void receiveGameStateObject(GameState initialGameState)
     {
         this.initialGameState = initialGameState;

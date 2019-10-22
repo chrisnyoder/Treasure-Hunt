@@ -23,7 +23,7 @@ public class GlobalAudioScript : MonoBehaviour
         {
             Destroy(this.gameObject);
         } 
-            else
+        else
         {
             _instance = this;
         }
