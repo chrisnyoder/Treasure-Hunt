@@ -4,12 +4,38 @@ using UnityEngine;
 
 public class GlobalDefaults : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {   
-       setPlayerDefaults();
-       setFrameRate();
+
+    private static GlobalDefaults _instance; 
+
+    public static GlobalDefaults Instance  
+    {
+        get 
+        {
+            return _instance;
+        }
     }
+
+    public RectTransform screenSize; 
+    public bool isTablet; 
+
+    private void Awake() 
+    {
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
+        setPlayerDefaults();
+        setFrameRate();
+        determineIfTablet();
+    }
+    // Start is called before the first frame update
+ 
+
 
     void setPlayerDefaults()
     {
@@ -44,5 +70,21 @@ public class GlobalDefaults : MonoBehaviour
     void setFrameRate()
     {
         Application.targetFrameRate = 60;
+    }
+
+    void determineIfTablet()
+    {
+        var screenWidth = screenSize.rect.width;
+        var screenHeight = screenSize.rect.height; 
+        var aspectRatio = screenWidth/screenHeight;
+
+        if(aspectRatio <= 1.4)
+        {
+            isTablet = true;
+        } 
+        else
+        {
+            isTablet = false;
+        }
     }
 }

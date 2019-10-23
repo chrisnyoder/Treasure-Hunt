@@ -28,6 +28,21 @@ public class BoardLayoutScript : MonoBehaviour
     float cardHeight;
     float cardWidth;
 
+    private void Start() 
+    {
+        if(GlobalDefaults.Instance.isTablet)
+        {
+            var backgroundImage = this.GetComponent<Image>();
+            var tabletBackgroundImage = Resources.Load<Sprite>("Images/Backgrounds/iPad_12_MB_Background");
+
+            if(tabletBackgroundImage != null && backgroundImage != null)
+            {
+                print("tablet background is available and background image is there");
+                backgroundImage.sprite = tabletBackgroundImage;
+            }
+        }    
+    }
+
     public void receiveGameStateObject(GameState initialGameState)
     {
         this.initialGameState = initialGameState;
@@ -59,11 +74,11 @@ public class BoardLayoutScript : MonoBehaviour
         {
             print("is tablet");
             boardWidth = mainBoardRT.rect.width;
-            cardWidth = (boardHeight * 0.9f) / 5;
+            cardWidth = (boardWidth * 0.9f) / 5;
             cardHeight = (float)(cardWidth*0.6);
-            totalSpacing = mainBoardRT.rect.height - (cardHeight * 5);
+            totalSpacing = mainBoardRT.rect.width - (cardWidth * 5);
 
-            collectionViewRT.sizeDelta = new Vector2(boardWidth, cardHeight*5+totalSpacing);
+            collectionViewRT.sizeDelta = new Vector2(boardWidth, boardWidth*0.6f);
         }
         else
         {
@@ -81,7 +96,7 @@ public class BoardLayoutScript : MonoBehaviour
         var image = buttonParentObject.GetComponentInChildren<Image>();
         image.rectTransform.sizeDelta = buttonParentRT.sizeDelta;
 
-        createCardPrefabs();
+        createCardPrefabs();    
     }
 
     void createCardPrefabs()
@@ -121,29 +136,59 @@ public class BoardLayoutScript : MonoBehaviour
 
     void layoutCards()
     {
-        float xOrigin = 0;
-        float yOrigin = 0-(totalSpacing/6);
-        float verticalSpaceRemaining = collectionViewRT.rect.height;
-
-        foreach (RectTransform card in cardPositions)
+        if(isTablet)
         {
-            if (verticalSpaceRemaining < cardHeight)
+            float xOrigin = 0 + (totalSpacing / 6); 
+            float yOrigin = 0;
+            float rowNumber = 1;
+
+            foreach (RectTransform card in cardPositions)
             {
-                xOrigin += cardWidth + totalSpacing/6;
-                verticalSpaceRemaining = collectionViewRT.rect.height;
+                if (rowNumber > 5)
+                {
+                    xOrigin += cardWidth + totalSpacing / 6;
+                    rowNumber = 1;
 
-                yOrigin = 0 - (totalSpacing / 6);
+                    yOrigin = 0;
 
+                    card.anchoredPosition = new Vector2(xOrigin, yOrigin);
+
+                    yOrigin -= (cardHeight + totalSpacing / 6);
+                    rowNumber += 1;
+                    continue;
+                }
                 card.anchoredPosition = new Vector2(xOrigin, yOrigin);
-
-                yOrigin -= (cardHeight + totalSpacing/6);
-                verticalSpaceRemaining -= (cardHeight + totalSpacing / 6);
-                continue;
+                yOrigin -= (cardHeight + totalSpacing / 6);
+                rowNumber += 1;
             }
-            card.anchoredPosition = new Vector2(xOrigin, yOrigin);
-            yOrigin -= (cardHeight + totalSpacing / 6);
-            verticalSpaceRemaining -= (cardHeight + totalSpacing / 6);
+            buttonParentObject.SetActive(false);
         }
-        buttonParentObject.SetActive(false);
+        else
+        {
+            float xOrigin = 0;
+            float yOrigin = 0 - (totalSpacing / 6);
+            float verticalSpaceRemaining = collectionViewRT.rect.height;
+
+            foreach (RectTransform card in cardPositions)
+            {
+                if (verticalSpaceRemaining < cardHeight)
+                {
+                    xOrigin += cardWidth + totalSpacing / 6;
+                    verticalSpaceRemaining = collectionViewRT.rect.height;
+
+                    yOrigin = 0 - (totalSpacing / 6);
+
+                    card.anchoredPosition = new Vector2(xOrigin, yOrigin);
+
+                    yOrigin -= (cardHeight + totalSpacing / 6);
+                    verticalSpaceRemaining -= (cardHeight + totalSpacing / 6);
+                    continue;
+                }
+                card.anchoredPosition = new Vector2(xOrigin, yOrigin);
+                yOrigin -= (cardHeight + totalSpacing / 6);
+                verticalSpaceRemaining -= (cardHeight + totalSpacing / 6);
+            }
+            buttonParentObject.SetActive(false);
+        }
     }
 }
