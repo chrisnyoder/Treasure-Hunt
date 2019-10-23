@@ -27,24 +27,35 @@ public class CardFlipHandler : MonoBehaviour
 
     public void FlipCard()
     {
-        switch(cardType)
-        {
-            case CardType.blueCard:
-                GlobalAudioScript.Instance.playSfxSound("coin_flip");
-                break;
-            case CardType.redCard:
-                GlobalAudioScript.Instance.playSfxSound("correct");
-                break;
-            case CardType.neutralCard:
-                GlobalAudioScript.Instance.playSfxSound("flip_stone");
-                break;
-            case CardType.shipwreckCard:
-                GlobalAudioScript.Instance.playSfxSound("sad_violin");
-                break;
-        }
-
         if (gameState.currentGameState == CurrentGameState.gameInPlay)
         {
+            switch (cardType)
+            {
+                case CardType.blueCard:
+                    GlobalAudioScript.Instance.playSfxSound("coin_flip");
+                    gameState.blueTeamScore += 1;
+                    if (gameState.blueTeamScore >= 8)
+                    {
+                        gameState.currentGameState = CurrentGameState.blueWins;
+                    }
+                    break;
+                case CardType.redCard:
+                    GlobalAudioScript.Instance.playSfxSound("correct");
+                    gameState.redTeamScore += 1;
+                    if (gameState.redTeamScore >= 7)
+                    {
+                        gameState.currentGameState = CurrentGameState.redWins;
+                    }
+                    break;
+                case CardType.neutralCard:
+                    GlobalAudioScript.Instance.playSfxSound("flip_stone");
+                    break;
+                case CardType.shipwreckCard:
+                    GlobalAudioScript.Instance.playSfxSound("sad_violin");
+                    gameState.currentGameState = CurrentGameState.loses;
+                    break;
+            }
+
             var txt = card.GetComponentInChildren<Text>();
             Destroy(txt);
             card.interactable = false;
@@ -60,30 +71,21 @@ public class CardFlipHandler : MonoBehaviour
         {
             case CardType.blueCard:
                 card.GetComponent<Image>().sprite = blueImage;
-                gameState.blueTeamScore += 1;
-                if (gameState.blueTeamScore >= 8)
-                {
-                    gameState.currentGameState = CurrentGameState.blueWins;
-                    gameState.LaunchEOGScreen();
-                }
                 break;
             case CardType.redCard:
                 card.GetComponent<Image>().sprite = redImage;
-                gameState.redTeamScore += 1;
-                if (gameState.redTeamScore >= 7)
-                {
-                    gameState.currentGameState = CurrentGameState.redWins;
-                    gameState.LaunchEOGScreen();
-                }
                 break;
             case CardType.neutralCard:
                 card.GetComponent<Image>().sprite = neutralImage;
                 break;
             case CardType.shipwreckCard:
                 card.GetComponent<Image>().sprite = shipwreckImage;
-                gameState.currentGameState = CurrentGameState.loses;
-                StartCoroutine(LaunchEoGAfterDelay());
                 break;
+        }
+
+        if(gameState.currentGameState != CurrentGameState.gameInPlay)
+        {
+            StartCoroutine(LaunchEoGAfterDelay());
         }
 
         animator.enabled = true;
@@ -92,7 +94,7 @@ public class CardFlipHandler : MonoBehaviour
 
     IEnumerator LaunchEoGAfterDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         gameState.LaunchEOGScreen();
     }
 }

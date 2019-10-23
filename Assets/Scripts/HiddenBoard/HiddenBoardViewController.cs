@@ -117,7 +117,6 @@ public class HiddenBoardViewController : MonoBehaviour
         collectionViewRT = collectionView.GetComponent<RectTransform>();
         var scrollImageRT = scrollImage.GetComponent<RectTransform>();
         var textObjectRT = textObject.GetComponent<RectTransform>();
-        collectionViewRT.sizeDelta = new Vector2(scrollImageRT.rect.width * (float)(0.9), scrollImageRT.rect.height * (float)(0.66));
 
         var textObjectHeight = collectionViewRT.rect.height / 7;
         if(redWords.Count > 1)

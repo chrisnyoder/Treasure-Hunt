@@ -4534,7 +4534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.3339844
+  m_AspectRatio: 2.1642513
 --- !u!95 &1594670875
 Animator:
   serializedVersion: 3
