@@ -28,14 +28,14 @@ public class GlobalDefaults : MonoBehaviour
         {
             _instance = this;
         }
-
+    }
+    // Start is called before the first frame update
+    private void Start() 
+    {
         setPlayerDefaults();
         setFrameRate();
         determineIfTablet();
     }
-    // Start is called before the first frame update
- 
-
 
     void setPlayerDefaults()
     {

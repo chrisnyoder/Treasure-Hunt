@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class StoreButtonHandler : MonoBehaviour
 {
-
+    private Tween anim;
+    public RectTransform rectTransform;    
     public WordPackProduct wordPackProduct;
     public Canvas wordPackProductInfoCanvas;
 
+    private void Start() 
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
     public void wordPackStatusChanged()
     {
-        var animator = GetComponent<Animator>();
-        animator.Play("WordPackSelectedAnimation");
+        wordPackSelectedAnimation();
 
         switch(wordPackProduct.state)
         {
@@ -39,6 +45,26 @@ public class StoreButtonHandler : MonoBehaviour
         var storeLayout = this.GetComponentInParent<StoreLayoutScript>();
         storeLayout.displayProductState(this.gameObject);
         storeLayout.populateSelectedWordPacks();
+    }
+
+    private void wordPackSelectedAnimation()
+    {
+        anim = rectTransform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.4f);
+        gameObject.GetComponent<Button>().interactable = false;
+        anim.SetAutoKill(false);
+        anim.Play(); 
+        anim.OnComplete(unwindAnimation);
+    }
+
+    private void unwindAnimation()
+    {
+        anim.SmoothRewind();
+        anim.OnRewind(makeButtonInteractable);
+    }
+
+    private void makeButtonInteractable()
+    {
+        gameObject.GetComponent<Button>().interactable = true;
     }
 
     public void infoButtonSelected()
