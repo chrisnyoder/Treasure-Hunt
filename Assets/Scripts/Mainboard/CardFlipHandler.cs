@@ -27,6 +27,7 @@ public class CardFlipHandler : MonoBehaviour
 
     public void FlipCard()
     {
+        GetComponent<FloatAnimation>().enabled = false;
         if (gameState.currentGameState == CurrentGameState.gameInPlay)
         {
             switch (cardType)
@@ -90,6 +91,7 @@ public class CardFlipHandler : MonoBehaviour
 
         animator.enabled = true;
         animator.Play("MainboardButtonAnimationComplete");
+        GetComponent<FloatAnimation>().enabled = true;
     }
 
     IEnumerator LaunchEoGAfterDelay()
