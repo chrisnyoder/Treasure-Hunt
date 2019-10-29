@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class IntroSceneAnimation : MonoBehaviour
 {
-    public float BobbleHeight = 15;
+    public float BobbleHeight = 10;
     public float BobbleTime = 1;
     public GameObject joinGameButton;
     RectTransform rectTransform;
@@ -33,7 +33,7 @@ public class IntroSceneAnimation : MonoBehaviour
 
     void startBobbleAnimation()
     {
-        var bobble = rectTransform.DOAnchorPosY(rectTransform.localPosition.y + BobbleHeight, BobbleTime, false);
+        var bobble = rectTransform.DOAnchorPosY(rectTransform.localPosition.y + BobbleHeight, BobbleTime, false).SetEase(Ease.InOutQuad);
         bobble.SetLoops(-1, LoopType.Yoyo);
         bobble.Play();
         bringUpJoinGameButton();
