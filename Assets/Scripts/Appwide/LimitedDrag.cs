@@ -61,19 +61,13 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
     {
         rectTransform = GetComponent<RectTransform>();
         pushedScale = new Vector3(3.8f, 3.8f, 3.8f);
-        transform.DOScale(pushedScale, 0.5f);
+        transform.DOScale(pushedScale, 1.0f).SetEase(Ease.InOutBack);
 
     }
 
-/*    public void OnPointerExit(PointerEventData eventData)
-    {
-        var scaleBack = rectTransform.DOScale(initialScale,0.5f);
-        scaleBack.Play();
-    }*/
-
     public void OnPointerUp(PointerEventData eventData)
     {
-        var scaleBack = rectTransform.DOScale(initialScale, 0.5f);
+        var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
         scaleBack.Play();
     }
 }
