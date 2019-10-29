@@ -6,6 +6,7 @@ public class GlobalDefaults : MonoBehaviour
 {
 
     private static GlobalDefaults _instance; 
+    private static bool appSettingsSet = false;
 
     public static GlobalDefaults Instance  
     {
@@ -32,9 +33,13 @@ public class GlobalDefaults : MonoBehaviour
     // Start is called before the first frame update
     private void Start() 
     {
-        setPlayerDefaults();
-        setFrameRate();
-        determineIfTablet();
+        if(!appSettingsSet)
+        {
+            setPlayerDefaults();
+            setFrameRate();
+            determineIfTablet();
+        }  
+        appSettingsSet = true;
     }
 
     void setPlayerDefaults()
