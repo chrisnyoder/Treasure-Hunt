@@ -30,7 +30,6 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
 
         var rotateBack = rectTransform.DORotate(initialRotation, 0.5f, RotateMode.Fast);
         rotateBack.Play();
-
     }
 
     float angleX = -0.0f;
@@ -48,7 +47,7 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
     {
         rectTransform = GetComponent<RectTransform>();
         initialRotation = new Vector3(0, 0, 0);
-        initialScale = new Vector3(3.3f, 3.3f, 3.3f);
+        initialScale = rectTransform.localScale;
     }
 
     // Update is called once per frame
@@ -60,7 +59,7 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
     public void OnPointerDown(PointerEventData eventData)
     {
         rectTransform = GetComponent<RectTransform>();
-        pushedScale = new Vector3(3.8f, 3.8f, 3.8f);
+        pushedScale = initialScale * 1.2f;
         transform.DOScale(pushedScale, 1.0f).SetEase(Ease.InOutBack);
 
     }
