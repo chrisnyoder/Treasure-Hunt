@@ -28,19 +28,19 @@ public class GlobalDefaults : MonoBehaviour
         else
         {
             _instance = this;
+
+            if (!appSettingsSet)
+            {
+                setPlayerDefaults();
+                setFrameRate();
+                determineIfTablet();
+            }
+            appSettingsSet = true;
+
+            DontDestroyOnLoad(this.gameObject);
         }
     }
     // Start is called before the first frame update
-    private void Start() 
-    {
-        if(!appSettingsSet)
-        {
-            setPlayerDefaults();
-            setFrameRate();
-            determineIfTablet();
-        }  
-        appSettingsSet = true;
-    }
 
     void setPlayerDefaults()
     {

@@ -96,6 +96,8 @@ public class StoreLayoutScript : MonoBehaviour
     {
 
         Image star = wordPackClone.transform.GetChild(0).GetComponent<Image>();
+        ParticleSystem particles = wordPackClone.transform.GetChild(0).GetComponentInChildren<ParticleSystem>();
+        var em = particles.emission;
         var wordPackData = wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct;
         Text price = wordPackClone.GetComponentInChildren<Text>();
         price.enabled = false;
@@ -104,11 +106,14 @@ public class StoreLayoutScript : MonoBehaviour
         {
             case ProductState.enabled:
                 star.sprite = enabledStar;
+                particles.Play();
+                em.enabled = true;
                 if (wordPackClone.GetComponent<IAPButton>() != null)
                     StartCoroutine(disableIAPButton(wordPackClone));
                 break;
             case ProductState.disabled:
                 star.sprite = disabledStar;
+                em.enabled = false;
                 if (wordPackClone.GetComponent<IAPButton>() != null)
                     StartCoroutine(disableIAPButton(wordPackClone));
                 break;
@@ -116,6 +121,7 @@ public class StoreLayoutScript : MonoBehaviour
                 var iAPButton = wordPackClone.GetComponent<IAPButton>();
                 iAPButton.productId = wordPackData.wordPackProductIdentifier;
                 iAPButton.priceText = price;
+                em.enabled = false;
                 iAPButton.UpdateText(
                     () => {
                     price.enabled = true; 
@@ -125,6 +131,7 @@ public class StoreLayoutScript : MonoBehaviour
                 break;
             case ProductState.unavailable:
                 star.sprite = lockImage;
+                em.enabled = false;
                 break;
         }
     }
