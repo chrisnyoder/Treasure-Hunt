@@ -28,6 +28,7 @@ public class GameCreationScript : MonoBehaviour
 
         var storeCanvasAnimator = GameObject.Find("StoreCanvas").GetComponent<Animator>();
         storeCanvasAnimator.Play("StoreCanvasAnimation");
+        GlobalAudioScript.Instance.playSfxSound("openMenu");
     }
 
     public void checkIfAtLeastOneWordPack()
@@ -41,10 +42,6 @@ public class GameCreationScript : MonoBehaviour
             generateGameStateButton.interactable = true;
             selectAWordPack.SetActive(false);
         }
-    }
-
-    public void GameStateCreated()
-    {
     }
 
     void Update()
