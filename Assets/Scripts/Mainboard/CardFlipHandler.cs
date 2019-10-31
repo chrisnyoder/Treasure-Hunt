@@ -23,17 +23,18 @@ public class CardFlipHandler : MonoBehaviour
     void Start() 
     {
         animator = gameObject.GetComponent<Animator>();
+        GetComponent<FloatAnimation>().enabled = false;
     }
 
     public void FlipCard()
     {
-        GetComponent<FloatAnimation>().enabled = false;
         if (gameState.currentGameState == CurrentGameState.gameInPlay)
         {
             switch (cardType)
             {
                 case CardType.blueCard:
                     GlobalAudioScript.Instance.playSfxSound("coin_flip");
+                    GetComponent<FloatAnimation>().enabled = true;
                     gameState.blueTeamScore += 1;
                     if (gameState.blueTeamScore >= 8)
                     {
@@ -42,6 +43,7 @@ public class CardFlipHandler : MonoBehaviour
                     break;
                 case CardType.redCard:
                     GlobalAudioScript.Instance.playSfxSound("correct");
+                    GetComponent<FloatAnimation>().enabled = true;
                     gameState.redTeamScore += 1;
                     if (gameState.redTeamScore >= 7)
                     {
@@ -91,7 +93,6 @@ public class CardFlipHandler : MonoBehaviour
 
         animator.enabled = true;
         animator.Play("MainboardButtonAnimationComplete");
-        GetComponent<FloatAnimation>().enabled = true;
     }
 
     IEnumerator LaunchEoGAfterDelay()
