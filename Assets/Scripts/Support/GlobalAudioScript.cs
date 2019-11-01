@@ -35,6 +35,8 @@ public class GlobalAudioScript : MonoBehaviour
         soundfx = GetComponents<AudioSource>()[0];
         ambientSounds = GetComponents<AudioSource>()[1];
 
+        playAmbientSounds("jungle_sfx");
+
         DontDestroyOnLoad(this.gameObject);
     }
 

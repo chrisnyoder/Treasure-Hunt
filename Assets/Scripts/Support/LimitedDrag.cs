@@ -59,9 +59,8 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
     public void OnPointerDown(PointerEventData eventData)
     {
         rectTransform = GetComponent<RectTransform>();
-        pushedScale = initialScale * 1.2f;
+        pushedScale = initialScale * 1.1f;
         transform.DOScale(pushedScale, 1.0f).SetEase(Ease.InOutBack);
-
     }
 
     public void OnPointerUp(PointerEventData eventData)

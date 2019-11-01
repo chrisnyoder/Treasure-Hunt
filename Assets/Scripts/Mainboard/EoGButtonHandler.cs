@@ -18,6 +18,13 @@ public class EoGButtonHandler : MonoBehaviour
 
         var MainBoardCanvasObject = GameObject.Find("MainBoardCanvas");
         var MainBoardCanvasAnimator = MainBoardCanvasObject.GetComponent<Animator>();
+
+        var cards = EoGCanvasObject.GetComponent<EoGScript>().cards;
+
+        foreach(GameObject card in cards)
+        {
+            Destroy(card);
+        }
        
         EoGCanvasAninmator.Play("ResultsAnimationReverse");
         StoreCanvasAnimator.Play("StoreAnimationReverse");
@@ -46,3 +53,5 @@ public class EoGButtonHandler : MonoBehaviour
         
     }
 }
+
+
