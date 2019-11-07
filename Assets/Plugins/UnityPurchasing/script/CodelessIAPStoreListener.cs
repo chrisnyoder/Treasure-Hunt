@@ -149,13 +149,14 @@ namespace UnityEngine.Purchasing
 
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
+            Debug.Log("CodelessIAPStoreListener initialized");
             initializationComplete = true;
             this.controller = controller;
             this.extensions = extensions;
 
             foreach (var button in activeButtons)
             {
-                button.UpdateText(() => {});
+                button.UpdateText();
             }
         }
 

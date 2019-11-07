@@ -6,7 +6,7 @@ public class GlobalDefaults : MonoBehaviour
 {
 
     private static GlobalDefaults _instance; 
-    private static bool appSettingsSet = false;
+    private static bool globalSettingsSet = false;
 
     public static GlobalDefaults Instance  
     {
@@ -18,6 +18,7 @@ public class GlobalDefaults : MonoBehaviour
 
     public RectTransform screenSize; 
     public bool isTablet; 
+    public bool tutorialIsOn; 
 
     private void Awake() 
     {
@@ -29,13 +30,13 @@ public class GlobalDefaults : MonoBehaviour
         {
             _instance = this;
 
-            if (!appSettingsSet)
+            if (!globalSettingsSet)
             {
                 setPlayerDefaults();
                 setFrameRate();
                 determineIfTablet();
             }
-            appSettingsSet = true;
+            globalSettingsSet = true;
 
             DontDestroyOnLoad(this.gameObject);
         }
@@ -51,6 +52,7 @@ public class GlobalDefaults : MonoBehaviour
             print("app has started before");
 
             var allWordPackIds = WordPackProductIdentifiers.returnAllProucts();
+            tutorialIsOn = false;
 
             foreach (string wp in allWordPackIds)
             {
@@ -69,6 +71,8 @@ public class GlobalDefaults : MonoBehaviour
 
             PlayerPrefs.SetString("initialWordListJP", "disabled");
             PlayerPrefs.SetString("initialWordListExpansionJP", "unpurchased");
+            
+            tutorialIsOn = true;
         }
     }
 
