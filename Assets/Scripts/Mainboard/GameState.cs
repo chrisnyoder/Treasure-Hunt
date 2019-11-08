@@ -52,15 +52,22 @@ public class GameState
     {
         wordList.Clear();
 
-        foreach(WordPackProduct wordPack in wordPacksToUse)
+        if(GlobalDefaults.Instance.tutorialIsOn)
         {
-            TextAsset textFile = Resources.Load<TextAsset>("WordLists/" + wordPack.wordPackProductIdentifier);
+            TextAsset textFile = Resources.Load<TextAsset>("WordLists/tutorialWordList");
             var wordsAsList = ReadLinesFromTextFile(textFile).ToList();
             wordList = wordList.Concat(wordsAsList).ToList();
-        }  
+        } else 
+        {
+            foreach (WordPackProduct wordPack in wordPacksToUse)
+            {
+                TextAsset textFile = Resources.Load<TextAsset>("WordLists/" + wordPack.wordPackProductIdentifier);
+                var wordsAsList = ReadLinesFromTextFile(textFile).ToList();
+                wordList = wordList.Concat(wordsAsList).ToList();
+            }
 
-        wordList.Shuffle();
-
+            wordList.Shuffle();
+        }
         CreateHiddenBoard();
     }
 
@@ -105,7 +112,6 @@ public class GameState
             wordListIndex += 1;
         }
         hiddenBoardList.Shuffle();
-        Debug.Log("hidden board is created. It's size is: " + hiddenBoardList.Count);
     }
 
     public void LaunchEOGScreen()

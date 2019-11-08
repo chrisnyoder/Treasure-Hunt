@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialScript : MonoBehaviour
+public class TutorialMainScreenScript : MonoBehaviour
 {        
     private int tutorialIndexNumber = 0; 
     private int numberOfTutorialScreens;
@@ -69,7 +69,17 @@ public class TutorialScript : MonoBehaviour
     public void turnTutorialOff()
     {
         GlobalDefaults.Instance.tutorialIsOn = false;
-        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-3000, 0);
+
+        if(tutorialIndexNumber == 2)
+        {
+            var initialWordList = gameObject.transform.Find("initialWordList");
+            initialWordList.SetParent(this.storeCollectionView.transform);
+
+            initialWordList.GetComponent<RectTransform>().anchorMin = initialMinAnchorsForStarterPack;
+            initialWordList.GetComponent<RectTransform>().anchorMax = initialMaxAnchorsForStarterPack;
+        }
+
+        gameObject.SetActive(false);
     }
 
     public void continueTutorial()
