@@ -18,7 +18,7 @@ public class HiddenBoardViewController : MonoBehaviour
     public List<string> blueWords; 
     public List<string> neutralWords;
 
-    private Tabs tabSelected = Tabs.RedTab;
+    private Tabs tabSelected;
     private int numberOfWordObjectsToBeCreated;
     private List<string> wordList;
 
@@ -45,6 +45,17 @@ public class HiddenBoardViewController : MonoBehaviour
     private List<RectTransform> textPositions;
 
     // Start is called before the first frame update
+
+    private void Start() 
+    {
+        if(GlobalDefaults.Instance.tutorialIsOn)
+        {
+            tabSelected = Tabs.RedTab; 
+            redButton.enabled = false;
+            blueButton.enabled = false;
+            neutralButton.enabled = false;
+        } 
+    }
 
 
     public void receiveMainBoardDictionary(Dictionary<CardType, List<string>> WordListDictionary)
@@ -83,9 +94,11 @@ public class HiddenBoardViewController : MonoBehaviour
     public void initializeHiddenBoard()
     {   
         
-        redWords = new List<string>(){"searching"};
-        blueWords = new List<string>(){"searching"};
-        neutralWords = new List<string>(){"searching"};
+        redWords = new List<string>(){"Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7"};
+        blueWords = new List<string>(){ "Test1", "Saturn", "Test3", "Test4", "satellite", "Test6", "Test7", "Test8" };
+        neutralWords = new List<string>(){ "Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9" };
+
+        shipwreckCardText.text = "shipwreck word";
 
         wordList = redWords;
         textObjects = new List<GameObject>() { };
