@@ -15,11 +15,6 @@ public class UIManager : MonoBehaviour
     private void Start() 
     {
         scene = SceneManager.GetActiveScene();    
-
-        if(scene.name == "IntroScene")
-        {
-            GlobalAudioScript.Instance.playAmbientSounds("jungle_sfx");
-        }
     }
 
     public void GoToMainBoard()

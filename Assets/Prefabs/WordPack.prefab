@@ -4746,7 +4746,7 @@ GameObject:
   - component: {fileID: 8182595568611592559}
   - component: {fileID: 3301944484867852949}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5154,7 +5154,7 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
-  priceText: {fileID: 0}
+  priceText: {fileID: 3301944484867852949}
 --- !u!114 &439434893432978958
 MonoBehaviour:
   m_ObjectHideFlags: 0

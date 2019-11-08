@@ -14,13 +14,17 @@ public class StoreLayoutScript : MonoBehaviour
     public ProductLanguage languageSelected = ProductLanguage.English; 
     public GameObject restorePurchaseButton;
     
-    List<WordPackProduct> wordPacksToSelect = new List<WordPackProduct>{};
+    List<WordPackProduct> wordPacks = new List<WordPackProduct>{};
     List<WordPackProduct> selectedWordPacks = new List<WordPackProduct>{};
+    List<Text> prices = new List<Text>{};
 
     public Sprite starterWordPackImage;
     public Sprite expansionWordPackImage;
     public Sprite fantasyWordPackImage;
     public Sprite celebrityWordPackImage;
+
+    private bool pricesSet = false;
+    private IAPButton iAPButton; 
 
     public Sprite enabledStar; 
     public Sprite disabledStar; 
@@ -46,7 +50,7 @@ public class StoreLayoutScript : MonoBehaviour
 
     public void loadWordPacks()
     {
-        wordPacksToSelect.Clear();
+        wordPacks.Clear();
         var allWordPacks = WordPackProductIdentifiers.returnAllProucts();
 
         foreach(string wordpackidentifier in allWordPacks)
@@ -55,7 +59,7 @@ public class StoreLayoutScript : MonoBehaviour
 
             if(wordPackObject.language == languageSelected)
             {
-                wordPacksToSelect.Add(wordPackObject);
+                wordPacks.Add(wordPackObject);
             }
         }
         instantiateWordPackPrefabsAndPlaceImages();
@@ -68,15 +72,16 @@ public class StoreLayoutScript : MonoBehaviour
         storeCollectionViewRT.sizeDelta = new Vector2(0, 0);
 
         var wordPackWidth = (storeCollectionViewRT.rect.width*0.75f)/4;
-        var emptySpace = (storeCollectionViewRT.rect.width - (wordPackWidth*wordPacksToSelect.Count))/(wordPacksToSelect.Count+1);
+        var emptySpace = (storeCollectionViewRT.rect.width - (wordPackWidth*wordPacks.Count))/(wordPacks.Count+1);
         float xCardPosition = emptySpace + (wordPackWidth/2); 
 
-        foreach(WordPackProduct wordPack in wordPacksToSelect)
+        foreach(WordPackProduct wordPack in wordPacks)
         {
             GameObject wordPackClone = Instantiate(wordPackButton, wordPackPosition, Quaternion.identity, storeCollectionView.transform);
 
             Image wordPackCloneImage = wordPackClone.GetComponent<Image>();
             wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct = wordPack;
+            wordPackClone.name = wordPack.wordPackProductIdentifier;
 
             wordPackCloneImage.sprite = wordPack.wordPackImage;
 
@@ -96,10 +101,14 @@ public class StoreLayoutScript : MonoBehaviour
     {
 
         Image star = wordPackClone.transform.GetChild(0).GetComponent<Image>();
+        
         ParticleSystem particles = wordPackClone.transform.GetChild(0).GetComponentInChildren<ParticleSystem>();
         var em = particles.emission;
+        
         var wordPackData = wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct;
+        
         Text price = wordPackClone.GetComponentInChildren<Text>();
+        
         price.enabled = false;
 
         switch (wordPackData.state)
@@ -107,7 +116,10 @@ public class StoreLayoutScript : MonoBehaviour
             case ProductState.enabled:
                 star.sprite = enabledStar;
                 particles.Play();
-                em.enabled = true;
+
+                if(GlobalDefaults.Instance.tutorialIsOn)
+                    em.enabled = false;  
+                
                 if (wordPackClone.GetComponent<IAPButton>() != null)
                     StartCoroutine(disableIAPButton(wordPackClone));
                 break;
@@ -120,13 +132,10 @@ public class StoreLayoutScript : MonoBehaviour
             case ProductState.unpurchased:
                 var iAPButton = wordPackClone.GetComponent<IAPButton>();
                 iAPButton.productId = wordPackData.wordPackProductIdentifier;
-                iAPButton.priceText = price;
                 em.enabled = false;
-                iAPButton.UpdateText(
-                    () => {
-                    price.enabled = true; 
-                });
-                    
+
+                if(price.text != "0" && price.text != "price")
+                    price.enabled = true;
                 star.sprite = lockImage;
                 break;
             case ProductState.unavailable:
@@ -145,7 +154,7 @@ public class StoreLayoutScript : MonoBehaviour
     public void populateSelectedWordPacks()
     {
         selectedWordPacks.Clear();
-        foreach (WordPackProduct product in wordPacksToSelect)
+        foreach (WordPackProduct product in wordPacks)
         {
             if (product.state == ProductState.enabled)
             {
@@ -167,6 +176,9 @@ public class StoreLayoutScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(!pricesSet)
+        {
+
+        }
     }
 }

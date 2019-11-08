@@ -13,7 +13,7 @@ public class changeBackground : MonoBehaviour
 
             Debug.Log("changing background", this.gameObject);
             var backgroundImage = this.GetComponent<Image>();
-            backgroundImage.sprite = Resources.Load<Sprite>("Images/Backgrounds/Full_Background_12_1@2x");
+            backgroundImage.sprite = Resources.Load<Sprite>("Images/Backgrounds/Full_Background_ipad_12@2x");
         }
     }
 }

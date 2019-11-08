@@ -84,11 +84,14 @@ namespace UnityEngine.Purchasing
 
         void OnEnable()
         {
+            Debug.Log("IAPButton initialized");
+
             if (buttonType == ButtonType.Purchase)
             {
                 CodelessIAPStoreListener.Instance.AddButton(this);
-                if (CodelessIAPStoreListener.initializationComplete) {
-                    UpdateText(() => {});
+                if (CodelessIAPStoreListener.initializationComplete) 
+                {
+                    UpdateText();
                 }
             }
         }
@@ -183,7 +186,7 @@ namespace UnityEngine.Purchasing
             onPurchaseFailed.Invoke(product, reason);
         }
 
-        public void UpdateText(Action showPrice)
+        public void UpdateText()
         {
             print("update text function called");
             var product = CodelessIAPStoreListener.Instance.GetProduct(productId);
@@ -202,11 +205,12 @@ namespace UnityEngine.Purchasing
 
                 if (priceText != null)
                 {
+                    print("prices being set");
                     priceText.text = product.metadata.localizedPriceString;
 
-                    if(priceText.text != "0")
-                        showPrice();
-                }
+                    if(priceText.text != "0" && priceText.text != "price")
+                        priceText.enabled = true;
+                }   
             }
         }
     }
