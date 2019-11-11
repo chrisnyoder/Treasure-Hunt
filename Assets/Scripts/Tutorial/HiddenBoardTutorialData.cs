@@ -29,9 +29,9 @@ public class HiddenBoardTutorialData
     private static List<string> mainTexts = new List<string>
     {
         "From this screen you can see which words your team has to guess in order to win the game. You can see the other team’s words as well as the neutral words by clicking the tabs under the scroll.",
-        "<color=#00ACB9> Blue </color> team goes first. Select the tab underneath the scroll window.",
+        "<color=#00ACB9> Blue </color> team goes first. Select the tab beneath the scroll.",
         "These are the words that your team needs to guess.\nIt's time to give your team a clue",
-        "We're going to give you the first clue to get you started.\nAfter this you're on your own.",
+        "We're going to give you the first clue to get you started.",
         "2 of the words blue team needs to guess are <color=#00ACB9> Saturn </color> and <color=#00ACB9> satellite</color>. Blue Team's captain, go ahead and give your team the clue <color=#00ACB9> space - 2</color>. <2> here refers to the amount of words you want your team to guess",
         "As your team flips over words on the main board, you will see them get crossed out on the scroll. Hopefully, your team found <color=#00ACB9> Saturn </color> and <color=#00ACB9> satellite </color>.",
         "In addition to your team's words, you can view the other team's words (as well as neutral words) by selecting the tabs along the bottom",

@@ -447,6 +447,9 @@ MonoBehaviour:
   redButton: {fileID: 1612110346}
   blueButton: {fileID: 1483476063}
   neutralButton: {fileID: 1580864568}
+  blueButtonInitialPos: {x: 0, y: 0}
+  redButtonInitialPos: {x: 0, y: 0}
+  neutralButtonInitialPos: {x: 0, y: 0}
   shipwreckCardText: {fileID: 1026571450}
 --- !u!4 &499873878
 Transform:
@@ -799,6 +802,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 760523966}
+  - component: {fileID: 760523967}
   m_Layer: 5
   m_Name: CollectionView
   m_TagString: Untagged
@@ -821,11 +825,34 @@ RectTransform:
   m_Father: {fileID: 750920932}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0.3266683}
-  m_AnchorMax: {x: 0.9, y: 0.88065374}
+  m_AnchorMin: {x: 0.20520233, y: 0.3265256}
+  m_AnchorMax: {x: 0.7807977, y: 0.9007813}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &760523967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760523965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!1 &797543942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 500
+  m_MinWidth: 600
   m_MinHeight: 150
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -1145,7 +1172,7 @@ RectTransform:
   m_GameObject: {fileID: 919307589}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.4284399, y: 2.4284399, z: 2.4284399}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1883762863}
   m_Father: {fileID: 1610543762}
@@ -1154,7 +1181,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 30, y: 30}
-  m_SizeDelta: {x: 100, y: 0}
+  m_SizeDelta: {x: 270.3, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &919307591
 MonoBehaviour:
@@ -1324,7 +1351,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 12
-    m_MaxSize: 40
+    m_MaxSize: 60
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1354,7 +1381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: 500
-  m_MinHeight: 100
+  m_MinHeight: 50
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
@@ -1466,9 +1493,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 7178d4e320a924607bcc6338b18727ca, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 50
+    m_BestFit: 1
+    m_MinSize: 20
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -2115,7 +2142,6 @@ GameObject:
   - component: {fileID: 1483476065}
   - component: {fileID: 1483476064}
   - component: {fileID: 1483476063}
-  - component: {fileID: 1483476066}
   - component: {fileID: 1483476067}
   m_Layer: 5
   m_Name: BlueButton
@@ -2244,25 +2270,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483476061}
   m_CullTransparentMesh: 0
---- !u!95 &1483476066
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1483476061}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 975b6fde29bcd423aad1b2fc357aa09a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1483476067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2548,7 +2555,6 @@ GameObject:
   - component: {fileID: 1580864570}
   - component: {fileID: 1580864569}
   - component: {fileID: 1580864568}
-  - component: {fileID: 1580864571}
   - component: {fileID: 1580864572}
   m_Layer: 5
   m_Name: NeutralButton
@@ -2666,25 +2672,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580864566}
   m_CullTransparentMesh: 0
---- !u!95 &1580864571
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1580864566}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a04daf41d60d34808a5f7fe241d5564a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1580864572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2739,7 +2726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchoredPosition: {x: -1526, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1610543763
@@ -2756,10 +2743,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleText: {fileID: 874864226}
   mainText: {fileID: 797543944}
+  pressToContinueText: {fileID: 923537587}
   backgroundCanvas: {fileID: 592629730}
   backToMainMenuButton: {fileID: 1281688856}
   scrollPanel: {fileID: 1442223646}
   continueButton: {fileID: 379493294}
+  skipTutorialButton: {fileID: 919307589}
   circleImage: {fileID: 1400330516}
   verticalLayoutGroup: {fileID: 1685815565}
   blueButton: {fileID: 1483476061}
@@ -2845,7 +2834,6 @@ GameObject:
   - component: {fileID: 1612110348}
   - component: {fileID: 1612110347}
   - component: {fileID: 1612110346}
-  - component: {fileID: 1612110349}
   - component: {fileID: 1612110350}
   m_Layer: 5
   m_Name: RedButton
@@ -2963,25 +2951,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1612110344}
   m_CullTransparentMesh: 0
---- !u!95 &1612110349
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612110344}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e30cf052cdce74b1093430b2fbbcba06, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1612110350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3280,8 +3249,8 @@ RectTransform:
   m_Father: {fileID: 919307590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.10771991, y: 0.186}
+  m_AnchorMax: {x: 0.90125686, y: 0.8016034}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3307,9 +3276,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3c5d1961b1f484544852c952cfa3fe9d, type: 3}
-    m_FontSize: 11
+    m_FontSize: 9
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
@@ -3574,32 +3543,32 @@ PrefabInstance:
     - target: {fileID: 5242510367999430337, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242510367999430337, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242510367999430337, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242510367999430337, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242510367999430337, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242510367999430337, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242510367999430337, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
@@ -3630,7 +3599,7 @@ PrefabInstance:
     - target: {fileID: 5742266554259447984, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_FontData.m_MaxSize
-      value: 50
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5742266554259447984, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}

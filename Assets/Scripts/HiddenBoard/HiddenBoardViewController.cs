@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 
 public enum Tabs
 {
@@ -35,11 +35,13 @@ public class HiddenBoardViewController : MonoBehaviour
     public Button blueButton;
     public Button neutralButton;
 
-    public Text shipwreckCardText;
+    public Tween downTween;
 
-    private Vector3 defaultRedButtonPosition;
-    private Vector3 defaultBlueButtonPosition;
-    private Vector3 defaultNeutralButtonPosition;
+    public Vector2 blueButtonInitialPos;
+    public Vector2 redButtonInitialPos;
+    public Vector2 neutralButtonInitialPos;
+
+    public Text shipwreckCardText;
 
     private List<GameObject> textObjects;
     private List<RectTransform> textPositions;
@@ -48,6 +50,10 @@ public class HiddenBoardViewController : MonoBehaviour
 
     private void Start() 
     {
+        blueButtonInitialPos = blueButton.GetComponent<RectTransform>().anchoredPosition;
+        redButtonInitialPos = redButton.GetComponent<RectTransform>().anchoredPosition;
+        neutralButtonInitialPos = neutralButton.GetComponent<RectTransform>().anchoredPosition;
+
         if(GlobalDefaults.Instance.tutorialIsOn)
         {
             redButton.enabled = false;
@@ -55,7 +61,6 @@ public class HiddenBoardViewController : MonoBehaviour
             neutralButton.enabled = false;
         } 
     }
-
 
     public void receiveMainBoardDictionary(Dictionary<CardType, List<string>> WordListDictionary)
     {
@@ -97,15 +102,11 @@ public class HiddenBoardViewController : MonoBehaviour
         blueWords = new List<string>(){ "Test1", "Saturn", "Test3", "Test4", "satellite", "Test6", "Test7", "Test8" };
         neutralWords = new List<string>(){ "Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9" };
 
-        shipwreckCardText.text = "shipwreck word";
+        shipwreckCardText.text = "shipwreck";
 
         wordList = redWords;
         textObjects = new List<GameObject>() { };
         textPositions = new List<RectTransform>() { };
-
-        defaultBlueButtonPosition = blueButton.transform.localPosition;
-        defaultRedButtonPosition = redButton.transform.localPosition;
-        defaultNeutralButtonPosition = neutralButton.transform.localPosition;
 
         getTextObjectSize();
     }
@@ -149,27 +150,21 @@ public class HiddenBoardViewController : MonoBehaviour
         switch (tabSelected)
         {
             case Tabs.RedTab:
-                redButton.GetComponent<Animator>().Play("RedTabAnimationDown");
-                blueButton.GetComponent<Animator>().Play("BlueTabAnimationUp");
-                neutralButton.GetComponent<Animator>().Play("YellowTabAnimationUp");
+                animateTab(tabSelected);
 
                 scrollImage.sprite = redScrollImage;
                 numberOfWordObjectsToBeCreated = redWords.Count;
                 wordList = redWords;
                 break;
             case Tabs.BlueTab:
-                redButton.GetComponent<Animator>().Play("RedTabAnimationUp");
-                blueButton.GetComponent<Animator>().Play("BlueTabAnimationDown");
-                neutralButton.GetComponent<Animator>().Play("YellowTabAnimationUp");
+                animateTab(tabSelected);
 
                 scrollImage.sprite = blueScrollImage;
                 numberOfWordObjectsToBeCreated = blueWords.Count;
                 wordList = blueWords;
                 break;
             case Tabs.NeutralTab:
-                redButton.GetComponent<Animator>().Play("RedTabAnimationUp");
-                blueButton.GetComponent<Animator>().Play("BlueTabAnimationUp");
-                neutralButton.GetComponent<Animator>().Play("YellowTabAnimationDown");
+                animateTab(tabSelected);
 
                 scrollImage.sprite = neutralScrollImage;
                 numberOfWordObjectsToBeCreated = neutralWords.Count;
@@ -188,10 +183,10 @@ public class HiddenBoardViewController : MonoBehaviour
 
             var textObjectData = textClone.GetComponent<Text>();
             textObjectData.text = wordList[n];
-            print("text obect text is: " + textObjectData.text);
             textObjectData.fontSize = 30;
             textObjects.Add(textClone);
         }
+
 
         layoutText(textPositions);
     }
@@ -214,7 +209,39 @@ public class HiddenBoardViewController : MonoBehaviour
             verticalSpaceRemaining -= textHeight;
         }
 
+        shipwreckCardText.gameObject.GetComponent<RectTransform>().sizeDelta = textObjects[0].GetComponent<RectTransform>().sizeDelta;
+
         textObject.SetActive(false);
+    }
+
+     void animateTab(Tabs tab)
+    {
+        Tween upTween1 = redButton.GetComponent<RectTransform>().DOAnchorPosY(redButtonInitialPos.y, 0.3f, false); 
+        Tween upTween2 = neutralButton.GetComponent<RectTransform>().DOAnchorPosY(neutralButtonInitialPos.y, 0.3f, false);
+        Tween downTween = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButtonInitialPos.y, 0.3f, false);  
+
+        switch(tab)
+        {
+            case Tabs.BlueTab:
+                upTween1 = redButton.GetComponent<RectTransform>().DOAnchorPosY(redButtonInitialPos.y, 0.3f, false);
+                upTween2 = neutralButton.GetComponent<RectTransform>().DOAnchorPosY(neutralButtonInitialPos.y, 0.3f, false);
+                downTween = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButtonInitialPos.y - 50, 0.3f, false);
+                break;
+            case Tabs.RedTab:
+                upTween1 = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButtonInitialPos.y, 0.3f, false);
+                upTween2 = neutralButton.GetComponent<RectTransform>().DOAnchorPosY(neutralButtonInitialPos.y, 0.3f, false);
+                downTween = redButton.GetComponent<RectTransform>().DOAnchorPosY(redButtonInitialPos.y - 50, 0.3f, false);
+                break; 
+            case Tabs.NeutralTab:
+                upTween1 = redButton.GetComponent<RectTransform>().DOAnchorPosY(redButtonInitialPos.y, 0.3f, false);
+                upTween2 = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButtonInitialPos.y, 0.3f, false);
+                downTween = neutralButton.GetComponent<RectTransform>().DOAnchorPosY(neutralButtonInitialPos.y - 50, 0.3f, false);
+                break;
+        }
+
+        upTween1.Play();
+        upTween2.Play();
+        downTween.Play();
     }
 
     private void resetTextList()
