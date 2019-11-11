@@ -8,6 +8,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 {
     private int tutorialIndexNumber = 0; 
     private int totalNumberOfTutorialScreens; 
+    private Tween move; 
 
     public GameObject titleText; 
     public Text mainText;
@@ -115,6 +116,9 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
             blueButton.GetComponent<Image>().color = new Color32 (255, 255, 255, 255);
             blueButton.GetComponent<Button>().enabled = true;
+            move = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButton.GetComponent<RectTransform>().anchoredPosition.y - 50, 0.6f, false);
+            move.SetEase(Ease.Linear);
+            move.SetLoops(-1, LoopType.Yoyo);
 
             continueButton.SetActive(false);
             continueButton.GetComponent<Text>().DOFade(0, 0.7f).Play();
@@ -122,6 +126,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         if(tutorialIndexNumber == 2)
         {
+            move.Kill(true);
+            
             blueButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             continueButton.GetComponent<Text>().DOFade(1, 0.7f).Play();
             highlightText();
@@ -218,9 +224,16 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     private void placeCircleImageOnTop()
     {
-        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1500), 1f, false);
-        var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -550), 1f, false);
-        var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(950, 350), 1f, false);
+        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1440), 1f, false);
+        var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -590), 1f, false);
+        var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(950, 270), 1f, false);
+
+        if(GlobalDefaults.Instance.isTablet)
+        {
+            tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1280), 1f, false);
+            tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -660), 1f, false);
+            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(740, 200), 1f, false);   
+        }
 
         tween.Play();
         tween2.Play();
@@ -234,9 +247,15 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     private void placeCircleImageOnBottom()
     {
-        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(280, -1150), 1f, false);
-        var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-100, 360), 1f, false);
-        var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(700, 650), 1f, false);
+        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(140, -1100), 1f, false);
+        var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-30, 390), 1f, false);
+        var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(870, 520), 1f, false);
+
+        if(GlobalDefaults.Instance.isTablet)
+        {            
+            tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-30, 540), 1f, false);
+            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(870, 270), 1f, false);
+        }
 
         tween.Play();
         tween2.Play();

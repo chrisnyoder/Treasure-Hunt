@@ -85,11 +85,18 @@ public class GlobalDefaults : MonoBehaviour
     {
         var screenWidth = screenSize.rect.width;
         var screenHeight = screenSize.rect.height; 
+
+        if(screenWidth < screenHeight)
+        {
+            screenHeight = screenSize.rect.width;
+            screenWidth = screenSize.rect.height;
+        }
+
         var aspectRatio = screenWidth/screenHeight;
 
         if(aspectRatio <= 1.4)
         {
-            isTablet = true;
+            isTablet = true;    
         } 
         else
         {

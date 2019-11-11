@@ -182,11 +182,14 @@ public class HiddenBoardViewController : MonoBehaviour
             textPositions.Add(textObjectRT);
 
             var textObjectData = textClone.GetComponent<Text>();
+            if (!GlobalDefaults.Instance.isTablet)
+            {
+                textObjectData.resizeTextForBestFit = true;
+            }
             textObjectData.text = wordList[n];
             textObjectData.fontSize = 30;
             textObjects.Add(textClone);
         }
-
 
         layoutText(textPositions);
     }
