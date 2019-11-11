@@ -18,7 +18,7 @@ public class HiddenBoardViewController : MonoBehaviour
     public List<string> blueWords; 
     public List<string> neutralWords;
 
-    private Tabs tabSelected;
+    private Tabs tabSelected = Tabs.RedTab;
     private int numberOfWordObjectsToBeCreated;
     private List<string> wordList;
 
@@ -50,7 +50,6 @@ public class HiddenBoardViewController : MonoBehaviour
     {
         if(GlobalDefaults.Instance.tutorialIsOn)
         {
-            tabSelected = Tabs.RedTab; 
             redButton.enabled = false;
             blueButton.enabled = false;
             neutralButton.enabled = false;
@@ -171,7 +170,6 @@ public class HiddenBoardViewController : MonoBehaviour
                 redButton.GetComponent<Animator>().Play("RedTabAnimationUp");
                 blueButton.GetComponent<Animator>().Play("BlueTabAnimationUp");
                 neutralButton.GetComponent<Animator>().Play("YellowTabAnimationDown");
-
 
                 scrollImage.sprite = neutralScrollImage;
                 numberOfWordObjectsToBeCreated = neutralWords.Count;

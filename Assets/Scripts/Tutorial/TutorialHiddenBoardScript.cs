@@ -127,10 +127,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         {
             highlightButtons();
             highlightText();
-
-            circleImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(-200, 1500);
-            verticalLayoutGroup.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -420);
-            continueButton.SetActive(true);
+            placeCircleImageOnTop();
         }
 
         if(tutorialIndexNumber == 8)
@@ -140,9 +137,14 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
             dangerImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             dangerText.GetComponent<Text>().color = new Color32(255, 255, 255, 255);
+            verticalLayoutGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(650, 800);
         }
 
-
+        if (tutorialIndexNumber == 9)
+        {
+            var dangerText = GameObject.Find("DangerText");
+            dangerText.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
+        }
 
     }
 
@@ -162,19 +164,23 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         neutralButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
     }
 
+    private void placeCircleImageOnTop()
+    {
+        circleImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(-200, 1500);
+        verticalLayoutGroup.GetComponent<RectTransform>().anchoredPosition = new Vector2(60, -540);
+        verticalLayoutGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(800, 460);
+        continueButton.SetActive(true);
+    }
+
     private void placeCircleImageOnBottom()
     {
         circleImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(280, -1150);
         verticalLayoutGroup.GetComponent<RectTransform>().anchoredPosition = new Vector2(-100, 360);
+        verticalLayoutGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 650);
         continueButton.SetActive(true);
     }
 
-    private void placeCircleImageAtTheTop()
-    {
-
-    }
-
-    void shadeImages()
+    private void shadeImages()
     {
         backgroundCanvas.GetComponent<Image>().color = new Color32(90, 90, 90, 255);
         backToMainMenuButton.GetComponent<Image>().color = new Color32(90, 90, 90, 255);
