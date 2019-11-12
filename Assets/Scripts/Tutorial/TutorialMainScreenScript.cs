@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening; 
 
 public class TutorialMainScreenScript : MonoBehaviour
 {        
@@ -21,6 +22,7 @@ public class TutorialMainScreenScript : MonoBehaviour
     public Text titleText;
     public Text mainText; 
     public Text continueText; 
+    public GameObject exitTutorialButton; 
 
     public GameObject tutorialCircleImage;
     public GameObject verticalLayoutGroup;  
@@ -36,7 +38,7 @@ public class TutorialMainScreenScript : MonoBehaviour
 
     void Start()
     {
-        groupImage.SetActive(false);
+        groupImage.GetComponent<Image>().color = new Color(1, 1, 1, 0);
 
         tutorialCircleImageRT = tutorialCircleImage.GetComponent<RectTransform>();
         verticalLayoutGroupRT = verticalLayoutGroup.GetComponent<RectTransform>();    
@@ -47,6 +49,10 @@ public class TutorialMainScreenScript : MonoBehaviour
 
         initialMinAnchorsForImageCircle = tutorialCircleImageRT.anchorMin;
         initialMaxAnchorsForImageCircle = tutorialCircleImageRT.anchorMax;
+
+        titleText.color = new Color(1, 1, 1, 0);
+        mainText.color = new Color(1, 1, 1, 0);
+        continueText.color = new Color(continueText.color.r, continueText.color.g, continueText.color.b, 0);
 
         if(GlobalDefaults.Instance.isTablet)
         {
@@ -88,18 +94,43 @@ public class TutorialMainScreenScript : MonoBehaviour
         if(tutorialIndexNumber < numberOfTutorialScreens)
         {
             displayTutorialScreenData();
+        } else
+        {
+            turnTutorialOff();
         }
     }
 
     private void displayTutorialScreenData()
     {
         var tutorialScreenData = new TutorialMainScreenData(tutorialIndexNumber);
-        
-        titleText.text = tutorialScreenData.titleText;
-        mainText.text = tutorialScreenData.mainText;
+
+        titleText.DOFade(0, 0.5f).Play().OnComplete(() => 
+            {
+                titleText.text = tutorialScreenData.titleText;
+                titleText.DOFade(1, 0.5f).Play();
+            }   
+        );
+
+        mainText.DOFade(0, 0.5f).Play().OnComplete(() => 
+            {
+                mainText.text = tutorialScreenData.mainText; 
+                mainText.DOFade(1, 0.5f).Play();
+            }
+        );
+
+        continueText.DOFade(0, 0.5f).Play().OnComplete(() =>
+            {
+                continueText.text = "<Tap to continue>";
+
+                if(tutorialIndexNumber == 5)
+                {
+                    continueText.text = "<Tap to exit>";
+                }
+                continueText.DOFade(1, 0.5f).Play();
+            }
+        );
 
         currentCanvas = GameObject.Find(tutorialScreenData.referenceCanvas);
-
         hideBackGroundObjects(tutorialScreenData.referenceCanvas);
     }
 
@@ -109,10 +140,10 @@ public class TutorialMainScreenScript : MonoBehaviour
         {   
             if (tutorialIndexNumber == 1)
             {
-                groupImage.SetActive(true);
+                groupImage.GetComponent<Image>().DOFade(1, 1);
             } else 
             {
-                groupImage.SetActive(false);
+                groupImage.GetComponent<Image>().DOFade(0, 1f);
             }   
 
             if (tutorialIndexNumber == 2)
@@ -148,24 +179,27 @@ public class TutorialMainScreenScript : MonoBehaviour
 
             if(tutorialIndexNumber == 4)
             {
-                tutorialCircleImageRT.anchorMin = new Vector2(0.5f, 0.5f);
-                tutorialCircleImageRT.anchorMax = new Vector2(0.5f, 0.5f);
-                tutorialCircleImageRT.sizeDelta = new Vector2(10000, 10000);
-                tutorialCircleImageRT.anchoredPosition3D = new Vector3(0, 0, 0);
-                verticalLayoutGroupRT.anchoredPosition3D = new Vector3(0, 0, 0);
+                tutorialCircleImageRT.DOAnchorMin(new Vector2(0.5f, 0.5f), 0.7f, false);
+                tutorialCircleImageRT.DOAnchorMax(new Vector2(0.5f, 0.5f), 0.7f, false);
+                tutorialCircleImageRT.DOSizeDelta(new Vector2(5000, 5000), 0.7f, false);
+
+                tutorialCircleImageRT.DOAnchorPos(new Vector2(0, 0), 0.7f, false);
+                verticalLayoutGroupRT.DOAnchorPos(new Vector2(0, 0), 0.7f, false);
 
             } else 
             {
-                tutorialCircleImageRT.anchorMin = initialMinAnchorsForImageCircle;
-                tutorialCircleImageRT.anchorMax = initialMaxAnchorsForImageCircle;
-                tutorialCircleImageRT.sizeDelta = initialCircleImageSize;
-                tutorialCircleImageRT.anchoredPosition3D = initialCircleImagePos;
-                verticalLayoutGroupRT.anchoredPosition3D = initialVerticalLayoutGroupPos;
+
+                tutorialCircleImageRT.DOAnchorMin(initialMinAnchorsForImageCircle, 0.7f, false);
+                tutorialCircleImageRT.DOAnchorMax(initialMaxAnchorsForImageCircle, 0.7f, false);
+                tutorialCircleImageRT.DOSizeDelta(initialCircleImageSize, 0.7f, false);
+
+                tutorialCircleImageRT.DOAnchorPos(initialCircleImagePos, 0.7f, false);
+                verticalLayoutGroupRT.DOAnchorPos(initialVerticalLayoutGroupPos, 0.7f, false);
             }
 
             if(tutorialIndexNumber == 5)
             {
-                continueText.enabled = false;
+                exitTutorialButton.SetActive(false);   
             }
         }
     }
