@@ -1,10 +1,3 @@
-Saturn
-satellite
-prayer
-funeral
-sugar
-spy
-tourist
 frame
 gold
 money
@@ -12,8 +5,15 @@ Elephant
 flamingo
 sock
 bicycle
+Saturn
+satellite
+prayer
+funeral
+sugar
+spy
+tourist
 shout
-injury
+injury  
 blizzard
 pie
 pizza

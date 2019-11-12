@@ -224,15 +224,15 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     private void placeCircleImageOnTop()
     {
-        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1440), 1f, false);
+        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1475), 1f, false);
         var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -590), 1f, false);
         var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(950, 270), 1f, false);
 
         if(GlobalDefaults.Instance.isTablet)
         {
             tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1280), 1f, false);
-            tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -660), 1f, false);
-            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(740, 200), 1f, false);   
+            tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -650), 1f, false);
+            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(720, 270), 1f, false);   
         }
 
         tween.Play();

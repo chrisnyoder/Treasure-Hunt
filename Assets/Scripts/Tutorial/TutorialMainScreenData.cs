@@ -51,11 +51,11 @@ public class TutorialMainScreenData
 
     private static List<string> mainTexts = new List<string> 
     {
-        "We're going to walk you through the basics to get you started.", 
+        "We're going to walk you through the basics to get you started", 
         "2 people will play as team captains, giving their teams clues. The other players will try and guess what cards they're supposed to turn over. Don't worry we'll explain later ;)",
-        "For your first game we're going to get you started with the Starter word pack.",
+        "For your first game we're going to get you started with the Starter word pack",
         "Here is where players will reveal words to see if their team’s coins are hidden underneath",
-        "Each team picks a team captain. The captains should each open Treasure hunt on their personal device and select <join game> from the main screen. The captains must keep their screens hidden.",
+        "Each team picks a team captain. The captains should open Treasure hunt on their personal devices and select <join game> from the home screen. The captains must keep their screens hidden",
         "the goal of Treasure Hunt is to be the first to find all your team’s coins. Blue team has 8, Red team has 7. The captains will give clues to help you flip over the right words. Good luck and have fun!"
     }; 
 
