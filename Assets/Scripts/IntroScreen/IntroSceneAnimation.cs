@@ -29,8 +29,6 @@ public class IntroSceneAnimation : MonoBehaviour
         initialPosition.OnComplete(startBobbleAnimation);
     }
 
-
-
     void startBobbleAnimation()
     {
         var bobble = rectTransform.DOAnchorPosY(rectTransform.localPosition.y + BobbleHeight, BobbleTime, false).SetEase(Ease.InOutQuad);
@@ -45,7 +43,4 @@ public class IntroSceneAnimation : MonoBehaviour
         var joinGameMovementTween = joinGameRC.DOAnchorPosY(-400, 0.5f, false);
         joinGameMovementTween.Play();
     }
-
-
-
 }
