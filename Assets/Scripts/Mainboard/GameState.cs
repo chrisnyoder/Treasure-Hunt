@@ -28,6 +28,7 @@ public class GameState
     public int redTeamScore = 0;
     public int blueTeamScore = 0;
     public GameObject eogCanvas;
+    public DictionaryAsObject initialGameStateAsObject = new DictionaryAsObject();
 
     public CurrentGameState currentGameState;
 
@@ -91,24 +92,28 @@ public class GameState
         for (int n = 0; n < numberOfRedCards; ++n)
         {
             hiddenBoardList.Add(new CardObject(CardType.redCard, wordList[wordListIndex]));
+            initialGameStateAsObject.redCards.Add(wordList[wordListIndex]);
             wordListIndex += 1;
         }
 
         for (int n = 0; n < numberOfBlueCards; ++n)
         {
             hiddenBoardList.Add(new CardObject(CardType.blueCard, wordList[wordListIndex]));
+            initialGameStateAsObject.blueCards.Add(wordList[wordListIndex]);
             wordListIndex += 1;
         }
 
         for (int n = 0; n < numberOfNeutralCards; ++n)
         {
             hiddenBoardList.Add(new CardObject(CardType.neutralCard, wordList[wordListIndex]));
+            initialGameStateAsObject.neutralCards.Add(wordList[wordListIndex]);
             wordListIndex += 1;
         }
 
         for (int n = 0; n < numberOfShipWreckCards; ++n)
         {
             hiddenBoardList.Add(new CardObject(CardType.shipwreckCard, wordList[wordListIndex]));
+            initialGameStateAsObject.shipwreckCard.Add(wordList[wordListIndex]);
             wordListIndex += 1;
         }
         hiddenBoardList.Shuffle();

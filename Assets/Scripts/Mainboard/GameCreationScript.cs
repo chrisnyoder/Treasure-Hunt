@@ -9,22 +9,27 @@ public class GameCreationScript : MonoBehaviour
     GameState initialGameState;
     public BoardLayoutScript boardLayoutScript;
     public List<WordPackProduct> wordPacksToUse = new List<WordPackProduct>{};
+    
     public Button generateGameStateButton;
     public GameObject selectAWordPack;
-    public Network network;
+
+    [HideInInspector]
+    public MainBoardNetworkingClient networkingClient; 
 
     void Start()
     {
-        network = GameObject.Find("NetworkManager").GetComponent<Network>();
         generateGameStateButton = GetComponent<Button>();
     }
 
     public void generateGameState()
     {
         initialGameState = new GameState(25, wordPacksToUse);
-        network.networkInitialGameState(initialGameState);
-        network.setNetworkAsServer();
+
+
         boardLayoutScript.receiveGameStateObject(initialGameState);
+
+        var initialGameStateAsObject = initialGameState.initialGameStateAsObject;
+        networkingClient.sendDictionary(initialGameStateAsObject);
 
         var storeCanvasAnimator = GameObject.Find("StoreCanvas").GetComponent<Animator>();
         storeCanvasAnimator.Play("StoreCanvasAnimation");

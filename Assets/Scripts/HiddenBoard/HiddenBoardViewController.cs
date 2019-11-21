@@ -13,10 +13,11 @@ public enum Tabs
 
 public class HiddenBoardViewController : MonoBehaviour
 {
-
     public List<string> redWords;
     public List<string> blueWords; 
     public List<string> neutralWords;
+
+    public Text shipwreckCardText;
 
     private Tabs tabSelected = Tabs.RedTab;
     private int numberOfWordObjectsToBeCreated;
@@ -41,10 +42,9 @@ public class HiddenBoardViewController : MonoBehaviour
     public Vector2 redButtonInitialPos;
     public Vector2 neutralButtonInitialPos;
 
-    public Text shipwreckCardText;
-
     private List<GameObject> textObjects;
     private List<RectTransform> textPositions;
+    private List<string> wordsSelected; 
 
     // Start is called before the first frame update
 
@@ -62,58 +62,26 @@ public class HiddenBoardViewController : MonoBehaviour
         } 
     }
 
-    public void receiveMainBoardDictionary(Dictionary<CardType, List<string>> WordListDictionary)
-    {
-        print("hidden dictionary has been received");
-
-        foreach(KeyValuePair<CardType, List<string>> entry in WordListDictionary)
-        {
-            print(entry.Key);
-            print(entry.Value);
-        }
-
-        foreach (KeyValuePair<CardType, List<string>> entry in WordListDictionary)
-        {
-            if (entry.Key == CardType.redCard)
-            {
-                redWords = entry.Value;
-            }
-            else if (entry.Key == CardType.blueCard)
-            {
-                blueWords = entry.Value;
-            }
-            else if (entry.Key == CardType.neutralCard)
-            {
-                neutralWords = entry.Value;
-            }   
-            else if(entry.Key == CardType.shipwreckCard)
-            {
-                shipwreckCardText.text = entry.Value[0];
-            }
-        }
-        
-        getTextObjectSize();
-    }
-
     public void initializeHiddenBoard()
     {   
         
-        redWords = new List<string>(){"Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7"};
-        blueWords = new List<string>(){ "Test1", "Saturn", "Test3", "Test4", "satellite", "Test6", "Test7", "Test8" };
-        neutralWords = new List<string>(){ "Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9" };
+        redWords = new List<string>(){"searching"};
+        blueWords = new List<string>(){"searching"};
+        neutralWords = new List<string>(){"searching"};
+        wordsSelected = new List<string>(){};
 
-        shipwreckCardText.text = "shipwreck";
+        shipwreckCardText.text = "";
 
         wordList = redWords;
-        textObjects = new List<GameObject>() { };
-        textPositions = new List<RectTransform>() { };
+        textObjects = new List<GameObject>() {};
+        textPositions = new List<RectTransform>(){};
 
         getTextObjectSize();
     }
 
-    void getTextObjectSize()
+    // entry for recreating text objects on the scroll 
+    public void getTextObjectSize()
     {
-
         switch(tabSelected)
         {
             case Tabs.RedTab:
@@ -150,22 +118,16 @@ public class HiddenBoardViewController : MonoBehaviour
         switch (tabSelected)
         {
             case Tabs.RedTab:
-                animateTab(tabSelected);
-
                 scrollImage.sprite = redScrollImage;
                 numberOfWordObjectsToBeCreated = redWords.Count;
                 wordList = redWords;
                 break;
             case Tabs.BlueTab:
-                animateTab(tabSelected);
-
                 scrollImage.sprite = blueScrollImage;
                 numberOfWordObjectsToBeCreated = blueWords.Count;
                 wordList = blueWords;
                 break;
             case Tabs.NeutralTab:
-                animateTab(tabSelected);
-
                 scrollImage.sprite = neutralScrollImage;
                 numberOfWordObjectsToBeCreated = neutralWords.Count;
                 wordList = neutralWords;
@@ -191,6 +153,8 @@ public class HiddenBoardViewController : MonoBehaviour
             textObjects.Add(textClone);
         }
 
+        shipwreckCardText.gameObject.GetComponent<RectTransform>().sizeDelta = textObjects[0].GetComponent<RectTransform>().sizeDelta;
+
         layoutText(textPositions);
     }
 
@@ -203,7 +167,6 @@ public class HiddenBoardViewController : MonoBehaviour
 
         float verticalSpaceRemaining = collectionViewRT.rect.height;
 
-        print("number of objects in RT list" + listOfTextRTs.Count);
 
         foreach (RectTransform text in listOfTextRTs)
         {
@@ -212,8 +175,7 @@ public class HiddenBoardViewController : MonoBehaviour
             verticalSpaceRemaining -= textHeight;
         }
 
-        shipwreckCardText.gameObject.GetComponent<RectTransform>().sizeDelta = textObjects[0].GetComponent<RectTransform>().sizeDelta;
-
+        setStrikethroughsOnWords();
         textObject.SetActive(false);
     }
 
@@ -247,6 +209,23 @@ public class HiddenBoardViewController : MonoBehaviour
         downTween.Play();
     }
 
+    private void setStrikethroughsOnWords()
+    {
+        foreach (GameObject textObject in textObjects)
+        {
+            var strikethroughImage = textObject.GetComponentInChildren<Image>();
+            var wordOnHiddenboard = textObject.GetComponent<Text>();
+
+            foreach (var word in wordsSelected)
+            {
+                if (wordOnHiddenboard.text == word)
+                {
+                    strikethroughImage.enabled = true;
+                }
+            }
+        }
+    }
+
     private void resetTextList()
     {
         if (textObjects.Count > 0)
@@ -272,33 +251,35 @@ public class HiddenBoardViewController : MonoBehaviour
     public void selectRedTab()
     {
         tabSelected = Tabs.RedTab;
+        animateTab(Tabs.RedTab);
         createTextPrefabs();
     }
 
     public void selectBlueTab()
     {
         tabSelected = Tabs.BlueTab;
+        animateTab(Tabs.BlueTab);
         createTextPrefabs();
     }
 
     public void selectNeutralTab()
     {
         tabSelected = Tabs.NeutralTab;
+        animateTab(Tabs.NeutralTab);
         createTextPrefabs();
     }
 
     public void gameStateChanged(CurrentGameState newGameState)
     {
-        print("some logic here about how to handle the EOG screen");
     }
 
-    public void wordSelected(Dictionary<string, bool> wordSelected)
+    public void wordSelected(List<string> wordsSelected)
     {
-        print("some logic about how to handle selected words");
+        this.wordsSelected = wordsSelected;
+        setStrikethroughsOnWords();
     }
 
     public void newLanguage()
     {
-        print("some logic about how to handle language change");
     }
 }

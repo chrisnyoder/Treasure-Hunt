@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public Network network;
 
     private Scene scene;
 
     public Canvas backToMainMenuCanvas;
     public Canvas infoPopUp;
+
+    public MainBoardNetworkingClient mainBoardNetworkingClient; 
+    public HiddenBoardNetworkingClient hiddenBoardNetworkingClient;
 
     private void Start() 
     {
@@ -35,18 +37,8 @@ public class UIManager : MonoBehaviour
 
     public void GoToIntroScreenFromMainBoard()
     {
-
-        if(GameObject.Find("NetworkManager") != null)
-        {
-            network = GameObject.Find("NetworkManager").GetComponent<Network>();
-        } 
-
-        if(Network.networking != null)
-        {
-            network.StopServer();
-        }
-
         GlobalAudioScript.Instance.playSfxSound("openMenu");
+        mainBoardNetworkingClient.Close();
         SceneManager.LoadScene("IntroScene");
     }
 
@@ -84,8 +76,6 @@ public class UIManager : MonoBehaviour
 
     public void GoToIntroScreenFromHiddenBoard()
     {
-        network = GameObject.Find("NetworkManager").GetComponent<Network>();
-        network.StopClient();
 
         GlobalAudioScript.Instance.playSfxSound("openMenu");
         SceneManager.LoadScene("IntroScene");

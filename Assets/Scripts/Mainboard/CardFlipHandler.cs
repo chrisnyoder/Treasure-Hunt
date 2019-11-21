@@ -20,6 +20,8 @@ public class CardFlipHandler : MonoBehaviour
     public Sprite neutralImage;
     public Sprite shipwreckImage;
 
+    public MainBoardNetworkingClient networkingClient;
+
     void Start() 
     {
         animator = gameObject.GetComponent<Animator>();
@@ -90,6 +92,9 @@ public class CardFlipHandler : MonoBehaviour
         {
             StartCoroutine(LaunchEoGAfterDelay());
         }
+        
+        networkingClient.wordsSelectedAsObject.listOfWordsSelected.Add(cardText);
+        networkingClient.sendWordSelected();
 
         animator.enabled = true;
         animator.Play("MainboardButtonAnimationComplete");

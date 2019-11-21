@@ -4350,9 +4350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1515ff3e0d4f141e7b9ece80373a5ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  network: {fileID: 0}
   backToMainMenuCanvas: {fileID: 1757797695}
   infoPopUp: {fileID: 0}
+  mainBoardNetworkingClient: {fileID: 1287908311}
 --- !u!1 &951347502
 GameObject:
   m_ObjectHideFlags: 0
@@ -4654,6 +4654,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonParentObject
       objectReference: {fileID: 0}
+    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: networkingClient
+      value: 
+      objectReference: {fileID: 1287908311}
     - target: {fileID: 5037618529178320490, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5425,7 +5430,7 @@ MonoBehaviour:
   boardLayoutScript: {fileID: 2047168060}
   generateGameStateButton: {fileID: 1282448448}
   selectAWordPack: {fileID: 1689901569}
-  network: {fileID: 0}
+  networkingClient: {fileID: 1287908311}
 --- !u!114 &1282448447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5539,7 +5544,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1287908312}
-  - component: {fileID: 1287908313}
   - component: {fileID: 1287908311}
   m_Layer: 0
   m_Name: NetworkManager
@@ -5557,9 +5561,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1287908310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f4279fc9e01466ebf705fff3c91af0, type: 3}
+  m_Script: {fileID: 11500000, guid: a0f2c235320dd4a1da16f83fa46253c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
+  autoConnect: 1
+  reconnectDelay: 5
+  ackExpirationTime: 1800
+  pingInterval: 25
+  pingTimeout: 60
 --- !u!4 &1287908312
 Transform:
   m_ObjectHideFlags: 0
@@ -5574,18 +5584,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1287908313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287908310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3232dc5ed68b5434d99c68c32d4181c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1430858482
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,7 +5979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064f57b105085408bb2ac7b6433c14a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  network: {fileID: 0}
   card: {fileID: 165799547}
   cards: []
   resultsCollectionView: {fileID: 1430858482}
@@ -6060,7 +6057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.1642513
+  m_AspectRatio: 2.1653333
 --- !u!95 &1594670875
 Animator:
   serializedVersion: 3
