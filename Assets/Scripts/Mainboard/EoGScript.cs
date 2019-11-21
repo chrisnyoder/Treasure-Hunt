@@ -6,8 +6,6 @@ using DG.Tweening;
 
 public class EoGScript : MonoBehaviour
 {
-    public Network network; 
-
     public GameObject card;
     public List<GameObject> cards = new List<GameObject>(){};
     public GameObject resultsCollectionView;

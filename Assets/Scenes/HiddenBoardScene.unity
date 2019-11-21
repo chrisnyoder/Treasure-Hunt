@@ -438,6 +438,7 @@ MonoBehaviour:
   redWords: []
   blueWords: []
   neutralWords: []
+  shipwreckCardText: {fileID: 1026571450}
   scrollImage: {fileID: 750920934}
   collectionView: {fileID: 760523965}
   textObject: {fileID: 1505776495932198185}
@@ -450,7 +451,6 @@ MonoBehaviour:
   blueButtonInitialPos: {x: 0, y: 0}
   redButtonInitialPos: {x: 0, y: 0}
   neutralButtonInitialPos: {x: 0, y: 0}
-  shipwreckCardText: {fileID: 1026571450}
 --- !u!4 &499873878
 Transform:
   m_ObjectHideFlags: 0
@@ -1431,7 +1431,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hiddenBoardViewController: {fileID: 499873877}
-  network: {fileID: 1338526331}
 --- !u!1 &1026571448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1741,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1338526333}
-  - component: {fileID: 1338526332}
   - component: {fileID: 1338526331}
   m_Layer: 0
   m_Name: NetworkManager
@@ -1760,21 +1758,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1338526330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f4279fc9e01466ebf705fff3c91af0, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d944b64859324fda9f221fc2858921e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1338526332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338526330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3232dc5ed68b5434d99c68c32d4181c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
+  autoConnect: 1
+  reconnectDelay: 5
+  ackExpirationTime: 1800
+  pingInterval: 25
+  pingTimeout: 60
 --- !u!4 &1338526333
 Transform:
   m_ObjectHideFlags: 0
@@ -3200,9 +3192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1515ff3e0d4f141e7b9ece80373a5ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  network: {fileID: 0}
   backToMainMenuCanvas: {fileID: 1422287042}
   infoPopUp: {fileID: 0}
+  mainBoardNetworkingClient: {fileID: 0}
+  hiddenBoardNetworkingClient: {fileID: 1338526331}
 --- !u!4 &1856841279
 Transform:
   m_ObjectHideFlags: 0
@@ -3604,6 +3597,11 @@ PrefabInstance:
     - target: {fileID: 5742266554259447984, guid: e4383c302c88946b496d564fe0688a21,
         type: 3}
       propertyPath: m_FontData.m_BestFit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153138443228868959, guid: e4383c302c88946b496d564fe0688a21,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

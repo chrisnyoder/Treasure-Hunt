@@ -27,7 +27,6 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
 
     public void OnEndDrag(PointerEventData pointerEventData)
     {
-
         var rotateBack = rectTransform.DORotate(initialRotation, 0.5f, RotateMode.Fast);
         rotateBack.Play();
     }

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class EoGButtonHandler : MonoBehaviour
 {
     
-    Network network; 
 
     public void restartGame()
     {
@@ -30,8 +29,6 @@ public class EoGButtonHandler : MonoBehaviour
         StoreCanvasAnimator.Play("StoreAnimationReverse");
         MainBoardCanvasAnimator.Play("MainboardCanvasReverseAnimation");
 
-        network = GameObject.Find("NetworkManager").GetComponent<Network>();
-        network.StopServer();
     }
     
     public void showBoard()

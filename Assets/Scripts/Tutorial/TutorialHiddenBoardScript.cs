@@ -8,7 +8,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 {
     private int tutorialIndexNumber = 0; 
     private int totalNumberOfTutorialScreens; 
-    private Tween move; 
+    private Tween moveBlueButton; 
 
     public GameObject titleText; 
     public Text mainText;
@@ -48,7 +48,6 @@ public class TutorialHiddenBoardScript : MonoBehaviour
     public void turnTutorialOff()
     {
         GlobalDefaults.Instance.tutorialIsOn = false;
-        gameObject.SetActive(false);
 
         var images = scrollPanel.GetComponentsInChildren<Image>();
         var texts = scrollPanel.GetComponentsInChildren<Text>();
@@ -59,6 +58,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         blueButton.GetComponent<Button>().enabled = true;
         redButton.GetComponent<Button>().enabled = true;
         neutralButton.GetComponent<Button>().enabled = true;
+
+        moveBlueButton.Kill(true);
 
         foreach (Image image in images)
         {
@@ -76,12 +77,14 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         {
             text.DOColor(new Color32(0, 0, 0, 255), 0.5f).Play();
         }
+
+        gameObject.SetActive(false);
     }
 
     public void continueTutorial()
     {
         tutorialIndexNumber += 1;
-        if (tutorialIndexNumber < totalNumberOfTutorialScreens)
+        if (tutorialIndexNumber < totalNumberOfTutorialScreens && gameObject.activeSelf == true)
         {
             displayTutorialScreenData();
         } else 
@@ -116,9 +119,9 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
             blueButton.GetComponent<Image>().color = new Color32 (255, 255, 255, 255);
             blueButton.GetComponent<Button>().enabled = true;
-            move = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButton.GetComponent<RectTransform>().anchoredPosition.y - 50, 0.6f, false);
-            move.SetEase(Ease.Linear);
-            move.SetLoops(-1, LoopType.Yoyo);
+            moveBlueButton = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButton.GetComponent<RectTransform>().anchoredPosition.y - 50, 0.6f, false);
+            moveBlueButton.SetEase(Ease.Linear);
+            moveBlueButton.SetLoops(-1, LoopType.Yoyo);
 
             continueButton.SetActive(false);
             continueButton.GetComponent<Text>().DOFade(0, 0.7f).Play();
@@ -126,7 +129,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         if(tutorialIndexNumber == 2)
         {
-            move.Kill(true);
+            moveBlueButton.Kill(true);
             
             blueButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             continueButton.GetComponent<Text>().DOFade(1, 0.7f).Play();

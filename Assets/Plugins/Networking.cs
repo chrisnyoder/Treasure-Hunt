@@ -119,7 +119,6 @@ namespace Shatalmic
 		{
 			if (!_serverStarted)
 			{
-				print("server was not started, so will start");
 				Reset ();
 
 				_serverStarted = true;
@@ -132,7 +131,6 @@ namespace Shatalmic
 				SetState (States.StartScan, 0.1f);
 			} else
 			{
-				print("server already started");
 			}
 		}
 

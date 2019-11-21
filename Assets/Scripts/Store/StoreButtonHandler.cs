@@ -25,18 +25,14 @@ public class StoreButtonHandler : MonoBehaviour
             case ProductState.enabled:
                 wordPackProduct.state = ProductState.disabled;
                 PlayerPrefs.SetString(wordPackProduct.wordPackProductIdentifier, "disabled");
-                print("word pack has been disabled");
                 break;
             case ProductState.disabled:
                 wordPackProduct.state = ProductState.enabled;
                 PlayerPrefs.SetString(wordPackProduct.wordPackProductIdentifier, "enabled");
-                print("word pack has been eneabled");
                 break;
             case ProductState.unpurchased:
-                print("product purchased using the codeless IAP");
                 break;
             case ProductState.unavailable:
-                print("product unavailable");
                 break;
         }
 
