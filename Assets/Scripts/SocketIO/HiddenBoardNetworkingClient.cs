@@ -52,6 +52,13 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
                 hiddenBoardViewController.wordSelected(wordsSelectedAsObject.listOfWordsSelected); 
         });
 
-        On("newGameState", (e) => {});
+        On("newGameState", (e) => 
+        {   
+            CurrentGameState currentGameState = JsonUtility.FromJson<CurrentGameState>(e.data.ToString());
+
+            if(currentGameState != CurrentGameState.gameInPlay)
+                hiddenBoardViewController.gameStateChanged(currentGameState);
+            
+        });
     }
 }

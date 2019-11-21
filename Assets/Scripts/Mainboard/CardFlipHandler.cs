@@ -92,7 +92,7 @@ public class CardFlipHandler : MonoBehaviour
         {
             StartCoroutine(LaunchEoGAfterDelay());
         }
-        
+
         networkingClient.wordsSelectedAsObject.listOfWordsSelected.Add(cardText);
         networkingClient.sendWordSelected();
 
@@ -104,5 +104,6 @@ public class CardFlipHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         gameState.LaunchEOGScreen();
+        networkingClient.sendNewGameState(gameState.currentGameState);
     }
 }

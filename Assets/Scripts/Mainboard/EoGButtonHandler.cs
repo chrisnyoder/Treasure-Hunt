@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class EoGButtonHandler : MonoBehaviour
 {
-    
 
     public void restartGame()
     {
@@ -35,20 +34,11 @@ public class EoGButtonHandler : MonoBehaviour
     {
         var EoGCanvasObject = GameObject.Find("ResultsCanvas");
         var EoGCanvasAninmator = EoGCanvasObject.GetComponent<Animator>();
-        EoGCanvasAninmator.Play("ResultsAnimationReverse");
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+        if(Screen.width < Screen.height)
+            EoGCanvasAninmator.Play("HiddenBoardResultsReverse");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
 

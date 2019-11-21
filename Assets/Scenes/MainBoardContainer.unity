@@ -4353,6 +4353,7 @@ MonoBehaviour:
   backToMainMenuCanvas: {fileID: 1757797695}
   infoPopUp: {fileID: 0}
   mainBoardNetworkingClient: {fileID: 1287908311}
+  hiddenBoardNetworkingClient: {fileID: 0}
 --- !u!1 &951347502
 GameObject:
   m_ObjectHideFlags: 0
@@ -5570,6 +5571,8 @@ MonoBehaviour:
   ackExpirationTime: 1800
   pingInterval: 25
   pingTimeout: 60
+  wordsSelectedAsObject:
+    listOfWordsSelected: []
 --- !u!4 &1287908312
 Transform:
   m_ObjectHideFlags: 0
