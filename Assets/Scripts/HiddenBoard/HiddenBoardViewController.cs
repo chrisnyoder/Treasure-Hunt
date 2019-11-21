@@ -38,15 +38,18 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public Tween downTween;
 
+    [HideInInspector]
     public Vector2 blueButtonInitialPos;
+    [HideInInspector]
     public Vector2 redButtonInitialPos;
+    [HideInInspector]
     public Vector2 neutralButtonInitialPos;
 
     private List<GameObject> textObjects;
     private List<RectTransform> textPositions;
     private List<string> wordsSelected; 
 
-    // Start is called before the first frame update
+    public EoGScript eoGScript;
 
     private void Start() 
     {
@@ -80,6 +83,7 @@ public class HiddenBoardViewController : MonoBehaviour
     }
 
     // entry for recreating text objects on the scroll 
+
     public void getTextObjectSize()
     {
         switch(tabSelected)
@@ -271,6 +275,7 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public void gameStateChanged(CurrentGameState newGameState)
     {
+        eoGScript.DisplayEOGCanvas(newGameState);
     }
 
     public void wordSelected(List<string> wordsSelected)

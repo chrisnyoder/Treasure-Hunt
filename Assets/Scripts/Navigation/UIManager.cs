@@ -76,8 +76,8 @@ public class UIManager : MonoBehaviour
 
     public void GoToIntroScreenFromHiddenBoard()
     {
-
         GlobalAudioScript.Instance.playSfxSound("openMenu");
+        hiddenBoardNetworkingClient.Close();
         SceneManager.LoadScene("IntroScene");
     }
 

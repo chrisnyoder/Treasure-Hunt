@@ -45,4 +45,10 @@ public class MainBoardNetworkingClient : SocketIOComponent
         var wordsSelectedAsJSONObject = new JSONObject(JsonUtility.ToJson(wordsSelectedAsObject));
         Emit("wordsSelected", wordsSelectedAsJSONObject);
     }
+
+    public void sendNewGameState(CurrentGameState currentGameState)
+    {
+        var currentGameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(currentGameState));
+        Emit("newGameState", currentGameStateAsJSONObject);
+    }
 }

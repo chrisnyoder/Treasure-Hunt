@@ -21,14 +21,13 @@ public class EoGScript : MonoBehaviour
         winBanner.SetActive(false);
     }
 
-    public void DisplayEOGCanvas(GameState gameState)
+    public void DisplayEOGCanvas(CurrentGameState currentGameState)
     {
-        currentGameState = gameState.currentGameState;
+
+        this.currentGameState = currentGameState;
 
         var loseImage = loseBanner.GetComponent<Image>();
         var winImage = winBanner.GetComponent<Image>();
-
-        print("current game state is: " + gameState.currentGameState);
 
         switch (currentGameState)
         {
@@ -58,6 +57,7 @@ public class EoGScript : MonoBehaviour
 
     public void playEoGCardAnimations()
     {
+        print("animations being played");
         if(currentGameState == CurrentGameState.blueWins || currentGameState == CurrentGameState.redWins)
         {
             var positions = EoGCardAnimationData.cardPositions;
