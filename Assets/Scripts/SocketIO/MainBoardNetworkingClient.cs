@@ -8,7 +8,13 @@ using Newtonsoft.Json.Linq;
 public class MainBoardNetworkingClient : SocketIOComponent
 {
 
-    public WordsSelectedAsObject wordsSelectedAsObject; 
+    [HideInInspector]
+    public WordsSelectedAsObject wordsSelectedAsObject;
+    [HideInInspector]
+    public ConnectionCodeAsObject connectionCodeAsObject;
+    [HideInInspector]
+    public string connectionCode; 
+    private bool connectionOpen = false;
 
     // Start is called before the first frame update
     public override void Start()
@@ -21,15 +27,49 @@ public class MainBoardNetworkingClient : SocketIOComponent
     public override void Update()
     {
         base.Update(); 
-    } 
+    }
 
     private void setupEvents()
     {
-        On("GameDictionary", (e) => 
-        {
-            var initialGameDictionary = e.data;
-            print(e.data);
+        On("open", (e) => {
         });
+
+        On("connect", (e) => {
+            Emit("isHosting");
+        });
+
+        On("error", (e) => {
+            print("error");
+            print(e.data.ToString());
+        });
+
+        On("reconnect", (e) =>
+        {
+            print("reconnect");
+            print(e.data.ToString());
+        });
+
+        On("disconnect", (e) =>
+        {
+            print("disconnect");
+            print(e.data.ToString());
+        });
+
+        On("reconnecting", (e) =>
+        {
+            print("reconnecting");
+            print(e.data.ToString());
+        });
+    
+        On("roomId", (room) => 
+        {
+            print("connection code as JSON is: " + room.data.ToString());
+            connectionCodeAsObject = JsonUtility.FromJson<ConnectionCodeAsObject>(room.data.ToString());
+
+            print("connection code is: " + connectionCodeAsObject.roomId);
+        });
+
+        On("register", (e) => {print("register callback received"); } );
     }
 
     public void sendDictionary(DictionaryAsObject initialGameState)
@@ -37,7 +77,7 @@ public class MainBoardNetworkingClient : SocketIOComponent
         var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
         sendWordSelected();
 
-        Emit("GameDictionary", gameStateAsJSONObject);
+        Emit("gameDictionary", gameStateAsJSONObject);
     }
 
     public void sendWordSelected()
