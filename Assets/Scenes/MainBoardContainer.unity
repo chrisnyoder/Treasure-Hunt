@@ -5569,10 +5569,13 @@ MonoBehaviour:
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
-  pingInterval: 25
+  pingInterval: 500
   pingTimeout: 60
   wordsSelectedAsObject:
     listOfWordsSelected: []
+  connectionCodeAsObject:
+    roomId: 
+  connectionCode: 
 --- !u!4 &1287908312
 Transform:
   m_ObjectHideFlags: 0

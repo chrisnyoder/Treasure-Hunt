@@ -8,14 +8,12 @@ using SocketIO;
 public class HiddenBoardNetworkingClient : SocketIOComponent
 {
     
-    HiddenBoardViewController hiddenBoardViewController; 
+    public HiddenBoardViewController hiddenBoardViewController; 
 
     public override void Start()
     {
         base.Start();
         setupEvents();
-
-        hiddenBoardViewController = GameObject.Find("LayoutObject").GetComponent<HiddenBoardViewController>();
     }
 
     // Update is called once per frame
@@ -26,14 +24,21 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
 
     private void setupEvents()
     {
-        On("open", (E) => 
+        On("open", (e) => 
         {
-            print("connection made to the server");
+            print("connection to the server open");
         });
 
-        On("GameDictionary", (e) =>
+        On("connect", (e) => {
+            ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
+            connectionCodeAsObject.roomId = "poop"; 
+            var jsonob = JsonUtility.ToJson(connectionCodeAsObject);
+            Emit("isJoining", new JSONObject(jsonob));
+        });
+
+        On("gameDictionary", (dictionary) =>
         {
-            DictionaryAsObject initialGameState = JsonUtility.FromJson<DictionaryAsObject>(e.data.ToString());
+            DictionaryAsObject initialGameState = JsonUtility.FromJson<DictionaryAsObject>(dictionary.data.ToString());
 
             if(initialGameState.blueCards.Count > 0 ) 
             {
@@ -45,16 +50,16 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
             }
         });
 
-        On("wordsSelected", (e) => {
-            WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(e.data.ToString());
+        On("wordsSelected", (wordsSelected) => {
+            WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
 
             if(wordsSelectedAsObject.listOfWordsSelected.Count >0 )
                 hiddenBoardViewController.wordSelected(wordsSelectedAsObject.listOfWordsSelected); 
         });
 
-        On("newGameState", (e) => 
+        On("newGameState", (gameState) => 
         {   
-            CurrentGameState currentGameState = JsonUtility.FromJson<CurrentGameState>(e.data.ToString());
+            CurrentGameState currentGameState = JsonUtility.FromJson<CurrentGameState>(gameState.data.ToString());
 
             if(currentGameState != CurrentGameState.gameInPlay)
                 hiddenBoardViewController.gameStateChanged(currentGameState);

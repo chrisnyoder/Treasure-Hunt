@@ -35,8 +35,14 @@ public class EoGButtonHandler : MonoBehaviour
         var EoGCanvasObject = GameObject.Find("ResultsCanvas");
         var EoGCanvasAninmator = EoGCanvasObject.GetComponent<Animator>();
 
-        if(Screen.width < Screen.height)
+        if(Screen.width < Screen.height) 
+        {
             EoGCanvasAninmator.Play("HiddenBoardResultsReverse");
+        } else
+        {
+            EoGCanvasAninmator.Play("ResultsAnimationReverse");
+        }
+            
     }
 
 }
