@@ -12,8 +12,9 @@ public class MainBoardNetworkingClient : SocketIOComponent
     public WordsSelectedAsObject wordsSelectedAsObject;
     [HideInInspector]
     public ConnectionCodeAsObject connectionCodeAsObject;
-    [HideInInspector]
-    public string connectionCode; 
+
+    public CodeDisplayHandler codeDisplayHandler;
+    
     private bool connectionOpen = false;
 
     // Start is called before the first frame update
@@ -66,7 +67,9 @@ public class MainBoardNetworkingClient : SocketIOComponent
             print("connection code as JSON is: " + room.data.ToString());
             connectionCodeAsObject = JsonUtility.FromJson<ConnectionCodeAsObject>(room.data.ToString());
 
-            print("connection code is: " + connectionCodeAsObject.roomId);
+            print("connmection code: " + connectionCodeAsObject.roomId);
+
+            codeDisplayHandler.displayConnectionCode(connectionCodeAsObject.roomId);
         });
 
         On("register", (e) => {print("register callback received"); } );

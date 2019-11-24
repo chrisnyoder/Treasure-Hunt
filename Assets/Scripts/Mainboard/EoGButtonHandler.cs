@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class EoGButtonHandler : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class EoGButtonHandler : MonoBehaviour
 
         var MainBoardCanvasObject = GameObject.Find("MainBoardCanvas");
         var MainBoardCanvasAnimator = MainBoardCanvasObject.GetComponent<Animator>();
+
+        var CodeDisplayBackroundRT = GameObject.Find("CodeDisplayBackground").GetComponent<RectTransform>();
+        CodeDisplayBackroundRT.DOAnchorPosY(0, 1.5f, false);
 
         var cards = EoGCanvasObject.GetComponent<EoGScript>().cards;
 
