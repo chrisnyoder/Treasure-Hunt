@@ -12,6 +12,7 @@ public class GameCreationScript : MonoBehaviour
     
     public Button generateGameStateButton;
     public GameObject selectAWordPack;
+    public CodeDisplayHandler codeDisplayHandler;
 
     [HideInInspector]
     public MainBoardNetworkingClient networkingClient; 
@@ -25,11 +26,11 @@ public class GameCreationScript : MonoBehaviour
     {
         initialGameState = new GameState(25, wordPacksToUse);
 
-
         boardLayoutScript.receiveGameStateObject(initialGameState);
 
         var initialGameStateAsObject = initialGameState.initialGameStateAsObject;
         networkingClient.sendDictionary(initialGameStateAsObject);
+        codeDisplayHandler.displayWaitingForGameIndicator();
 
         var storeCanvasAnimator = GameObject.Find("StoreCanvas").GetComponent<Animator>();
         storeCanvasAnimator.Play("StoreCanvasAnimation");
