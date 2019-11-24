@@ -9,6 +9,7 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
 {
     
     public HiddenBoardViewController hiddenBoardViewController; 
+    public CodeProviderHandler codeProviderHandler;
 
     public override void Start()
     {
@@ -30,10 +31,7 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
         });
 
         On("connect", (e) => {
-            ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
-            connectionCodeAsObject.roomId = "poop"; 
-            var jsonob = JsonUtility.ToJson(connectionCodeAsObject);
-            Emit("isJoining", new JSONObject(jsonob));
+            // connected
         });
 
         On("gameDictionary", (dictionary) =>
@@ -65,5 +63,17 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
                 hiddenBoardViewController.gameStateChanged(currentGameState);
             
         });
+
+        On("joinedRoom", (E) => {
+            codeProviderHandler.onJoinedRoom();
+        });
+    }
+
+    public void joinGameWithCode(string connectionCode)
+    {
+        ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
+        connectionCodeAsObject.roomId = connectionCode;
+        var connectionCodeAsJSONObject = new JSONObject(JsonUtility.ToJson(connectionCodeAsObject));
+        Emit("isJoining", connectionCodeAsJSONObject);
     }
 }
