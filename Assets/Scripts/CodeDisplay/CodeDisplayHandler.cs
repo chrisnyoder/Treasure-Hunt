@@ -10,7 +10,10 @@ public class CodeDisplayHandler : MonoBehaviour
     private GameObject codeDisplayBackground; 
     private string connectionCode = "";
 
-    public GameObject listOfJoinedPlayers;
+    public GameObject listOfJoinedPlayersDisplay;
+    private List<GameObject> listOfJoinedPlayerObjects = new List<GameObject> {};
+    public GameObject playerTag; 
+
     public Text gameIdText;
     private Vector2 initialTextBoxSize; 
     public GameObject spinner;
@@ -18,12 +21,14 @@ public class CodeDisplayHandler : MonoBehaviour
     public GameObject goBackButton;
 
     private bool codeRecieved = false;
-    private float waitingForCodeTimeOutTimer = 6f;
+    private float waitingForCodeTimeOutTimer;
     private bool waitingForCodeTimedOut = false;
 
     void Start()
     {
         initialTextBoxSize = gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta;
+        playerTag.SetActive(false);
+        setTimeOutTimer();
         spinner.SetActive(false);
         beginButton.SetActive(true);
         goBackButton.SetActive(false);
@@ -78,15 +83,32 @@ public class CodeDisplayHandler : MonoBehaviour
         waitingForCodeTimedOut = false;
         beginButton.SetActive(true);
         goBackButton.SetActive(false);
-        resetTimeOutTimer();
+        setTimeOutTimer();
 
         connectionCode = receivedConnectionCode;
         gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta = initialTextBoxSize;
         gameIdText.text = ("Game ID: " + receivedConnectionCode);
     }
 
-    private void resetTimeOutTimer()
+    private void setTimeOutTimer()
     {
         waitingForCodeTimeOutTimer = 6f;
+    }
+
+    public void displayPlayersInGame(List<string> playersInGame)
+    {
+
+        foreach(GameObject go in listOfJoinedPlayerObjects)
+        {
+            Destroy(go);
+        }
+
+        for(var i = 1; i <= playersInGame.Count; ++i)
+        {
+            var playerTagClone = GameObject.Instantiate(playerTag, listOfJoinedPlayersDisplay.transform);
+            playerTagClone.SetActive(true);
+            playerTagClone.GetComponent<Text>().text = ("Player " + i + " joined");
+            listOfJoinedPlayerObjects.Add(playerTagClone);
+        }
     }
 }

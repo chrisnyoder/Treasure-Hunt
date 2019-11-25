@@ -19,7 +19,7 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public Text shipwreckCardText;
 
-    private Tabs tabSelected = Tabs.RedTab;
+    private Tabs tabSelected = Tabs.BlueTab;
     private int numberOfWordObjectsToBeCreated;
     private List<string> wordList;
 

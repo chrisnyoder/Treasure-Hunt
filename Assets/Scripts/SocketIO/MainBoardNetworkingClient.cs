@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq; 
 
@@ -64,12 +65,22 @@ public class MainBoardNetworkingClient : SocketIOComponent
     
         On("roomId", (room) => 
         {
-            print("connection code as JSON is: " + room.data.ToString());
             connectionCodeAsObject = JsonUtility.FromJson<ConnectionCodeAsObject>(room.data.ToString());
 
-            print("connmection code: " + connectionCodeAsObject.roomId);
-
             codeDisplayHandler.displayConnectionCode(connectionCodeAsObject.roomId);
+        });
+
+        On("numberOfPlayersInRoomChanged", (players) => 
+        {
+            print("number of players in room has changed, again");
+            PlayersAsObject playersAsObject = JsonUtility.FromJson<PlayersAsObject>(players.data.ToString());
+            var playerList = playersAsObject.playersInRoom.ToList();
+
+            foreach(var player in playerList){
+                print(player);
+            }
+
+            codeDisplayHandler.displayPlayersInGame(playerList);
         });
 
         On("register", (e) => {print("register callback received"); } );
