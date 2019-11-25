@@ -2343,7 +2343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.165333
+  m_AspectRatio: 0.46205354
 --- !u!114 &1075341245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2845,7 +2845,7 @@ MonoBehaviour:
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
-  pingInterval: 500
+  pingInterval: 20
   pingTimeout: 60
   hiddenBoardViewController: {fileID: 499873877}
   codeProviderHandler: {fileID: 697183862}
