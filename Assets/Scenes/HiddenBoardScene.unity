@@ -404,6 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49964e556f37d4e96ac815de9224bf2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainBoardNetworkingClient: {fileID: 0}
 --- !u!114 &357650227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2343,7 +2344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 0.46205354
+  m_AspectRatio: 2.165333
 --- !u!114 &1075341245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2841,7 +2842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d944b64859324fda9f221fc2858921e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
+  url: ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800

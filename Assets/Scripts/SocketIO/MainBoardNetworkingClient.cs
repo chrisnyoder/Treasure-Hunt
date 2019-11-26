@@ -13,10 +13,13 @@ public class MainBoardNetworkingClient : SocketIOComponent
     public WordsSelectedAsObject wordsSelectedAsObject;
     [HideInInspector]
     public ConnectionCodeAsObject connectionCodeAsObject;
-
     public CodeDisplayHandler codeDisplayHandler;
+    [HideInInspector]
+    public DictionaryAsObject initialGameState; 
     
-    private bool connectionOpen = false;
+    public bool dictionarySent = false;
+    private bool _connectionMade = false;
+
 
     // Start is called before the first frame update
     public override void Start()
@@ -29,6 +32,15 @@ public class MainBoardNetworkingClient : SocketIOComponent
     public override void Update()
     {
         base.Update(); 
+    
+        if(_connectionMade && initialGameState != null)
+        {
+            if(!dictionarySent)
+            {
+                sendDictionary();
+                dictionarySent = true;
+            }
+        }
     }
 
     private void setupEvents()
@@ -37,6 +49,7 @@ public class MainBoardNetworkingClient : SocketIOComponent
         });
 
         On("connect", (e) => {
+            _connectionMade = true;
             Emit("isHosting");
         });
 
@@ -66,7 +79,6 @@ public class MainBoardNetworkingClient : SocketIOComponent
         On("roomId", (room) => 
         {
             connectionCodeAsObject = JsonUtility.FromJson<ConnectionCodeAsObject>(room.data.ToString());
-
             codeDisplayHandler.displayConnectionCode(connectionCodeAsObject.roomId);
         });
 
@@ -86,7 +98,15 @@ public class MainBoardNetworkingClient : SocketIOComponent
         On("register", (e) => {print("register callback received"); } );
     }
 
-    public void sendDictionary(DictionaryAsObject initialGameState)
+    // public void sendDictionary(DictionaryAsObject initialGameState)
+    // {
+    //     var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
+    //     sendWordSelected();
+
+    //     Emit("gameDictionary", gameStateAsJSONObject);
+    // }
+
+    public void sendDictionary()
     {
         var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
         sendWordSelected();
