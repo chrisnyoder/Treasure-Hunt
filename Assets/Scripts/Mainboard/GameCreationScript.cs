@@ -25,11 +25,10 @@ public class GameCreationScript : MonoBehaviour
     public void generateGameState()
     {
         initialGameState = new GameState(25, wordPacksToUse);
-
         boardLayoutScript.receiveGameStateObject(initialGameState);
 
         var initialGameStateAsObject = initialGameState.initialGameStateAsObject;
-        networkingClient.sendDictionary(initialGameStateAsObject);
+        networkingClient.initialGameState = initialGameStateAsObject;
         codeDisplayHandler.displayWaitingForGameIndicator();
 
         var storeCanvasAnimator = GameObject.Find("StoreCanvas").GetComponent<Animator>();

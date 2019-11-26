@@ -7,6 +7,8 @@ using DG.Tweening;
 public class EoGButtonHandler : MonoBehaviour
 {
 
+    public MainBoardNetworkingClient mainBoardNetworkingClient; 
+
     public void restartGame()
     {
         var EoGCanvasObject = GameObject.Find("ResultsCanvas");
@@ -23,6 +25,9 @@ public class EoGButtonHandler : MonoBehaviour
 
         var cards = EoGCanvasObject.GetComponent<EoGScript>().cards;
 
+        mainBoardNetworkingClient.initialGameState = null; 
+        mainBoardNetworkingClient.dictionarySent = false; 
+
         foreach(GameObject card in cards)
         {
             Destroy(card);
@@ -31,7 +36,6 @@ public class EoGButtonHandler : MonoBehaviour
         EoGCanvasAninmator.Play("ResultsAnimationReverse");
         StoreCanvasAnimator.Play("StoreAnimationReverse");
         MainBoardCanvasAnimator.Play("MainboardCanvasReverseAnimation");
-
     }
     
     public void showBoard()
