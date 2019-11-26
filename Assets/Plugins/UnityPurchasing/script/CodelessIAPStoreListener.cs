@@ -149,7 +149,6 @@ namespace UnityEngine.Purchasing
 
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
-            Debug.Log("CodelessIAPStoreListener initialized");
             initializationComplete = true;
             this.controller = controller;
             this.extensions = extensions;

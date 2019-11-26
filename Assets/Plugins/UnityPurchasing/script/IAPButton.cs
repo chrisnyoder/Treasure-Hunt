@@ -1,7 +1,6 @@
 #if UNITY_PURCHASING
 using UnityEngine.Events;
 using UnityEngine.UI;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -84,13 +83,10 @@ namespace UnityEngine.Purchasing
 
         void OnEnable()
         {
-            Debug.Log("IAPButton initialized");
-
             if (buttonType == ButtonType.Purchase)
             {
                 CodelessIAPStoreListener.Instance.AddButton(this);
-                if (CodelessIAPStoreListener.initializationComplete) 
-                {
+                if (CodelessIAPStoreListener.initializationComplete) {
                     UpdateText();
                 }
             }
@@ -186,13 +182,11 @@ namespace UnityEngine.Purchasing
             onPurchaseFailed.Invoke(product, reason);
         }
 
-        public void UpdateText()
+        internal void UpdateText()
         {
-            print("update text function called");
             var product = CodelessIAPStoreListener.Instance.GetProduct(productId);
             if (product != null)
             {
-                print("product is not null");
                 if (titleText != null)
                 {
                     titleText.text = product.metadata.localizedTitle;
@@ -205,12 +199,8 @@ namespace UnityEngine.Purchasing
 
                 if (priceText != null)
                 {
-                    print("prices being set");
                     priceText.text = product.metadata.localizedPriceString;
-
-                    if(priceText.text != "0" && priceText.text != "price")
-                        priceText.enabled = true;
-                }   
+                }
             }
         }
     }

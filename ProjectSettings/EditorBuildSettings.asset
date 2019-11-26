@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FriendlyPixelSplash.unity
     guid: 8b68546eb407ebb4490f07731b18899f
   - enabled: 1
