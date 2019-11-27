@@ -24,6 +24,7 @@ public class GameState
     int numberOfNeutralCards;
     int numberOfShipWreckCards;
 
+
     public int redTeamScore = 0;
     public int blueTeamScore = 0;
     public GameObject eogCanvas;
@@ -33,6 +34,7 @@ public class GameState
 
     public GameState(int numberOfCards, List<WordPackProduct> wordPacksToUse)
     {
+        
         this.numberOfCards = numberOfCards;
 
         if (numberOfCards == 25)
@@ -116,6 +118,7 @@ public class GameState
             wordListIndex += 1;
         }
         hiddenBoardList.Shuffle();
+
     }
 
     public void LaunchEOGScreen()

@@ -24,8 +24,18 @@ public class MainBoardNetworkingClient : SocketIOComponent
     // Start is called before the first frame update
     public override void Start()
     {
+        initialGameState = null;
+
         base.Start();
         setupEvents();
+
+        if(initialGameState == null)
+        {
+            print("is null");
+        } else 
+        {
+            print("not null");
+        }
     }
 
     // Update is called once per frame
@@ -33,10 +43,12 @@ public class MainBoardNetworkingClient : SocketIOComponent
     {
         base.Update(); 
     
-        if(_connectionMade && initialGameState != null)
+        if(_connectionMade == true && initialGameState != null)
         {
             if(!dictionarySent)
             {
+                foreach(var card in initialGameState.blueCards){ print(card);} ;
+                print("dictionary sent is false");
                 sendDictionary();
                 dictionarySent = true;
             }
@@ -108,6 +120,7 @@ public class MainBoardNetworkingClient : SocketIOComponent
 
     public void sendDictionary()
     {
+        print("dictionary being sent");
         var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
         sendWordSelected();
 
