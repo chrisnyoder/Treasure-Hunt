@@ -404,6 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49964e556f37d4e96ac815de9224bf2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainBoardNetworkingClient: {fileID: 0}
 --- !u!114 &357650227
 MonoBehaviour:
   m_ObjectHideFlags: 0

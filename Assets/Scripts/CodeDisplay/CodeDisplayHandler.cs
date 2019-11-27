@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class CodeDisplayHandler : MonoBehaviour
 {
-    
     private GameObject codeDisplayBackground; 
     public string connectionCode = "";
     private bool _tutorialIsOn; 

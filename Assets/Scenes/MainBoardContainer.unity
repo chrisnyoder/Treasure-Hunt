@@ -607,6 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49964e556f37d4e96ac815de9224bf2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainBoardNetworkingClient: {fileID: 0}
 --- !u!1 &140355153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,6 +2525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49964e556f37d4e96ac815de9224bf2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainBoardNetworkingClient: {fileID: 1287908311}
 --- !u!114 &447790593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6089,6 +6091,14 @@ MonoBehaviour:
   connectionCodeAsObject:
     roomId: 
   codeDisplayHandler: {fileID: 1298824277}
+  initialGameState:
+    blueCards: []
+    redCards: []
+    neutralCards: []
+    shipwreckCard: []
+    isTutorial: 0
+    langaugeSelected: 
+  dictionarySent: 0
 --- !u!4 &1287908312
 Transform:
   m_ObjectHideFlags: 0
