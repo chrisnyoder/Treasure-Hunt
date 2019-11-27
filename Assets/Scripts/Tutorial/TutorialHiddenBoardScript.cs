@@ -33,16 +33,20 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         mainText.color = new Color(mainText.color.r, mainText.color.g, mainText.color.b, 0f);
         continueButton.SetActive(false);
 
-        if (GlobalDefaults.Instance.tutorialIsOn)
-        {
-            blueButton = GameObject.Find("BlueButton");
-            redButton = GameObject.Find("RedButton");
-            neutralButton = GameObject.Find("NeutralButton");
+        blueButton = GameObject.Find("BlueButton");
+        redButton = GameObject.Find("RedButton");
+        neutralButton = GameObject.Find("NeutralButton");
+    }
 
-            gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            displayTutorialScreenData();
-            totalNumberOfTutorialScreens = HiddenBoardTutorialData.numberOfScreens;
-        }
+    public void beginTutorial()
+    {
+        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        displayTutorialScreenData();
+        totalNumberOfTutorialScreens = HiddenBoardTutorialData.numberOfScreens;
+
+        redButton.GetComponent<Button>().enabled = false;
+        blueButton.GetComponent<Button>().enabled = false;
+        neutralButton.GetComponent<Button>().enabled = false;
     }
 
     public void turnTutorialOff()
@@ -93,7 +97,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         }
     }
 
-    void displayTutorialScreenData()
+    public void displayTutorialScreenData()
     {
         mainText.DOFade(0, 0.7f).Play().OnComplete(() =>
             {            
@@ -124,7 +128,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             moveBlueButton.SetLoops(-1, LoopType.Yoyo);
 
             continueButton.SetActive(false);
-            continueButton.GetComponent<Text>().DOFade(0, 0.7f).Play();
+
+            pressToContinueText.GetComponent<Text>().DOFade(0, 0.7f).Play();
         }
 
         if(tutorialIndexNumber == 2)
@@ -132,7 +137,9 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             moveBlueButton.Kill(true);
             
             blueButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-            continueButton.GetComponent<Text>().DOFade(1, 0.7f).Play();
+            
+            pressToContinueText.GetComponent<Text>().DOFade(1, 0.7f).Play();
+
             highlightText();
             placeCircleImageOnBottom();
         }

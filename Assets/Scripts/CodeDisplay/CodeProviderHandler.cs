@@ -8,6 +8,8 @@ public class CodeProviderHandler : MonoBehaviour
 {
     public InputField codeInput;
     public HiddenBoardNetworkingClient hiddenBoardNetworkingClient;
+    public TutorialHiddenBoardScript tutorialHiddenBoardScript;
+    
     public GameObject errorMessage;
     public Button confirmCodeButton; 
     public GameObject spinner; 
@@ -17,6 +19,9 @@ public class CodeProviderHandler : MonoBehaviour
     private bool searchingForRoomTimedOut = false;
 
     private string code; 
+
+    [HideInInspector]
+    public bool mainBoardRunningTutorial = false; 
 
     private void Awake() {
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
@@ -101,6 +106,14 @@ public class CodeProviderHandler : MonoBehaviour
         gameObject.GetComponent<RectTransform>().DOAnchorPosY(-3000, 1f, false);
         searchingForRoom = false;
         resetSearchingTimer();
+
+        print("on joined room callback received");
+
+        if(mainBoardRunningTutorial)
+        {
+            print("starting up tutorial");
+            tutorialHiddenBoardScript.beginTutorial();
+        }
     }
 
     private void displaySearchingGameUI()

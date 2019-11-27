@@ -45,6 +45,9 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
                 hiddenBoardViewController.neutralWords = initialGameState.neutralCards;
                 hiddenBoardViewController.shipwreckCardText.text = initialGameState.shipwreckCard[0];
                 hiddenBoardViewController.getTextObjectSize();
+
+                codeProviderHandler.mainBoardRunningTutorial = initialGameState.isTutorial;
+                codeProviderHandler.onJoinedRoom();
             }
         });
 
@@ -62,10 +65,6 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
             if(currentGameState != CurrentGameState.gameInPlay)
                 hiddenBoardViewController.gameStateChanged(currentGameState);
             
-        });
-
-        On("joinedRoom", (E) => {
-            codeProviderHandler.onJoinedRoom();
         });
     }
 

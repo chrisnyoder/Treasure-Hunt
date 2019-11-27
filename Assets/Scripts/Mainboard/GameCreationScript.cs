@@ -28,6 +28,7 @@ public class GameCreationScript : MonoBehaviour
         boardLayoutScript.receiveGameStateObject(initialGameState);
 
         var initialGameStateAsObject = initialGameState.initialGameStateAsObject;
+
         networkingClient.initialGameState = initialGameStateAsObject;
         codeDisplayHandler.displayWaitingForGameIndicator();
 

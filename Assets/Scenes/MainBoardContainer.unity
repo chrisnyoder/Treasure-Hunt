@@ -6080,7 +6080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f2c235320dd4a1da16f83fa46253c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket
+  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
@@ -6913,7 +6913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.1653333
+  m_AspectRatio: 0.4618227
 --- !u!95 &1594670875
 Animator:
   serializedVersion: 3
@@ -18308,7 +18308,7 @@ PrefabInstance:
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
@@ -18339,16 +18339,16 @@ PrefabInstance:
         type: 3}
       propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 255411793082031486}
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: purchaseFulfilled
       objectReference: {fileID: 0}
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 858469839877463285, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
@@ -18482,6 +18482,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73c025780a45e4c10b1ef21ffc1b33ba, type: 3}
+--- !u!114 &255411793082031486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2329785912880671855, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 255411793082031485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64876750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76dad59c8072482d952af09c74e61f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &986787344918841441 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 986787344918841441, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
