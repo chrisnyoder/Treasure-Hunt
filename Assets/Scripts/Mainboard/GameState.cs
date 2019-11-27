@@ -34,7 +34,7 @@ public class GameState
 
     public GameState(int numberOfCards, List<WordPackProduct> wordPacksToUse)
     {
-        
+        initialGameStateAsObject.isTutorial = GlobalDefaults.Instance.tutorialIsOn;
         this.numberOfCards = numberOfCards;
 
         if (numberOfCards == 25)

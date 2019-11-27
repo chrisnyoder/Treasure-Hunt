@@ -47,8 +47,6 @@ public class MainBoardNetworkingClient : SocketIOComponent
         {
             if(!dictionarySent)
             {
-                foreach(var card in initialGameState.blueCards){ print(card);} ;
-                print("dictionary sent is false");
                 sendDictionary();
                 dictionarySent = true;
             }
@@ -109,14 +107,6 @@ public class MainBoardNetworkingClient : SocketIOComponent
 
         On("register", (e) => {print("register callback received"); } );
     }
-
-    // public void sendDictionary(DictionaryAsObject initialGameState)
-    // {
-    //     var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
-    //     sendWordSelected();
-
-    //     Emit("gameDictionary", gameStateAsJSONObject);
-    // }
 
     public void sendDictionary()
     {

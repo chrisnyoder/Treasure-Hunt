@@ -19,7 +19,7 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public Text shipwreckCardText;
 
-    private Tabs tabSelected = Tabs.BlueTab;
+    private Tabs tabSelected;
     private int numberOfWordObjectsToBeCreated;
     private List<string> wordList;
 
@@ -56,18 +56,10 @@ public class HiddenBoardViewController : MonoBehaviour
         blueButtonInitialPos = blueButton.GetComponent<RectTransform>().anchoredPosition;
         redButtonInitialPos = redButton.GetComponent<RectTransform>().anchoredPosition;
         neutralButtonInitialPos = neutralButton.GetComponent<RectTransform>().anchoredPosition;
-
-        if(GlobalDefaults.Instance.tutorialIsOn)
-        {
-            redButton.enabled = false;
-            blueButton.enabled = false;
-            neutralButton.enabled = false;
-        } 
     }
 
     public void initializeHiddenBoard()
     {   
-        
         redWords = new List<string>(){"searching"};
         blueWords = new List<string>(){"searching"};
         neutralWords = new List<string>(){"searching"};
@@ -78,6 +70,9 @@ public class HiddenBoardViewController : MonoBehaviour
         wordList = redWords;
         textObjects = new List<GameObject>() {};
         textPositions = new List<RectTransform>(){};
+
+        tabSelected = Tabs.RedTab;
+        animateTab(Tabs.RedTab);
 
         getTextObjectSize();
     }
