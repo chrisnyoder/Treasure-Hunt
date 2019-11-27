@@ -89,13 +89,8 @@ public class CodeDisplayHandler : MonoBehaviour
         connectionCode = receivedConnectionCode;
         gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta = initialTextBoxSize;
 
-        if(!_tutorialIsOn)
-        {
-            gameIdText.text = ("Game ID: " + receivedConnectionCode);
-        } else 
-        {
-            gameObject.SetActive(false);
-        }
+        gameIdText.text = ("Game ID: " + receivedConnectionCode);
+
     }
 
     private void setTimeOutTimer()
