@@ -9,27 +9,21 @@ using UnityEngine.UI;
 public class InfoScript : MonoBehaviour 
 {
     public Image musicImage;
+    public Image tutorialImage;
 
     public Sprite musicOn;
     public Sprite musicOff;
 
     private AudioSource backgroundMusic; 
+    private bool tutorialOn;
 
     private void Start() 
     {
         backgroundMusic = GlobalAudioScript.Instance.GetComponents<AudioSource>()[2];
+        tutorialOn = GlobalDefaults.Instance.tutorialIsOn;
+        
         selectCorrectMusicIcon();
-    }
-
-    private void selectCorrectMusicIcon()
-    {
-        if (backgroundMusic.enabled)
-        {
-                musicImage.sprite = musicOn;
-        } else 
-        {
-            musicImage.sprite = musicOff;
-        }
+        selectCorrectTutorialIcon();
     }
 
     private string MyEscapeURL(string URL)
@@ -49,6 +43,50 @@ public class InfoScript : MonoBehaviour
 
         GlobalAudioScript.Instance.playSfxSound("togglePack2");
         selectCorrectMusicIcon();
+    }
+
+    private void selectCorrectMusicIcon()
+    {
+        if (backgroundMusic.enabled)
+        {
+            musicImage.sprite = musicOn;
+        }
+        else
+        {
+            musicImage.sprite = musicOff;
+        }
+    }
+
+    public void toggleTutorial()
+    {
+        if(GlobalDefaults.Instance.tutorialIsOn)
+        {
+            print("tutorial is on, turning off");
+            GlobalDefaults.Instance.tutorialIsOn = false;
+        } else 
+        {
+            print("tutorial is off, turning on");
+            GlobalDefaults.Instance.tutorialIsOn = true;
+        }
+        
+        GlobalAudioScript.Instance.playSfxSound("togglePack2");
+        selectCorrectTutorialIcon();
+    }
+
+    private void selectCorrectTutorialIcon()
+    {
+        if (GlobalDefaults.Instance.tutorialIsOn)
+        {
+            print("changing images to music on");
+            tutorialImage.sprite = musicOn;
+            tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/music_icon");
+        }
+        else
+        {
+            print("changing images to music off");
+            tutorialImage.sprite = musicOff;
+            tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/music");
+        }
     }
 
     public void contactFriendlyPixel()
