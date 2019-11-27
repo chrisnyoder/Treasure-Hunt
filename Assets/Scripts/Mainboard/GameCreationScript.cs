@@ -34,6 +34,11 @@ public class GameCreationScript : MonoBehaviour
         var storeCanvasAnimator = GameObject.Find("StoreCanvas").GetComponent<Animator>();
         storeCanvasAnimator.Play("StoreCanvasAnimation");
         GlobalAudioScript.Instance.playSfxSound("openMenu");
+
+        if(GlobalDefaults.Instance.tutorialIsOn) 
+        {
+            codeDisplayHandler.gameObject.SetActive(false);
+        }
     }
 
     public void checkIfAtLeastOneWordPack()
