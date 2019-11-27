@@ -2841,7 +2841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d944b64859324fda9f221fc2858921e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80//socket.io/?EIO=4&transport=websocket
+  url: ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800

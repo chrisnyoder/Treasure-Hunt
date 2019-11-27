@@ -8,7 +8,8 @@ public class CodeDisplayHandler : MonoBehaviour
 {
     
     private GameObject codeDisplayBackground; 
-    private string connectionCode = "";
+    public string connectionCode = "";
+    private bool _tutorialIsOn; 
 
     public GameObject listOfJoinedPlayersDisplay;
     private List<GameObject> listOfJoinedPlayerObjects = new List<GameObject> {};
@@ -20,17 +21,18 @@ public class CodeDisplayHandler : MonoBehaviour
     public GameObject beginButton;
     public GameObject goBackButton;
 
-    private bool codeRecieved = false;
+    public bool codeRecieved = false;
     private float waitingForCodeTimeOutTimer;
     private bool waitingForCodeTimedOut = false;
 
     void Start()
-    {
+    {    
+        checkIfTutorialOn();
         initialTextBoxSize = gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta;
         playerTag.SetActive(false);
         setTimeOutTimer();
         spinner.SetActive(false);
-        beginButton.SetActive(true);
+        setBeginGameButtonToActive();
         goBackButton.SetActive(false);
     }
 
@@ -81,13 +83,20 @@ public class CodeDisplayHandler : MonoBehaviour
     {
         codeRecieved = true;
         waitingForCodeTimedOut = false;
-        beginButton.SetActive(true);
+        setBeginGameButtonToActive();
         goBackButton.SetActive(false);
         setTimeOutTimer();
 
         connectionCode = receivedConnectionCode;
         gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta = initialTextBoxSize;
-        gameIdText.text = ("Game ID: " + receivedConnectionCode);
+
+        if(!_tutorialIsOn)
+        {
+            gameIdText.text = ("Game ID: " + receivedConnectionCode);
+        } else 
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void setTimeOutTimer()
@@ -110,5 +119,17 @@ public class CodeDisplayHandler : MonoBehaviour
             playerTagClone.GetComponent<Text>().text = ("Player " + i + " joined");
             listOfJoinedPlayerObjects.Add(playerTagClone);
         }
+    }
+
+    private void checkIfTutorialOn()
+    {
+        if(GlobalDefaults.Instance.tutorialIsOn)
+            _tutorialIsOn = true;
+    }
+
+    private void setBeginGameButtonToActive()
+    {
+        if(!GlobalDefaults.Instance.tutorialIsOn)
+            beginButton.SetActive(true);
     }
 }

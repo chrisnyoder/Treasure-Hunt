@@ -105,11 +105,16 @@ public class StoreLayoutScript : MonoBehaviour
         ParticleSystem particles = wordPackClone.transform.GetChild(0).GetComponentInChildren<ParticleSystem>();
         var em = particles.emission;
         
-        var wordPackData = wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct;
-        
+        var wordPackData = wordPackClone.GetComponent<StoreButtonHandler>().wordPackProduct;  
         Text price = wordPackClone.GetComponentInChildren<Text>();
         
         price.enabled = false;
+
+
+        if (GlobalDefaults.Instance.tutorialIsOn && wordPackData.wordPackProductIdentifier == "initialWordList")
+        {
+            wordPackData.state = ProductState.enabled;
+        }
 
         switch (wordPackData.state)
         {

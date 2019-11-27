@@ -11,6 +11,7 @@ public class TutorialMainScreenScript : MonoBehaviour
 
     private Vector2 initialCircleImageSize; 
     private Vector3 initialCircleImagePos; 
+    private Vector2 initialVerticalLayoutGroupSize; 
     private Vector3 initialVerticalLayoutGroupPos; 
     private Vector2 initialMinAnchorsForImageCircle;
     private Vector2 initialMaxAnchorsForImageCircle;
@@ -19,9 +20,11 @@ public class TutorialMainScreenScript : MonoBehaviour
     private Vector2 initialMinAnchorsForStarterPack;
     private Vector2 initialMaxAnchorsForStarterPack;
 
+    public GameObject spinner; 
     public Text titleText;
     public Text mainText; 
     public Text continueText; 
+    public GameObject continueButton;
     public GameObject exitTutorialButton; 
 
     public GameObject tutorialCircleImage;
@@ -30,21 +33,28 @@ public class TutorialMainScreenScript : MonoBehaviour
     private RectTransform tutorialCircleImageRT; 
     private RectTransform verticalLayoutGroupRT; 
 
+    public GameObject codeDisplayCanvas; 
     public GameObject groupImage; 
     public GameObject gameCreation;
     public GameObject currentCanvas; 
 
     public GameObject backgroundCanvas;  
 
+    public Text gameCode; 
+
     void Start()
     {
         groupImage.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        spinner.SetActive(false);
+        gameCode.gameObject.SetActive(false);
+        gameCode.color = new Color(gameCode.color.r, gameCode.color.g, gameCode.color.b, 0);
 
         tutorialCircleImageRT = tutorialCircleImage.GetComponent<RectTransform>();
         verticalLayoutGroupRT = verticalLayoutGroup.GetComponent<RectTransform>();    
 
         initialCircleImageSize = tutorialCircleImageRT.sizeDelta;
         initialCircleImagePos = tutorialCircleImageRT.anchoredPosition3D;
+        initialVerticalLayoutGroupSize = verticalLayoutGroupRT.sizeDelta;
         initialVerticalLayoutGroupPos = verticalLayoutGroupRT.anchoredPosition3D;
 
         initialMinAnchorsForImageCircle = tutorialCircleImageRT.anchorMin;
@@ -113,7 +123,7 @@ public class TutorialMainScreenScript : MonoBehaviour
 
         mainText.DOFade(0, 0.5f).Play().OnComplete(() => 
             {
-                mainText.text = tutorialScreenData.mainText; 
+                mainText.text = tutorialScreenData.mainText;
                 mainText.DOFade(1, 0.5f).Play();
             }
         );
@@ -122,7 +132,7 @@ public class TutorialMainScreenScript : MonoBehaviour
             {
                 continueText.text = "<Tap to continue>";
 
-                if(tutorialIndexNumber == 5)
+                if(tutorialIndexNumber == (TutorialMainScreenData.numberOfScreens-1))
                 {
                     continueText.text = "<Tap to exit>";
                 }
@@ -130,11 +140,16 @@ public class TutorialMainScreenScript : MonoBehaviour
             }
         );
 
+        if(tutorialIndexNumber == 5)
+        {
+            gameCode.DOFade(1, 1f).Play();
+        }
+
         currentCanvas = GameObject.Find(tutorialScreenData.referenceCanvas);
-        hideBackGroundObjects(tutorialScreenData.referenceCanvas);
+        animateTutorialScreens(tutorialScreenData.referenceCanvas);
     }
 
-    private void hideBackGroundObjects(string canvasName)
+    private void animateTutorialScreens(string canvasName)
     {
         if(canvasName == "StoreCanvas")
         {   
@@ -158,6 +173,17 @@ public class TutorialMainScreenScript : MonoBehaviour
                 initialWordList.GetComponent<RectTransform>().anchorMin = new Vector2(0.065f, 0.5f);
                 initialWordList.GetComponent<RectTransform>().anchorMax = new Vector2(0.065f, 0.5f);     
             }
+
+            if(tutorialIndexNumber == 3)
+            {
+                var initialWordList = gameObject.transform.Find("initialWordList");
+                initialWordList.SetParent(this.storeCollectionView.transform);
+
+                initialWordList.GetComponent<RectTransform>().anchorMin = initialMinAnchorsForStarterPack;
+                initialWordList.GetComponent<RectTransform>().anchorMax = initialMaxAnchorsForStarterPack;
+
+                makeTutorialCircleImageBig();
+            }
         }
 
         if(canvasName == "MainBoardCanvas")
@@ -165,42 +191,85 @@ public class TutorialMainScreenScript : MonoBehaviour
             backgroundCanvas.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             gameObject.GetComponent<Image>().enabled = false;
 
-            if(tutorialIndexNumber == 3)
-            {
-                var gameCreationScript = gameCreation.GetComponent<GameCreationScript>();
-                gameCreationScript.generateGameState();
-
-                var initialWordList = gameObject.transform.Find("initialWordList");
-                initialWordList.SetParent(this.storeCollectionView.transform);
-
-                initialWordList.GetComponent<RectTransform>().anchorMin = initialMinAnchorsForStarterPack;
-                initialWordList.GetComponent<RectTransform>().anchorMax = initialMaxAnchorsForStarterPack;
-            }
-
             if(tutorialIndexNumber == 4)
             {
-                tutorialCircleImageRT.DOAnchorMin(new Vector2(0.5f, 0.5f), 0.7f, false);
-                tutorialCircleImageRT.DOAnchorMax(new Vector2(0.5f, 0.5f), 0.7f, false);
-                tutorialCircleImageRT.DOSizeDelta(new Vector2(5000, 5000), 0.7f, false);
-
-                tutorialCircleImageRT.DOAnchorPos(new Vector2(0, 0), 0.7f, false);
-                verticalLayoutGroupRT.DOAnchorPos(new Vector2(0, 0), 0.7f, false);
-
-            } else 
-            {
-
-                tutorialCircleImageRT.DOAnchorMin(initialMinAnchorsForImageCircle, 0.7f, false);
-                tutorialCircleImageRT.DOAnchorMax(initialMaxAnchorsForImageCircle, 0.7f, false);
-                tutorialCircleImageRT.DOSizeDelta(initialCircleImageSize, 0.7f, false);
-
-                tutorialCircleImageRT.DOAnchorPos(initialCircleImagePos, 0.7f, false);
-                verticalLayoutGroupRT.DOAnchorPos(initialVerticalLayoutGroupPos, 0.7f, false);
+                StartCoroutine(generateGameAnimation());
             }
 
             if(tutorialIndexNumber == 5)
             {
+                var gameCreationScript = gameCreation.GetComponent<GameCreationScript>();
+                gameCreationScript.generateGameState();
+                verticalLayoutGroupRT.sizeDelta = initialVerticalLayoutGroupSize * 1.3f;
+            }
+
+            if(tutorialIndexNumber == 6)
+            {
+                gameCode.gameObject.SetActive(false);
+                verticalLayoutGroupRT.sizeDelta = initialVerticalLayoutGroupSize;
+                makeTutorialCircileImageSmall();
+            }
+
+            if(tutorialIndexNumber == 7)
+            {
                 exitTutorialButton.SetActive(false);   
             }
         }
+    }
+
+    IEnumerator generateGameAnimation()
+    {
+        continueButton.SetActive(false);
+        continueText.enabled = false;
+
+        spinner.SetActive(true);
+        var anim = spinner.GetComponent<RectTransform>().DORotate(new Vector3(0, 0, -360), 3f, RotateMode.FastBeyond360);
+        anim.SetLoops(-1, LoopType.Incremental);
+        anim.Play();
+
+        yield return new WaitForSeconds(2.5f);
+        
+        spinner.GetComponent<Image>().DOFade(0, 0.5f).Play().OnComplete( () => {spinner.SetActive(false); } );
+
+        checkIfCodeReceived();
+    }
+
+    private void checkIfCodeReceived()
+    {
+        bool codeReceived = codeDisplayCanvas.GetComponent<CodeDisplayHandler>().codeRecieved; 
+        if(codeReceived) 
+        {
+            gameCode.text = codeDisplayCanvas.GetComponent<CodeDisplayHandler>().connectionCode;
+            gameCode.gameObject.SetActive(true);
+            continueButton.SetActive(true);
+            continueText.enabled = true;
+            tutorialIndexNumber += 1;
+            displayTutorialScreenData();
+
+        } else
+        {
+            mainText.text = "We couldn't get a game ID. This might be a problem with our server or your internet connection";   
+        }
+    }
+
+
+    private void makeTutorialCircleImageBig()
+    {
+        tutorialCircleImageRT.DOAnchorMin(new Vector2(0.5f, 0.5f), 0.7f, false);
+        tutorialCircleImageRT.DOAnchorMax(new Vector2(0.5f, 0.5f), 0.7f, false);
+        tutorialCircleImageRT.DOSizeDelta(new Vector2(5000, 5000), 0.7f, false);
+
+        tutorialCircleImageRT.DOAnchorPos(new Vector2(0, 0), 0.7f, false);
+        verticalLayoutGroupRT.DOAnchorPos(new Vector2(0, 0), 0.7f, false);
+    }
+
+    private void makeTutorialCircileImageSmall()
+    {
+        tutorialCircleImageRT.DOAnchorMin(initialMinAnchorsForImageCircle, 0.7f, false);
+        tutorialCircleImageRT.DOAnchorMax(initialMaxAnchorsForImageCircle, 0.7f, false);
+        tutorialCircleImageRT.DOSizeDelta(initialCircleImageSize, 0.7f, false);
+
+        tutorialCircleImageRT.DOAnchorPos(initialCircleImagePos, 0.7f, false);
+        verticalLayoutGroupRT.DOAnchorPos(initialVerticalLayoutGroupPos, 0.7f, false);
     }
 }
