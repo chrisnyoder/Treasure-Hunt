@@ -8,6 +8,7 @@ public class BoardLayoutScript : MonoBehaviour
     private bool isTablet = false; 
     private float totalSpacing; 
 
+    public CodeTabScript codeTabScript;
     public Canvas mainBoard;
     public Canvas eogBoard;
     public GameObject buttonParentObject;
@@ -190,5 +191,10 @@ public class BoardLayoutScript : MonoBehaviour
             }
             buttonParentObject.SetActive(false);
         }
+    }
+
+    public void setCodeTabToActive()
+    {
+        codeTabScript.showTab();
     }
 }

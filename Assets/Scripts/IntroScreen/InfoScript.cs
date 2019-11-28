@@ -77,14 +77,10 @@ public class InfoScript : MonoBehaviour
     {
         if (GlobalDefaults.Instance.tutorialIsOn)
         {
-            print("changing images to music on");
-            tutorialImage.sprite = musicOn;
             tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/music_icon");
         }
         else
         {
-            print("changing images to music off");
-            tutorialImage.sprite = musicOff;
             tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/music");
         }
     }

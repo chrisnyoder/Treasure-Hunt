@@ -54,8 +54,8 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
                 hiddenBoardViewController.redWords = initialGameState.redCards;
                 hiddenBoardViewController.neutralWords = initialGameState.neutralCards;
                 hiddenBoardViewController.shipwreckCardText.text = initialGameState.shipwreckCard[0];
-                hiddenBoardViewController.startTab(tab);
                 hiddenBoardViewController.getTextObjectSize();
+                hiddenBoardViewController.startTab(tab);
 
                 codeProviderHandler.mainBoardRunningTutorial = initialGameState.isTutorial;
                 
