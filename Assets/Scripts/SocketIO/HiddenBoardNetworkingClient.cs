@@ -11,6 +11,9 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
     public HiddenBoardViewController hiddenBoardViewController; 
     public CodeProviderHandler codeProviderHandler;
 
+    private Team team = Team.BlueTeam;
+    private Tabs tab = Tabs.BlueTab;
+
     public override void Start()
     {
         base.Start();
@@ -40,14 +43,23 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
 
             if(initialGameState.blueCards.Count > 0 ) 
             {
+
+                if (initialGameState.playerIndex == 1)
+                {
+                    team = Team.RedTeam;
+                    tab = Tabs.BlueTab;
+                }
+
                 hiddenBoardViewController.blueWords = initialGameState.blueCards;
                 hiddenBoardViewController.redWords = initialGameState.redCards;
                 hiddenBoardViewController.neutralWords = initialGameState.neutralCards;
                 hiddenBoardViewController.shipwreckCardText.text = initialGameState.shipwreckCard[0];
                 hiddenBoardViewController.getTextObjectSize();
+                hiddenBoardViewController.startTab(tab);
 
                 codeProviderHandler.mainBoardRunningTutorial = initialGameState.isTutorial;
-                codeProviderHandler.onJoinedRoom();
+                
+                codeProviderHandler.onJoinedRoom(team);
             }
         });
 

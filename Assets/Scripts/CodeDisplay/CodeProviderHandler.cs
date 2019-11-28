@@ -100,19 +100,16 @@ public class CodeProviderHandler : MonoBehaviour
         searchingForRoom = true;
     }
 
-    public void onJoinedRoom()
+    public void onJoinedRoom(Team team)
     {
         confirmCodeButton.interactable = true;
         gameObject.GetComponent<RectTransform>().DOAnchorPosY(-3000, 1f, false);
         searchingForRoom = false;
         resetSearchingTimer();
 
-        print("on joined room callback received");
-
         if(mainBoardRunningTutorial)
         {
-            print("starting up tutorial");
-            tutorialHiddenBoardScript.beginTutorial();
+            tutorialHiddenBoardScript.beginTutorial(team);
         }
     }
 

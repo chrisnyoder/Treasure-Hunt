@@ -12,5 +12,8 @@ public class DictionaryAsObject
 
     public bool isTutorial = false;
 
+    // value populated server side, determines teams
+    public int playerIndex = 0;
+
     public string langaugeSelected = ""; 
 }

@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 public class MainBoardNetworkingClient : SocketIOComponent
 {
 
+    public CodeTabScript codeTab;
     [HideInInspector]
     public WordsSelectedAsObject wordsSelectedAsObject;
     [HideInInspector]
@@ -90,6 +91,7 @@ public class MainBoardNetworkingClient : SocketIOComponent
         {
             connectionCodeAsObject = JsonUtility.FromJson<ConnectionCodeAsObject>(room.data.ToString());
             codeDisplayHandler.displayConnectionCode(connectionCodeAsObject.roomId);
+            codeTab.updateConnectionCode(connectionCodeAsObject.roomId);
         });
 
         On("numberOfPlayersInRoomChanged", (players) => 

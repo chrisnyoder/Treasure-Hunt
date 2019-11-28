@@ -71,10 +71,13 @@ public class HiddenBoardViewController : MonoBehaviour
         textObjects = new List<GameObject>() {};
         textPositions = new List<RectTransform>(){};
 
-        tabSelected = Tabs.RedTab;
-        animateTab(Tabs.RedTab);
-
         getTextObjectSize();
+    }
+
+    public void startTab(Tabs tab)
+    {
+        tabSelected = tab;
+        animateTab(tab);
     }
 
     // entry for recreating text objects on the scroll 

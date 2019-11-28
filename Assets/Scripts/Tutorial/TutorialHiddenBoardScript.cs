@@ -4,10 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
+public enum Team
+{
+    RedTeam, 
+    BlueTeam
+}
+
 public class TutorialHiddenBoardScript : MonoBehaviour
 {
     private int tutorialIndexNumber = 0; 
     private int totalNumberOfTutorialScreens; 
+    private Team team;
     private Tween moveBlueButton; 
 
     public GameObject titleText; 
@@ -38,7 +45,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         neutralButton = GameObject.Find("NeutralButton");
     }
 
-    public void beginTutorial()
+    public void beginTutorial(Team team)
     {
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         displayTutorialScreenData();
