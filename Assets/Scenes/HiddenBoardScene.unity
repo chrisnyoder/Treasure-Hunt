@@ -2366,7 +2366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7786666
+  m_AspectRatio: 0.5622189
 --- !u!114 &1075341245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2865,7 +2865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   url: ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket
-  autoConnect: 0
+  autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
   pingInterval: 20
@@ -4227,6 +4227,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 499873877}
         m_MethodName: selectRedTab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1610543763}
+        m_MethodName: continueTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -6,37 +6,39 @@ using DG.Tweening;
 
 public enum Team
 {
-    RedTeam, 
+    RedTeam,
     BlueTeam
 }
 
 public class TutorialHiddenBoardScript : MonoBehaviour
 {
-    private int tutorialIndexNumber = 0; 
-    private int totalNumberOfTutorialScreens; 
-    private Team team;
-    private Tween moveBlueButton; 
+    private int tutorialIndexNumber = 0;
+    private int totalNumberOfTutorialScreens;
+    private Team _team;
+    private Tween moveButton;
+    private HiddenBoardTutorialData tutorialScreenData;
 
-    public GameObject titleText; 
+    public GameObject titleText;
     public Text mainText;
-    public GameObject pressToContinueText; 
+    public GameObject pressToContinueText;
 
-    public GameObject backgroundCanvas; 
-    public GameObject backToMainMenuButton; 
+    public GameObject backgroundCanvas;
+    public GameObject backToMainMenuButton;
     public GameObject scrollPanel;
-    public GameObject continueButton; 
+    public GameObject continueButton;
     public GameObject skipTutorialButton;
-    public GameObject circleImage; 
-    public GameObject verticalLayoutGroup; 
+    public GameObject circleImage;
+    public GameObject verticalLayoutGroup;
 
-    public GameObject blueButton; 
+    public GameObject blueButton;
     public GameObject redButton;
     public GameObject neutralButton;
 
+    private GameObject tabToMove;
+
     void Start()
     {
-        var tutorialScreenData = new HiddenBoardTutorialData(tutorialIndexNumber);
-        mainText.text = tutorialScreenData.mainText;
+
         mainText.color = new Color(mainText.color.r, mainText.color.g, mainText.color.b, 0f);
         continueButton.SetActive(false);
 
@@ -47,6 +49,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     public void beginTutorial(Team team)
     {
+        this._team = team;
+
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         displayTutorialScreenData();
         totalNumberOfTutorialScreens = HiddenBoardTutorialData.numberOfScreens;
@@ -70,7 +74,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         redButton.GetComponent<Button>().enabled = true;
         neutralButton.GetComponent<Button>().enabled = true;
 
-        moveBlueButton.Kill(true);
+        moveButton.Kill(true);
 
         foreach (Image image in images)
         {
@@ -98,7 +102,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         if (tutorialIndexNumber < totalNumberOfTutorialScreens && gameObject.activeSelf == true)
         {
             displayTutorialScreenData();
-        } else 
+        }
+        else
         {
             turnTutorialOff();
         }
@@ -107,64 +112,70 @@ public class TutorialHiddenBoardScript : MonoBehaviour
     public void displayTutorialScreenData()
     {
         mainText.DOFade(0, 0.7f).Play().OnComplete(() =>
-            {            
-                var tutorialScreenData = new HiddenBoardTutorialData(tutorialIndexNumber);
+            {
+                tutorialScreenData = new HiddenBoardTutorialData(tutorialIndexNumber, _team);
                 mainText.text = tutorialScreenData.mainText;
                 mainText.DOFade(1, 0.7f).Play();
             }
         );
 
         shadeImages();
-        if(tutorialIndexNumber == 0)
+        if (tutorialIndexNumber == 0)
         {
             placeCircleImageOnTheSide();
         }
 
-        if(tutorialIndexNumber == 1)
+        if (tutorialIndexNumber == 1)
         {
-            titleText.GetComponent<Text>().DOFade(0, 0.5f).Play().OnComplete(() => 
-                { 
-                    Destroy(titleText); 
+            titleText.GetComponent<Text>().DOFade(0, 0.5f).Play().OnComplete(() =>
+                {
+                    Destroy(titleText);
                 }
             );
 
-            blueButton.GetComponent<Image>().color = new Color32 (255, 255, 255, 255);
-            blueButton.GetComponent<Button>().enabled = true;
-            moveBlueButton = blueButton.GetComponent<RectTransform>().DOAnchorPosY(blueButton.GetComponent<RectTransform>().anchoredPosition.y - 50, 0.6f, false);
-            moveBlueButton.SetEase(Ease.Linear);
-            moveBlueButton.SetLoops(-1, LoopType.Yoyo);
+            tabToMove = blueButton;
+
+            if (_team == Team.RedTeam)
+                tabToMove = redButton;
+
+            tabToMove.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            tabToMove.GetComponent<Button>().enabled = true;
+            moveButton = tabToMove.GetComponent<RectTransform>().DOAnchorPosY(tabToMove.GetComponent<RectTransform>().anchoredPosition.y - 40, 0.6f, false);
+            moveButton.SetEase(Ease.Linear);
+            moveButton.SetLoops(-1, LoopType.Yoyo);
 
             continueButton.SetActive(false);
 
             pressToContinueText.GetComponent<Text>().DOFade(0, 0.7f).Play();
         }
 
-        if(tutorialIndexNumber == 2)
+        if (tutorialIndexNumber == 2)
         {
-            moveBlueButton.Kill(true);
-            
-            blueButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-            
+            moveButton.Kill(true);
+
+            tabToMove.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
             pressToContinueText.GetComponent<Text>().DOFade(1, 0.7f).Play();
 
             highlightText();
             placeCircleImageOnBottom();
         }
 
-        if(tutorialIndexNumber == 3)
+        if (tutorialIndexNumber == 3)
         {
             placeCircleImageOnTheSide();
         }
-        
-        if(tutorialIndexNumber == 4 || tutorialIndexNumber == 5)
+
+        if (tutorialIndexNumber == 4 || tutorialIndexNumber == 5)
         {
             var texts = scrollPanel.GetComponentsInChildren<Text>();
             foreach (Text text in texts)
             {
-                if(text.text == "Saturn" || text.text == "satellite")
+                if (text.text == "Saturn" || text.text == "satellite")
                 {
                     text.color = new Color32(255, 255, 255, 255);
-                } else 
+                }
+                else
                 {
                     text.color = new Color32(255, 255, 255, 120);
                 }
@@ -172,7 +183,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             placeCircleImageOnBottom();
         }
 
-        if(tutorialIndexNumber == 6)
+        if (tutorialIndexNumber == 6)
         {
             placeCircleImageOnTheSide();
             highlightButtons();
@@ -185,7 +196,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             placeCircleImageOnTop();
         }
 
-        if(tutorialIndexNumber == 8)
+        if (tutorialIndexNumber == 8)
         {
             placeCircleImageOnTheSide();
             var dangerImage = GameObject.Find("DangerImage");
@@ -201,7 +212,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             var dangerText = GameObject.Find("DangerText");
             dangerText.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
             skipTutorialButton.SetActive(false);
-            pressToContinueText.GetComponent<LayoutElement>().minHeight = 200; 
+            pressToContinueText.GetComponent<LayoutElement>().minHeight = 200;
             pressToContinueText.GetComponent<Text>().text = "press anywhere to exit";
         }
     }
@@ -234,7 +245,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         tween.OnComplete(() =>
         {
-            if(tutorialIndexNumber != 1)
+            if (tutorialIndexNumber != 1)
                 continueButton.SetActive(true);
         });
     }
@@ -245,11 +256,11 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -590), 1f, false);
         var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(950, 270), 1f, false);
 
-        if(GlobalDefaults.Instance.isTablet)
+        if (GlobalDefaults.Instance.isTablet)
         {
             tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1280), 1f, false);
             tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -650), 1f, false);
-            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(720, 270), 1f, false);   
+            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(720, 270), 1f, false);
         }
 
         tween.Play();
@@ -268,8 +279,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-30, 390), 1f, false);
         var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(870, 520), 1f, false);
 
-        if(GlobalDefaults.Instance.isTablet)
-        {            
+        if (GlobalDefaults.Instance.isTablet)
+        {
             tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-30, 540), 1f, false);
             tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(870, 270), 1f, false);
         }
@@ -278,7 +289,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         tween2.Play();
         tween3.Play();
 
-        tween.OnComplete(() => 
+        tween.OnComplete(() =>
         {
             continueButton.SetActive(true);
         });
@@ -289,21 +300,22 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         backgroundCanvas.GetComponent<Image>().color = new Color32(90, 90, 90, 255);
         backToMainMenuButton.GetComponent<Image>().color = new Color32(90, 90, 90, 255);
 
-        var images = scrollPanel.GetComponentsInChildren<Image>(); 
+        var images = scrollPanel.GetComponentsInChildren<Image>();
         var texts = scrollPanel.GetComponentsInChildren<Text>();
 
-        foreach(Image image in images)
+        foreach (Image image in images)
         {
-            if(image.gameObject.name == "Panel")
+            if (image.gameObject.name == "Panel")
             {
                 image.color = new Color32(255, 255, 255, 0);
-            }else 
+            }
+            else
             {
                 image.color = new Color32(90, 90, 90, 255);
             }
         }
 
-        foreach(Text text in texts)
+        foreach (Text text in texts)
         {
             text.color = new Color32(90, 90, 90, 255);
         }
