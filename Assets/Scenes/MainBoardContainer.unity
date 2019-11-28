@@ -6321,7 +6321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f2c235320dd4a1da16f83fa46253c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket
+  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
@@ -7156,7 +7156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7786666
+  m_AspectRatio: 2.1653333
 --- !u!95 &1594670875
 Animator:
   serializedVersion: 3
