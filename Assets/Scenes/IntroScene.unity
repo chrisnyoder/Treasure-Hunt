@@ -6362,7 +6362,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ee0916da22571654583784ee4c4785dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52d542e0125d94944b01f9ea0961e82d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -12297,7 +12297,7 @@ MonoBehaviour:
   musicImage: {fileID: 516636314}
   tutorialImage: {fileID: 781504933}
   musicOn: {fileID: 21300000, guid: ee0916da22571654583784ee4c4785dd, type: 3}
-  musicOff: {fileID: 21300000, guid: d71c306a718f3424d82e3d312a6aef00, type: 3}
+  musicOff: {fileID: 21300000, guid: 8c6daba5e1675604bb0a7984ed2f9b78, type: 3}
 --- !u!95 &1968770671
 Animator:
   serializedVersion: 3

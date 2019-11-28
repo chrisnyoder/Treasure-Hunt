@@ -77,11 +77,11 @@ public class InfoScript : MonoBehaviour
     {
         if (GlobalDefaults.Instance.tutorialIsOn)
         {
-            tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/music_icon");
+            tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/tutorial_icon");
         }
         else
         {
-            tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/music");
+            tutorialImage.sprite = Resources.Load<Sprite>("Images/UIElements/tutorial_icon_off");
         }
     }
 
