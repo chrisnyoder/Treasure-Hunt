@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HiddenBoardScene.unity
     guid: c7543a4f5140547c984f4b450bbd7890
+  - enabled: 1
+    path: Assets/Scenes/JoinMainBoardContainer.unity
+    guid: 9682a0d7d1f4e462eb8b443426c7fd23
   m_configObjects: {}

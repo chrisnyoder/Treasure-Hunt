@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,9 +11,13 @@ public class UIManager : MonoBehaviour
 
     public Canvas backToMainMenuCanvas;
     public Canvas infoPopUp;
+    public Canvas joinGamePopUpCanvas;
+
+    private Vector2 initialJoinGamePopUpPos;
 
     public MainBoardNetworkingClient mainBoardNetworkingClient; 
     public HiddenBoardNetworkingClient hiddenBoardNetworkingClient;
+    public CrewNetworkingClient crewNetworkingClient;
 
     private void Start() 
     {
@@ -25,6 +30,20 @@ public class UIManager : MonoBehaviour
 
         GlobalAudioScript.Instance.playSfxSound("openMenu");
         SceneManager.LoadScene("MainBoardContainer");
+    }
+
+    public void bringUpJoinGamePopUp()
+    {
+        initialJoinGamePopUpPos = joinGamePopUpCanvas.GetComponent<RectTransform>().anchoredPosition;
+        joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f, false).SetEase(Ease.Linear).Play();
+    }
+
+    public void GoToMainBoardAsCrew()
+    {
+        GlobalAudioScript.Instance.ambientSounds.Stop();
+
+        GlobalAudioScript.Instance.playSfxSound("openMenu");
+        SceneManager.LoadScene("JoinMainBoardContainer");
     }
 
     public void GoToHiddenBoard()
@@ -81,6 +100,13 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("IntroScene");
     }
 
+    public void GoToIntroScreenFromCrewBoard()
+    {
+        GlobalAudioScript.Instance.playSfxSound("openMenu");
+        crewNetworkingClient.Close();
+        SceneManager.LoadScene("IntroScene");
+    }
+
     public void bringUpInfoPopUp()
     {
         GlobalAudioScript.Instance.playSfxSound("openDrawer");
@@ -97,4 +123,8 @@ public class UIManager : MonoBehaviour
         animator.Play("StoreInfoPopUpAnimationReverse");
     }
 
+    public void closeJoinGamePopUp()
+    {
+        joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(initialJoinGamePopUpPos.y, 0.5f, false).SetEase(Ease.Linear).Play();
+    }
 }

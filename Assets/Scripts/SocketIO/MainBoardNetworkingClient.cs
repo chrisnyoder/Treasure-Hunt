@@ -16,7 +16,8 @@ public class MainBoardNetworkingClient : SocketIOComponent
     public ConnectionCodeAsObject connectionCodeAsObject;
     public CodeDisplayHandler codeDisplayHandler;
     [HideInInspector]
-    public DictionaryAsObject initialGameState; 
+    public DictionaryAsObject initialGameDictionary; 
+    public GameState initialGameState;
     
     public bool dictionarySent = false;
     private bool _connectionMade = false;
@@ -25,18 +26,10 @@ public class MainBoardNetworkingClient : SocketIOComponent
     // Start is called before the first frame update
     public override void Start()
     {
-        initialGameState = null;
+        initialGameDictionary = null;
 
         base.Start();
         setupEvents();
-
-        if(initialGameState == null)
-        {
-            print("is null");
-        } else 
-        {
-            print("not null");
-        }
     }
 
     // Update is called once per frame
@@ -44,7 +37,7 @@ public class MainBoardNetworkingClient : SocketIOComponent
     {
         base.Update(); 
     
-        if(_connectionMade == true && initialGameState != null)
+        if(_connectionMade == true && initialGameDictionary != null)
         {
             if(!dictionarySent)
             {
@@ -113,7 +106,7 @@ public class MainBoardNetworkingClient : SocketIOComponent
     public void sendDictionary()
     {
         print("dictionary being sent");
-        var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
+        var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameDictionary));
         sendWordSelected();
 
         Emit("gameDictionary", gameStateAsJSONObject);
