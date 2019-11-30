@@ -10,7 +10,7 @@ public class CrewNetworkingClient : WSNetworkingClient
     public BoardLayoutScript boardLayoutScript;
     public CodeProviderHandler codeProviderHandler;
     public GameObject collectionView;
-    private EoGScript eoGScript;
+    public GameObject EoGCanvas; 
     private CardFlipHandler[] cards;
 
     public override void Start()
@@ -18,7 +18,6 @@ public class CrewNetworkingClient : WSNetworkingClient
         base.Start();
         setupEvents();
         cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
-        eoGScript = new EoGScript();
     }
 
     // Update is called once per frame
@@ -41,6 +40,11 @@ public class CrewNetworkingClient : WSNetworkingClient
             }
 
             codeProviderHandler.onJoinedRoom(Team.BlueTeam);
+
+            if(EoGCanvas.GetComponent<RectTransform>().anchoredPosition.y == 0)
+            {
+                EoGCanvas.GetComponent<Animator>().Play("ResultsAnimationReverse");
+            }     
         });
 
         On("wordsSelected", (wordsSelected) => {
@@ -57,10 +61,7 @@ public class CrewNetworkingClient : WSNetworkingClient
          });
 
         On("newGameState", (gameState) => {
-            CurrentGameState currentGameState = JsonUtility.FromJson<CurrentGameState>(gameState.data.ToString());
-
-            if (currentGameState != CurrentGameState.gameInPlay)
-                eoGScript.DisplayEOGCanvas(currentGameState);                
+            
         });
     }
 }
