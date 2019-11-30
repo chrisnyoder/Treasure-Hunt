@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CardFlipHandler : MonoBehaviour
 {
-
     private Animator animator;
     private EoGScript eoGScript;
     public GameState gameState;
@@ -20,7 +19,7 @@ public class CardFlipHandler : MonoBehaviour
     public Sprite neutralImage;
     public Sprite shipwreckImage;
 
-    public MainBoardNetworkingClient networkingClient;
+    public WSNetworkingClient networkingClient;
 
     void Start() 
     {
@@ -93,8 +92,8 @@ public class CardFlipHandler : MonoBehaviour
             StartCoroutine(LaunchEoGAfterDelay());
         }
 
-        networkingClient.wordsSelectedAsObject.listOfWordsSelected.Add(cardText);
-        networkingClient.sendWordSelected();
+        gameState.wordsSelected.Add(cardText);
+        networkingClient.sendWordsSelected(gameState.wordsSelected);
 
         animator.enabled = true;
         animator.Play("MainboardButtonAnimationComplete");
@@ -104,6 +103,6 @@ public class CardFlipHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         gameState.LaunchEOGScreen();
-        networkingClient.sendNewGameState(gameState.currentGameState);
+        networkingClient.sendCurrentGameState(gameState.currentGameState);
     }
 }

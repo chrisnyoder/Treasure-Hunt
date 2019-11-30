@@ -4,10 +4,9 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class CodeDisplayHandler : MonoBehaviour
+public class CodeDisplayHandler : CodeHandlerAbstract
 {
     private GameObject codeDisplayBackground; 
-    public string connectionCode = "";
     private bool _tutorialIsOn; 
 
     public GameObject listOfJoinedPlayersDisplay;

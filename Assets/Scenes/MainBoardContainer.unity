@@ -5031,6 +5031,7 @@ MonoBehaviour:
   joinGamePopUpCanvas: {fileID: 0}
   mainBoardNetworkingClient: {fileID: 1287908311}
   hiddenBoardNetworkingClient: {fileID: 0}
+  crewNetworkingClient: {fileID: 0}
 --- !u!1 &951347502
 GameObject:
   m_ObjectHideFlags: 0
@@ -6322,27 +6323,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f2c235320dd4a1da16f83fa46253c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
   pingInterval: 20
   pingTimeout: 60
-  codeTab: {fileID: 393062380}
   wordsSelectedAsObject:
     listOfWordsSelected: []
+  codeTab: {fileID: 393062380}
+  collectionView: {fileID: 636488461}
   connectionCodeAsObject:
     roomId: 
   codeDisplayHandler: {fileID: 1298824277}
-  initialGameState:
-    blueCards: []
-    redCards: []
-    neutralCards: []
-    shipwreckCard: []
-    isTutorial: 0
-    playerIndex: 0
-    langaugeSelected: 
-  dictionarySent: 0
+  gameStateSent: 0
 --- !u!4 &1287908312
 Transform:
   m_ObjectHideFlags: 0

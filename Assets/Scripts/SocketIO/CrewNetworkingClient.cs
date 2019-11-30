@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using SocketIO;
+using DG.Tweening;
 
-
-public class CrewNetworkingClient : SocketIOComponent
+public class CrewNetworkingClient : WSNetworkingClient
 {
-    
-    public CrewBoardCreationScript gameCreation; 
+    public BoardLayoutScript boardLayoutScript;
     public CodeProviderHandler codeProviderHandler;
-
-    private Team team = Team.BlueTeam;
-    private Tabs tab = Tabs.BlueTab;
 
     public override void Start()
     {
@@ -26,33 +22,24 @@ public class CrewNetworkingClient : SocketIOComponent
         base.Update();
     }
 
-    private void setupEvents()
+    public override void setupEvents()
     {
-        On("open", (e) => 
-        {
-            print("connection to the server open");
-        });
-
-        On("connect", (e) => {
-            // connected
-        });
+        base.setupEvents();
 
         On("gameDictionary", (dictionary) =>
         {
-            DictionaryAsObject initialGameState = JsonUtility.FromJson<DictionaryAsObject>(dictionary.data.ToString());
+            GameState initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
 
-            if(initialGameState.blueCards.Count > 0 ) 
+            if(initialGameState.hiddenBoardList.Count > 0 ) 
             {
-
+                boardLayoutScript.receiveGameStateObject(initialGameState);
             }
-        });
-    }
 
-    public void joinGameWithCode(string connectionCode)
-    {
-        ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
-        connectionCodeAsObject.roomId = connectionCode;
-        var connectionCodeAsJSONObject = new JSONObject(JsonUtility.ToJson(connectionCodeAsObject));
-        Emit("isJoiningMainBoard", connectionCodeAsJSONObject);
+            codeProviderHandler.onJoinedRoom(Team.BlueTeam);
+        });
+
+        On("wordsSelected", (wordsSelected) => { });
+
+        On("newGameState", (newGameState) => { });
     }
 }

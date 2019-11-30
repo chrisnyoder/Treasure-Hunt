@@ -6,27 +6,24 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq; 
 
-public class MainBoardNetworkingClient : SocketIOComponent
+public class MainBoardNetworkingClient : WSNetworkingClient
 {
 
     public CodeTabScript codeTab;
-    [HideInInspector]
-    public WordsSelectedAsObject wordsSelectedAsObject;
+    public GameObject collectionView; 
+
     [HideInInspector]
     public ConnectionCodeAsObject connectionCodeAsObject;
     public CodeDisplayHandler codeDisplayHandler;
-    [HideInInspector]
-    public DictionaryAsObject initialGameDictionary; 
-    public GameState initialGameState;
     
-    public bool dictionarySent = false;
-    private bool _connectionMade = false;
+    public bool gameStateSent = false;
 
+    private bool fetchedRoomState = false;
 
     // Start is called before the first frame update
     public override void Start()
     {
-        initialGameDictionary = null;
+        initialGameState = null;
 
         base.Start();
         setupEvents();
@@ -37,47 +34,29 @@ public class MainBoardNetworkingClient : SocketIOComponent
     {
         base.Update(); 
     
-        if(_connectionMade == true && initialGameDictionary != null)
+        if (isConnected == true && initialGameState != null)
         {
-            if(!dictionarySent)
+            if (!gameStateSent)
             {
-                sendDictionary();
-                dictionarySent = true;
+                print("about to send dictionary");
+                sendGameDictionary();
+                gameStateSent = true;
             }
         }
     }
 
-    private void setupEvents()
+    public override void setupEvents()
     {
-        On("open", (e) => {
-        });
+        base.setupEvents();
 
-        On("connect", (e) => {
-            _connectionMade = true;
-            Emit("isHosting");
-        });
-
-        On("error", (e) => {
-            print("error");
-            print(e.data.ToString());
-        });
-
-        On("reconnect", (e) =>
+        On("connect", (e) =>
         {
-            print("reconnect");
-            print(e.data.ToString());
-        });
-
-        On("disconnect", (e) =>
-        {
-            print("disconnect");
-            print(e.data.ToString());
-        });
-
-        On("reconnecting", (e) =>
-        {
-            print("reconnecting");
-            print(e.data.ToString());
+            if(!fetchedRoomState){
+                print("connected callback");
+                isHosting = true;
+                Emit("isHosting");
+                fetchedRoomState = true;
+            }
         });
     
         On("roomId", (room) => 
@@ -89,38 +68,29 @@ public class MainBoardNetworkingClient : SocketIOComponent
 
         On("numberOfPlayersInRoomChanged", (players) => 
         {
-            print("number of players in room has changed, again");
             PlayersAsObject playersAsObject = JsonUtility.FromJson<PlayersAsObject>(players.data.ToString());
             var playerList = playersAsObject.playersInRoom.ToList();
 
-            foreach(var player in playerList){
-                print(player);
-            }
-
             codeDisplayHandler.displayPlayersInGame(playerList);
         });
+        
+        On("wordsSelected", (wordsSelected) => 
+        {
+            WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
 
-        On("register", (e) => {print("register callback received"); } );
-    }
+            foreach(var word in wordsSelectedAsObject.listOfWordsSelected)
+            {
+                print("word selected: " + word);
+            }
 
-    public void sendDictionary()
-    {
-        print("dictionary being sent");
-        var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameDictionary));
-        sendWordSelected();
+            CardFlipHandler[] cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
+            foreach(CardFlipHandler card in cards) {
+                if(card.cardText == wordsSelectedAsObject.lastWordSelected) {
+                    card.FlipCard();
+                }
+            }
+        });
 
-        Emit("gameDictionary", gameStateAsJSONObject);
-    }
-
-    public void sendWordSelected()
-    {
-        var wordsSelectedAsJSONObject = new JSONObject(JsonUtility.ToJson(wordsSelectedAsObject));
-        Emit("wordsSelected", wordsSelectedAsJSONObject);
-    }
-
-    public void sendNewGameState(CurrentGameState currentGameState)
-    {
-        var currentGameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(currentGameState));
-        Emit("newGameState", currentGameStateAsJSONObject);
+        On("newGameState", (newGameState) => {} );
     }
 }

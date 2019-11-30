@@ -1356,9 +1356,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05c7f9c08bc54899b361a74ed4a0585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectionCode: 
   codeInput: {fileID: 597528992}
-  hiddenBoardNetworkingClient: {fileID: 1338526331}
+  networkingClient: {fileID: 1338526331}
   tutorialHiddenBoardScript: {fileID: 1610543763}
+  mainBoard: {fileID: 0}
   errorMessage: {fileID: 1414055035}
   confirmCodeButton: {fileID: 8447173467922228777}
   spinner: {fileID: 1555280120}
@@ -2864,12 +2866,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d944b64859324fda9f221fc2858921e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
   pingInterval: 20
   pingTimeout: 60
+  wordsSelectedAsObject:
+    listOfWordsSelected: []
   hiddenBoardViewController: {fileID: 499873877}
   codeProviderHandler: {fileID: 697183862}
 --- !u!4 &1338526333
@@ -4705,8 +4708,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backToMainMenuCanvas: {fileID: 1422287042}
   infoPopUp: {fileID: 0}
+  joinGamePopUpCanvas: {fileID: 0}
   mainBoardNetworkingClient: {fileID: 0}
   hiddenBoardNetworkingClient: {fileID: 1338526331}
+  crewNetworkingClient: {fileID: 0}
 --- !u!4 &1856841279
 Transform:
   m_ObjectHideFlags: 0
