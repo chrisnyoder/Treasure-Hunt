@@ -14,10 +14,8 @@ public class UIManager : MonoBehaviour
     public Canvas joinGamePopUpCanvas;
 
     private Vector2 initialJoinGamePopUpPos;
-
-    public MainBoardNetworkingClient mainBoardNetworkingClient; 
-    public HiddenBoardNetworkingClient hiddenBoardNetworkingClient;
-    public CrewNetworkingClient crewNetworkingClient;
+    
+    public WSNetworkingClient networkingClient;
 
     private void Start() 
     {
@@ -54,10 +52,10 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("HiddenBoardScene");
     }
 
-    public void GoToIntroScreenFromMainBoard()
+    public void GoToIntroScreen()
     {
         GlobalAudioScript.Instance.playSfxSound("openMenu");
-        mainBoardNetworkingClient.Close();
+        closeNetworkingClient();
         SceneManager.LoadScene("IntroScene");
     }
 
@@ -93,20 +91,6 @@ public class UIManager : MonoBehaviour
         exitPopUpCanvasAnimator.Play("BackToMainMenuFromHiddenboardAnimationReverse");
     }
 
-    public void GoToIntroScreenFromHiddenBoard()
-    {
-        GlobalAudioScript.Instance.playSfxSound("openMenu");
-        hiddenBoardNetworkingClient.Close();
-        SceneManager.LoadScene("IntroScene");
-    }
-
-    public void GoToIntroScreenFromCrewBoard()
-    {
-        GlobalAudioScript.Instance.playSfxSound("openMenu");
-        crewNetworkingClient.Close();
-        SceneManager.LoadScene("IntroScene");
-    }
-
     public void bringUpInfoPopUp()
     {
         GlobalAudioScript.Instance.playSfxSound("openDrawer");
@@ -126,5 +110,10 @@ public class UIManager : MonoBehaviour
     public void closeJoinGamePopUp()
     {
         joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(initialJoinGamePopUpPos.y, 0.5f, false).SetEase(Ease.Linear).Play();
+    }
+
+    private void closeNetworkingClient()
+    {
+        networkingClient.Close();
     }
 }

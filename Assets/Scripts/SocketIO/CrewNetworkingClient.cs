@@ -10,11 +10,13 @@ public class CrewNetworkingClient : WSNetworkingClient
     public BoardLayoutScript boardLayoutScript;
     public CodeProviderHandler codeProviderHandler;
     public GameObject collectionView;
+    private CardFlipHandler[] cards;
 
     public override void Start()
     {
         base.Start();
         setupEvents();
+        cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
     }
 
     // Update is called once per frame

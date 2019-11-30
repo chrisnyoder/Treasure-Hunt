@@ -2872,7 +2872,7 @@ MonoBehaviour:
   pingInterval: 20
   pingTimeout: 60
   wordsSelectedAsObject:
-    listOfWordsSelected: []
+    wordsSelected: []
   hiddenBoardViewController: {fileID: 499873877}
   codeProviderHandler: {fileID: 697183862}
 --- !u!4 &1338526333
@@ -3558,7 +3558,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1856841278}
-        m_MethodName: GoToIntroScreenFromHiddenBoard
+        m_MethodName: GoToIntroScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4709,9 +4709,7 @@ MonoBehaviour:
   backToMainMenuCanvas: {fileID: 1422287042}
   infoPopUp: {fileID: 0}
   joinGamePopUpCanvas: {fileID: 0}
-  mainBoardNetworkingClient: {fileID: 0}
-  hiddenBoardNetworkingClient: {fileID: 1338526331}
-  crewNetworkingClient: {fileID: 0}
+  networkingClient: {fileID: 1338526331}
 --- !u!4 &1856841279
 Transform:
   m_ObjectHideFlags: 0

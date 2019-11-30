@@ -86,7 +86,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
     public virtual void sendWordsSelected(List<string> wordsSelected)
     {
-        wordsSelectedAsObject.listOfWordsSelected = wordsSelected;
+        wordsSelectedAsObject.wordsSelected = wordsSelected;
         var wordsSelectedAsJSONObject = new JSONObject(JsonUtility.ToJson(wordsSelectedAsObject));
         Emit("wordsSelected", wordsSelectedAsJSONObject);
     }

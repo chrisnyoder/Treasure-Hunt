@@ -70,8 +70,8 @@ public class HiddenBoardNetworkingClient : WSNetworkingClient
 
         On("wordsSelected", (wordsSelected) => {
             
-            if(wordsSelectedAsObject.listOfWordsSelected.Count >0 )
-                hiddenBoardViewController.wordSelected(wordsSelectedAsObject.listOfWordsSelected); 
+            if(wordsSelectedAsObject.wordsSelected.Count >0 )
+                hiddenBoardViewController.wordSelected(wordsSelectedAsObject.wordsSelected); 
         });
 
         On("newGameState", (gameState) => 

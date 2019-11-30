@@ -7677,6 +7677,7 @@ MonoBehaviour:
   joinGamePopUpCanvas: {fileID: 957866479}
   mainBoardNetworkingClient: {fileID: 0}
   hiddenBoardNetworkingClient: {fileID: 0}
+  crewNetworkingClient: {fileID: 0}
 --- !u!1 &1457992376
 GameObject:
   m_ObjectHideFlags: 0

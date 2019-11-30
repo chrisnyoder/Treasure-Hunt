@@ -14,7 +14,6 @@ public class CardObject
 {
     public CardType cardType;
     public string labelText;
-    public bool isSelected = false;
 
     public CardObject(CardType cardType, string labelText)
     {

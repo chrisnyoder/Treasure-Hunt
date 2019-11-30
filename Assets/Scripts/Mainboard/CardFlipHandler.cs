@@ -14,6 +14,7 @@ public class CardFlipHandler : MonoBehaviour
     public CardType cardType;
     public string cardImage;
     public string cardText;
+    private Text textField;
 
     public Sprite blueImage;
     public Sprite redImage;
@@ -22,10 +23,11 @@ public class CardFlipHandler : MonoBehaviour
 
     public WSNetworkingClient networkingClient;
 
-    void Start() 
+    private void Awake() 
     {
         animator = gameObject.GetComponent<Animator>();
         GetComponent<FloatAnimation>().enabled = false;
+        textField = card.GetComponentInChildren<Text>();
     }
 
     public void FlipCard()
@@ -63,8 +65,7 @@ public class CardFlipHandler : MonoBehaviour
                     break;
             }
 
-            var txt = card.GetComponentInChildren<Text>();
-            Destroy(txt);
+            Destroy(textField);
             card.interactable = false;
             animator.Play("MainboardButtonAnimation");
         }
@@ -100,6 +101,36 @@ public class CardFlipHandler : MonoBehaviour
 
         animator.enabled = true;
         animator.Play("MainboardButtonAnimationComplete");
+    }
+
+    public void startCardFaceUp()
+    {
+        animator.enabled = false;
+        switch (cardType)
+        {
+            case CardType.blueCard:
+                card.GetComponent<Image>().sprite = blueImage;
+                GetComponent<FloatAnimation>().enabled = true;
+                GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f, -180f, 0f); 
+                break;
+            case CardType.redCard:
+                card.GetComponent<Image>().sprite = redImage;
+                GetComponent<FloatAnimation>().enabled = true;
+                GetComponent<RectTransform>().localRotation = Quaternion.Euler(new Vector3(0, -180, 0)) ;
+                break;
+            case CardType.neutralCard:
+                card.GetComponent<Image>().sprite = neutralImage;
+                GetComponent<RectTransform>().localRotation = new Quaternion(0, -180, 0, 0);
+                break;
+            case CardType.shipwreckCard:
+                card.GetComponent<Image>().sprite = shipwreckImage;
+                GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, -180f, 0f);
+                break;
+        }
+        
+        Destroy(textField);
+        card.interactable = false;
+        cardIsFlipped = true;
     }
 
     IEnumerator LaunchEoGAfterDelay()

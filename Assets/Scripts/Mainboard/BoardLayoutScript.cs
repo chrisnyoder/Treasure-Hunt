@@ -38,7 +38,6 @@ public class BoardLayoutScript : MonoBehaviour
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
-                print("tablet background is available and background image is there");
                 backgroundImage.sprite = tabletBackgroundImage;
             }
         }    
@@ -126,6 +125,11 @@ public class BoardLayoutScript : MonoBehaviour
             cardText.text = buttonData.cardText;
 
             buttonData.gameState = initialGameState;
+
+            if(initialGameState.wordsSelected.Contains(cardText.text))
+            {
+                buttonData.startCardFaceUp();
+            }
         }
 
         layoutCards();
