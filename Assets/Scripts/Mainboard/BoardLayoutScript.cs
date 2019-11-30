@@ -38,7 +38,6 @@ public class BoardLayoutScript : MonoBehaviour
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
-                print("tablet background is available and background image is there");
                 backgroundImage.sprite = tabletBackgroundImage;
             }
         }    
@@ -49,11 +48,7 @@ public class BoardLayoutScript : MonoBehaviour
         this.initialGameState = initialGameState;
 
         mainBoardRT = mainBoard.GetComponent<RectTransform>();
-        // mainBoardRT.localPosition = new Vector3(mainBoardRT.localPosition.x, 0, 0);
-
-        // var mainBoardAnimator = mainBoard.GetComponent<Animator>();
-        // mainBoardAnimator.Play("MainBoardAnimation");
-
+        
         collectionViewRT = collectionView.GetComponent<RectTransform>();
         buttonParentRT = buttonParentObject.GetComponent<RectTransform>();
         determineIfTablet();
@@ -130,6 +125,11 @@ public class BoardLayoutScript : MonoBehaviour
             cardText.text = buttonData.cardText;
 
             buttonData.gameState = initialGameState;
+
+            if(initialGameState.wordsSelected.Contains(cardText.text))
+            {
+                buttonData.startCardFaceUp();
+            }
         }
 
         layoutCards();

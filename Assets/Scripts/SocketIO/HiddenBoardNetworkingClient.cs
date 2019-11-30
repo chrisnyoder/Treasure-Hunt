@@ -5,14 +5,12 @@ using UnityEngine;
 using SocketIO;
 
 
-public class HiddenBoardNetworkingClient : SocketIOComponent
+public class HiddenBoardNetworkingClient : WSNetworkingClient
 {
-    
     public HiddenBoardViewController hiddenBoardViewController; 
     public CodeProviderHandler codeProviderHandler;
 
-    private Team team = Team.BlueTeam;
-    private Tabs tab = Tabs.BlueTab;
+    protected Tabs tab = Tabs.BlueTab;
 
     public override void Start()
     {
@@ -26,34 +24,41 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
         base.Update();
     }
 
-    private void setupEvents()
+    public override void setupEvents()
     {
-        On("open", (e) => 
-        {
-            print("connection to the server open");
-        });
-
-        On("connect", (e) => {
-            // connected
-        });
+        base.setupEvents();
 
         On("gameDictionary", (dictionary) =>
         {
-            DictionaryAsObject initialGameState = JsonUtility.FromJson<DictionaryAsObject>(dictionary.data.ToString());
+            print("game dictionary callback received: " + dictionary.data.ToString());
 
-            if(initialGameState.blueCards.Count > 0 ) 
+            initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
+
+            if(initialGameState.hiddenBoardList.Count > 0 ) 
             {
-
                 if (initialGameState.playerIndex == 1)
                 {
                     team = Team.RedTeam;
-                    tab = Tabs.BlueTab;
+                    tab = Tabs.RedTab;
                 }
 
-                hiddenBoardViewController.blueWords = initialGameState.blueCards;
-                hiddenBoardViewController.redWords = initialGameState.redCards;
-                hiddenBoardViewController.neutralWords = initialGameState.neutralCards;
-                hiddenBoardViewController.shipwreckCardText.text = initialGameState.shipwreckCard[0];
+                var tmpBlueWords = new List<string>();
+                var tmpRedWords = new List<string>();
+                var tmpNeutralWords = new List<string>();
+                var tmpShipwreck = new List<string>();
+
+                foreach(var card in initialGameState.hiddenBoardList)
+                {
+                    if(card.cardType == CardType.blueCard) { tmpBlueWords.Add(card.labelText); }
+                    if(card.cardType == CardType.redCard) { tmpRedWords.Add(card.labelText); }
+                    if(card.cardType == CardType.neutralCard) { tmpNeutralWords.Add(card.labelText); }
+                    if(card.cardType == CardType.shipwreckCard) { tmpShipwreck.Add(card.labelText); }
+                }
+
+                hiddenBoardViewController.blueWords = tmpBlueWords;
+                hiddenBoardViewController.redWords = tmpRedWords;
+                hiddenBoardViewController.neutralWords = tmpNeutralWords;
+                hiddenBoardViewController.shipwreckCardText.text = tmpShipwreck[0];
                 hiddenBoardViewController.getTextObjectSize();
                 hiddenBoardViewController.startTab(tab);
 
@@ -65,9 +70,14 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
 
         On("wordsSelected", (wordsSelected) => {
             WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
+            print("words selected: " + wordsSelectedAsObject.wordsSelected);
+            foreach(var word in wordsSelectedAsObject.wordsSelected)
+            {
+                print(word);
+            }
 
-            if(wordsSelectedAsObject.listOfWordsSelected.Count >0 )
-                hiddenBoardViewController.wordSelected(wordsSelectedAsObject.listOfWordsSelected); 
+            if(wordsSelectedAsObject.wordsSelected.Count > 0)
+                hiddenBoardViewController.wordSelected(wordsSelectedAsObject.wordsSelected); 
         });
 
         On("newGameState", (gameState) => 
@@ -78,13 +88,5 @@ public class HiddenBoardNetworkingClient : SocketIOComponent
                 hiddenBoardViewController.gameStateChanged(currentGameState);
             
         });
-    }
-
-    public void joinGameWithCode(string connectionCode)
-    {
-        ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
-        connectionCodeAsObject.roomId = connectionCode;
-        var connectionCodeAsJSONObject = new JSONObject(JsonUtility.ToJson(connectionCodeAsObject));
-        Emit("isJoining", connectionCodeAsJSONObject);
     }
 }

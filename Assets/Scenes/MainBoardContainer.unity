@@ -5028,8 +5028,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backToMainMenuCanvas: {fileID: 1757797695}
   infoPopUp: {fileID: 0}
-  mainBoardNetworkingClient: {fileID: 1287908311}
-  hiddenBoardNetworkingClient: {fileID: 0}
+  joinGamePopUpCanvas: {fileID: 0}
+  networkingClient: {fileID: 1287908311}
 --- !u!1 &951347502
 GameObject:
   m_ObjectHideFlags: 0
@@ -6321,27 +6321,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f2c235320dd4a1da16f83fa46253c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
   pingInterval: 20
   pingTimeout: 60
-  codeTab: {fileID: 393062380}
   wordsSelectedAsObject:
-    listOfWordsSelected: []
+    wordsSelected: []
+  codeTab: {fileID: 393062380}
+  collectionView: {fileID: 636488461}
   connectionCodeAsObject:
     roomId: 
   codeDisplayHandler: {fileID: 1298824277}
-  initialGameState:
-    blueCards: []
-    redCards: []
-    neutralCards: []
-    shipwreckCard: []
-    isTutorial: 0
-    playerIndex: 0
-    langaugeSelected: 
-  dictionarySent: 0
+  gameStateSent: 0
 --- !u!4 &1287908312
 Transform:
   m_ObjectHideFlags: 0
@@ -6969,7 +6961,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 936496549}
-        m_MethodName: GoToIntroScreenFromMainBoard
+        m_MethodName: GoToIntroScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7156,7 +7148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7786666
+  m_AspectRatio: 2.1653333
 --- !u!95 &1594670875
 Animator:
   serializedVersion: 3

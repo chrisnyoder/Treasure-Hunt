@@ -43,7 +43,6 @@ namespace SocketIO
 		#region Public Properties
 
 		[Header("Socket IO Component")]
-		public string url = "ws://127.0.0.1:4567/socket.io/?EIO=4&transport=websocket";
 		public bool autoConnect = true;
 		public int reconnectDelay = 5;
 		public float ackExpirationTime = 1800f;
@@ -54,11 +53,13 @@ namespace SocketIO
 		public string sid { get; set; }
 		public bool IsConnected { get { return connected; } }
 
-		#endregion	
+        #endregion
 
-		#region Private Properties
+        #region Private Properties
 
-		private volatile bool connected;
+        private string url = "ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket";
+
+        private volatile bool connected;
 		private volatile bool thPinging;
 		private volatile bool thPong;
 		private volatile bool wsConnected;

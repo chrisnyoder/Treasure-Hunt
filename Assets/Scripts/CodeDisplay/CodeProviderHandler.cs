@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
-public class CodeProviderHandler : MonoBehaviour
+public class CodeProviderHandler : CodeHandlerAbstract
 {
     public InputField codeInput;
-    public HiddenBoardNetworkingClient hiddenBoardNetworkingClient;
+    public WSNetworkingClient networkingClient;
     public TutorialHiddenBoardScript tutorialHiddenBoardScript;
+    public GameObject mainBoard;
     
     public GameObject errorMessage;
     public Button confirmCodeButton; 
@@ -18,7 +20,7 @@ public class CodeProviderHandler : MonoBehaviour
     private float searchingForRoomTimeOutTimer = 5f;
     private bool searchingForRoomTimedOut = false;
 
-    private string code; 
+    private Scene scene;
 
     [HideInInspector]
     public bool mainBoardRunningTutorial = false; 
@@ -32,11 +34,13 @@ public class CodeProviderHandler : MonoBehaviour
         confirmCodeButton.interactable = true;
         errorMessage.SetActive(false);
         spinner.SetActive(false);
+
+        scene = SceneManager.GetActiveScene();
     }
 
     private void Update() 
     {
-        code = codeInput.text.ToLower();    
+        connectionCode = codeInput.text.ToLower();    
         if(searchingForRoom)
         {
             searchingForRoomTimeOutTimer -= Time.deltaTime;
@@ -66,7 +70,7 @@ public class CodeProviderHandler : MonoBehaviour
         bool codeValid = true;
         errorMessage.SetActive(false);
 
-        if(code.Length != 4)
+        if(connectionCode.Length != 4)
         {
             codeValid = false;
         }
@@ -96,7 +100,7 @@ public class CodeProviderHandler : MonoBehaviour
     private void sendCode()
     {
         confirmCodeButton.interactable = false;
-        hiddenBoardNetworkingClient.joinGameWithCode(code);
+        networkingClient.joinGameWithCode(connectionCode);
         searchingForRoom = true;
     }
 
@@ -107,9 +111,17 @@ public class CodeProviderHandler : MonoBehaviour
         searchingForRoom = false;
         resetSearchingTimer();
 
-        if(mainBoardRunningTutorial)
+        if(mainBoardRunningTutorial && scene.name == "HiddenBoardScene")
         {
             tutorialHiddenBoardScript.beginTutorial(team);
+        }
+
+        if(scene.name == "JoinMainBoardContainer")
+        {
+            if(mainBoard != null) 
+            {
+                mainBoard.GetComponent<RectTransform>().DOAnchorPosY(0, 0.7f, false).Play();
+            }
         }
     }
 

@@ -26,7 +26,7 @@ public class EoGButtonHandler : MonoBehaviour
         var cards = EoGCanvasObject.GetComponent<EoGScript>().cards;
 
         mainBoardNetworkingClient.initialGameState = null; 
-        mainBoardNetworkingClient.dictionarySent = false; 
+        mainBoardNetworkingClient.gameStateSent = false; 
 
         foreach(GameObject card in cards)
         {

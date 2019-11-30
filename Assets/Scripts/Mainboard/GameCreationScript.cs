@@ -27,9 +27,7 @@ public class GameCreationScript : MonoBehaviour
         initialGameState = new GameState(25, wordPacksToUse);
         boardLayoutScript.receiveGameStateObject(initialGameState);
 
-        var initialGameStateAsObject = initialGameState.initialGameStateAsObject;
-
-        networkingClient.initialGameState = initialGameStateAsObject;
+        networkingClient.initialGameState = initialGameState;
         codeDisplayHandler.displayWaitingForGameIndicator();
 
         var storeCanvasAnimator = GameObject.Find("StoreCanvas").GetComponent<Animator>();
@@ -53,10 +51,5 @@ public class GameCreationScript : MonoBehaviour
             generateGameStateButton.interactable = true;
             selectAWordPack.SetActive(false);
         }
-    }
-
-    void Update()
-    {
-
     }
 }
