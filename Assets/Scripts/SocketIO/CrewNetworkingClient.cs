@@ -9,6 +9,7 @@ public class CrewNetworkingClient : WSNetworkingClient
 {
     public BoardLayoutScript boardLayoutScript;
     public CodeProviderHandler codeProviderHandler;
+    public GameObject collectionView;
 
     public override void Start()
     {
@@ -38,7 +39,18 @@ public class CrewNetworkingClient : WSNetworkingClient
             codeProviderHandler.onJoinedRoom(Team.BlueTeam);
         });
 
-        On("wordsSelected", (wordsSelected) => { });
+        On("wordsSelected", (wordsSelected) => {
+            WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
+
+            CardFlipHandler[] cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
+            foreach (CardFlipHandler card in cards)
+            {
+                if (card.cardText == wordsSelectedAsObject.lastWordSelected && !card.cardIsFlipped)
+                {
+                    card.FlipCard();
+                }
+            }
+         });
 
         On("newGameState", (newGameState) => { });
     }

@@ -7,6 +7,7 @@ public class CardFlipHandler : MonoBehaviour
 {
     private Animator animator;
     private EoGScript eoGScript;
+    public bool cardIsFlipped;
     public GameState gameState;
 
     public Button card;
@@ -29,6 +30,8 @@ public class CardFlipHandler : MonoBehaviour
 
     public void FlipCard()
     {
+        cardIsFlipped = true;
+
         if (gameState.currentGameState == CurrentGameState.gameInPlay)
         {
             switch (cardType)

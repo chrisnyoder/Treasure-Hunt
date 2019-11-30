@@ -78,14 +78,10 @@ public class MainBoardNetworkingClient : WSNetworkingClient
         {
             WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
 
-            foreach(var word in wordsSelectedAsObject.listOfWordsSelected)
-            {
-                print("word selected: " + word);
-            }
-
             CardFlipHandler[] cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
             foreach(CardFlipHandler card in cards) {
-                if(card.cardText == wordsSelectedAsObject.lastWordSelected) {
+                if(card.cardText == wordsSelectedAsObject.lastWordSelected && !card.cardIsFlipped) 
+                {
                     card.FlipCard();
                 }
             }
