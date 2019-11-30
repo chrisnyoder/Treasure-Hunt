@@ -69,8 +69,14 @@ public class HiddenBoardNetworkingClient : WSNetworkingClient
         });
 
         On("wordsSelected", (wordsSelected) => {
-            
-            if(wordsSelectedAsObject.wordsSelected.Count >0 )
+            WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
+            print("words selected: " + wordsSelectedAsObject.wordsSelected);
+            foreach(var word in wordsSelectedAsObject.wordsSelected)
+            {
+                print(word);
+            }
+
+            if(wordsSelectedAsObject.wordsSelected.Count > 0)
                 hiddenBoardViewController.wordSelected(wordsSelectedAsObject.wordsSelected); 
         });
 

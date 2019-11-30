@@ -10,6 +10,7 @@ public class CrewNetworkingClient : WSNetworkingClient
     public BoardLayoutScript boardLayoutScript;
     public CodeProviderHandler codeProviderHandler;
     public GameObject collectionView;
+    private EoGScript eoGScript;
     private CardFlipHandler[] cards;
 
     public override void Start()
@@ -17,6 +18,7 @@ public class CrewNetworkingClient : WSNetworkingClient
         base.Start();
         setupEvents();
         cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
+        eoGScript = new EoGScript();
     }
 
     // Update is called once per frame
@@ -54,6 +56,11 @@ public class CrewNetworkingClient : WSNetworkingClient
             }
          });
 
-        On("newGameState", (newGameState) => { });
+        On("newGameState", (gameState) => {
+            CurrentGameState currentGameState = JsonUtility.FromJson<CurrentGameState>(gameState.data.ToString());
+
+            if (currentGameState != CurrentGameState.gameInPlay)
+                eoGScript.DisplayEOGCanvas(currentGameState);                
+        });
     }
 }

@@ -47,7 +47,6 @@ public class GameState
             numberOfShipWreckCards = 1;
         }
 
-        eogCanvas = GameObject.Find("ResultsCanvas");
 
         GetWordList(wordPacksToUse);
     }
@@ -120,7 +119,8 @@ public class GameState
     }
 
     public void LaunchEOGScreen()
-    {     
+    {
+        eogCanvas = GameObject.Find("ResultsCanvas");
         var script = eogCanvas.GetComponent<EoGScript>();
         script.DisplayEOGCanvas(this.currentGameState);
     }
