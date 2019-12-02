@@ -23,10 +23,4 @@ public class HiddenBoardTransititionScreen : MonoBehaviour
         anim.SetOptions(true);
         anim.Play();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

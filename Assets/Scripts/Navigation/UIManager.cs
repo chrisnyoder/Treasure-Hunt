@@ -34,6 +34,8 @@ public class UIManager : MonoBehaviour
 
     public void bringUpJoinGamePopUp()
     {
+        GlobalAudioScript.Instance.playSfxSound("openDrawer");
+
         initialJoinGamePopUpPos = joinGamePopUpCanvas.GetComponent<RectTransform>().anchoredPosition;
         joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f, false).SetEase(Ease.Linear).Play();
     }
@@ -117,6 +119,7 @@ public class UIManager : MonoBehaviour
 
     public void closeJoinGamePopUp()
     {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
         joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(initialJoinGamePopUpPos.y, 0.5f, false).SetEase(Ease.Linear).Play();
     }
 
