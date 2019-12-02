@@ -14,12 +14,10 @@ public class InfoScript : MonoBehaviour
     public Sprite musicOn;
     public Sprite musicOff;
 
-    private AudioSource backgroundMusic; 
     private bool tutorialOn;
 
     private void Start() 
     {
-        backgroundMusic = GlobalAudioScript.Instance.GetComponents<AudioSource>()[2];
         tutorialOn = GlobalDefaults.Instance.tutorialIsOn;
         
         selectCorrectMusicIcon();
@@ -33,21 +31,15 @@ public class InfoScript : MonoBehaviour
 
     public void toggleMusic()
     {
-        if(backgroundMusic.enabled)
-        {
-            backgroundMusic.enabled = false;
-        } else 
-        {
-            backgroundMusic.enabled = true;
-        }
 
+        GlobalAudioScript.Instance.toggleMusic();
         GlobalAudioScript.Instance.playSfxSound("togglePack2");
         selectCorrectMusicIcon();
     }
 
     private void selectCorrectMusicIcon()
     {
-        if (backgroundMusic.enabled)
+        if (GlobalAudioScript.Instance.backgroundMusic.enabled)
         {
             musicImage.sprite = musicOn;
         }

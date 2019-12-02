@@ -15,6 +15,7 @@ public class GlobalAudioScript : MonoBehaviour
 
     public AudioSource soundfx;
     public AudioSource ambientSounds;
+    public AudioSource backgroundMusic; 
     private AudioClip audioClip;
 
     private void Awake() 
@@ -34,9 +35,11 @@ public class GlobalAudioScript : MonoBehaviour
     {
         soundfx = GetComponents<AudioSource>()[0];
         ambientSounds = GetComponents<AudioSource>()[1];
+        backgroundMusic = GetComponents<AudioSource>()[2];
 
         playAmbientSounds("jungle_sfx");
 
+        setMusicDefaults();
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -54,12 +57,23 @@ public class GlobalAudioScript : MonoBehaviour
         soundfx.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void toggleMusic()
     {
-        
+        if (backgroundMusic.enabled)
+        {
+            backgroundMusic.enabled = false;
+            PlayerPrefs.SetString("backgroundMusicOn", "false");
+        }
+        else
+        {
+            backgroundMusic.enabled = true;
+            PlayerPrefs.SetString("backgroundMusicOn", "true");
+        }
     }
 
-
-
+    private void setMusicDefaults()
+    {
+        if (PlayerPrefs.HasKey("backgroundMusicOn"))
+            GlobalAudioScript.Instance.backgroundMusic.enabled = bool.Parse(PlayerPrefs.GetString("backgroundMusicOn"));
+    }
 }

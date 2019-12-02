@@ -45,7 +45,7 @@ public class GlobalDefaults : MonoBehaviour
 
     void setPlayerDefaults()
     {
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
 
         if (PlayerPrefs.HasKey("appHasStartedBefore"))
         {
