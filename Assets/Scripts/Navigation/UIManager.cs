@@ -5,23 +5,26 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 
+public enum Role
+{
+    captain,
+    crew
+}
+
 public class UIManager : MonoBehaviour
 {
-
     private Scene scene;
 
     public Canvas backToMainMenuCanvas;
     public Canvas infoPopUp;
-    public Canvas joinGamePopUpCanvas;
     public Image hiddenBoardTransitionImage; 
 
-    private Vector2 initialJoinGamePopUpPos;
-    
+    private Vector2 initialJoinGamePopUpPos;  
     public WSNetworkingClient networkingClient;
 
     private void Start() 
     {
-        scene = SceneManager.GetActiveScene();    
+        scene = SceneManager.GetActiveScene();   
     }
 
     public void GoToMainBoard()
@@ -32,12 +35,9 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("MainBoardContainer");
     }
 
-    public void bringUpJoinGamePopUp()
+    public void goToJoinGameInterstitial()
     {
-        GlobalAudioScript.Instance.playSfxSound("openDrawer");
-
-        initialJoinGamePopUpPos = joinGamePopUpCanvas.GetComponent<RectTransform>().anchoredPosition;
-        joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f, false).SetEase(Ease.Linear).Play();
+        SceneManager.LoadScene("JoinGameInterstitial");
     }
 
     public void GoToMainBoardAsCrew()
@@ -117,14 +117,10 @@ public class UIManager : MonoBehaviour
         animator.Play("StoreInfoPopUpAnimationReverse");
     }
 
-    public void closeJoinGamePopUp()
-    {
-        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
-        joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(initialJoinGamePopUpPos.y, 0.5f, false).SetEase(Ease.Linear).Play();
-    }
-
     private void closeNetworkingClient()
     {
+        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
         networkingClient.Close();
+        Destroy(networkingClient.gameObject);
     }
 }

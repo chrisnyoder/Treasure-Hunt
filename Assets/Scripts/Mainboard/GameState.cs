@@ -14,6 +14,15 @@ public enum CurrentGameState
     loses
 }
 
+public class CurrentGameStateAsObject
+{
+    public CurrentGameState currentGameState;
+
+    public CurrentGameStateAsObject(CurrentGameState currentGameState) {
+        this.currentGameState = currentGameState;
+    }
+}
+
 public class GameState
 {
     public List<CardObject> hiddenBoardList;
