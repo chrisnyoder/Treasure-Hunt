@@ -16,6 +16,6 @@ public class BlackTransitionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transitionImage.DOFade(0, 0.2f).Play();
+        transitionImage.DOFade(0, 0.4f).Play();
     }
 }

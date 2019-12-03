@@ -120,7 +120,11 @@ public class UIManager : MonoBehaviour
     private void closeNetworkingClient()
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
-        networkingClient.Close();
-        Destroy(networkingClient.gameObject);
+
+        if(networkingClient != null) 
+        {
+            networkingClient.Close();
+            Destroy(networkingClient.gameObject);
+        }
     }
 }
