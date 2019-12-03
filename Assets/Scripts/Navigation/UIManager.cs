@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class UIManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class UIManager : MonoBehaviour
     public Canvas backToMainMenuCanvas;
     public Canvas infoPopUp;
     public Canvas joinGamePopUpCanvas;
+    public Image hiddenBoardTransitionImage; 
 
     private Vector2 initialJoinGamePopUpPos;
     
@@ -32,6 +34,8 @@ public class UIManager : MonoBehaviour
 
     public void bringUpJoinGamePopUp()
     {
+        GlobalAudioScript.Instance.playSfxSound("openDrawer");
+
         initialJoinGamePopUpPos = joinGamePopUpCanvas.GetComponent<RectTransform>().anchoredPosition;
         joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f, false).SetEase(Ease.Linear).Play();
     }
@@ -39,17 +43,23 @@ public class UIManager : MonoBehaviour
     public void GoToMainBoardAsCrew()
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
-
         GlobalAudioScript.Instance.playSfxSound("openMenu");
-        SceneManager.LoadScene("JoinMainBoardContainer");
+
+        hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() =>
+        {
+            SceneManager.LoadScene("JoinMainBoardContainer");
+        });
     }
 
     public void GoToHiddenBoard()
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
-
         GlobalAudioScript.Instance.playSfxSound("openMenu");
-        SceneManager.LoadScene("HiddenBoardScene");
+
+        hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() => 
+        {
+            SceneManager.LoadScene("HiddenBoardScene");
+        });
     }
 
     public void GoToIntroScreen()
@@ -109,6 +119,7 @@ public class UIManager : MonoBehaviour
 
     public void closeJoinGamePopUp()
     {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
         joinGamePopUpCanvas.GetComponent<RectTransform>().DOAnchorPosY(initialJoinGamePopUpPos.y, 0.5f, false).SetEase(Ease.Linear).Play();
     }
 

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class changeBackground : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Awake() 
     {
         if(GlobalDefaults.Instance.isTablet)

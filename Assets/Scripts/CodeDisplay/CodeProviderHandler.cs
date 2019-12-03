@@ -15,6 +15,7 @@ public class CodeProviderHandler : CodeHandlerAbstract
     public GameObject errorMessage;
     public Button confirmCodeButton; 
     public GameObject spinner; 
+    public GameObject transitionImage; 
 
     private bool searchingForRoom = false;
     private float searchingForRoomTimeOutTimer = 5f;
@@ -25,12 +26,15 @@ public class CodeProviderHandler : CodeHandlerAbstract
     [HideInInspector]
     public bool mainBoardRunningTutorial = false; 
 
-    private void Awake() {
+    private void Awake() 
+    {
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        transitionImage.SetActive(true);
     }
     
     void Start()
     {
+        StartCoroutine(waitForOrientationChange());
         confirmCodeButton.interactable = true;
         errorMessage.SetActive(false);
         spinner.SetActive(false);
@@ -138,5 +142,17 @@ public class CodeProviderHandler : CodeHandlerAbstract
     private void resetSearchingTimer()
     {
         searchingForRoomTimeOutTimer = 5f;
+    }
+
+
+    IEnumerator waitForOrientationChange()
+    {
+        yield return new WaitForSeconds(0.1f);
+        startTransition();
+    }
+    
+    private void startTransition()
+    {
+        transitionImage.GetComponent<Image>().DOFade(0f, 0.2f).Play();
     }
 }

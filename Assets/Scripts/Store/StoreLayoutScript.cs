@@ -122,8 +122,7 @@ public class StoreLayoutScript : MonoBehaviour
                 star.sprite = enabledStar;
                 particles.Play();
 
-                if(GlobalDefaults.Instance.tutorialIsOn)
-                    em.enabled = false;  
+                em.enabled = true;  
                 
                 if (wordPackClone.GetComponent<IAPButton>() != null)
                     StartCoroutine(disableIAPButton(wordPackClone));

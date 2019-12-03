@@ -19,10 +19,4 @@ public class AnimationScript : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         joinGameAnimation.Play("JoinGameAnimation");       
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
