@@ -8,14 +8,14 @@ using UnityEngine.SceneManagement;
 public class CodeProviderHandler : CodeHandlerAbstract
 {
     public InputField codeInput;
-    public WSNetworkingClient networkingClient;
-    public TutorialHiddenBoardScript tutorialHiddenBoardScript;
-    public GameObject mainBoard;
+    public JoinGameNetworkingClient networkingClient;
+    public UIManager uIManager;
     
     public GameObject errorMessage;
+    private Color errorColor; 
     public Button confirmCodeButton; 
     public GameObject spinner; 
-    public GameObject transitionImage; 
+    private Color spinnerColor; 
 
     private bool searchingForRoom = false;
     private float searchingForRoomTimeOutTimer = 5f;
@@ -23,21 +23,17 @@ public class CodeProviderHandler : CodeHandlerAbstract
 
     private Scene scene;
 
-    [HideInInspector]
-    public bool mainBoardRunningTutorial = false; 
 
-    private void Awake() 
-    {
-        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        transitionImage.SetActive(true);
-    }
-    
     void Start()
     {
         StartCoroutine(waitForOrientationChange());
         confirmCodeButton.interactable = true;
-        errorMessage.SetActive(false);
-        spinner.SetActive(false);
+        
+        errorColor = errorMessage.GetComponent<Text>().color;
+        errorMessage.GetComponent<Text>().color = new Color(errorColor.r, errorColor.g, errorColor.b, 0);
+
+        spinnerColor = spinner.GetComponent<Image>().color;
+        spinner.GetComponent<Image>().color = new Color(spinnerColor.r, spinnerColor.g, spinnerColor.b, 0);
 
         scene = SceneManager.GetActiveScene();
     }
@@ -72,7 +68,6 @@ public class CodeProviderHandler : CodeHandlerAbstract
     public void validateCode()
     {
         bool codeValid = true;
-        errorMessage.SetActive(false);
 
         if(connectionCode.Length != 4)
         {
@@ -93,11 +88,11 @@ public class CodeProviderHandler : CodeHandlerAbstract
     {
         confirmCodeButton.interactable = buttonInteractable;
         errorMessage.GetComponent<Text>().text = msg;
-        errorMessage.SetActive(true);
+        errorMessage.GetComponent<Text>().color = new Color(errorColor.r, errorColor.g, errorColor.b, 1);
 
         if(buttonInteractable)
         {
-            spinner.SetActive(false);
+            spinner.GetComponent<Image>().color = new Color(spinnerColor.r, spinnerColor.g, spinnerColor.b, 0); ;
         }
     }
 
@@ -108,24 +103,21 @@ public class CodeProviderHandler : CodeHandlerAbstract
         searchingForRoom = true;
     }
 
-    public void onJoinedRoom(Team team)
+    public void onJoinedRoom(Role role)
     {
         confirmCodeButton.interactable = true;
         gameObject.GetComponent<RectTransform>().DOAnchorPosY(-3000, 1f, false);
         searchingForRoom = false;
         resetSearchingTimer();
 
-        if(mainBoardRunningTutorial && scene.name == "HiddenBoardScene")
+        switch(role)
         {
-            tutorialHiddenBoardScript.beginTutorial(team);
-        }
-
-        if(scene.name == "JoinMainBoardContainer")
-        {
-            if(mainBoard != null) 
-            {
-                mainBoard.GetComponent<RectTransform>().DOAnchorPosY(0, 0.7f, false).Play();
-            }
+            case Role.captain:
+                uIManager.GoToHiddenBoard();
+                break;
+            case Role.crew:
+                uIManager.GoToMainBoardAsCrew();
+                break;   
         }
     }
 
@@ -133,7 +125,7 @@ public class CodeProviderHandler : CodeHandlerAbstract
     {
         string msg = "searching for game id";
         displayErrorMessage(msg, false);
-        spinner.SetActive(true);
+        spinner.GetComponent<Image>().color = new Color(spinnerColor.r, spinnerColor.g, spinnerColor.b, 1); ;
         var anim = spinner.GetComponent<RectTransform>().DORotate(new Vector3(0, 0, -360), 3f, RotateMode.FastBeyond360);
         anim.SetLoops(-1, LoopType.Incremental);
         anim.Play();
@@ -153,6 +145,5 @@ public class CodeProviderHandler : CodeHandlerAbstract
     
     private void startTransition()
     {
-        transitionImage.GetComponent<Image>().DOFade(0f, 0.2f).Play();
     }
 }

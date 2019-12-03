@@ -47,9 +47,13 @@ public class HiddenBoardViewController : MonoBehaviour
 
     private List<GameObject> textObjects;
     private List<RectTransform> textPositions;
-    private List<string> wordsSelected; 
+    public List<string> wordsSelected; 
 
     public EoGScript eoGScript;
+
+    private void Awake() {
+        print("hidden board view controller awake");
+    }
 
     private void Start() 
     {
@@ -58,8 +62,12 @@ public class HiddenBoardViewController : MonoBehaviour
         neutralButtonInitialPos = neutralButton.GetComponent<RectTransform>().anchoredPosition;
     }
 
-    public void initializeHiddenBoard()
+    public void initializeHiddenBoard(Tabs tab)
     {   
+        print("hiddenboard is being initialized");
+        tabSelected = tab;
+        animateTab(tab);
+
         redWords = new List<string>(){"searching"};
         blueWords = new List<string>(){"searching"};
         neutralWords = new List<string>(){"searching"};
@@ -72,12 +80,6 @@ public class HiddenBoardViewController : MonoBehaviour
         textPositions = new List<RectTransform>(){};
 
         getTextObjectSize();
-    }
-
-    public void startTab(Tabs tab)
-    {
-        tabSelected = tab;
-        animateTab(tab);
     }
 
     // entry for recreating text objects on the scroll 
@@ -138,8 +140,11 @@ public class HiddenBoardViewController : MonoBehaviour
 
         resetTextList();
 
+        print("number of word objects to be created: " + numberOfWordObjectsToBeCreated);
+
         for (int n = 0; n < numberOfWordObjectsToBeCreated; ++n)
         {
+            print("clones being instantiated");
             GameObject textClone = Instantiate(textObject, new Vector3(0, 0, 0), Quaternion.identity, collectionView.transform);
             var textObjectRT = textClone.GetComponent<RectTransform>();
             textClone.transform.SetParent(collectionView.transform, false);

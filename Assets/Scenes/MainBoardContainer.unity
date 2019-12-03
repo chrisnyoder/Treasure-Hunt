@@ -1096,12 +1096,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.21094, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.26741, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.21094, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.26741, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -1610,25 +1610,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -3147}
   m_SizeDelta: {x: 2436, y: 1125}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &382013816
-Animator:
-  serializedVersion: 3
+--- !u!114 &382013816
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382013814}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 10e24181ca2ca4667972e7c822f36f48, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db040519006e41d6be0c3f4c498d206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rt: {fileID: 382013815}
+  uIManager: {fileID: 936496549}
+  newGameButton: {fileID: 787400713}
+  joinGameButton: {fileID: 1975225332}
 --- !u!114 &382013817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4815,7 +4812,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backToMainMenuCanvas: {fileID: 1757797695}
   infoPopUp: {fileID: 0}
-  joinGamePopUpCanvas: {fileID: 0}
   hiddenBoardTransitionImage: {fileID: 0}
   networkingClient: {fileID: 1287908311}
 --- !u!1 &951347502
@@ -6091,7 +6087,7 @@ GameObject:
   - component: {fileID: 1287908312}
   - component: {fileID: 1287908311}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: NetworkingClient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6116,6 +6112,7 @@ MonoBehaviour:
   pingTimeout: 60
   wordsSelectedAsObject:
     wordsSelected: []
+  team: 1
   codeTab: {fileID: 393062380}
   collectionView: {fileID: 636488461}
   connectionCodeAsObject:
@@ -6748,8 +6745,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 936496549}
-        m_MethodName: GoToIntroScreen
+      - m_Target: {fileID: 382013816}
+        m_MethodName: reverseTransition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -8,8 +8,9 @@ public abstract class WSNetworkingClient : SocketIOComponent
     protected CodeHandlerAbstract codeHandler; 
     public GameState initialGameState;
     public WordsSelectedAsObject wordsSelectedAsObject = new WordsSelectedAsObject();
+    public CurrentGameStateAsObject currentGameStateAsObject;
 
-    protected Team team = Team.BlueTeam;
+    public Team team = Team.BlueTeam;
     protected bool isHosting;
     protected bool isConnected = false;
 
@@ -63,17 +64,17 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
         On("gameDictionary", (dictionary) =>
         {
-            GameState initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
+            initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
         });
 
         On("wordsSelected", (wordsSelected) =>
         {
-            WordsSelectedAsObject wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
+            wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
         });
 
         On("newGameState", (gameState) =>
         {
-            CurrentGameState currentGameState = JsonUtility.FromJson<CurrentGameState>(gameState.data.ToString());
+            currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
         });
     }
 
@@ -81,7 +82,6 @@ public abstract class WSNetworkingClient : SocketIOComponent
     {
         var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
         Emit("gameDictionary", gameStateAsJSONObject);
-        print("dictionary being sent");
     }
 
     public virtual void sendWordsSelected(List<string> wordsSelected)
@@ -93,15 +93,9 @@ public abstract class WSNetworkingClient : SocketIOComponent
     
     public virtual void sendCurrentGameState(CurrentGameState currentGameState)
     {
-        var currentGameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(CurrentGameState.gameInPlay));
+        CurrentGameStateAsObject currentGameStateAsObject = new CurrentGameStateAsObject(currentGameState);
+        print("current game state that is about to be sent: " + currentGameStateAsObject.currentGameState);
+        var currentGameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(currentGameStateAsObject));
         Emit("newGameState", currentGameStateAsJSONObject);
-    }
-
-    public virtual void joinGameWithCode(string connectionCode)
-    {
-        ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
-        connectionCodeAsObject.roomId = connectionCode;
-        var connectionCodeAsJSONObject = new JSONObject(JsonUtility.ToJson(connectionCodeAsObject));
-        Emit("isJoining", connectionCodeAsJSONObject);
     }
 }

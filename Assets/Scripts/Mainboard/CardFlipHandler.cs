@@ -21,13 +21,15 @@ public class CardFlipHandler : MonoBehaviour
     public Sprite neutralImage;
     public Sprite shipwreckImage;
 
-    public WSNetworkingClient networkingClient;
+    private WSNetworkingClient networkingClient;
 
     private void Awake() 
     {
         animator = gameObject.GetComponent<Animator>();
         GetComponent<FloatAnimation>().enabled = false;
         textField = card.GetComponentInChildren<Text>();
+
+        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
     }
 
     public void FlipCard()
@@ -137,6 +139,7 @@ public class CardFlipHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         gameState.LaunchEOGScreen();
+        print("current game state is: " + gameState.currentGameState);
         networkingClient.sendCurrentGameState(gameState.currentGameState);
     }
 }
