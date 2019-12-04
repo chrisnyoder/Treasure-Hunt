@@ -35,6 +35,7 @@ public class GlobalDefaults : MonoBehaviour
                 setPlayerDefaults();
                 setFrameRate();
                 determineIfTablet();
+                keepScreenOn();
             }
             globalSettingsSet = true;
 
@@ -79,6 +80,11 @@ public class GlobalDefaults : MonoBehaviour
     void setFrameRate()
     {
         Application.targetFrameRate = 60;
+    }
+
+    void keepScreenOn()
+    {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     void determineIfTablet()

@@ -275,6 +275,11 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public void gameStateChanged(CurrentGameState newGameState)
     {
+        if(newGameState == CurrentGameState.gameInPlay) 
+        {
+            eoGScript.gameObject.GetComponent<Animator>().Play("HiddenBoardResultsReverse");
+        }
+
         eoGScript.DisplayEOGCanvas(newGameState);
     }
 

@@ -40,6 +40,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
             {
                 print("about to send dictionary");
                 sendGameDictionary();
+                sendCurrentGameState(CurrentGameState.gameInPlay);
                 gameStateSent = true;
             }
         }

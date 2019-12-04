@@ -7,7 +7,7 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
 {
     public HiddenBoardViewController hiddenBoardViewController;
     private List<CardObject> hiddenBoardGameDictionary = new List<CardObject>(); 
-    private CurrentGameState currentGameState;
+    private CurrentGameState currentGameState = CurrentGameState.gameInPlay;
     private List<string> wordsSelected = new List<string>(){};  
     private JoinGameNetworkingClient joinGameNetworkingClient;
 
