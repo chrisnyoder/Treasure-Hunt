@@ -55,6 +55,8 @@ public class CodeTabScript : MonoBehaviour
 
     public void toggleTab()
     {
+        GlobalAudioScript.Instance.playSfxSound("togglePack2");
+
         if(GlobalDefaults.Instance.isTablet)
         {
             if (tabIsClosed)

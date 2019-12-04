@@ -7,7 +7,7 @@ using DG.Tweening;
 public class CrewGameUpdateHandler : MonoBehaviour
 {
     JoinGameNetworkingClient joinGameNetworkingClient;
-    WordsSelectedAsObject wordsSelectedAsObject = new WordsSelectedAsObject();
+    WordsSelectedAsObject wordsSelectedAsObject;
     GameState crewMemberGameState; 
     public GameObject EoGCanvas;
 
@@ -17,13 +17,13 @@ public class CrewGameUpdateHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cards = gameObject.GetComponentsInChildren<CardFlipHandler>();
     }
 
     private void Update() 
     {
         if(joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected != wordsSelectedAsObject.wordsSelected)
         {
+            print("words selected are different");
             updateWordsSelected();
         }
 
@@ -38,8 +38,10 @@ public class CrewGameUpdateHandler : MonoBehaviour
         wordsSelectedAsObject.wordsSelected = joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected;
         foreach (CardFlipHandler card in cards)
         {
+            print("card is flipped: " + card.cardIsFlipped);
             if (card.cardText == wordsSelectedAsObject.lastWordSelected && !card.cardIsFlipped)
             {
+                print("flipping card");
                 card.FlipCard();
             }
         }
@@ -66,12 +68,25 @@ public class CrewGameUpdateHandler : MonoBehaviour
     {
         if (joinGameNetworkingClient.initialGameState.hiddenBoardList.Count > 0)
         {
+            wordsSelectedAsObject = new WordsSelectedAsObject();
+            wordsSelectedAsObject.wordsSelected = joinGameNetworkingClient.initialGameState.wordsSelected;
+
             boardLayoutScript = GameObject.Find("MainBoardCanvas").GetComponent<BoardLayoutScript>();
             crewMemberGameState = joinGameNetworkingClient.initialGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
             
             var rt = gameObject.GetComponent<RectTransform>();
             rt.DOAnchorPosY(0, 0.5f, false).Play().SetEase(Ease.Linear);
+
+            cards = gameObject.GetComponentsInChildren<CardFlipHandler>();
+
+            if(cards.Length > 0) 
+            {
+                foreach (CardFlipHandler card in cards)
+                {
+                    card.cardIsFlipped = false;
+                }
+            }
         }
 
         exitResultsCanvasIfDisplayed();

@@ -58,7 +58,7 @@ public class TutorialMainScreenData
         "For your first game we're going to get you started with the Starter word pack",
         "Let's create the game room so the team captains can join",
         "",
-        "Each team picks a team captain. The captains should open Treasure hunt on their personal devices and select <join game> from the home screen. They should type in following code:",
+        "Each team picks a team captain. Each captain opens Treasure hunt on their personal device and selects <color=#FFEFD2><i> <join game> </i></color> , chooses the role of <color=#FFEFD2><i> <captain> </i></color>, and types in following code:",
         "Here is where players will reveal words to see if their team’s coins are hidden underneath",
         "the goal of Treasure Hunt is to be the first to find all your team’s coins. Blue team has 8, Red team has 7. The captains will give clues to help you flip over the right words. Good luck and have fun!"
     }; 
