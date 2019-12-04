@@ -179,6 +179,8 @@ public class TutorialMainScreenScript : MonoBehaviour
                 var initialWordList = gameObject.transform.Find("initialWordList");
                 initialWordList.SetParent(this.storeCollectionView.transform);
 
+                mainText.fontSize = (mainText.fontSize) * 2;
+
                 initialWordList.GetComponent<RectTransform>().anchorMin = initialMinAnchorsForStarterPack;
                 initialWordList.GetComponent<RectTransform>().anchorMax = initialMaxAnchorsForStarterPack;
 
@@ -193,6 +195,7 @@ public class TutorialMainScreenScript : MonoBehaviour
 
             if(tutorialIndexNumber == 4)
             {
+                mainText.fontSize = (mainText.fontSize) / 2;
                 StartCoroutine(generateGameAnimation());
             }
 
