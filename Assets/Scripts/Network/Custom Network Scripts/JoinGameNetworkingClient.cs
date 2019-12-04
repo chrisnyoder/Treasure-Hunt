@@ -50,6 +50,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         {
             initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
             mainBoardRunningTutorial = initialGameState.isTutorial;
+            wordsSelectedAsObject.wordsSelected = initialGameState.wordsSelected; 
 
             if (initialGameState.playerIndex == 1)
             {

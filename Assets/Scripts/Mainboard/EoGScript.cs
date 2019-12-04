@@ -24,6 +24,14 @@ public class EoGScript : MonoBehaviour
     public void DisplayEOGCanvas(CurrentGameState currentGameState)
     {
 
+        if(cards.Count > 0)
+        {
+            foreach (GameObject card in cards)
+            {
+                Destroy(card);
+            }
+        }
+
         this.currentGameState = currentGameState;
 
         var loseImage = loseBanner.GetComponent<Image>();
@@ -52,6 +60,7 @@ public class EoGScript : MonoBehaviour
         }
 
         var animator = GetComponent<Animator>();
+        
         animator.Play("ResultsCanvasAnimation");
     }
 
@@ -84,7 +93,7 @@ public class EoGScript : MonoBehaviour
             card.SetActive(false);
         } else 
         {
-            // do nothing
+
         }
     }
 }
