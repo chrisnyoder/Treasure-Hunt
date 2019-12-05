@@ -14,6 +14,7 @@ public class HiddenToIntroTransition : MonoBehaviour
 
     public void startTransition()
     {
+
         newGameButton.gameObject.SetActive(false);
         joinGameButton.gameObject.SetActive(false);
 

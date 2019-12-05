@@ -24,7 +24,6 @@ public class InterstitalTransitionScript : MonoBehaviour
 
     public void reverseTransition()
     {
-        GlobalAudioScript.Instance.playSfxSound("openMenu");
 
         newGameButton.gameObject.SetActive(false);
         joinGameButton.gameObject.SetActive(false);
