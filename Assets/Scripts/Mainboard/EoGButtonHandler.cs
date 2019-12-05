@@ -23,15 +23,8 @@ public class EoGButtonHandler : MonoBehaviour
         var CodeDisplayBackroundRT = GameObject.Find("CodeDisplayBackground").GetComponent<RectTransform>();
         CodeDisplayBackroundRT.DOAnchorPosY(0, 1.5f, false);
 
-        var cards = EoGCanvasObject.GetComponent<EoGScript>().cards;
-
         mainBoardNetworkingClient.initialGameState = null; 
-        mainBoardNetworkingClient.gameStateSent = false; 
-
-        foreach(GameObject card in cards)
-        {
-            Destroy(card);
-        }
+        mainBoardNetworkingClient.gameStateSent = false;
        
         EoGCanvasAninmator.Play("ResultsAnimationReverse");
         StoreCanvasAnimator.Play("StoreAnimationReverse");

@@ -49,8 +49,8 @@ public class HiddenBoardTutorialData
         "As your team flips over words on the main board, you will see them get crossed out on the scroll. Hopefully, your team found <color=#00ACB9> Saturn </color> and <color=#00ACB9> satellite </color>",
         "In addition to your team's words, you can view the other team's words (as well as neutral words) by selecting the tabs along the bottom",
         "Keep an eye on these words as well. If you flip over a card that is not yours, play passes to the next team",
-        "Be careful! if your team selects the word in the danger box the game is over and the other team wins",
-        "You can continue this game or exit to start a new one. If you ever need a refresher, the rules are available from the home screen. Have fun!"
+        "Be careful! If your team selects the word in the danger box the game is over and the other team wins",
+        "You can continue this game or exit to start a new one. If you ever need a refresher, the tutorial can be turned back on from the home screen. Have fun!"
     };
 
     private static List<string> mainTextRed = new List<string>
@@ -63,8 +63,8 @@ public class HiddenBoardTutorialData
         "As your team flips over words on the main board, you will see them get crossed out on the scroll. Hopefully, your team found <color=#e03b28> gold </color> and <color=#e03b28> money </color>",
         "In addition to your team's words, you can view the other team's words (as well as neutral words) by selecting the tabs along the bottom",
         "Keep an eye on these words as well. If you flip over a card that is not yours, play passes to the next team",
-        "Be careful! if your team selects the word in the danger box the game is over and the other team wins",
-        "You can continue this game or exit to start a new one. If you ever need a refresher, the rules are available from the home screen. Have fun!"
+        "Be careful! If your team selects the word in the danger box the game is over and the other team wins",
+        "You can continue this game or exit to start a new one. If you ever need a refresher, the tutorial can be turned back on from the home screen. Have fun!"
     };
 
     private static List<string> titleTexts = new List<string>
