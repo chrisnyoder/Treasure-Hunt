@@ -42,5 +42,7 @@ public class Slam : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
     {
         var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
         scaleBack.Play();
+
+        GlobalAudioScript.Instance.playSfxSound("Slam_05");
     }
 }
