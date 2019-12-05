@@ -49,7 +49,7 @@ public class CodeTabScript : MonoBehaviour
         } else 
         {
             if (tabTransform.anchoredPosition.x <= 0)
-                tabTransform.DOAnchorPos3DX(tabTransform.anchoredPosition.x + (0.25f * tabTransform.rect.width), 0.5f, false);
+                tabTransform.DOAnchorPos3DX(tabTransform.anchoredPosition.x + (0.5f * tabTransform.rect.width), 0.5f, false);
         }
     }
 
