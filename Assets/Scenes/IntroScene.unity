@@ -5902,7 +5902,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b161b25d142314b25b984fe73c1bee95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joinGameAnimation: {fileID: 0}
 --- !u!1 &690998025
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,6 +5980,7 @@ GameObject:
   - component: {fileID: 701602172}
   - component: {fileID: 701602171}
   - component: {fileID: 701602175}
+  - component: {fileID: 701602176}
   m_Layer: 5
   m_Name: ToggleMusic
   m_TagString: Untagged
@@ -6132,6 +6132,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25546981cb09ba544b770d35f8d2c51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &701602176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701602169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da2ca8761e23b9488898eb84d8f3238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &715070474
@@ -6639,6 +6651,7 @@ GameObject:
   - component: {fileID: 1078081145}
   - component: {fileID: 1078081144}
   - component: {fileID: 1078081148}
+  - component: {fileID: 1078081149}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -6790,6 +6803,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1078081149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078081142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da2ca8761e23b9488898eb84d8f3238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1296191505
 GameObject:
   m_ObjectHideFlags: 0
@@ -6850,12 +6875,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.17235, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.17235, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
 --- !u!4 &1296191508
 Transform:
   m_ObjectHideFlags: 0
@@ -11817,6 +11842,7 @@ GameObject:
   - component: {fileID: 1849285472}
   - component: {fileID: 1849285471}
   - component: {fileID: 1849285470}
+  - component: {fileID: 1849285474}
   m_Layer: 5
   m_Name: ToggleTutorial
   m_TagString: Untagged
@@ -11958,6 +11984,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1849285474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849285468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da2ca8761e23b9488898eb84d8f3238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1939435538
 GameObject:
   m_ObjectHideFlags: 0
@@ -11972,6 +12010,7 @@ GameObject:
   - component: {fileID: 1939435541}
   - component: {fileID: 1939435540}
   - component: {fileID: 1939435544}
+  - component: {fileID: 1939435545}
   m_Layer: 5
   m_Name: PrivacyPolicy
   m_TagString: Untagged
@@ -12123,6 +12162,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25546981cb09ba544b770d35f8d2c51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1939435545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939435538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da2ca8761e23b9488898eb84d8f3238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1968770668
@@ -12326,6 +12377,7 @@ GameObject:
   - component: {fileID: 1988366395}
   - component: {fileID: 1988366394}
   - component: {fileID: 1988366393}
+  - component: {fileID: 1988366397}
   m_Layer: 5
   m_Name: InfoButton
   m_TagString: Untagged
@@ -12456,6 +12508,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988366391}
   m_CullTransparentMesh: 0
+--- !u!114 &1988366397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988366391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da2ca8761e23b9488898eb84d8f3238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2060765255
 GameObject:
   m_ObjectHideFlags: 0
