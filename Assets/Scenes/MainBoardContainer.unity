@@ -1096,12 +1096,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.23116, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.39686, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.23116, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.39686, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -2763,7 +2763,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 0}
+  m_SizeDelta: {x: 280, y: 97.231964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &472764521
 MonoBehaviour:
@@ -5504,6 +5504,31 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 412134368793024681, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_Text
+      value: Conan the Barbarian
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1ebf312dac034ffaae6c7a6b4472651, type: 3}
 --- !u!1 &1172453765 stripped
@@ -6933,7 +6958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7786666
+  m_AspectRatio: 2
 --- !u!95 &1594670875
 Animator:
   serializedVersion: 3
@@ -12169,7 +12194,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 0}
+  m_SizeDelta: {x: 280, y: 97.231964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1856425648
 MonoBehaviour:
@@ -18319,7 +18344,7 @@ PrefabInstance:
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: onPurchaseFailed.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
@@ -18369,6 +18394,21 @@ PrefabInstance:
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: onPurchaseComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: onPurchaseFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 255411793082031486}
+    - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: onPurchaseFailed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: purchaseFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: onPurchaseFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 858469839877463285, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
