@@ -1632,7 +1632,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 58d4e908e37894115b47d6227d0b0247, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6727391ace7e46a45af9b9d024790b8b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2265,7 +2265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 0.46182266
+  m_AspectRatio: 1.3333334
 --- !u!114 &1075341245
 MonoBehaviour:
   m_ObjectHideFlags: 0
