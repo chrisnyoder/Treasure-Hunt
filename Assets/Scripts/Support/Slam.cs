@@ -7,10 +7,6 @@ using DG.Tweening;
 
 public class Slam : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
 {
-
-
-
-
     RectTransform rectTransform;
     Vector3 initialRotation;
     Vector3 pushedScale;
@@ -23,12 +19,6 @@ public class Slam : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
        
         initialScale = rectTransform.localScale;
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void OnPointerDown(PointerEventData eventData)

@@ -141,7 +141,7 @@ RectTransform:
   m_GameObject: {fileID: 68523746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2435.9998, y: 1124.9999, z: 1}
+  m_LocalScale: {x: 2435.9998, y: 2436, z: 1}
   m_Children: []
   m_Father: {fileID: 2110054343}
   m_RootOrder: 0
@@ -5897,9 +5897,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679269380}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b161b25d142314b25b984fe73c1bee95, type: 3}
+  m_Script: {fileID: 11500000, guid: 25546981cb09ba544b770d35f8d2c51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &690998025
@@ -6875,12 +6875,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.16020, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.16020, Culture=neutral, PublicKeyToken=null
 --- !u!4 &1296191508
 Transform:
   m_ObjectHideFlags: 0
@@ -12340,7 +12340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.3137255}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.627451}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
