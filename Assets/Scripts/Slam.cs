@@ -34,7 +34,7 @@ public class Slam : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         rectTransform = GetComponent<RectTransform>();
-        pushedScale = initialScale * 1.1f;
+        pushedScale = initialScale * 2.1f;
         transform.DOScale(pushedScale, 1.0f).SetEase(Ease.InOutBack);
     }
 
