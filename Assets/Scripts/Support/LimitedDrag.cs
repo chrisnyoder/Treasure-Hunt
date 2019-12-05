@@ -49,12 +49,6 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
         initialScale = rectTransform.localScale;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         rectTransform = GetComponent<RectTransform>();

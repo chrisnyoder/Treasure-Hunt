@@ -64,7 +64,6 @@ public class UIManager : MonoBehaviour
 
     public void GoToIntroScreen()
     {
-        GlobalAudioScript.Instance.playSfxSound("openMenu");
         closeNetworkingClient();
         SceneManager.LoadScene("IntroScene");
     }

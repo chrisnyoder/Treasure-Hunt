@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public enum Team
 {
@@ -30,6 +31,9 @@ public class TutorialHiddenBoardScript : MonoBehaviour
     public GameObject circleImage;
     public GameObject verticalLayoutGroup;
 
+    private Vector2 circleInitialMinAnchor; 
+    private Vector2 circleInitialMaxAnchor; 
+
     public GameObject blueButton;
     public GameObject redButton;
     public GameObject neutralButton;
@@ -38,13 +42,15 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     void Start()
     {
-
         mainText.color = new Color(mainText.color.r, mainText.color.g, mainText.color.b, 0f);
         continueButton.SetActive(false);
 
         blueButton = GameObject.Find("BlueButton");
         redButton = GameObject.Find("RedButton");
         neutralButton = GameObject.Find("NeutralButton");
+
+        circleInitialMinAnchor = new Vector2(0.5f, 0.5f);
+        circleInitialMaxAnchor = new Vector2(0.5f, 0.5f); ;
     }
 
     public void beginTutorial(Team team)
@@ -111,13 +117,6 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     public void displayTutorialScreenData()
     {
-        mainText.DOFade(0, 0.7f).Play().OnComplete(() =>
-            {
-                tutorialScreenData = new HiddenBoardTutorialData(tutorialIndexNumber, _team);
-                mainText.text = tutorialScreenData.mainText;
-                mainText.DOFade(1, 0.7f).Play();
-            }
-        );
 
         shadeImages();
         if (tutorialIndexNumber == 0)
@@ -127,6 +126,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         if (tutorialIndexNumber == 1)
         {
+            placeCircleImageOnTheSide();
+
             titleText.GetComponent<Text>().DOFade(0, 0.5f).Play().OnComplete(() =>
                 {
                     Destroy(titleText);
@@ -151,6 +152,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         if (tutorialIndexNumber == 2)
         {
+            placeCircleImageOnBottom();
+
             moveButton.Kill(true);
 
             tabToMove.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
@@ -158,12 +161,12 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             pressToContinueText.GetComponent<Text>().DOFade(1, 0.7f).Play();
 
             highlightText();
-            placeCircleImageOnBottom();
         }
 
         if (tutorialIndexNumber == 3)
         {
-            placeCircleImageOnTheSide();
+
+                placeCircleImageOnTheSide();
         }
 
         if (tutorialIndexNumber == 4 || tutorialIndexNumber == 5)
@@ -186,7 +189,6 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         if (tutorialIndexNumber == 6)
         {
             placeCircleImageOnTheSide();
-            highlightButtons();
         }
 
         if (tutorialIndexNumber == 7)
@@ -198,7 +200,9 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         if (tutorialIndexNumber == 8)
         {
+
             placeCircleImageOnTheSide();
+
             var dangerImage = GameObject.Find("DangerImage");
             var dangerText = GameObject.Find("DangerText");
 
@@ -209,12 +213,27 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         if (tutorialIndexNumber == 9)
         {
+            placeCircleImageOnTheSide();
             var dangerText = GameObject.Find("DangerText");
             dangerText.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
             skipTutorialButton.SetActive(false);
             pressToContinueText.GetComponent<LayoutElement>().minHeight = 200;
             pressToContinueText.GetComponent<Text>().text = "press anywhere to exit";
         }
+    }
+
+    private void resetCircleImageAnchors()
+    {
+        circleImage.GetComponent<RectTransform>().anchorMin = circleInitialMinAnchor;
+        circleImage.GetComponent<RectTransform>().anchorMax = circleInitialMaxAnchor;
+    }
+
+    private void fadeTextAndCircleIn()
+    {
+        tutorialScreenData = new HiddenBoardTutorialData(tutorialIndexNumber, _team);
+        mainText.text = tutorialScreenData.mainText;
+        mainText.DOFade(1, 0.5f).Play();
+        circleImage.GetComponent<Image>().DOFade(1, 0.5f);
     }
 
     private void highlightText()
@@ -235,16 +254,21 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     private void placeCircleImageOnTheSide()
     {
-        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-560, 345), 1f, false);
-        var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(400, -50), 1f, false);
-        var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(620, 780), 1f, false);
-
+        var tween = circleImage.GetComponent<Image>().DOFade(0, 0.5f);
         tween.Play();
-        tween2.Play();
-        tween3.Play();
+
+        mainText.DOFade(0, 0.5f).Play();
 
         tween.OnComplete(() =>
         {
+            circleImage.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0.5f);
+            circleImage.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0.5f);
+
+            circleImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 345);
+            verticalLayoutGroup.GetComponent<RectTransform>().anchoredPosition = new Vector2(400, -50);
+            verticalLayoutGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(620, 780);
+
+            fadeTextAndCircleIn();
             if (tutorialIndexNumber != 1)
                 continueButton.SetActive(true);
         });
@@ -252,45 +276,46 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     private void placeCircleImageOnTop()
     {
-        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1475), 1f, false);
-        var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -590), 1f, false);
-        var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(950, 270), 1f, false);
 
-        if (GlobalDefaults.Instance.isTablet)
-        {
-            tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 1280), 1f, false);
-            tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -650), 1f, false);
-            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(720, 270), 1f, false);
-        }
+        var tween = circleImage.GetComponent<Image>().DOFade(0, 0.5f);
+
+        mainText.DOFade(0, 0.5f).Play();
+        tween.Play();
+
 
         tween.Play();
-        tween2.Play();
-        tween3.Play();
 
         tween.OnComplete(() =>
         {
+            circleImage.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 1f);
+            circleImage.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 1f);
+
+            circleImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 360);
+            verticalLayoutGroup.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -600);
+            verticalLayoutGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(950, 350);
+
+            fadeTextAndCircleIn();
             continueButton.SetActive(true);
         });
     }
 
     private void placeCircleImageOnBottom()
     {
-        var tween = circleImage.GetComponent<RectTransform>().DOAnchorPos(new Vector2(140, -1100), 1f, false);
-        var tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-30, 390), 1f, false);
-        var tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(870, 520), 1f, false);
+        var tween = circleImage.GetComponent<Image>().DOFade(0, 0.5f);
 
-        if (GlobalDefaults.Instance.isTablet)
-        {
-            tween2 = verticalLayoutGroup.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-30, 540), 1f, false);
-            tween3 = verticalLayoutGroup.GetComponent<RectTransform>().DOSizeDelta(new Vector2(870, 270), 1f, false);
-        }
-
+        mainText.DOFade(0, 0.5f).Play();
         tween.Play();
-        tween2.Play();
-        tween3.Play();
 
         tween.OnComplete(() =>
         {
+            circleImage.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0f);
+            circleImage.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0f);
+
+            circleImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(140, 120);
+            verticalLayoutGroup.GetComponent<RectTransform>().anchoredPosition = new Vector2(-30, 300);
+            verticalLayoutGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(870, 700);
+
+            fadeTextAndCircleIn();
             continueButton.SetActive(true);
         });
     }
