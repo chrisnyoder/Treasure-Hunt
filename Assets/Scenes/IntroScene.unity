@@ -6077,7 +6077,6 @@ GameObject:
   - component: {fileID: 701602173}
   - component: {fileID: 701602172}
   - component: {fileID: 701602171}
-  - component: {fileID: 701602175}
   - component: {fileID: 701602176}
   m_Layer: 5
   m_Name: ToggleMusic
@@ -6220,18 +6219,6 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
---- !u!114 &701602175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701602169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25546981cb09ba544b770d35f8d2c51b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &701602176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6628,7 +6615,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 909726541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25546981cb09ba544b770d35f8d2c51b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da2ca8761e23b9488898eb84d8f3238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &915181119
@@ -6973,12 +6960,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.29036, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.29036, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
 --- !u!4 &1296191508
 Transform:
   m_ObjectHideFlags: 0
@@ -12107,7 +12094,6 @@ GameObject:
   - component: {fileID: 1939435542}
   - component: {fileID: 1939435541}
   - component: {fileID: 1939435540}
-  - component: {fileID: 1939435544}
   - component: {fileID: 1939435545}
   m_Layer: 5
   m_Name: PrivacyPolicy
@@ -12250,18 +12236,6 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
---- !u!114 &1939435544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939435538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25546981cb09ba544b770d35f8d2c51b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1939435545
 MonoBehaviour:
   m_ObjectHideFlags: 0
