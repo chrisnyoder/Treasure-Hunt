@@ -54,11 +54,13 @@ public class LimitedDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointe
         rectTransform = GetComponent<RectTransform>();
         pushedScale = initialScale * 1.1f;
         transform.DOScale(pushedScale, 1.0f).SetEase(Ease.InOutBack);
+        GlobalAudioScript.Instance.playSfxSound2("pickup2");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
         scaleBack.Play();
+        GlobalAudioScript.Instance.playSfxSound2("drop");
     }
 }
