@@ -1175,12 +1175,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.37987, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.37987, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -4652,6 +4652,7 @@ MonoBehaviour:
   wordPackButton: {fileID: 64876750}
   languageSelected: 0
   restorePurchaseButton: {fileID: 196943571}
+  codeTab: {fileID: 393062380}
   starterWordPackImage: {fileID: 21300000, guid: c590355a9c4214746a458bafeb5aab7d,
     type: 3}
   expansionWordPackImage: {fileID: 21300000, guid: 4e38e308b606944dfadb131535276471,
@@ -7026,7 +7027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.1653333
+  m_AspectRatio: 1.3339844
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
