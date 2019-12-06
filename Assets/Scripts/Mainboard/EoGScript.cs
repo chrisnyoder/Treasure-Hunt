@@ -22,9 +22,6 @@ public class EoGScript : MonoBehaviour
         card.SetActive(false);
         loseBanner.SetActive(false);
         winBanner.SetActive(false);
-        gameOverText.SetActive(false);
-        
-
     }
 
     public void DisplayEOGCanvas(CurrentGameState currentGameState)
@@ -38,6 +35,8 @@ public class EoGScript : MonoBehaviour
             }
         }
 
+        gameOverText.SetActive(false);
+
         this.currentGameState = currentGameState;
 
         var loseImage = loseBanner.GetComponent<Image>();
@@ -49,8 +48,6 @@ public class EoGScript : MonoBehaviour
                 winBanner.SetActive(true);
                 loseBanner.SetActive(false);
                 GlobalAudioScript.Instance.playSfxSound("win_sfx");
-           
-
                 winImage.sprite = Resources.Load<Sprite>("Images/Results/blue_team_wins@2x");
                 card.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Results/blue_card@2x");
                 break;
