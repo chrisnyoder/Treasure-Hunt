@@ -13,6 +13,8 @@ public class EoGScript : MonoBehaviour
     public GameObject loseBanner;
     public GameObject winBanner;
 
+    public Slam slam;
+
     private CurrentGameState currentGameState;
 
     private void Start() {
@@ -31,6 +33,7 @@ public class EoGScript : MonoBehaviour
                 Destroy(card);
             }
         }
+
 
         this.currentGameState = currentGameState;
 
@@ -54,13 +57,13 @@ public class EoGScript : MonoBehaviour
                 card.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Results/red_card@2x");
                 break;
             case CurrentGameState.loses:
+                slam.makeCoinBig();
                 winBanner.SetActive(false);
                 loseBanner.SetActive(true);
                 break;
         }
 
         var animator = GetComponent<Animator>();
-        
         animator.Play("ResultsCanvasAnimation");
     }
 
@@ -93,7 +96,7 @@ public class EoGScript : MonoBehaviour
             card.SetActive(false);
         } else 
         {
-
+            slam.animateEoGCursedCoin();
         }
     }
 }
