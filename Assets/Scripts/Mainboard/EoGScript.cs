@@ -12,6 +12,7 @@ public class EoGScript : MonoBehaviour
 
     public GameObject loseBanner;
     public GameObject winBanner;
+    public GameObject gameOverText;
 
     public Slam slam;
 
@@ -21,6 +22,9 @@ public class EoGScript : MonoBehaviour
         card.SetActive(false);
         loseBanner.SetActive(false);
         winBanner.SetActive(false);
+        gameOverText.SetActive(false);
+        
+
     }
 
     public void DisplayEOGCanvas(CurrentGameState currentGameState)
@@ -61,6 +65,7 @@ public class EoGScript : MonoBehaviour
                 slam.makeCoinBig();
                 winBanner.SetActive(false);
                 loseBanner.SetActive(true);
+                gameOverText.SetActive(true);
                 break;
         }
 
