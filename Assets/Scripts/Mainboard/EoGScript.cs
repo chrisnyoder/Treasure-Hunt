@@ -46,6 +46,8 @@ public class EoGScript : MonoBehaviour
                 winBanner.SetActive(true);
                 loseBanner.SetActive(false);
                 GlobalAudioScript.Instance.playSfxSound("win_sfx");
+           
+
                 winImage.sprite = Resources.Load<Sprite>("Images/Results/blue_team_wins@2x");
                 card.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Results/blue_card@2x");
                 break;
