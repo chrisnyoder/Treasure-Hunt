@@ -72,48 +72,64 @@ public class UIManager : MonoBehaviour
     {
         GlobalAudioScript.Instance.playSfxSound("openDrawer");
 
-        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
-        exitPopUpCanvasAnimator.Play("BackToMainMenuAnimation");
+        var exitPopUpCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
+        exitPopUpCanvasRT.anchoredPosition = new Vector2(0, 1500);
+        exitPopUpCanvasRT.DOAnchorPosY(0, 0.7f).Play().OnComplete(() => {
+            exitPopUpCanvasRT.GetComponent<Image>().DOFade(0.627f, 0.3f).Play();
+        }
+        );
     }
 
     public void DismissExitMenuPopUpOnMainboard()
     {
         GlobalAudioScript.Instance.playSfxSound("closeDrawer");
 
-        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
-        exitPopUpCanvasAnimator.Play("BackToMainMenuAnimationReverse");
+        var exitPopUpCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
+
+        exitPopUpCanvasRT.DOAnchorPosY(1500, 0.7f).Play();
+        exitPopUpCanvasRT.GetComponent<Image>().DOFade(0f, 0.1f).Play();
     }
 
     public void bringUpExitPopUpOnHiddenboard()
     {
         GlobalAudioScript.Instance.playSfxSound("openDrawer");
 
-        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
-        exitPopUpCanvasAnimator.Play("BackToMainMenuFromHiddenboardAnimation");
+        var exitPopUpCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
+        exitPopUpCanvasRT.anchoredPosition = new Vector2(0, 3000);
+        exitPopUpCanvasRT.DOAnchorPosY(0, 0.7f).Play().OnComplete(() =>
+        {
+            exitPopUpCanvasRT.GetComponent<Image>().DOFade(0.627f, 0.3f).Play();
+        }
+        );
     }
 
     public void DismissExitMenuPopUpOnHiddenboard()
     {
         GlobalAudioScript.Instance.playSfxSound("closeDrawer");
 
-        var exitPopUpCanvasAnimator = backToMainMenuCanvas.GetComponent<Animator>();
-        exitPopUpCanvasAnimator.Play("BackToMainMenuFromHiddenboardAnimationReverse");
+        var exitPopUpCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
+
+        exitPopUpCanvasRT.DOAnchorPosY(3000, 0.7f).Play();
+        exitPopUpCanvasRT.GetComponent<Image>().DOFade(0f, 0.1f).Play();
     }
 
     public void bringUpInfoPopUp()
     {
         GlobalAudioScript.Instance.playSfxSound("openDrawer");
 
-        var animator = infoPopUp.GetComponent<Animator>();
-        animator.Play("StoreInfoPopUpAnimation");
+        var infoRT = infoPopUp.GetComponent<RectTransform>();
+        infoRT.DOAnchorPosY(0, 0.7f, false).Play().OnComplete(() => {
+            infoRT.GetComponent<Image>().DOFade(0.627f, 0.3f);
+        });
     }
 
     public void closeInfoPopUp()
     {
         GlobalAudioScript.Instance.playSfxSound("closeDrawer");
 
-        var animator = infoPopUp.GetComponent<Animator>();
-        animator.Play("StoreInfoPopUpAnimationReverse");
+        var infoRT = infoPopUp.GetComponent<RectTransform>();
+        infoRT.DOAnchorPosY(1500, 0.7f, false).Play();
+        infoRT.GetComponent<Image>().DOFade(0, .001f);
     }
 
     private void closeNetworkingClient()
