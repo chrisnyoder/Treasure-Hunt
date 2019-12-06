@@ -388,36 +388,6 @@ PlayerSettings:
   - m_BuildTarget: iPhone
     m_Icons:
     - m_Textures:
-      - {fileID: 2800000, guid: 147fd81b0fd26484abfd3468e4033ab5, type: 3}
-      m_Width: 180
-      m_Height: 180
-      m_Kind: 0
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 2800000, guid: 2226b0e87faa0af45b6709a2d19ef669, type: 3}
-      m_Width: 120
-      m_Height: 120
-      m_Kind: 0
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 2800000, guid: bd98dc7072063cf46a4acb6d0e9e74dc, type: 3}
-      m_Width: 167
-      m_Height: 167
-      m_Kind: 0
-      m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 2800000, guid: 8bf2da9080c71904b9f630f01f5ef1b5, type: 3}
-      m_Width: 152
-      m_Height: 152
-      m_Kind: 0
-      m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 2800000, guid: a53ba482d4698c34ea9e50ac60b276a0, type: 3}
-      m_Width: 76
-      m_Height: 76
-      m_Kind: 0
-      m_SubKind: iPad
-    - m_Textures:
       - {fileID: 2800000, guid: 2377b3c51da234a429e936e939eca758, type: 3}
       m_Width: 120
       m_Height: 120
@@ -500,6 +470,36 @@ PlayerSettings:
       m_Width: 20
       m_Height: 20
       m_Kind: 2
+      m_SubKind: iPad
+    - m_Textures:
+      - {fileID: 2800000, guid: 147fd81b0fd26484abfd3468e4033ab5, type: 3}
+      m_Width: 180
+      m_Height: 180
+      m_Kind: 0
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 2800000, guid: 2226b0e87faa0af45b6709a2d19ef669, type: 3}
+      m_Width: 120
+      m_Height: 120
+      m_Kind: 0
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 2800000, guid: bd98dc7072063cf46a4acb6d0e9e74dc, type: 3}
+      m_Width: 167
+      m_Height: 167
+      m_Kind: 0
+      m_SubKind: iPad
+    - m_Textures:
+      - {fileID: 2800000, guid: 8bf2da9080c71904b9f630f01f5ef1b5, type: 3}
+      m_Width: 152
+      m_Height: 152
+      m_Kind: 0
+      m_SubKind: iPad
+    - m_Textures:
+      - {fileID: 2800000, guid: a53ba482d4698c34ea9e50ac60b276a0, type: 3}
+      m_Width: 76
+      m_Height: 76
+      m_Kind: 0
       m_SubKind: iPad
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
