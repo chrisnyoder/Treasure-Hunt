@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Purchasing;
+using DG.Tweening;
 
 public class StoreLayoutScript : MonoBehaviour
 {
@@ -173,8 +174,16 @@ public class StoreLayoutScript : MonoBehaviour
 
     public void runMainBoardAnimation()
     {
-        var mainBoardAnimator =  GameObject.Find("MainBoardCanvas").GetComponent<Animator>();
-        mainBoardAnimator.Play("MainBoardAnimation");
+
+        var codeDisplayBackground = GameObject.Find("CodeDisplayBackground");
+        var mainBoardRT =  GameObject.Find("MainBoardCanvas").GetComponent<RectTransform>();
+
+        codeDisplayBackground.GetComponentInChildren<Text>().DOFade(0, 0f);
+        mainBoardRT.DOAnchorPosY(0, 0.7f, false).Play().OnComplete(() =>
+        {
+            codeDisplayBackground.GetComponent<Image>().DOFade(0.7f, 0.1f);
+            codeDisplayBackground.GetComponentInChildren<Text>().DOFade(1, 0.1f);
+        });
     }
 
     // Update is called once per frame

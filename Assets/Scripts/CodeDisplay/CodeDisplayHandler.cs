@@ -74,7 +74,9 @@ public class CodeDisplayHandler : CodeHandlerAbstract
     public void startGame()
     {
         var rt = gameObject.GetComponent<RectTransform>();
+
         rt.DOAnchorPosY(-2000, 1f, false);
+        rt.GetComponent<Image>().DOFade(0, 0.3f);
     }
 
     public void displayConnectionCode(string receivedConnectionCode)
