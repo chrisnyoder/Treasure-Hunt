@@ -34,7 +34,6 @@ public class EoGScript : MonoBehaviour
             }
         }
 
-
         this.currentGameState = currentGameState;
 
         var loseImage = loseBanner.GetComponent<Image>();
@@ -65,11 +64,15 @@ public class EoGScript : MonoBehaviour
                 break;
         }
 
-        var animator = GetComponent<Animator>();
-        animator.Play("ResultsCanvasAnimation");
+        var rt = GetComponent<RectTransform>();
+        rt.DOAnchorPosY(0, 0.7f).Play().OnComplete(() => {
+            playEoGCardAnimations();
+            rt.GetComponent<Image>().DOFade(0.627f, 0.3f);
+        });
+        
     }
 
-    public void playEoGCardAnimations()
+    private void playEoGCardAnimations()
     {
         print("animations being played");
         if(currentGameState == CurrentGameState.blueWins || currentGameState == CurrentGameState.redWins)

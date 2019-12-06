@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
@@ -96,7 +97,8 @@ public class CrewGameUpdateHandler : MonoBehaviour
     {
         if (EoGCanvas.GetComponent<RectTransform>().anchoredPosition.y == 0)
         {
-            EoGCanvas.GetComponent<Animator>().Play("ResultsAnimationReverse");
+            EoGCanvas.GetComponent<RectTransform>().DOAnchorPosY(1500, 0.7f).Play();
+            EoGCanvas.GetComponent<Image>().DOFade(0, 0.1f).Play();
         }
     }
 }

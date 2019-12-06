@@ -275,12 +275,27 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public void gameStateChanged(CurrentGameState newGameState)
     {
+        print("new game state is: " + newGameState);
         if(newGameState == CurrentGameState.gameInPlay) 
         {
-            eoGScript.gameObject.GetComponent<Animator>().Play("HiddenBoardResultsReverse");
+            var rt = eoGScript.GetComponent<RectTransform>();
+            if(rt.anchoredPosition.y == 0)
+            {
+                var EoGCanvasObject = eoGScript.gameObject;
+                EoGCanvasObject.GetComponent<Image>().DOFade(0, 0.1f).Play();
+                if (Screen.width < Screen.height)
+                {
+                    EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(3000, 1f).Play();
+                }
+                else
+                {
+                    EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(1500, 0.7f).Play();
+                }
+            } 
+        } else 
+        {
+            eoGScript.DisplayEOGCanvas(newGameState);
         }
-
-        eoGScript.DisplayEOGCanvas(newGameState);
     }
 
     public void wordSelected(List<string> wordsSelected)
