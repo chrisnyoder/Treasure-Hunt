@@ -5,30 +5,23 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class Slam : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
+public class Slam : MonoBehaviour
 {
-    RectTransform rectTransform;
-    Vector3 initialRotation;
-    Vector3 pushedScale;
-    Vector3 initialScale;
+    public RectTransform rectTransform;
+    public Vector3 pushedScale;
+    private Vector3 initialScale;
 
-    // Use this for initialization
-    void Start()
+    private void Start() 
     {
-        rectTransform = GetComponent<RectTransform>();
-       
         initialScale = rectTransform.localScale;
-        
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void makeCoinBig()
     {
-        rectTransform = GetComponent<RectTransform>();
-        pushedScale = initialScale * 2.1f;
-        transform.DOScale(pushedScale, 1.0f).SetEase(Ease.InOutBack);
+        rectTransform.localScale = initialScale * 2.1f;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void animateEoGCursedCoin()
     {
         var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
         scaleBack.Play();
