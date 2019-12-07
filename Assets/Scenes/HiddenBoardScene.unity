@@ -2299,7 +2299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.1653333
+  m_AspectRatio: 1.3333334
 --- !u!114 &1075341245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2317,7 +2317,7 @@ MonoBehaviour:
   resultsCollectionView: {fileID: 2045546714}
   loseBanner: {fileID: 2039723595}
   winBanner: {fileID: 2032244371}
-  gameOverText: {fileID: 0}
+  gameOverText: {fileID: 1439729515}
   slam: {fileID: 1075341249}
 --- !u!114 &1075341246
 MonoBehaviour:
