@@ -1175,12 +1175,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.39662, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.20074, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.39662, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.20074, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -6196,8 +6196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f2c235320dd4a1da16f83fa46253c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoConnect: 1
-  reconnectDelay: 5
+  autoConnect: 0
+  reconnectDelay: 2
   ackExpirationTime: 1800
   pingInterval: 20
   pingTimeout: 60
@@ -7027,7 +7027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 0.75
+  m_AspectRatio: 1.3333334
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0

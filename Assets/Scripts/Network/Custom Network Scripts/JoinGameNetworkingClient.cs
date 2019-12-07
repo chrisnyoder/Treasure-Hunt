@@ -10,6 +10,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
     public CodeProviderHandler codeProviderHandler;
     public Role role;
     public bool mainBoardRunningTutorial;
+    private string roomId;
 
     public Tabs tab = Tabs.BlueTab;
 
@@ -28,6 +29,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
 
     public void joinGameWithCode(string connectionCode)
     {
+        roomId = connectionCode;
         ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
         connectionCodeAsObject.roomId = connectionCode;
         var connectionCodeAsJSONObject = new JSONObject(JsonUtility.ToJson(connectionCodeAsObject));
@@ -45,6 +47,27 @@ public class JoinGameNetworkingClient : WSNetworkingClient
     public override void setupEvents()
     {
         base.setupEvents();
+
+        On("connect", (e) =>
+        {
+            isConnected = true;
+            print("connect callback received");
+
+            if (wasDisconnected)
+            {
+                switch (role)
+                {
+                    case Role.captain:
+                        print("sending reconnect function as captain");
+                        reconnectToRoomId(roomId, "isNotHosting");
+                        break;
+                    case Role.crew:
+                        reconnectToRoomId(roomId, "isHosting");
+                        break;
+                }
+                wasDisconnected = false;
+            }
+        });
 
         On("gameDictionary", (dictionary) =>
         {
