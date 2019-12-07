@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BoardLayoutScript : MonoBehaviour
 {
@@ -193,8 +194,25 @@ public class BoardLayoutScript : MonoBehaviour
         }
     }
 
-    public void setCodeTabToActive()
+    public void runMainBoardAnimation()
     {
-        codeTabScript.showTab();
+        var codeDisplayBackground = GameObject.Find("CodeDisplayBackground");
+        var mainBoardRT = GameObject.Find("MainBoardCanvas").GetComponent<RectTransform>();
+        
+        if(codeDisplayBackground != null)
+            codeDisplayBackground.GetComponentInChildren<Text>().DOFade(0, 0f);
+        
+        var anim = mainBoardRT.DOAnchorPosY(0, 0.7f, false).OnComplete(() =>
+        {
+            if(codeDisplayBackground != null) 
+            {
+                codeDisplayBackground.GetComponent<Image>().DOFade(0.7f, 0.1f);
+                codeDisplayBackground.GetComponentInChildren<Text>().DOFade(1, 0.1f);
+            }
+            codeTabScript.showTab();
+        });
+
+        anim.SetDelay(0.4f);
+        anim.Play();
     }
 }

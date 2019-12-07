@@ -167,25 +167,9 @@ public class StoreLayoutScript : MonoBehaviour
                 selectedWordPacks.Add(product);
             }
         }
-
         var gameCreation = gameObject.GetComponentInChildren<GameCreationScript>();
         gameCreation.wordPacksToUse = selectedWordPacks;
         gameCreation.checkIfAtLeastOneWordPack();
-    }
-
-    public void runMainBoardAnimation()
-    {
-
-        var codeDisplayBackground = GameObject.Find("CodeDisplayBackground");
-        var mainBoardRT =  GameObject.Find("MainBoardCanvas").GetComponent<RectTransform>();
-
-        codeDisplayBackground.GetComponentInChildren<Text>().DOFade(0, 0f);
-        mainBoardRT.DOAnchorPosY(0, 0.7f, false).Play().OnComplete(() =>
-        {
-            codeDisplayBackground.GetComponent<Image>().DOFade(0.7f, 0.1f);
-            codeDisplayBackground.GetComponentInChildren<Text>().DOFade(1, 0.1f);
-            codeTab.showTab();
-        });
     }
 
     // Update is called once per frame
