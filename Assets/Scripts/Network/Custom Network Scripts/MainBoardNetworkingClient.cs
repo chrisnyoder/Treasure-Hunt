@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
@@ -17,8 +18,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
     public CodeDisplayHandler codeDisplayHandler;
     
     public bool gameStateSent = false;
-
-    private bool fetchedRoomState = false;
+    private bool roomFetched = false;
 
     // Start is called before the first frame update
     public override void Start()
@@ -35,9 +35,9 @@ public class MainBoardNetworkingClient : WSNetworkingClient
     {
         base.Update(); 
     
-        if (isConnected == true && initialGameState != null)
+        if (isConnected == true && initialGameState != null && !string.IsNullOrEmpty(roomId))
         {
-            if (!gameStateSent)
+            if (!gameStateSent && initialGameState.hiddenBoardList.Count > 0)
             {
                 print("about to send dictionary");
                 sendGameDictionary();
@@ -55,12 +55,12 @@ public class MainBoardNetworkingClient : WSNetworkingClient
         {
             isConnected = true;
             print("connect callback received");
-            if(!fetchedRoomState)
+            if(!roomFetched)
             {
                 print("room not yet generated, generating room");
                 isHosting = true;
                 Emit("isHosting");
-                fetchedRoomState = true;
+                roomFetched = true;
             } 
             
             if(wasDisconnected)
@@ -81,7 +81,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
             codeDisplayHandler.displayConnectionCode(connectionCodeAsObject.roomId);
             codeTab.updateConnectionCode(connectionCodeAsObject.roomId);
             roomId = connectionCodeAsObject.roomId;
-            fetchedRoomState = true; 
+            roomFetched = true; 
         });
 
         On("numberOfPlayersInRoomChanged", (players) => 
