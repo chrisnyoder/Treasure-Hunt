@@ -38,6 +38,8 @@ public class GameCreationScript : MonoBehaviour
         {
             codeDisplayHandler.gameObject.SetActive(false);
         }
+
+        boardLayoutScript.runMainBoardAnimation();
     }
 
     public void checkIfAtLeastOneWordPack()
