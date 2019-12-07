@@ -13,6 +13,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
     public Team team = Team.BlueTeam;
     protected bool isHosting;
     protected bool isConnected = false;
+    protected bool wasDisconnected = false;
 
     // Start is called before the first frame update
     public override void Start()
@@ -52,6 +53,8 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
         On("disconnect", (e) =>
         {
+            isConnected = false;
+            wasDisconnected = true;
             print("disconnect");
             print(e.data.ToString());
         });
@@ -81,14 +84,18 @@ public abstract class WSNetworkingClient : SocketIOComponent
     public virtual void sendGameDictionary()
     {
         var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
-        Emit("gameDictionary", gameStateAsJSONObject);
+
+        if(isConnected)
+            Emit("gameDictionary", gameStateAsJSONObject);
     }
 
     public virtual void sendWordsSelected(List<string> wordsSelected)
     {
         wordsSelectedAsObject.wordsSelected = wordsSelected;
         var wordsSelectedAsJSONObject = new JSONObject(JsonUtility.ToJson(wordsSelectedAsObject));
-        Emit("wordsSelected", wordsSelectedAsJSONObject);
+
+        if(isConnected)
+            Emit("wordsSelected", wordsSelectedAsJSONObject);
     }
     
     public virtual void sendCurrentGameState(CurrentGameState currentGameState)
@@ -96,6 +103,40 @@ public abstract class WSNetworkingClient : SocketIOComponent
         CurrentGameStateAsObject currentGameStateAsObject = new CurrentGameStateAsObject(currentGameState);
         print("current game state that is about to be sent: " + currentGameStateAsObject.currentGameState);
         var currentGameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(currentGameStateAsObject));
-        Emit("newGameState", currentGameStateAsJSONObject);
+
+        if(isConnected)
+            Emit("newGameState", currentGameStateAsJSONObject);
+    }
+
+    public virtual void reconnectToRoomId(string roomId, string role)
+    {
+        ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
+        connectionCodeAsObject.roomId = roomId;
+        connectionCodeAsObject.role = role;
+
+        print("room id to be sent: " + roomId);
+        if(isConnected)
+        {
+            print("sending that room id");
+            Emit("reconnecting", new JSONObject(JsonUtility.ToJson(connectionCodeAsObject)));
+        }
+    }
+
+    public void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus && isConnected)
+        {
+            Close();
+            wasDisconnected = true;
+            isConnected = false;
+        }
+    }
+
+    public void OnApplicationFocus(bool focusStatus)
+    {
+        if (focusStatus && !isConnected)
+        {
+            Connect();
+        }
     }
 }

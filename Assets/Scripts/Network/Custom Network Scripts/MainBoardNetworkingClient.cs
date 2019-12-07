@@ -8,9 +8,9 @@ using Newtonsoft.Json.Linq;
 
 public class MainBoardNetworkingClient : WSNetworkingClient
 {
-
     public CodeTabScript codeTab;
     public GameObject collectionView; 
+    private string roomId; 
 
     [HideInInspector]
     public ConnectionCodeAsObject connectionCodeAsObject;
@@ -27,6 +27,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 
         base.Start();
         setupEvents();
+        Connect();
     }
 
     // Update is called once per frame
@@ -52,12 +53,26 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 
         On("connect", (e) =>
         {
-            if(!fetchedRoomState){
-                print("connected callback");
+            isConnected = true;
+            print("connect callback received");
+            if(!fetchedRoomState)
+            {
+                print("room not yet generated, generating room");
                 isHosting = true;
                 Emit("isHosting");
                 fetchedRoomState = true;
+            } 
+            
+            if(wasDisconnected)
+            {
+                print("room id was already fetched, so will try to find it on the server instead");
+                reconnectToRoomId(roomId, "isHosting");
+                wasDisconnected = false;
             }
+        });
+
+        On("connetion", (e) => {
+            print("on connection callback reveived");
         });
     
         On("roomId", (room) => 
@@ -65,6 +80,8 @@ public class MainBoardNetworkingClient : WSNetworkingClient
             connectionCodeAsObject = JsonUtility.FromJson<ConnectionCodeAsObject>(room.data.ToString());
             codeDisplayHandler.displayConnectionCode(connectionCodeAsObject.roomId);
             codeTab.updateConnectionCode(connectionCodeAsObject.roomId);
+            roomId = connectionCodeAsObject.roomId;
+            fetchedRoomState = true; 
         });
 
         On("numberOfPlayersInRoomChanged", (players) => 

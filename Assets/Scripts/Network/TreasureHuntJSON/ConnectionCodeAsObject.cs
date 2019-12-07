@@ -6,4 +6,6 @@ using UnityEngine;
 public class ConnectionCodeAsObject 
 {
     public string roomId; 
+    public string role; 
+    public string playerId; 
 }
