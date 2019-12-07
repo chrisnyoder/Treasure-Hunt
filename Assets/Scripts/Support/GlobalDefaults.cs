@@ -35,7 +35,7 @@ public class GlobalDefaults : MonoBehaviour
                 setPlayerDefaults();
                 setFrameRate();
                 determineIfTablet();
-                keepScreenOn();
+                // keepScreenOn();
             }
             globalSettingsSet = true;
 

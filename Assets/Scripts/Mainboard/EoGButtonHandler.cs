@@ -17,12 +17,6 @@ public class EoGButtonHandler : MonoBehaviour
         var StoreCanvasObject = GameObject.Find("StoreCanvas");
         var StoreCanvasAnimator = StoreCanvasObject.GetComponent<Animator>();
         StoreCanvasAnimator.Play("StoreAnimationReverse");
-
-        var CodeDisplayBackgroundObject = GameObject.Find("CodeDisplayBackground");
-
-        var CodeDisplayBackroundRT = CodeDisplayBackgroundObject.GetComponent<RectTransform>();
-        CodeDisplayBackroundRT.DOAnchorPosY(0, 1.5f, false);
-        CodeDisplayBackgroundObject.GetComponent<Image>().DOFade(0, 0.1f);
     
         var MainBoardCanvasObject = GameObject.Find("MainBoardCanvas");
 
