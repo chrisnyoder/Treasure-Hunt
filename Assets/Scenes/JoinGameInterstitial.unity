@@ -8703,7 +8703,7 @@ MonoBehaviour:
   reconnectDelay: 5
   ackExpirationTime: 1800
   pingInterval: 25
-  pingTimeout: 60
+  pingTimeout: 1800
   wordsSelectedAsObject:
     wordsSelected: []
   team: 1
