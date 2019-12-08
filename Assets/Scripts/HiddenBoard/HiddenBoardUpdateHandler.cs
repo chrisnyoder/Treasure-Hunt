@@ -25,40 +25,44 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
 
     private void Update() 
     {
-        if(hiddenBoardGameDictionary != joinGameNetworkingClient.initialGameState.hiddenBoardList)
+        if(joinGameNetworkingClient != null) 
         {
-            print("hidden board is different");
-            hiddenBoardViewController.wordsSelected = joinGameNetworkingClient.initialGameState.wordsSelected;
-            hiddenBoardGameDictionary = joinGameNetworkingClient.initialGameState.hiddenBoardList;
-            hiddenBoardViewController.wordSelected(wordsSelected);
-            setUpHiddenBoard();
-        }
+            if (hiddenBoardGameDictionary != joinGameNetworkingClient.initialGameState.hiddenBoardList)
+            {
+                print("hidden board is different");
+                hiddenBoardGameDictionary = joinGameNetworkingClient.initialGameState.hiddenBoardList;
+                hiddenBoardViewController.wordSelected(wordsSelected);
+                setUpHiddenBoard();
+            }
 
-        if(wordsSelected != joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected)
-        {
-            print("words are different");
-            wordsSelected = joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected;
-            hiddenBoardViewController.wordSelected(wordsSelected);
-        }
+            if (wordsSelected != joinGameNetworkingClient.wordsSelected.allWordsSelected)
+            {
+                print("words are different");
+                wordsSelected = joinGameNetworkingClient.wordsSelected.allWordsSelected;
+                hiddenBoardViewController.wordSelected(wordsSelected);
+            }
 
-        if(currentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
-        {
-            print("game state is different");
-            currentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
-            hiddenBoardViewController.gameStateChanged(currentGameState);
+            if (currentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
+            {
+                print("game state is different");
+                currentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
+                hiddenBoardViewController.gameStateChanged(currentGameState);
+            }
         }
     }
 
     private void OnJoiningScene(Scene scene, LoadSceneMode mode)
     {
+        print("on scene loading called");
         if(joinGameNetworkingClient == null)
         {
+            print("join game networkign client being asigned");
             joinGameNetworkingClient = GameObject.Find("NetworkingClient").GetComponent<JoinGameNetworkingClient>();
         }
         
         hiddenBoardViewController.initializeHiddenBoard(joinGameNetworkingClient.tab);
         hiddenBoardGameDictionary = joinGameNetworkingClient.initialGameState.hiddenBoardList;
-        hiddenBoardViewController.wordsSelected = joinGameNetworkingClient.initialGameState.wordsSelected;
+        hiddenBoardViewController.wordsSelected = wordsSelected;
 
         setUpHiddenBoard();
         strikethroughSelectedWords();
@@ -97,13 +101,13 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
 
     private void strikethroughSelectedWords()
     {
-        foreach (var word in joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected)
+        foreach (var word in joinGameNetworkingClient.wordsSelected.allWordsSelected)
         {
             print(word);
         }
 
-        if (joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected.Count > 0)
-            hiddenBoardViewController.wordSelected(joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected);
+        if (joinGameNetworkingClient.wordsSelected.allWordsSelected.Count > 0)
+            hiddenBoardViewController.wordSelected(joinGameNetworkingClient.wordsSelected.allWordsSelected);
     }
 
     private void runTutorialIfNecessary()

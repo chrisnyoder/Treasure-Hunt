@@ -8,10 +8,10 @@ public abstract class WSNetworkingClient : SocketIOComponent
 {
     protected CodeHandlerAbstract codeHandler; 
     public GameState initialGameState;
-    public WordsSelectedAsObject wordsSelectedAsObject = new WordsSelectedAsObject();
+    public WordsSelectedAsObject wordsSelected = new WordsSelectedAsObject();
     public CurrentGameStateAsObject currentGameStateAsObject;
 
-    public List<List<string>> wordsSelectedQueue = new List<List<string>>(){}; 
+    public List<string> wordsSelectedQueue = new List<string>(){}; 
 
     public Team team = Team.BlueTeam;
     protected bool isHosting;
@@ -80,7 +80,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
         On("wordsSelected", (wordsSelected) =>
         {
-            wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
+            this.wordsSelected = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
         });
 
         On("newGameState", (gameState) =>
@@ -97,10 +97,10 @@ public abstract class WSNetworkingClient : SocketIOComponent
             Emit("gameDictionary", gameStateAsJSONObject);
     }
 
-    public virtual void sendWordsSelected(List<string> wordsSelected)
+    public virtual void sendWordsSelected(string wordSelected)
     {
-        wordsSelectedAsObject.wordsSelected = wordsSelected;
-        var wordsSelectedAsJSONObject = new JSONObject(JsonUtility.ToJson(wordsSelectedAsObject));
+        this.wordsSelected.wordSelected = wordSelected;
+        var wordsSelectedAsJSONObject = new JSONObject(JsonUtility.ToJson(this.wordsSelected));
 
         Emit("wordsSelected", wordsSelectedAsJSONObject);
     }

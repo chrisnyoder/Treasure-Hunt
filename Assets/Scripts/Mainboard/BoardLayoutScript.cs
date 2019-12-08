@@ -127,7 +127,7 @@ public class BoardLayoutScript : MonoBehaviour
 
             buttonData.gameState = initialGameState;
 
-            if(initialGameState.wordsSelected.Contains(cardText.text))
+            if(initialGameState.wordsAlreadySelected.Contains(cardText.text))
             {
                 buttonData.startCardFaceUp();
             }
