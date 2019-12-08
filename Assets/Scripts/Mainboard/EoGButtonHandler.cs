@@ -9,6 +9,7 @@ public class EoGButtonHandler : MonoBehaviour
 {
 
     public MainBoardNetworkingClient mainBoardNetworkingClient; 
+    public CodeTabScript codeTabScript;
 
     public void restartGame()
     {
@@ -25,6 +26,7 @@ public class EoGButtonHandler : MonoBehaviour
 
         mainBoardNetworkingClient.initialGameState = null;
         mainBoardNetworkingClient.gameStateSent = false;
+        codeTabScript.gameObject.SetActive(false);
     }
     
     public void showBoard()
