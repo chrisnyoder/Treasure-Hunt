@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainBoardNetworkingClient: {fileID: 0}
+  codeTabScript: {fileID: 0}
 --- !u!1 &140355153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,7 +1842,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &936496547
 GameObject:
@@ -1872,7 +1873,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &936496549
 MonoBehaviour:
@@ -2195,7 +2196,7 @@ PrefabInstance:
         type: 3}
       propertyPath: networkingClient
       value: 
-      objectReference: {fileID: 1287908311}
+      objectReference: {fileID: 0}
     - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: shipwreckImage
@@ -2859,49 +2860,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1287908310
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1287908312}
-  - component: {fileID: 1287908311}
-  m_Layer: 0
-  m_Name: NetworkingClient
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1287908311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287908310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea070d5c416b4a8fa08863b466c0774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1287908312
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287908310}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1337.8141, y: 680.6331, z: -20.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430858482
 GameObject:
   m_ObjectHideFlags: 0
@@ -3387,7 +3345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.1653333
+  m_AspectRatio: 1.7786666
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8517,7 +8475,7 @@ RectTransform:
   m_GameObject: {fileID: 2047168052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1666596154}
   - {fileID: 502138303}
@@ -8527,13 +8485,13 @@ RectTransform:
   - {fileID: 1757797692}
   - {fileID: 1523932639}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1218, y: 562.5}
-  m_SizeDelta: {x: 2436, y: 1125}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &2047168058
 MonoBehaviour:
   m_ObjectHideFlags: 0
