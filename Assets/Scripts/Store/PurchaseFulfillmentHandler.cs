@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using UnityEngine.UI;
 
 public class PurchaseFulfillmentHandler : MonoBehaviour
 {
     public GameObject purchaseFailedCanvas;
+    public Text failedReasonText; 
 
     private void Start() 
     {
@@ -14,7 +16,9 @@ public class PurchaseFulfillmentHandler : MonoBehaviour
 
     public void purchaseFulfilled(Product product)
     {
-        var productId = gameObject.GetComponent<IAPButton>().productId;
+        print("purchase fulfilled being called");
+        
+        var productId = product.definition.id;
         PlayerPrefs.SetString(productId, "enabled");
 
         var storeButtonHandler = this.GetComponent<StoreButtonHandler>();
@@ -28,14 +32,26 @@ public class PurchaseFulfillmentHandler : MonoBehaviour
     public void purchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
 
-        if(failureReason == PurchaseFailureReason.UserCancelled || failureReason == PurchaseFailureReason.DuplicateTransaction)
+        if(failureReason == PurchaseFailureReason.UserCancelled)
         {
-            // do nothing
+            // do nothing 
+        } 
+        else if(failureReason == PurchaseFailureReason.DuplicateTransaction)
+        {
+            if (purchaseFailedCanvas != null)
+            {
+                failedReasonText.text = "Looks like this purchase is a duplicate. It can be restored by through the app on iOS and Google Play on Android";
+                var animator = purchaseFailedCanvas.GetComponent<Animator>();
+                animator.Play("StoreInfoPopUpAnimation");
+            }
         } 
         else
         {
-            var animator = purchaseFailedCanvas.GetComponent<Animator>();
-            animator.Play("StoreInfoPopUpAnimation");
+            if(purchaseFailedCanvas != null)
+            {
+                var animator = purchaseFailedCanvas.GetComponent<Animator>();
+                animator.Play("StoreInfoPopUpAnimation");
+            }
         }
     }
 }

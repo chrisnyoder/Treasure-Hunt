@@ -99,7 +99,7 @@ public class CardFlipHandler : MonoBehaviour
         }
 
         gameState.wordsSelected.Add(cardText);
-        networkingClient.sendWordsSelected(gameState.wordsSelected);
+        networkingClient.wordsSelectedQueue.Add(gameState.wordsSelected);
 
         animator.enabled = true;
         animator.Play("MainboardButtonAnimationComplete");
