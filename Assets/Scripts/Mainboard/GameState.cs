@@ -27,7 +27,7 @@ public class GameState
 {
     public List<CardObject> hiddenBoardList;
     List<string> wordList = new List<string>(){};
-    public List<string> wordsSelected = new List<string>(){}; 
+    public List<string> wordsAlreadySelected = new List<string>(){};
     int numberOfCards;
     int numberOfRedCards;
     int numberOfBlueCards;

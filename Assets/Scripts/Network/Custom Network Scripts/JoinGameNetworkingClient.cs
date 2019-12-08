@@ -73,7 +73,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         {
             initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
             mainBoardRunningTutorial = initialGameState.isTutorial;
-            wordsSelectedAsObject.wordsSelected = initialGameState.wordsSelected; 
+            wordsSelected.allWordsSelected = initialGameState.wordsAlreadySelected; 
 
             if (initialGameState.playerIndex == 1)
             {
@@ -85,7 +85,8 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         });
 
         On("wordsSelected", (wordsSelected) => {
-            wordsSelectedAsObject = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
+            print("words selected callback received for joining client");
+            base.wordsSelected = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
         });
 
         On("newGameState", (gameState) => 

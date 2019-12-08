@@ -2,47 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CardFlipHandler : MonoBehaviour
 {
-    private Animator animator;
     private EoGScript eoGScript;
     public bool cardIsFlipped;
     public GameState gameState;
 
-    public Button card;
     public CardType cardType;
-    public string cardImage;
     public string cardText;
-    private Text textField;
-
-    public Sprite blueImage;
-    public Sprite redImage;
-    public Sprite neutralImage;
-    public Sprite shipwreckImage;
 
     private WSNetworkingClient networkingClient;
 
     private void Awake() 
     {
-        animator = gameObject.GetComponent<Animator>();
-        GetComponent<FloatAnimation>().enabled = false;
-        textField = card.GetComponentInChildren<Text>();
-
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
     }
 
     public void FlipCard()
     {
         cardIsFlipped = true;
+        print("flip card function being called");
 
-        if (gameState.currentGameState == CurrentGameState.gameInPlay)
+        if(gameState.currentGameState == CurrentGameState.gameInPlay)
         {
             switch (cardType)
             {
                 case CardType.blueCard:
                     GlobalAudioScript.Instance.playSfxSound("coin_flip");
-                    GetComponent<FloatAnimation>().enabled = true;
                     gameState.blueTeamScore += 1;
                     if (gameState.blueTeamScore >= 8)
                     {
@@ -51,7 +39,6 @@ public class CardFlipHandler : MonoBehaviour
                     break;
                 case CardType.redCard:
                     GlobalAudioScript.Instance.playSfxSound("correct");
-                    GetComponent<FloatAnimation>().enabled = true;
                     gameState.redTeamScore += 1;
                     if (gameState.redTeamScore >= 7)
                     {
@@ -67,29 +54,35 @@ public class CardFlipHandler : MonoBehaviour
                     break;
             }
 
-            Destroy(textField);
-            card.interactable = false;
-            animator.Play("MainboardButtonAnimation");
+            Destroy(gameObject.GetComponentInChildren<Text>());
+            gameObject.GetComponent<Button>().interactable = false;
+
+            var rt = gameObject.GetComponent<RectTransform>();
+            Sequence s = DOTween.Sequence();
+
+            s.Append(rt.DORotate(new Vector3(0f, 90f, 0), 0.3f, RotateMode.Fast));
+            s.Join(rt.DOScale(new Vector3(1.2f, 0.8f, 1), 0.3f));
+
+            s.Play().OnComplete(changeCardColor);
         }
     }
 
     public void changeCardColor()
     {
-        animator.enabled = false;
 
         switch (cardType)
         {
             case CardType.blueCard:
-                card.GetComponent<Image>().sprite = blueImage;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/blue_card");
                 break;
             case CardType.redCard:
-                card.GetComponent<Image>().sprite = redImage;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/red_card"); 
                 break;
             case CardType.neutralCard:
-                card.GetComponent<Image>().sprite = neutralImage;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/sand_card"); 
                 break;
             case CardType.shipwreckCard:
-                card.GetComponent<Image>().sprite = shipwreckImage;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/Shipwreck_Card");
                 break;
         }
 
@@ -98,40 +91,43 @@ public class CardFlipHandler : MonoBehaviour
             StartCoroutine(LaunchEoGAfterDelay());
         }
 
-        gameState.wordsSelected.Add(cardText);
-        networkingClient.wordsSelectedQueue.Add(gameState.wordsSelected);
+        gameState.wordsAlreadySelected.Add(cardText);
+        networkingClient.wordsSelectedQueue.Add(cardText);
 
-        animator.enabled = true;
-        animator.Play("MainboardButtonAnimationComplete");
+        var rt = gameObject.GetComponent<RectTransform>();
+        Sequence s = DOTween.Sequence();
+
+        s.Append(rt.DORotate(new Vector3(0f, 180f, 0), 0.3f, RotateMode.Fast));
+        s.Join(rt.DOScale(new Vector3(1f, 1f, 1), 0.3f));
+
+        s.Play();
+        print("changing color");
     }
 
     public void startCardFaceUp()
     {
-        animator.enabled = false;
         switch (cardType)
         {
             case CardType.blueCard:
-                card.GetComponent<Image>().sprite = blueImage;
-                GetComponent<FloatAnimation>().enabled = true;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/blue_card");
                 GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f, -180f, 0f); 
                 break;
             case CardType.redCard:
-                card.GetComponent<Image>().sprite = redImage;
-                GetComponent<FloatAnimation>().enabled = true;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/red_card");
                 GetComponent<RectTransform>().localRotation = Quaternion.Euler(new Vector3(0, -180, 0)) ;
                 break;
             case CardType.neutralCard:
-                card.GetComponent<Image>().sprite = neutralImage;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/sand_card");
                 GetComponent<RectTransform>().localRotation = new Quaternion(0, -180, 0, 0);
                 break;
             case CardType.shipwreckCard:
-                card.GetComponent<Image>().sprite = shipwreckImage;
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/Shipwreck_Card");
                 GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, -180f, 0f);
                 break;
         }
-        
-        Destroy(textField);
-        card.interactable = false;
+
+        Destroy(gameObject.GetComponentInChildren<Text>());
+        gameObject.GetComponent<Button>().interactable = false;
         cardIsFlipped = true;
     }
 

@@ -8,7 +8,7 @@ using DG.Tweening;
 public class CrewGameUpdateHandler : MonoBehaviour
 {
     JoinGameNetworkingClient joinGameNetworkingClient;
-    WordsSelectedAsObject wordsSelectedAsObject;
+    WordsSelectedAsObject wordsSelectedOnBoard;
     GameState crewMemberGameState; 
     public GameObject EoGCanvas;
 
@@ -22,8 +22,9 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
     private void Update() 
     {
-        if(joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected != wordsSelectedAsObject.wordsSelected)
+        if(wordsSelectedOnBoard.allWordsSelected != joinGameNetworkingClient.wordsSelected.allWordsSelected)
         {
+            wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.wordsSelected.allWordsSelected;
             print("words selected are different");
             updateWordsSelected();
         }
@@ -36,11 +37,10 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
     private void updateWordsSelected()
     {
-        wordsSelectedAsObject.wordsSelected = joinGameNetworkingClient.wordsSelectedAsObject.wordsSelected;
         foreach (CardFlipHandler card in cards)
         {
             print("card is flipped: " + card.cardIsFlipped);
-            if (card.cardText == wordsSelectedAsObject.lastWordSelected && !card.cardIsFlipped)
+            if (wordsSelectedOnBoard.allWordsSelected.Contains(card.cardText) && !card.cardIsFlipped)
             {
                 print("flipping card");
                 card.FlipCard();
@@ -63,14 +63,15 @@ public class CrewGameUpdateHandler : MonoBehaviour
         joinGameNetworkingClient = GameObject.Find("NetworkingClient").GetComponent<JoinGameNetworkingClient>();
         setUpMainBoardForCrewMember();
         exitResultsCanvasIfDisplayed();
+        print("on joining scene callback being called");
     }
 
     private void setUpMainBoardForCrewMember()
     {
         if (joinGameNetworkingClient.initialGameState.hiddenBoardList.Count > 0)
         {
-            wordsSelectedAsObject = new WordsSelectedAsObject();
-            wordsSelectedAsObject.wordsSelected = joinGameNetworkingClient.initialGameState.wordsSelected;
+            wordsSelectedOnBoard = new WordsSelectedAsObject();
+            wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.initialGameState.wordsAlreadySelected;
 
             boardLayoutScript = GameObject.Find("MainBoardCanvas").GetComponent<BoardLayoutScript>();
             crewMemberGameState = joinGameNetworkingClient.initialGameState;

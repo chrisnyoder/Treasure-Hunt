@@ -6,12 +6,7 @@ using System.Linq;
 [System.Serializable]
 public class WordsSelectedAsObject
 {
-    public List<string> wordsSelected = new List<string>(){};
-    public string lastWordSelected { 
-        get 
-        {
-            return wordsSelected.LastOrDefault();
-        }
-    }
+    public List<string> allWordsSelected = new List<string>();
+    public string wordSelected;
 }
 

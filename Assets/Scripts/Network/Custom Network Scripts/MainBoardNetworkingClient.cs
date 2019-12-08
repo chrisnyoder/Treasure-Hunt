@@ -98,7 +98,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 
             CardFlipHandler[] cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
             foreach(CardFlipHandler card in cards) {
-                if(card.cardText == wordsSelectedAsObject.lastWordSelected && !card.cardIsFlipped) 
+                if(wordsSelectedAsObject.allWordsSelected.Contains(card.cardText) && !card.cardIsFlipped) 
                 {
                     card.FlipCard();
                 }
