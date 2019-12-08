@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
+using System.Linq;
 
 public abstract class WSNetworkingClient : SocketIOComponent
 {
@@ -9,6 +10,8 @@ public abstract class WSNetworkingClient : SocketIOComponent
     public GameState initialGameState;
     public WordsSelectedAsObject wordsSelectedAsObject = new WordsSelectedAsObject();
     public CurrentGameStateAsObject currentGameStateAsObject;
+
+    public List<List<string>> wordsSelectedQueue = new List<List<string>>(){}; 
 
     public Team team = Team.BlueTeam;
     protected bool isHosting;
@@ -26,6 +29,11 @@ public abstract class WSNetworkingClient : SocketIOComponent
     public override void Update()
     {
         base.Update();
+        if(wordsSelectedQueue.Count > 0 && isConnected)
+        {
+            sendWordsSelected(wordsSelectedQueue.First());
+            wordsSelectedQueue.Remove(wordsSelectedQueue.First());
+        }
     }
 
     public virtual void setupEvents()
@@ -94,8 +102,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
         wordsSelectedAsObject.wordsSelected = wordsSelected;
         var wordsSelectedAsJSONObject = new JSONObject(JsonUtility.ToJson(wordsSelectedAsObject));
 
-        if(isConnected)
-            Emit("wordsSelected", wordsSelectedAsJSONObject);
+        Emit("wordsSelected", wordsSelectedAsJSONObject);
     }
     
     public virtual void sendCurrentGameState(CurrentGameState currentGameState)
