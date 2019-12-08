@@ -225,6 +225,9 @@ public class HiddenBoardViewController : MonoBehaviour
                 if (wordOnHiddenboard.text == word)
                 {
                     strikethroughImage.enabled = true;
+                } else 
+                {
+                    strikethroughImage.enabled = false;
                 }
             }
         }
