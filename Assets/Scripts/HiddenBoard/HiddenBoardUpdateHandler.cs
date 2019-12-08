@@ -30,6 +30,7 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
             print("hidden board is different");
             hiddenBoardViewController.wordsSelected = joinGameNetworkingClient.initialGameState.wordsSelected;
             hiddenBoardGameDictionary = joinGameNetworkingClient.initialGameState.hiddenBoardList;
+            hiddenBoardViewController.wordSelected(wordsSelected);
             setUpHiddenBoard();
         }
 
