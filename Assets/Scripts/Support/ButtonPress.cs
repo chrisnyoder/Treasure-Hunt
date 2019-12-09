@@ -22,12 +22,6 @@ public class ButtonPress : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         initialScale = rectTransform.localScale;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         rectTransform = GetComponent<RectTransform>();

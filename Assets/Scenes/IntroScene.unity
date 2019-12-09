@@ -816,7 +816,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -6931,6 +6931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   purchaseFailedCanvas: {fileID: 0}
+  failedReasonText: {fileID: 0}
 --- !u!114 &1296191507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6960,12 +6961,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.30161, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.34201, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.30161, Culture=neutral, PublicKeyToken=null
 --- !u!4 &1296191508
 Transform:
   m_ObjectHideFlags: 0
