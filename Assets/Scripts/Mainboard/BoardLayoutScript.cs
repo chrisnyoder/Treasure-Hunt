@@ -14,6 +14,8 @@ public class BoardLayoutScript : MonoBehaviour
     public Canvas eogBoard;
     public GameObject buttonParentObject;
     public GameObject collectionView;
+    public GameObject musicButton; 
+    public GameObject exitButton; 
 
     RectTransform mainBoardRT;
     RectTransform collectionViewRT;
@@ -32,10 +34,16 @@ public class BoardLayoutScript : MonoBehaviour
 
     private void Start() 
     {
+        musicButton.GetComponent<RectTransform>().sizeDelta = exitButton.GetComponent<RectTransform>().sizeDelta;
+        musicButton.GetComponent<RectTransform>().localPosition = new Vector2(exitButton.GetComponent<RectTransform>().localPosition.x, (exitButton.GetComponent<RectTransform>().localPosition.y - (exitButton.GetComponent<RectTransform>().sizeDelta.y/2)) - 75);
+
+
         if(GlobalDefaults.Instance.isTablet)
         {
             var backgroundImage = this.GetComponent<Image>();
             var tabletBackgroundImage = Resources.Load<Sprite>("Images/Backgrounds/iPad_12_MB_Background");
+            exitButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -60);
+            musicButton.GetComponent<RectTransform>().localPosition = new Vector2(exitButton.GetComponent<RectTransform>().localPosition.x - 80, exitButton.GetComponent<RectTransform>().localPosition.y);
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
