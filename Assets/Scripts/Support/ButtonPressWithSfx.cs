@@ -36,7 +36,7 @@ public class ButtonPressWithSfx : MonoBehaviour,IPointerEnterHandler , IPointerU
     public void OnPointerUp(PointerEventData eventData)
     {
 
-        GlobalAudioScript.Instance.playSfxSound2("Slam_Unlock_01");
+        GlobalAudioScript.Instance.playSfxSound2("click2");
   
     }
     public void OnPointerExit(PointerEventData eventData)
