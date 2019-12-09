@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
 
-        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
         SceneManager.LoadScene("MainBoardContainer");
     }
 
