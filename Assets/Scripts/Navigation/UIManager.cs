@@ -123,7 +123,7 @@ public class UIManager : MonoBehaviour
 
         GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
         var infoRT = infoPopUp.GetComponent<RectTransform>();
-        infoRT.DOAnchorPosY(0, 0.7f, false).Play().OnComplete(() => {
+        infoRT.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() => {
             infoRT.GetComponent<Image>().DOFade(0.627f, 0.3f);
         });
     }
