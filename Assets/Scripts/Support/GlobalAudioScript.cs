@@ -65,8 +65,6 @@ public class GlobalAudioScript : MonoBehaviour
         audioClip = (AudioClip)Resources.Load("Audio/" + soundName);
         soundfx2.clip = audioClip;
         soundfx2.Play();
-
-
     }
     
 

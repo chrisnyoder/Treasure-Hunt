@@ -19,7 +19,7 @@ public class InterstitalTransitionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rt.DOAnchorPosY(-2000, 1.5f, false).Play();
+        rt.DOAnchorPosY(-2000, 1f, false).Play();
     }
 
     public void reverseTransition()
