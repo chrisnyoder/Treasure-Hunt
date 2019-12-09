@@ -120,8 +120,8 @@ public class UIManager : MonoBehaviour
 
     public void bringUpInfoPopUp()
     {
-        GlobalAudioScript.Instance.playSfxSound("openDrawer");
 
+        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
         var infoRT = infoPopUp.GetComponent<RectTransform>();
         infoRT.DOAnchorPosY(0, 0.7f, false).Play().OnComplete(() => {
             infoRT.GetComponent<Image>().DOFade(0.627f, 0.3f);
@@ -130,7 +130,7 @@ public class UIManager : MonoBehaviour
 
     public void closeInfoPopUp()
     {
-        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
+        GlobalAudioScript.Instance.playSfxSound("Slam_Metal_03");
 
         var infoRT = infoPopUp.GetComponent<RectTransform>();
         infoRT.DOAnchorPosY(1500, 0.7f, false).Play();
