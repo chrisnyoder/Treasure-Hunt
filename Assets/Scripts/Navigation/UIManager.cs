@@ -116,7 +116,7 @@ public class UIManager : MonoBehaviour
     public void bringUpInfoPopUp()
     {
 
-        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_01");
+        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
         var infoRT = infoPopUp.GetComponent<RectTransform>();
         infoRT.DOAnchorPosY(0, 0.7f, false).Play().OnComplete(() => {
             infoRT.GetComponent<Image>().DOFade(0.627f, 0.3f);

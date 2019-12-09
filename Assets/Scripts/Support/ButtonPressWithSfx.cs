@@ -25,18 +25,18 @@ public class ButtonPressWithSfx : MonoBehaviour,IPointerEnterHandler , IPointerU
         rectTransform = GetComponent<RectTransform>();
         pushedScale = initialScale * 0.85f;
         transform.DOScale(pushedScale, 1.0f).SetEase(Ease.OutExpo);
-        GlobalAudioScript.Instance.playSfxSound2("open_swish");
+        GlobalAudioScript.Instance.playSfxSound2("click2");
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        GlobalAudioScript.Instance.playSfxSound("open_swish");
+        GlobalAudioScript.Instance.playSfxSound("click2");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
 
-        GlobalAudioScript.Instance.playSfxSound2("click2");
+        GlobalAudioScript.Instance.playSfxSound2("open_swish");
   
     }
     public void OnPointerExit(PointerEventData eventData)
