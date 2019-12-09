@@ -31,19 +31,20 @@ public class UIManager : MonoBehaviour
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
 
-        GlobalAudioScript.Instance.playSfxSound("openMenu");
+        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
         SceneManager.LoadScene("MainBoardContainer");
     }
 
     public void goToJoinGameInterstitial()
     {
         SceneManager.LoadScene("JoinGameInterstitial");
+        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
     }
 
     public void GoToMainBoardAsCrew()
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
-        GlobalAudioScript.Instance.playSfxSound("openMenu");
+        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
 
         hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() =>
         {
@@ -54,7 +55,7 @@ public class UIManager : MonoBehaviour
     public void GoToHiddenBoard()
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
-        GlobalAudioScript.Instance.playSfxSound("openMenu");
+        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
 
         hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() => 
         {
@@ -75,7 +76,7 @@ public class UIManager : MonoBehaviour
 
     public void bringUpExitPopUpOnMainboard()
     {
-        GlobalAudioScript.Instance.playSfxSound("openDrawer");
+        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
 
         var exitPopUpCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
         exitPopUpCanvasRT.anchoredPosition = new Vector2(0, 1500);
