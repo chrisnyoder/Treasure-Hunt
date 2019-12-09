@@ -38,13 +38,13 @@ public class UIManager : MonoBehaviour
     public void goToJoinGameInterstitial()
     {
         SceneManager.LoadScene("JoinGameInterstitial");
-        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
     }
 
     public void GoToMainBoardAsCrew()
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
-        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
 
         hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() =>
         {
@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
     public void GoToHiddenBoard()
     {
         GlobalAudioScript.Instance.ambientSounds.Stop();
-        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
 
         hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() => 
         {
@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
 
     public void bringUpExitPopUpOnMainboard()
     {
-        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
 
         var exitPopUpCanvasRT = backToMainMenuCanvas.GetComponent<RectTransform>();
         exitPopUpCanvasRT.anchoredPosition = new Vector2(0, 1500);
@@ -122,7 +122,7 @@ public class UIManager : MonoBehaviour
     public void bringUpInfoPopUp()
     {
 
-        GlobalAudioScript.Instance.playSfxSound("Slam_Unlock_02");
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
         var infoRT = infoPopUp.GetComponent<RectTransform>();
         infoRT.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() => {
             infoRT.GetComponent<Image>().DOFade(0.627f, 0.3f);
