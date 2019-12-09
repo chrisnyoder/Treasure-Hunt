@@ -67,6 +67,11 @@ public class UIManager : MonoBehaviour
     {
         closeNetworkingClient();
         SceneManager.LoadScene("IntroScene");
+        if(PlayerPrefs.GetString("backgroundMusicOn") == "true")
+        {
+            var audio = GameObject.Find("GlobalAudioSource").GetComponent<GlobalAudioScript>();
+            audio.backgroundMusic.enabled = true;
+        }
     }
 
     public void bringUpExitPopUpOnMainboard()

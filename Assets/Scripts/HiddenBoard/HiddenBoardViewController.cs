@@ -60,6 +60,9 @@ public class HiddenBoardViewController : MonoBehaviour
         blueButtonInitialPos = blueButton.GetComponent<RectTransform>().anchoredPosition;
         redButtonInitialPos = redButton.GetComponent<RectTransform>().anchoredPosition;
         neutralButtonInitialPos = neutralButton.GetComponent<RectTransform>().anchoredPosition;
+
+        GlobalAudioScript globalAudioScript = GameObject.Find("GlobalAudioSource").GetComponent<GlobalAudioScript>();
+        globalAudioScript.backgroundMusic.enabled = false;
     }
 
     public void initializeHiddenBoard(Tabs tab)
