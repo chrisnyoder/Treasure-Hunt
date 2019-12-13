@@ -10,7 +10,6 @@ public class JoinGameNetworkingClient : WSNetworkingClient
     public CodeProviderHandler codeProviderHandler;
     public Role role;
     public bool mainBoardRunningTutorial;
-    private string roomId;
 
     public Tabs tab = Tabs.BlueTab;
 
@@ -48,8 +47,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
     {
         base.setupEvents();
 
-        On("connect", (e) =>
-        {
+        On("connect", (e) => {
             isConnected = true;
             print("connect callback received");
 
@@ -69,8 +67,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
             }
         });
 
-        On("gameDictionary", (dictionary) =>
-        {
+        On("gameDictionary", (dictionary) => {
             initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
             mainBoardRunningTutorial = initialGameState.isTutorial;
             wordsSelected.allWordsSelected = initialGameState.wordsAlreadySelected; 
@@ -89,12 +86,16 @@ public class JoinGameNetworkingClient : WSNetworkingClient
             base.wordsSelected = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
         });
 
-        On("newGameState", (gameState) => 
-        {   
+        On("newGameState", (gameState) => {   
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());  
             CurrentGameState newGameState = currentGameStateAsObject.currentGameState;
 
             print("print new game state: " + currentGameStateAsObject.currentGameState);
+        });
+
+        On("disconnect", (e) => {
+            wasDisconnected = true;
+            Connect();
         });
     }
 }
