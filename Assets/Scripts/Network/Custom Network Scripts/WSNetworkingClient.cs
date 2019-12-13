@@ -10,6 +10,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
     public GameState initialGameState;
     public WordsSelectedAsObject wordsSelected = new WordsSelectedAsObject();
     public CurrentGameStateAsObject currentGameStateAsObject;
+    protected string roomId; 
 
     public List<string> wordsSelectedQueue = new List<string>(){}; 
 
@@ -63,6 +64,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
         {
             isConnected = false;
             wasDisconnected = true;
+
             print("disconnect");
             print(e.data.ToString());
         });

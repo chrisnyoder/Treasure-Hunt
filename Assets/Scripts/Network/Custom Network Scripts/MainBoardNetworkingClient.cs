@@ -11,7 +11,6 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 {
     public CodeTabScript codeTab;
     public GameObject collectionView; 
-    private string roomId; 
 
     [HideInInspector]
     public ConnectionCodeAsObject connectionCodeAsObject;
@@ -69,6 +68,11 @@ public class MainBoardNetworkingClient : WSNetworkingClient
                 reconnectToRoomId(roomId, "isHosting");
                 wasDisconnected = false;
             }
+        });
+
+        On("disconnect", (e) => {
+            wasDisconnected = true;
+            Connect();
         });
 
         On("connetion", (e) => {
