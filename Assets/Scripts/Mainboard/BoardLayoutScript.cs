@@ -98,8 +98,8 @@ public class BoardLayoutScript : MonoBehaviour
         }
 
         buttonParentRT.sizeDelta = new Vector2(cardWidth, cardHeight);
-        var image = buttonParentObject.GetComponentInChildren<Image>();
-        image.rectTransform.sizeDelta = buttonParentRT.sizeDelta;
+        var image = buttonParentObject.GetComponentsInChildren<Image>();
+        image[1].rectTransform.sizeDelta = buttonParentRT.sizeDelta;
 
         createCardPrefabs();    
     }

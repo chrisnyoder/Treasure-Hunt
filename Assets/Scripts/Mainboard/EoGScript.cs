@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.iOS;
 
 public class EoGScript : MonoBehaviour
 {
@@ -77,6 +78,7 @@ public class EoGScript : MonoBehaviour
     private void playEoGCardAnimations()
     {
         print("animations being played");
+
         if(currentGameState == CurrentGameState.blueWins || currentGameState == CurrentGameState.redWins)
         {
             var positions = EoGCardAnimationData.cardPositions;
@@ -105,6 +107,21 @@ public class EoGScript : MonoBehaviour
         {
             slam.animateEoGCursedCoin();
         }
+
+        if (GlobalDefaults.Instance.appOpenCounter == 1)
+        {
+            callForReview();
+        }       
+    }
+
+    void callForReview()
+    {
+        #if UNITY_IOS
+            Device.RequestStoreReview();
+        #elif UNITY_ANDROID
+            // var url =  "http://play.google.com/store/apps/details?id=" + Application.identifier;
+            // Application.OpenURL(url);
+        #endif
     }
 }
 

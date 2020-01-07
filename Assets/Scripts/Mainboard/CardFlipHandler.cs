@@ -3,30 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class CardFlipHandler : MonoBehaviour
 {
     private EoGScript eoGScript;
+    [HideInInspector]
     public bool cardIsFlipped;
     public GameState gameState;
 
     public CardType cardType;
     public string cardText;
 
+    public GameObject buttonParentObject; 
+
     private WSNetworkingClient networkingClient;
 
     private void Awake() 
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
+        gameObject.GetComponent<Button>().onClick.AddListener(FlipCard);
+        buttonParentObject.GetComponent<EventTrigger>().enabled = false; 
     }
 
     public void FlipCard()
     {
-        cardIsFlipped = true;
         print("flip card function being called");
 
         if(gameState.currentGameState == CurrentGameState.gameInPlay)
         {
+            cardIsFlipped = true;
+            
             switch (cardType)
             {
                 case CardType.blueCard:
@@ -35,6 +42,7 @@ public class CardFlipHandler : MonoBehaviour
                     if (gameState.blueTeamScore >= 8)
                     {
                         gameState.currentGameState = CurrentGameState.blueWins;
+                        StartCoroutine(LaunchEoGAfterDelay());
                     }
                     break;
                 case CardType.redCard:
@@ -43,6 +51,7 @@ public class CardFlipHandler : MonoBehaviour
                     if (gameState.redTeamScore >= 7)
                     {
                         gameState.currentGameState = CurrentGameState.redWins;
+                        StartCoroutine(LaunchEoGAfterDelay());
                     }
                     break;
                 case CardType.neutralCard:
@@ -51,20 +60,32 @@ public class CardFlipHandler : MonoBehaviour
                 case CardType.shipwreckCard:
                     GlobalAudioScript.Instance.playSfxSound("sad_violin");
                     gameState.currentGameState = CurrentGameState.loses;
+                    StartCoroutine(LaunchEoGAfterDelay());
                     break;
             }
 
-            Destroy(gameObject.GetComponentInChildren<Text>());
-            gameObject.GetComponent<Button>().interactable = false;
+            gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
 
-            var rt = gameObject.GetComponent<RectTransform>();
-            Sequence s = DOTween.Sequence();
+            gameState.wordsAlreadySelected.Add(cardText);
+            networkingClient.wordsSelectedQueue.Add(cardText);
 
-            s.Append(rt.DORotate(new Vector3(0f, 90f, 0), 0.3f, RotateMode.Fast));
-            s.Join(rt.DOScale(new Vector3(1.2f, 0.8f, 1), 0.3f));
-
-            s.Play().OnComplete(changeCardColor);
+            playFirstHalfOfCardFlipAnimation();
         }
+    }
+
+    private void playFirstHalfOfCardFlipAnimation()
+    {
+        var rt = gameObject.GetComponent<RectTransform>();
+        Sequence s = DOTween.Sequence();
+
+        s.Append(rt.DORotate(new Vector3(0f, 90f, 0), 0.3f, RotateMode.Fast));
+        s.Join(rt.DOScale(new Vector3(1.2f, 0.8f, 1), 0.3f));
+
+        s.Play().OnComplete(() =>
+        {
+            gameObject.GetComponentInChildren<Text>().enabled = false;
+            changeCardColor();
+        });
     }
 
     public void changeCardColor()
@@ -86,22 +107,20 @@ public class CardFlipHandler : MonoBehaviour
                 break;
         }
 
-        if(gameState.currentGameState != CurrentGameState.gameInPlay)
-        {
-            StartCoroutine(LaunchEoGAfterDelay());
-        }
+        playSecondHalfOfCardFlipAnimation();
+    }
 
-        gameState.wordsAlreadySelected.Add(cardText);
-        networkingClient.wordsSelectedQueue.Add(cardText);
-
+    private void playSecondHalfOfCardFlipAnimation()
+    {
         var rt = gameObject.GetComponent<RectTransform>();
         Sequence s = DOTween.Sequence();
 
         s.Append(rt.DORotate(new Vector3(0f, 180f, 0), 0.3f, RotateMode.Fast));
         s.Join(rt.DOScale(new Vector3(1f, 1f, 1), 0.3f));
 
-        s.Play();
-        print("changing color");
+        s.Play().OnComplete(() => {
+            buttonParentObject.GetComponent<EventTrigger>().enabled = true;
+        });
     }
 
     public void startCardFaceUp()
@@ -126,9 +145,34 @@ public class CardFlipHandler : MonoBehaviour
                 break;
         }
 
-        Destroy(gameObject.GetComponentInChildren<Text>());
-        gameObject.GetComponent<Button>().interactable = false;
+        gameObject.GetComponentInChildren<Text>().enabled = false;
+        gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
         cardIsFlipped = true;
+    }
+
+    public void pressToRevealWord()
+    {
+        var rt = gameObject.GetComponent<RectTransform>();
+        Sequence s = DOTween.Sequence();
+
+        s.Append(rt.DORotate(new Vector3(0f, 90f, 0), 0.3f, RotateMode.Fast));
+        s.Join(rt.DOScale(new Vector3(1.2f, 0.8f, 1), 0.3f));
+
+        s.Play().OnComplete( () => {
+
+            gameObject.GetComponentInChildren<Text>().enabled = true;
+            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/beige_card");
+            Sequence se = DOTween.Sequence();
+
+            se.Append(rt.DORotate(new Vector3(0f, 0f, 0), 0.3f, RotateMode.Fast));
+            se.Join(rt.DOScale(new Vector3(1f, 1f, 1f), 0.3f));
+        });
+    }
+
+    public void unpressToHide()
+    {
+        print("unpress to reveal event being called");
+        playFirstHalfOfCardFlipAnimation();
     }
 
     IEnumerator LaunchEoGAfterDelay()
