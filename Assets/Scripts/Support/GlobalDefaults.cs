@@ -8,17 +8,14 @@ public class GlobalDefaults : MonoBehaviour
     private static GlobalDefaults _instance; 
     private static bool globalSettingsSet = false;
 
-    public static GlobalDefaults Instance  
-    {
-        get 
-        {
-            return _instance;
-        }
-    }
+    public static GlobalDefaults Instance  { get { return _instance; } }
 
     public RectTransform screenSize; 
     public bool isTablet; 
     public bool tutorialIsOn; 
+
+    public int appOpenCounter { get { return _appOpenCounter; } }
+    private int _appOpenCounter;
 
     private void Awake() 
     {
@@ -35,6 +32,7 @@ public class GlobalDefaults : MonoBehaviour
                 setPlayerDefaults();
                 setFrameRate();
                 determineIfTablet();
+                increcmentAppCounter();
                 // keepScreenOn();
             }
             globalSettingsSet = true;
@@ -107,6 +105,25 @@ public class GlobalDefaults : MonoBehaviour
         else
         {
             isTablet = false;
+        }
+    }
+
+    void increcmentAppCounter() 
+    {
+        if (PlayerPrefs.HasKey("appOpenCounter"))
+        {
+            string previousCounter = PlayerPrefs.GetString("appOpenCounter");
+            int newCounter = int.Parse(previousCounter) + 1;
+            _appOpenCounter = newCounter;
+
+            PlayerPrefs.SetString("appOpenCounter", newCounter.ToString());
+            print("app has opened this number of times: " + appOpenCounter);
+        }
+        else
+        {
+            PlayerPrefs.SetString("appOpenCounter", "0");
+            print("app counter set 0");
+            _appOpenCounter = 0;
         }
     }
 }
