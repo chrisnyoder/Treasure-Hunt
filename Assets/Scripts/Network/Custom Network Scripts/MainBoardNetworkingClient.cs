@@ -111,4 +111,11 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 
         On("newGameState", (newGameState) => {} );
     }
+
+    public void sendGameRestartingMessage()
+    {
+        if(isConnected)
+            print("sending restart messages");
+            Emit("restarting");
+    }
 }

@@ -10,14 +10,19 @@ public class CrewGameUpdateHandler : MonoBehaviour
     JoinGameNetworkingClient joinGameNetworkingClient;
     WordsSelectedAsObject wordsSelectedOnBoard;
     GameState crewMemberGameState; 
+
     public GameObject EoGCanvas;
+    public GameObject restartingCanvas; 
+    private Vector2 initialMainboardPos; 
+    private Vector2 initialRestartCanvasPos; 
 
     CardFlipHandler[] cards;
     public BoardLayoutScript boardLayoutScript;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start() 
     {
+        initialMainboardPos = gameObject.GetComponent<RectTransform>().anchoredPosition;
+        initialRestartCanvasPos = restartingCanvas.GetComponent<RectTransform>().anchoredPosition;
     }
 
     private void Update() 
@@ -32,6 +37,27 @@ public class CrewGameUpdateHandler : MonoBehaviour
         if(crewMemberGameState != joinGameNetworkingClient.initialGameState)
         {
             setUpMainBoardForCrewMember();
+        }
+
+        if(joinGameNetworkingClient.gameInRestartingState)
+        {
+            var mainBoardRT = gameObject.GetComponent<RectTransform>();
+            mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
+
+            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+            restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
+            {
+                restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
+            });
+
+            exitResultsCanvasIfDisplayed();
+        } else 
+        {
+            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+            restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() => 
+            {
+                restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
+            });
         }
     }
 
