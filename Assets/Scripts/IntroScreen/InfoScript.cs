@@ -95,5 +95,17 @@ public class InfoScript : MonoBehaviour
         GlobalAudioScript.Instance.playSfxSound("togglePack2");
         Application.OpenURL("https://friendlypixel.app/treasure_hunt_privacy_policy.html");
     }
+
+    public void goToFriendlyPixelFBPage()
+    {
+        GlobalAudioScript.Instance.playSfxSound("togglePack2");
+        Application.OpenURL("https://www.facebook.com/friendlypixel/");
+    }
+
+    public void goToFriendlyPixelWebsite()
+    {
+        GlobalAudioScript.Instance.playSfxSound("togglePack2");
+        Application.OpenURL("https://www.friendlypixel.app");
+    }
 }
 
