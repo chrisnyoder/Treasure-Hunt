@@ -37,7 +37,6 @@ public class BoardLayoutScript : MonoBehaviour
         musicButton.GetComponent<RectTransform>().sizeDelta = exitButton.GetComponent<RectTransform>().sizeDelta;
         musicButton.GetComponent<RectTransform>().localPosition = new Vector2(exitButton.GetComponent<RectTransform>().localPosition.x, (exitButton.GetComponent<RectTransform>().localPosition.y - (exitButton.GetComponent<RectTransform>().sizeDelta.y/2)) - 75);
 
-
         if(GlobalDefaults.Instance.isTablet)
         {
             var backgroundImage = this.GetComponent<Image>();
@@ -80,17 +79,17 @@ public class BoardLayoutScript : MonoBehaviour
             print("is tablet");
             boardWidth = mainBoardRT.rect.width;
             cardWidth = (boardWidth * 0.9f) / 5;
-            cardHeight = (float)(cardWidth*0.6);
+            cardHeight = (float)(cardWidth*0.6316);
             totalSpacing = mainBoardRT.rect.width - (cardWidth * 5);
 
-            collectionViewRT.sizeDelta = new Vector2(boardWidth, boardWidth*0.6f);
+            collectionViewRT.sizeDelta = new Vector2(boardWidth, boardWidth*0.6316f);
         }
         else
         {
             print("is phone");
             boardHeight = mainBoardRT.rect.height;
             cardHeight = (boardHeight*0.9f) / 5;
-            cardWidth = (float)(cardHeight * 1.66);
+            cardWidth = (float)(cardHeight * 1.583);
             totalSpacing = mainBoardRT.rect.height-(cardHeight*5);
 
             collectionViewRT.sizeDelta = new Vector2((cardWidth * 5)+totalSpacing, boardHeight);
