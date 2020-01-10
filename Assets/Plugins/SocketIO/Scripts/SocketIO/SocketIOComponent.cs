@@ -57,7 +57,7 @@ namespace SocketIO
 
         #region Private Properties
 
-        private string url = "ws://TreasureHunt-env-test.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket";
+        private string url = "ws://TreasureHunt-env.ysqimeb5aa.us-west-1.elasticbeanstalk.com:80/socket.io/?EIO=4&transport=websocket";
 
         private volatile bool connected;
         private volatile bool thPinging;
