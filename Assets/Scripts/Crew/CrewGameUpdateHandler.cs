@@ -65,10 +65,8 @@ public class CrewGameUpdateHandler : MonoBehaviour
     {
         foreach (CardFlipHandler card in cards)
         {
-            print("card is flipped: " + card.cardIsFlipped);
-            if (wordsSelectedOnBoard.allWordsSelected.Contains(card.cardText) && !card.cardIsFlipped)
+            if (wordsSelectedOnBoard.allWordsSelected.Contains(card.cardText) && !card.cardAlreadyFlipped)
             {
-                print("flipping card");
                 card.FlipCard();
             }
         }
@@ -103,8 +101,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             crewMemberGameState = joinGameNetworkingClient.initialGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
             
-            var rt = gameObject.GetComponent<RectTransform>();
-            rt.DOAnchorPosY(0, 0.5f, false).Play().SetEase(Ease.Linear);
+            boardLayoutScript.runMainBoardAnimation();
 
             cards = gameObject.GetComponentsInChildren<CardFlipHandler>();
 
@@ -112,7 +109,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             {
                 foreach (CardFlipHandler card in cards)
                 {
-                    card.cardIsFlipped = false;
+                    card.cardAlreadyFlipped = false;
                 }
             }
         }

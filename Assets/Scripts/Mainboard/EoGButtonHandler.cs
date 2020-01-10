@@ -27,7 +27,6 @@ public class EoGButtonHandler : MonoBehaviour
         mainBoardNetworkingClient.sendGameRestartingMessage();
         mainBoardNetworkingClient.initialGameState = null;
         mainBoardNetworkingClient.gameStateSent = false;
-        codeTabScript.gameObject.SetActive(false);
     }
     
     public void showBoard()

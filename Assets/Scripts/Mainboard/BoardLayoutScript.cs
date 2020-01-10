@@ -12,6 +12,7 @@ public class BoardLayoutScript : MonoBehaviour
     public CodeTabScript codeTabScript;
     public Canvas mainBoard;
     public Canvas eogBoard;
+    public TurnIndicatorScript turnIndicator; 
     public GameObject buttonParentObject;
     public GameObject collectionView;
     public GameObject musicButton; 
@@ -20,13 +21,14 @@ public class BoardLayoutScript : MonoBehaviour
     RectTransform mainBoardRT;
     RectTransform collectionViewRT;
     RectTransform buttonParentRT;
+    public RectTransform codeDisplayRT; 
 
     float boardHeight;
     float boardWidth;
 
     int numberOfCards = 25;
 
-    GameState initialGameState;
+    GameState _initialGameState;
     CardType[] cardTypes;
     RectTransform[] cardPositions;
     float cardHeight;
@@ -53,7 +55,7 @@ public class BoardLayoutScript : MonoBehaviour
 
     public void receiveGameStateObject(GameState initialGameState)
     {
-        this.initialGameState = initialGameState;
+        this._initialGameState = initialGameState;
 
         mainBoardRT = mainBoard.GetComponent<RectTransform>();
         
@@ -126,15 +128,15 @@ public class BoardLayoutScript : MonoBehaviour
             cardPositions[n] = cardCloneRT;
 
             var buttonData = cardClone.GetComponentInChildren<CardFlipHandler>();
-            buttonData.cardType = initialGameState.hiddenBoardList[n].cardType;
-            buttonData.cardText = initialGameState.hiddenBoardList[n].labelText;
+            buttonData.cardType = _initialGameState.hiddenBoardList[n].cardType;
+            buttonData.cardText = _initialGameState.hiddenBoardList[n].labelText;
 
             var cardText = cardClone.GetComponentInChildren<Text>();
             cardText.text = buttonData.cardText;
 
-            buttonData.gameState = initialGameState;
+            buttonData.gameState = _initialGameState;
 
-            if(initialGameState.wordsAlreadySelected.Contains(cardText.text))
+            if(_initialGameState.wordsAlreadySelected.Contains(cardText.text))
             {
                 buttonData.startCardFaceUp();
             }
@@ -201,8 +203,20 @@ public class BoardLayoutScript : MonoBehaviour
         }
     }
 
+    public void dismissCodeDisplay()
+    {
+        if(codeDisplayRT != null) 
+        {
+            codeDisplayRT.DOAnchorPosY(-2000, 1f, false);
+            codeDisplayRT.GetComponent<Image>().DOFade(0, 0.3f);
+        }
+
+        turnIndicator.displayTurn(_initialGameState);
+    }
+
     public void runMainBoardAnimation()
     {
+        print("run main board function being called");
         var codeDisplayBackground = GameObject.Find("CodeDisplayBackground");
         var mainBoardRT = GameObject.Find("MainBoardCanvas").GetComponent<RectTransform>();
         
@@ -216,7 +230,15 @@ public class BoardLayoutScript : MonoBehaviour
                 codeDisplayBackground.GetComponent<Image>().DOFade(0.7f, 0.1f);
                 codeDisplayBackground.GetComponentInChildren<Text>().DOFade(1, 0.1f);
             }
+
+            if(codeDisplayRT.anchoredPosition.y != 0 || codeDisplayRT == null)
+            {
+                turnIndicator.displayTurn(_initialGameState);
+            }
+
             codeTabScript.showTab();
+
+            print("run main board animation completion handler called");
         });
 
         anim.SetDelay(0.4f);

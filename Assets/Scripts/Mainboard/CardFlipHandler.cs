@@ -7,9 +7,11 @@ using UnityEngine.EventSystems;
 
 public class CardFlipHandler : MonoBehaviour
 {
+    public TurnIndicatorScript turnIndicator;
     private EoGScript eoGScript;
+    
     [HideInInspector]
-    public bool cardIsFlipped;
+    public bool cardAlreadyFlipped;
     public GameState gameState;
 
     public CardType cardType;
@@ -28,48 +30,66 @@ public class CardFlipHandler : MonoBehaviour
 
     public void FlipCard()
     {
-        if(gameState.currentGameState == CurrentGameState.gameInPlay && !cardIsFlipped)
+        if(!cardAlreadyFlipped)
         {
-            print("FlipCard function being executed");
-            cardIsFlipped = true;
-            
-            switch (cardType)
+            cardAlreadyFlipped = true;
+            if (gameState.currentGameState == CurrentGameState.blueTurn || gameState.currentGameState == CurrentGameState.redTurn)
             {
-                case CardType.blueCard:
-                    GlobalAudioScript.Instance.playSfxSound("coin_flip");
-                    gameState.blueTeamScore += 1;
-                    if (gameState.blueTeamScore >= 8)
-                    {
-                        gameState.currentGameState = CurrentGameState.blueWins;
-                        StartCoroutine(LaunchEoGAfterDelay());
-                    }
-                    break;
-                case CardType.redCard:
-                    GlobalAudioScript.Instance.playSfxSound("correct");
-                    gameState.redTeamScore += 1;
-                    if (gameState.redTeamScore >= 7)
-                    {
-                        gameState.currentGameState = CurrentGameState.redWins;
-                        StartCoroutine(LaunchEoGAfterDelay());
-                    }
-                    break;
-                case CardType.neutralCard:
-                    GlobalAudioScript.Instance.playSfxSound("flip_stone");
-                    break;
-                case CardType.shipwreckCard:
-                    GlobalAudioScript.Instance.playSfxSound("sad_violin");
-                    gameState.currentGameState = CurrentGameState.loses;
-                    StartCoroutine(LaunchEoGAfterDelay());
-                    break;
+                updateGameState();
+                playFirstHalfOfCardFlipAnimation();
             }
-
-            gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
-
-            gameState.wordsAlreadySelected.Add(cardText);
-            networkingClient.wordsSelectedQueue.Add(cardText);
-
-            playFirstHalfOfCardFlipAnimation();
         }
+    }
+
+    private void updateGameState()
+    {  
+        switch (cardType)
+        {
+            case CardType.blueCard:
+                GlobalAudioScript.Instance.playSfxSound("coin_flip");
+                gameState.blueTeamScore += 1;
+                if (gameState.blueTeamScore >= 8)
+                {
+                    gameState.currentGameState = CurrentGameState.blueWins;
+                    StartCoroutine(LaunchEoGAfterDelay());
+                } else if(gameState.currentGameState == CurrentGameState.redTurn) 
+                {
+                    turnIndicator.changeTurns();
+                }
+                break;
+            case CardType.redCard:
+                GlobalAudioScript.Instance.playSfxSound("correct");
+                gameState.redTeamScore += 1;
+                if (gameState.redTeamScore >= 7)
+                {
+                    gameState.currentGameState = CurrentGameState.redWins;
+                    StartCoroutine(LaunchEoGAfterDelay());
+                } else if(gameState.currentGameState == CurrentGameState.blueTurn) 
+                {
+                    turnIndicator.changeTurns();
+                }
+                break;
+            case CardType.neutralCard:
+                GlobalAudioScript.Instance.playSfxSound("flip_stone");
+                turnIndicator.changeTurns();
+                break;
+            case CardType.shipwreckCard:
+                GlobalAudioScript.Instance.playSfxSound("sad_violin");
+                gameState.currentGameState = CurrentGameState.loses;
+                StartCoroutine(LaunchEoGAfterDelay());
+                break;
+        }
+
+        gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
+
+        gameState.wordsAlreadySelected.Add(cardText);
+        updateClients();
+    }
+
+    private void updateClients()
+    {
+        networkingClient.wordsSelectedQueue.Add(cardText);
+        networkingClient.sendCurrentGameState(gameState.currentGameState);
     }
 
     private void playFirstHalfOfCardFlipAnimation()
@@ -146,7 +166,7 @@ public class CardFlipHandler : MonoBehaviour
 
         gameObject.GetComponentInChildren<Text>().enabled = false;
         gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
-        cardIsFlipped = true;
+        cardAlreadyFlipped = true;
     }
 
     public void pressToRevealWord()
@@ -178,7 +198,5 @@ public class CardFlipHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         gameState.LaunchEOGScreen();
-        print("current game state is: " + gameState.currentGameState);
-        networkingClient.sendCurrentGameState(gameState.currentGameState);
     }
 }

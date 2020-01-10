@@ -279,12 +279,24 @@ public class HiddenBoardViewController : MonoBehaviour
     public void gameStateChanged(CurrentGameState newGameState)
     {
         print("new game state is: " + newGameState);
-        if(newGameState != CurrentGameState.gameInPlay) 
+
+        switch(newGameState) 
         {
-            eoGScript.DisplayEOGCanvas(newGameState);
-        } else 
-        {
-            getTextObjectSize();
+            case CurrentGameState.blueTurn:
+                getTextObjectSize();
+                break; 
+            case CurrentGameState.redTurn:
+                getTextObjectSize();
+                break;
+            case CurrentGameState.blueWins:
+                eoGScript.DisplayEOGCanvas(newGameState);
+                break;
+            case CurrentGameState.redWins:
+                eoGScript.DisplayEOGCanvas(newGameState);
+                break;
+            case CurrentGameState.loses:
+                eoGScript.DisplayEOGCanvas(newGameState);
+                break; 
         }
     }
 

@@ -40,7 +40,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
             {
                 print("about to send dictionary");
                 sendGameDictionary();
-                sendCurrentGameState(CurrentGameState.gameInPlay);
+                sendCurrentGameState(CurrentGameState.blueTurn);
                 gameStateSent = true;
             }
         }
@@ -102,7 +102,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 
             CardFlipHandler[] cards = collectionView.GetComponentsInChildren<CardFlipHandler>();
             foreach(CardFlipHandler card in cards) {
-                if(wordsSelectedAsObject.allWordsSelected.Contains(card.cardText) && !card.cardIsFlipped) 
+                if(wordsSelectedAsObject.allWordsSelected.Contains(card.cardText) && !card.cardAlreadyFlipped) 
                 {
                     card.FlipCard();
                 }
