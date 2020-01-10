@@ -28,10 +28,9 @@ public class CardFlipHandler : MonoBehaviour
 
     public void FlipCard()
     {
-        print("flip card function being called");
-
-        if(gameState.currentGameState == CurrentGameState.gameInPlay)
+        if(gameState.currentGameState == CurrentGameState.gameInPlay && !cardIsFlipped)
         {
+            print("FlipCard function being executed");
             cardIsFlipped = true;
             
             switch (cardType)

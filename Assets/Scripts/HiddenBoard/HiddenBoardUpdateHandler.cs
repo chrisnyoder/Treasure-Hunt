@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class HiddenBoardUpdateHandler : MonoBehaviour
 {
     public HiddenBoardViewController hiddenBoardViewController;
+    
+    public GameObject restartingCanvas;
+    public EoGScript eoGScript;
+    private Vector2 initialRestartCanvasPos;
+
     private List<CardObject> hiddenBoardGameDictionary = new List<CardObject>(); 
     private CurrentGameState currentGameState = CurrentGameState.gameInPlay;
     private List<string> wordsSelected = new List<string>(){};  
@@ -13,6 +20,10 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
 
     private void Awake() {
         currentGameState = CurrentGameState.gameInPlay;
+    }
+
+    private void Start() {
+        initialRestartCanvasPos = restartingCanvas.GetComponent<RectTransform>().anchoredPosition;
     }
 
     private void OnEnable() {
@@ -48,6 +59,25 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
                 currentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
                 hiddenBoardViewController.gameStateChanged(currentGameState);
             }
+        }
+
+        if (joinGameNetworkingClient.gameInRestartingState)
+        {
+            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+            restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
+            {
+                restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
+            });
+
+            exitResultsCanvasIfDisplayed();
+        }
+        else
+        {
+            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+            restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
+            {
+                restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
+            });
         }
     }
 
@@ -116,6 +146,24 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
         {
             TutorialHiddenBoardScript tutorialHiddenBoardScript = GameObject.Find("TutorialCanvas").GetComponent<TutorialHiddenBoardScript>();
             tutorialHiddenBoardScript.beginTutorial(joinGameNetworkingClient.team);
+        }
+    }
+
+    private void exitResultsCanvasIfDisplayed()
+    {
+        var rt = eoGScript.GetComponent<RectTransform>();
+        if (rt.anchoredPosition.y == 0)
+        {
+            var EoGCanvasObject = eoGScript.gameObject;
+            EoGCanvasObject.GetComponent<Image>().DOFade(0, 0.1f).Play();
+            if (Screen.width < Screen.height)
+            {
+                EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(3000, 1f).Play();
+            }
+            else
+            {
+                EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(1500, 0.7f).Play();
+            }
         }
     }
 }

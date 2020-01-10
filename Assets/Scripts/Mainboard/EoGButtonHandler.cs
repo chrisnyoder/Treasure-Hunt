@@ -24,6 +24,7 @@ public class EoGButtonHandler : MonoBehaviour
         var mainBoardrt = MainBoardCanvasObject.GetComponent<RectTransform>();
         mainBoardrt.DOAnchorPosY(-1500, 0.7f, false);
 
+        mainBoardNetworkingClient.sendGameRestartingMessage();
         mainBoardNetworkingClient.initialGameState = null;
         mainBoardNetworkingClient.gameStateSent = false;
         codeTabScript.gameObject.SetActive(false);
