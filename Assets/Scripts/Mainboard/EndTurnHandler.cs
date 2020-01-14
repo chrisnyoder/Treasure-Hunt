@@ -33,6 +33,11 @@ public class EndTurnHandler : MonoBehaviour
         }
     }
 
+    public void setTurnTo(CurrentGameState turn)
+    {
+        
+    }
+
     public void sendTurnChangeToClients()
     {
         networkingClient.sendCurrentGameState(gameState.currentGameState);

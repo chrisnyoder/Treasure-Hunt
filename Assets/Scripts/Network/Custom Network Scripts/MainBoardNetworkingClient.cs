@@ -105,6 +105,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
                 if(wordsSelectedAsObject.allWordsSelected.Contains(card.cardText) && !card.cardAlreadyFlipped) 
                 {
                     card.FlipCard();
+                    card.changeTurnIfNecessary();
                 }
             }
         });

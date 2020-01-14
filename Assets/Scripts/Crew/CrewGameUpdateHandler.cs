@@ -42,8 +42,6 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
         if(crewMemberCurrentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
         {
-            print("game state on update handler: " + crewMemberCurrentGameState);
-            print("game state coming in from network client " + joinGameNetworkingClient.currentGameStateAsObject.currentGameState);
             var gameStateFromServer = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
 
             if(gameStateFromServer == CurrentGameState.blueTurn || gameStateFromServer == CurrentGameState.redTurn)
