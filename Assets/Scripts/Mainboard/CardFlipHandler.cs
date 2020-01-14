@@ -13,6 +13,7 @@ public class CardFlipHandler : MonoBehaviour
     [HideInInspector]
     public bool cardAlreadyFlipped;
     public GameState gameState;
+    public EndTurnHandler endTurnHandler;
 
     public CardType cardType;
     public string cardText;
@@ -35,14 +36,14 @@ public class CardFlipHandler : MonoBehaviour
             cardAlreadyFlipped = true;
             if (gameState.currentGameState == CurrentGameState.blueTurn || gameState.currentGameState == CurrentGameState.redTurn)
             {
-                updateGameState();
+                tallyScore();
                 playFirstHalfOfCardFlipAnimation();
             }
         }
     }
 
-    private void updateGameState()
-    {  
+    private void tallyScore()
+    {
         switch (cardType)
         {
             case CardType.blueCard:
@@ -52,9 +53,6 @@ public class CardFlipHandler : MonoBehaviour
                 {
                     gameState.currentGameState = CurrentGameState.blueWins;
                     StartCoroutine(LaunchEoGAfterDelay());
-                } else if(gameState.currentGameState == CurrentGameState.redTurn) 
-                {
-                    turnIndicator.changeTurns();
                 }
                 break;
             case CardType.redCard:
@@ -64,14 +62,10 @@ public class CardFlipHandler : MonoBehaviour
                 {
                     gameState.currentGameState = CurrentGameState.redWins;
                     StartCoroutine(LaunchEoGAfterDelay());
-                } else if(gameState.currentGameState == CurrentGameState.blueTurn) 
-                {
-                    turnIndicator.changeTurns();
                 }
                 break;
             case CardType.neutralCard:
                 GlobalAudioScript.Instance.playSfxSound("flip_stone");
-                turnIndicator.changeTurns();
                 break;
             case CardType.shipwreckCard:
                 GlobalAudioScript.Instance.playSfxSound("sad_violin");
@@ -81,12 +75,32 @@ public class CardFlipHandler : MonoBehaviour
         }
 
         gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
-
         gameState.wordsAlreadySelected.Add(cardText);
-        updateClients();
     }
 
-    private void updateClients()
+    public void changeTurnIfNecessary()
+    {
+        switch (cardType)
+        {
+            case CardType.blueCard:
+                if (gameState.currentGameState == CurrentGameState.redTurn)
+                {
+                    endTurnHandler.changeTurns();
+                }
+                break;
+            case CardType.redCard:
+                if (gameState.currentGameState == CurrentGameState.blueTurn)
+                {
+                    endTurnHandler.changeTurns();
+                }
+                break;
+            case CardType.neutralCard:
+                endTurnHandler.changeTurns();
+                break;
+        }
+    }
+
+    public void updateClients()
     {
         networkingClient.wordsSelectedQueue.Add(cardText);
         networkingClient.sendCurrentGameState(gameState.currentGameState);

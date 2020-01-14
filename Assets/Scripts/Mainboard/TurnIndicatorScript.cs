@@ -5,23 +5,12 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 public class TurnIndicatorScript : MonoBehaviour
-{
-    private GameState _gameState;
-    
-    public WSNetworkingClient networkingClient; 
+{    
     public Image turnIndicatorBackground; 
     public Text turnIndicatorText; 
 
-    private void Awake() 
+    public void displayTurn(CurrentGameState currentGameState)
     {
-        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
-    }
-
-    public void displayTurn(GameState gameState)
-    {
-        _gameState = gameState;
-        var currentGameState = gameState.currentGameState;
-
         turnIndicatorBackground.gameObject.SetActive(true);
         turnIndicatorText.gameObject.SetActive(true);
 
@@ -37,35 +26,16 @@ public class TurnIndicatorScript : MonoBehaviour
                 break;
         }
 
-        turnIndicatorBackground.DOFade(0.313f, 1f).OnComplete(() => {
-            turnIndicatorBackground.DOFade(0, 1f).OnComplete(() => {
+        turnIndicatorBackground.DOFade(0.313f, 1f).SetDelay(1).OnComplete(() => {
+            turnIndicatorBackground.DOFade(0, 1f).SetDelay(0.5f).OnComplete(() => {
                 turnIndicatorBackground.gameObject.SetActive(false);
             });
         });
 
-        turnIndicatorText.DOFade(1f, 1f).OnComplete(() => {
-            turnIndicatorText.DOFade(0, 1f).OnComplete(() => {
+        turnIndicatorText.DOFade(1f, 1f).SetDelay(1).OnComplete(() => {
+            turnIndicatorText.DOFade(0, 1f).SetDelay(0.5f).OnComplete(() => {
                 turnIndicatorText.gameObject.SetActive(false);
             });
         });
     } 
-
-    public void changeTurns()
-    {
-        if(_gameState.currentGameState == CurrentGameState.redTurn || _gameState.currentGameState == CurrentGameState.blueTurn)
-        {
-            switch (_gameState.currentGameState)
-            {
-                case CurrentGameState.redTurn:
-                    _gameState.currentGameState = CurrentGameState.blueTurn;
-                    break;
-                case CurrentGameState.blueTurn:
-                    _gameState.currentGameState = CurrentGameState.redTurn;
-                    break;
-            }
-
-            displayTurn(_gameState);
-            networkingClient.sendCurrentGameState(_gameState.currentGameState);
-        }
-    }
 }

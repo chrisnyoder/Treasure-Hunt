@@ -10,6 +10,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
     JoinGameNetworkingClient joinGameNetworkingClient;
     WordsSelectedAsObject wordsSelectedOnBoard;
     GameState crewMemberGameState; 
+    CurrentGameState crewMemberCurrentGameState = CurrentGameState.blueTurn; 
 
     public GameObject EoGCanvas;
     public GameObject restartingCanvas; 
@@ -38,6 +39,20 @@ public class CrewGameUpdateHandler : MonoBehaviour
         {
             setUpMainBoardForCrewMember();
         }
+
+        if(crewMemberCurrentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
+        {
+            print("game state on update handler: " + crewMemberCurrentGameState);
+            print("game state coming in from network client " + joinGameNetworkingClient.currentGameStateAsObject.currentGameState);
+            var gameStateFromServer = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
+
+            if(gameStateFromServer == CurrentGameState.blueTurn || gameStateFromServer == CurrentGameState.redTurn)
+            {
+                boardLayoutScript.endTurnHandler.gameState.currentGameState = crewMemberCurrentGameState;
+                crewMemberCurrentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
+                boardLayoutScript.endTurnHandler.changeTurns();
+            }
+        }   
 
         if(joinGameNetworkingClient.gameInRestartingState)
         {
@@ -99,6 +114,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
             boardLayoutScript = GameObject.Find("MainBoardCanvas").GetComponent<BoardLayoutScript>();
             crewMemberGameState = joinGameNetworkingClient.initialGameState;
+            crewMemberCurrentGameState = crewMemberGameState.currentGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
             
             boardLayoutScript.runMainBoardAnimation();

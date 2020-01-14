@@ -117,7 +117,40 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7431130622734950985}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8622185611469033807}
+        m_MethodName: FlipCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8622185611469033807}
+        m_MethodName: changeTurnIfNecessary
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8622185611469033807}
+        m_MethodName: updateClients
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &3461825042561418602
@@ -146,7 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2f65fe868c8448a884408d639a90b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardIsFlipped: 0
+  turnIndicator: {fileID: 0}
+  cardAlreadyFlipped: 0
+  endTurnHandler: {fileID: 0}
   cardType: 0
   cardText: 
   buttonParentObject: {fileID: 5448850801748092012}

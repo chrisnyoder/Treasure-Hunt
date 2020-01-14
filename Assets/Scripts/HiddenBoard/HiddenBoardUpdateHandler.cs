@@ -14,7 +14,7 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
     private Vector2 initialRestartCanvasPos;
 
     private List<CardObject> hiddenBoardGameDictionary = new List<CardObject>(); 
-    private CurrentGameState currentGameState = CurrentGameState.blueTurn;
+    private CurrentGameState currentGameState;
     private List<string> wordsSelected = new List<string>(){};  
     private JoinGameNetworkingClient joinGameNetworkingClient;
 

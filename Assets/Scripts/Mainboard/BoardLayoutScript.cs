@@ -23,6 +23,9 @@ public class BoardLayoutScript : MonoBehaviour
     RectTransform buttonParentRT;
     public RectTransform codeDisplayRT; 
 
+    public WSNetworkingClient networkingClient;
+    public EndTurnHandler endTurnHandler;
+
     float boardHeight;
     float boardWidth;
 
@@ -33,6 +36,11 @@ public class BoardLayoutScript : MonoBehaviour
     RectTransform[] cardPositions;
     float cardHeight;
     float cardWidth;
+
+    private void Awake() 
+    {
+        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
+    }
 
     private void Start() 
     {
@@ -61,6 +69,7 @@ public class BoardLayoutScript : MonoBehaviour
         
         collectionViewRT = collectionView.GetComponent<RectTransform>();
         buttonParentRT = buttonParentObject.GetComponent<RectTransform>();
+        endTurnHandler.gameState = initialGameState;
         determineIfTablet();
     }
 
@@ -211,7 +220,8 @@ public class BoardLayoutScript : MonoBehaviour
             codeDisplayRT.GetComponent<Image>().DOFade(0, 0.3f);
         }
 
-        turnIndicator.displayTurn(_initialGameState);
+        turnIndicator.displayTurn(_initialGameState.currentGameState);
+        networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
     }
 
     public void runMainBoardAnimation()
@@ -231,9 +241,12 @@ public class BoardLayoutScript : MonoBehaviour
                 codeDisplayBackground.GetComponentInChildren<Text>().DOFade(1, 0.1f);
             }
 
-            if(codeDisplayRT.anchoredPosition.y != 0 || codeDisplayRT == null)
+            if(codeDisplayRT == null)
             {
-                turnIndicator.displayTurn(_initialGameState);
+                turnIndicator.displayTurn(_initialGameState.currentGameState);
+            } else if(codeDisplayRT.anchoredPosition.y != 0) 
+            {
+                turnIndicator.displayTurn(_initialGameState.currentGameState);
             }
 
             codeTabScript.showTab();

@@ -90,10 +90,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
 
         On("newGameState", (gameState) => {   
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());  
-            CurrentGameState newGameState = currentGameStateAsObject.currentGameState;
             gameInRestartingState = false;
-
-            print("print new game state: " + currentGameStateAsObject.currentGameState);
         });
 
         On("disconnect", (e) => {
