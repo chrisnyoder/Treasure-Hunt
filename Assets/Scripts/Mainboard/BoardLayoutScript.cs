@@ -25,6 +25,7 @@ public class BoardLayoutScript : MonoBehaviour
 
     public WSNetworkingClient networkingClient;
     public EndTurnHandler endTurnHandler;
+    public ScoreDisplayHandler scoreDisplay;
 
     float boardHeight;
     float boardWidth;
@@ -70,6 +71,7 @@ public class BoardLayoutScript : MonoBehaviour
         collectionViewRT = collectionView.GetComponent<RectTransform>();
         buttonParentRT = buttonParentObject.GetComponent<RectTransform>();
         endTurnHandler.gameState = initialGameState;
+        scoreDisplay.receiveInitialGameState(initialGameState);
         determineIfTablet();
     }
 

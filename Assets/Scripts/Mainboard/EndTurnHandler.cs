@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndTurnHandler : MonoBehaviour
 {
@@ -21,12 +22,12 @@ public class EndTurnHandler : MonoBehaviour
             switch (gameState.currentGameState)
             {
                 case CurrentGameState.redTurn:
-                    print("was red turn, turning to blue");
                     gameState.currentGameState = CurrentGameState.blueTurn;
+                    GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/blue_timer@2x");
                     break;
                 case CurrentGameState.blueTurn:
-                    print("was blue turn, turning to red");
                     gameState.currentGameState = CurrentGameState.redTurn;
+                    GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/red_timer@2x");
                     break;
             }
             turnIndicator.displayTurn(gameState.currentGameState);
@@ -35,7 +36,7 @@ public class EndTurnHandler : MonoBehaviour
 
     public void setTurnTo(CurrentGameState turn)
     {
-        
+
     }
 
     public void sendTurnChangeToClients()

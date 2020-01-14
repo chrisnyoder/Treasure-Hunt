@@ -14,6 +14,7 @@ public class CardFlipHandler : MonoBehaviour
     public bool cardAlreadyFlipped;
     public GameState gameState;
     public EndTurnHandler endTurnHandler;
+    public ScoreDisplayHandler scoreDisplay;
 
     public CardType cardType;
     public string cardText;
@@ -49,6 +50,8 @@ public class CardFlipHandler : MonoBehaviour
             case CardType.blueCard:
                 GlobalAudioScript.Instance.playSfxSound("coin_flip");
                 gameState.blueTeamScore += 1;
+                print("score in button handler: " + gameState.blueTeamScore);
+                scoreDisplay.displayScore();
                 if (gameState.blueTeamScore >= 8)
                 {
                     gameState.currentGameState = CurrentGameState.blueWins;
@@ -58,6 +61,8 @@ public class CardFlipHandler : MonoBehaviour
             case CardType.redCard:
                 GlobalAudioScript.Instance.playSfxSound("correct");
                 gameState.redTeamScore += 1;
+                print("score in button handler: " + gameState.redTeamScore);
+                scoreDisplay.displayScore();
                 if (gameState.redTeamScore >= 7)
                 {
                     gameState.currentGameState = CurrentGameState.redWins;
