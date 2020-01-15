@@ -10,13 +10,13 @@ public abstract class WSNetworkingClient : SocketIOComponent
     public GameState initialGameState;
     public WordsSelectedAsObject wordsSelected = new WordsSelectedAsObject();
     public CurrentGameStateAsObject currentGameStateAsObject;
-    protected string roomId; 
+    public string roomId; 
 
     public List<string> wordsSelectedQueue = new List<string>(){}; 
 
     public Team team = Team.BlueTeam;
     protected bool isHosting;
-    protected bool isConnected = false;
+    public bool isConnected = false;
     protected bool wasDisconnected = false;
 
     // Start is called before the first frame update

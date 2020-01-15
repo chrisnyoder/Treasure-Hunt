@@ -251,10 +251,12 @@ public class BoardLayoutScript : MonoBehaviour
                 turnIndicator.displayTurn(_initialGameState.currentGameState);
             }
 
-            codeTabScript.showTab();
+            codeTabScript.displayRoomId();
 
             print("run main board animation completion handler called");
         });
+
+        codeTabScript.displayRoomId();
 
         anim.SetDelay(0.4f);
         anim.Play();

@@ -31,7 +31,6 @@ public class CrewGameUpdateHandler : MonoBehaviour
         if(wordsSelectedOnBoard.allWordsSelected != joinGameNetworkingClient.wordsSelected.allWordsSelected)
         {
             wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.wordsSelected.allWordsSelected;
-            print("words selected are different");
             updateWordsSelected();
         }
 
@@ -51,6 +50,11 @@ public class CrewGameUpdateHandler : MonoBehaviour
                 boardLayoutScript.endTurnHandler.changeTurns();
             }
         }   
+
+        if(joinGameNetworkingClient.roomId != joinGameNetworkingClient.codeDisplay.connectionCodeText.text && joinGameNetworkingClient.isConnected)
+        {
+            joinGameNetworkingClient.codeDisplay.updateConnectionCode(joinGameNetworkingClient.roomId);
+        }
 
         if(joinGameNetworkingClient.gameInRestartingState)
         {
@@ -98,6 +102,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
     private void OnJoiningScene(Scene scene, LoadSceneMode mode)
     {
         joinGameNetworkingClient = GameObject.Find("NetworkingClient").GetComponent<JoinGameNetworkingClient>();
+        joinGameNetworkingClient.codeDisplay = GameObject.Find("Game_Id").GetComponent<CodeTabScript>();
         setUpMainBoardForCrewMember();
         exitResultsCanvasIfDisplayed();
         print("on joining scene callback being called");
