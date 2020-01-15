@@ -5,14 +5,22 @@ using UnityEngine.UI;
 
 public class EndTurnHandler : MonoBehaviour
 {
-
     private WSNetworkingClient networkingClient;
     public GameState gameState;
     public TurnIndicatorScript turnIndicator;
+    public Image border; 
+    public Image timerFill; 
+    public Timer timer; 
 
     private void Awake()
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
+    }
+
+    public void resetImages()
+    {
+        border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_blue");
+        timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
     }
 
     public void changeTurns()
@@ -23,20 +31,19 @@ public class EndTurnHandler : MonoBehaviour
             {
                 case CurrentGameState.redTurn:
                     gameState.currentGameState = CurrentGameState.blueTurn;
-                    GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/blue_timer@2x");
+                    border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_blue");
+                    timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
+                    timer.resetTimer();
                     break;
                 case CurrentGameState.blueTurn:
                     gameState.currentGameState = CurrentGameState.redTurn;
-                    GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/red_timer@2x");
+                    border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_red");
+                    timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
+                    timer.resetTimer();
                     break;
             }
             turnIndicator.displayTurn(gameState.currentGameState);
         }
-    }
-
-    public void setTurnTo(CurrentGameState turn)
-    {
-
     }
 
     public void sendTurnChangeToClients()
