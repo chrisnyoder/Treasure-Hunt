@@ -9,7 +9,9 @@ public abstract class WSNetworkingClient : SocketIOComponent
     protected CodeHandlerAbstract codeHandler; 
     public GameState initialGameState;
     public WordsSelectedAsObject wordsSelected = new WordsSelectedAsObject();
+    public TimerAsObject timer = new TimerAsObject();
     public CurrentGameStateAsObject currentGameStateAsObject;
+    public TimerAsObject timerObject;
     public string roomId; 
 
     public List<string> wordsSelectedQueue = new List<string>(){}; 
@@ -88,6 +90,11 @@ public abstract class WSNetworkingClient : SocketIOComponent
         On("newGameState", (gameState) =>
         {
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
+        });
+
+        On("timer", (timerData) => 
+        {
+            timer = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
         });
     }
 

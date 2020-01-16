@@ -157,7 +157,6 @@ public class BoardLayoutScript : MonoBehaviour
     {
         if(isTablet)
         {
-            print("total spacing is: " + totalSpacing);
             var vertSpacing = collectionViewRT.sizeDelta.y - (buttonParentRT.sizeDelta.y*5);
             var horSpacing = collectionViewRT.sizeDelta.x - (buttonParentRT.sizeDelta.x*5);
             float xOrigin = 0 + (horSpacing / 6); 
