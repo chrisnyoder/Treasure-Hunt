@@ -8,7 +8,6 @@ using DG.Tweening;
 public class ButtonPress : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
 
-
     RectTransform rectTransform;
    
     Vector3 pushedScale;
