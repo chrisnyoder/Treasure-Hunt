@@ -22,7 +22,7 @@ public class MainboardMenuHandler : MonoBehaviour
     {
         if(GlobalDefaults.Instance.isTablet)
         {
-            if (musicIcon.anchoredPosition.y == 0)
+            if (musicIcon.anchoredPosition.x == 0)
             {
                 Sequence s = DOTween.Sequence();
                 s.Join(musicIcon.DOAnchorPosX(-130, 0.3f, false));

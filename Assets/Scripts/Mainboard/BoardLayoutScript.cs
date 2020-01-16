@@ -20,6 +20,9 @@ public class BoardLayoutScript : MonoBehaviour
     RectTransform collectionViewRT;
     RectTransform buttonParentRT;
     public RectTransform codeDisplayRT; 
+    public RectTransform menuButtonRt; 
+    public RectTransform endTurnButtonRT; 
+    public RectTransform menuParentRT; 
 
     public WSNetworkingClient networkingClient;
     public EndTurnHandler endTurnHandler;
@@ -47,6 +50,9 @@ public class BoardLayoutScript : MonoBehaviour
         {
             var backgroundImage = this.GetComponent<Image>();
             var tabletBackgroundImage = Resources.Load<Sprite>("Images/Backgrounds/iPad_12_MB_Background");
+            resizeMenuButton();
+            moveEndTurnButton();
+            rotateEndTurnButton();
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
@@ -86,9 +92,9 @@ public class BoardLayoutScript : MonoBehaviour
             boardWidth = mainBoardRT.rect.width;
             cardWidth = (boardWidth * 0.9f) / 5;
             cardHeight = (float)(cardWidth*0.6316);
-            totalSpacing = mainBoardRT.rect.width - (cardWidth * 5);
+            totalSpacing = mainBoardRT.rect.width - (cardWidth * 5) - 100;
 
-            collectionViewRT.sizeDelta = new Vector2(boardWidth, boardWidth*0.6316f);
+            collectionViewRT.sizeDelta = new Vector2((boardWidth-totalSpacing), (boardWidth-totalSpacing)*0.6316f);
         }
         else
         {
@@ -103,8 +109,6 @@ public class BoardLayoutScript : MonoBehaviour
         }
 
         buttonParentRT.sizeDelta = new Vector2(cardWidth, cardHeight);
-        var image = buttonParentObject.GetComponentsInChildren<Image>();
-        image[1].rectTransform.sizeDelta = buttonParentRT.sizeDelta;
 
         createCardPrefabs();    
     }
@@ -153,27 +157,30 @@ public class BoardLayoutScript : MonoBehaviour
     {
         if(isTablet)
         {
-            float xOrigin = 0 + (totalSpacing / 6); 
-            float yOrigin = 0;
+            print("total spacing is: " + totalSpacing);
+            var vertSpacing = collectionViewRT.sizeDelta.y - (buttonParentRT.sizeDelta.y*5);
+            var horSpacing = collectionViewRT.sizeDelta.x - (buttonParentRT.sizeDelta.x*5);
+            float xOrigin = 0 + (horSpacing / 6); 
+            float yOrigin = 0 + (-vertSpacing / 6);
             float rowNumber = 1;
 
             foreach (RectTransform card in cardPositions)
             {
                 if (rowNumber > 5)
                 {
-                    xOrigin += cardWidth + totalSpacing / 6;
+                    xOrigin += cardWidth + horSpacing / 6;
                     rowNumber = 1;
 
-                    yOrigin = 0;
+                    yOrigin = 0 + (-totalSpacing / 6);
 
                     card.anchoredPosition = new Vector2(xOrigin, yOrigin);
 
-                    yOrigin -= (cardHeight + totalSpacing / 6);
+                    yOrigin -= (cardHeight + vertSpacing / 6);
                     rowNumber += 1;
                     continue;
                 }
                 card.anchoredPosition = new Vector2(xOrigin, yOrigin);
-                yOrigin -= (cardHeight + totalSpacing / 6);
+                yOrigin -= (cardHeight + vertSpacing / 6);
                 rowNumber += 1;
             }
             buttonParentObject.SetActive(false);
@@ -205,6 +212,24 @@ public class BoardLayoutScript : MonoBehaviour
             }
             buttonParentObject.SetActive(false);
         }
+    }
+
+    void resizeMenuButton()
+    {
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 30, menuParentRT.localPosition.y);
+        menuButtonRt.sizeDelta = new Vector2(menuButtonRt.sizeDelta.x, 86);
+    }
+
+    void moveEndTurnButton()
+    {
+        endTurnButtonRT.anchorMin = new Vector2(0.5f, 0);
+        endTurnButtonRT.anchorMax = new Vector2(0.5f, 0);
+        endTurnButtonRT.anchoredPosition = new Vector2(0, 0);
+    }
+
+    void rotateEndTurnButton()
+    {
+        endTurnButtonRT.transform.Rotate(0, 0, 90f);
     }
 
     public void dismissCodeDisplay()
