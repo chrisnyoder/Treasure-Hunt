@@ -6,11 +6,21 @@ using UnityEngine.UI;
 
 public class MainboardMenuHandler : MonoBehaviour
 {
+    public RectTransform pulloutIcon;
     public RectTransform musicIcon;
     public RectTransform pauseIcon;
     public RectTransform exitIcon; 
 
     // Start is called before the first frame update
+
+    private void Awake() 
+    {
+        if(GlobalDefaults.Instance.isTablet)
+        {
+            pulloutIcon.transform.Rotate(0, 0, 270);
+        }
+    }
+
     void Start()
     {
         musicIcon.anchoredPosition = new Vector2(0, 0);

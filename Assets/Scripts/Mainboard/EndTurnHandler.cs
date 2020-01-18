@@ -33,13 +33,11 @@ public class EndTurnHandler : MonoBehaviour
                     gameState.currentGameState = CurrentGameState.blueTurn;
                     border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_blue");
                     timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
-                    timer.resetTimer();
                     break;
                 case CurrentGameState.blueTurn:
                     gameState.currentGameState = CurrentGameState.redTurn;
                     border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_red");
                     timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
-                    timer.resetTimer();
                     break;
             }
             turnIndicator.displayTurn(gameState.currentGameState);

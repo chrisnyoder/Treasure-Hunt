@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 91187623}
   - component: {fileID: 91187622}
   - component: {fileID: 91187620}
+  - component: {fileID: 91187621}
   m_Layer: 5
   m_Name: ToggleMusic
   m_TagString: Untagged
@@ -382,6 +383,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1
+--- !u!114 &91187621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91187618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c18ccb4c5a64e969d7acf3f8706e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicOn: {fileID: 21300000, guid: ee0916da22571654583784ee4c4785dd, type: 3}
+  musicOff: {fileID: 21300000, guid: 8c6daba5e1675604bb0a7984ed2f9b78, type: 3}
 --- !u!114 &91187622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,8 +474,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 91187621}
+        m_MethodName: toggleMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1074,7 +1089,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ee0916da22571654583784ee4c4785dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06d2ac3b4a5a84b478ef1516e9e367e7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1131,8 +1146,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: toggleMusic
+      - m_Target: {fileID: 586872742}
+        m_MethodName: toggleTimer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1537,12 +1552,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.27209, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.32795, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.27209, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.32795, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -3081,7 +3096,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ee0916da22571654583784ee4c4785dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b47467b3b9af34ba49ff2c61192c52c1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3527,6 +3542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179d96f1c58434f26be15d21641e3be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pulloutIcon: {fileID: 1809024667}
   musicIcon: {fileID: 91187619}
   pauseIcon: {fileID: 150390010}
   exitIcon: {fileID: 452518160}
@@ -13287,7 +13303,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809024666}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -13386,7 +13402,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 396c755e60e7b44e7b15c1d119e0059f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c5f5d22bab5d4b92be2a79591df5afd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

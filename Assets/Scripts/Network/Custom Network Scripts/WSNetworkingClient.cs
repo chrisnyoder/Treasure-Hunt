@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
@@ -136,6 +137,11 @@ public abstract class WSNetworkingClient : SocketIOComponent
             print("sending that room id");
             Emit("reconnecting", new JSONObject(JsonUtility.ToJson(connectionCodeAsObject)));
         }
+    }
+
+    public virtual void pauseGame(Action<JSONObject> callback)
+    {
+        Emit("pausing", callback);
     }
 
     public void OnApplicationPause(bool pauseStatus)

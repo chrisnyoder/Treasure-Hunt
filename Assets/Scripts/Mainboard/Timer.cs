@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
 
     public MainBoardNetworkingClient networkingClient;
 
-    public float timer = 0; 
+    public float secondsElapsed = 0; 
 
     private void Start() 
     {
@@ -21,27 +21,48 @@ public class Timer : MonoBehaviour
 
     public void resetTimer()
     {
-        timer = 0;
+        secondsElapsed = 0;
+    }
+
+    public void toggleTimer()
+    {
+        networkingClient.pauseGame(pauseGameCallback);
+    }
+
+    private void pauseGameCallback(JSONObject data)
+    {
+        if(timerStarted)
+        {
+            timerStarted = false;
+        } else {
+            timerStarted = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(networkingClient.timerObject != null)
+
+        if (networkingClient.timerObject != null)
         {
-            timer = float.Parse(networkingClient.timerObject.timeTakenOnTurn);
+            if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 5 && timerStarted)
+            {
+                secondsElapsed = float.Parse(networkingClient.timerObject.timeTakenOnTurn);
+            }
         };
 
-        if(timerStarted && timer <= 180)
+        if(timerStarted && secondsElapsed <= 30)
         {
-            float percentTimeLeft = timer / 180;
-
-            print("perent time left: " + percentTimeLeft);
-            print("offset being created: " + parent.sizeDelta.y * percentTimeLeft);
+            secondsElapsed += Time.deltaTime;
+            float percentTimeLeft = secondsElapsed / 30;
             mask.offsetMin = new Vector2(0, parent.sizeDelta.y * percentTimeLeft);
-        } else if(timerStarted && timer >= 180) 
+        } else if(timerStarted && secondsElapsed >= 30) 
         {
+            timerStarted = false;
+            resetTimer();
+            networkingClient.timerObject.timeTakenOnTurn = "0";
             endTurn.changeTurns();
+            endTurn.sendTurnChangeToClients();
         }
     }
 }
