@@ -14,12 +14,12 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
     private Vector2 initialRestartCanvasPos;
 
     private List<CardObject> hiddenBoardGameDictionary = new List<CardObject>(); 
-    private CurrentGameState currentGameState = CurrentGameState.gameInPlay;
+    private CurrentGameState currentGameState;
     private List<string> wordsSelected = new List<string>(){};  
     private JoinGameNetworkingClient joinGameNetworkingClient;
 
     private void Awake() {
-        currentGameState = CurrentGameState.gameInPlay;
+        currentGameState = CurrentGameState.blueTurn;
     }
 
     private void Start() {

@@ -46,7 +46,7 @@ public class CodeDisplayHandler : CodeHandlerAbstract
     {
         if(codeRecieved)
         {
-            hideWaitinForGameIdIndicator();
+            hideWaitingForGameIdIndicator();
         } else 
         {
             waitingForCodeTimeOutTimer -= Time.deltaTime;
@@ -66,17 +66,9 @@ public class CodeDisplayHandler : CodeHandlerAbstract
         }
     }
 
-    private void hideWaitinForGameIdIndicator()
+    private void hideWaitingForGameIdIndicator()
     {
         spinner.SetActive(false);
-    }
-
-    public void startGame()
-    {
-        var rt = gameObject.GetComponent<RectTransform>();
-
-        rt.DOAnchorPosY(-2000, 1f, false);
-        rt.GetComponent<Image>().DOFade(0, 0.3f);
     }
 
     public void displayConnectionCode(string receivedConnectionCode)

@@ -10,6 +10,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
     JoinGameNetworkingClient joinGameNetworkingClient;
     WordsSelectedAsObject wordsSelectedOnBoard;
     GameState crewMemberGameState; 
+    CurrentGameState crewMemberCurrentGameState = CurrentGameState.blueTurn; 
 
     public GameObject EoGCanvas;
     public GameObject restartingCanvas; 
@@ -30,13 +31,29 @@ public class CrewGameUpdateHandler : MonoBehaviour
         if(wordsSelectedOnBoard.allWordsSelected != joinGameNetworkingClient.wordsSelected.allWordsSelected)
         {
             wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.wordsSelected.allWordsSelected;
-            print("words selected are different");
             updateWordsSelected();
         }
 
         if(crewMemberGameState != joinGameNetworkingClient.initialGameState)
         {
             setUpMainBoardForCrewMember();
+        }
+
+        if(crewMemberCurrentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
+        {
+            var gameStateFromServer = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
+
+            if(gameStateFromServer == CurrentGameState.blueTurn || gameStateFromServer == CurrentGameState.redTurn)
+            {
+                boardLayoutScript.endTurnHandler.gameState.currentGameState = crewMemberCurrentGameState;
+                crewMemberCurrentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
+                boardLayoutScript.endTurnHandler.changeTurns();
+            }
+        }   
+
+        if(joinGameNetworkingClient.roomId != joinGameNetworkingClient.codeDisplay.connectionCodeText.text && joinGameNetworkingClient.isConnected)
+        {
+            joinGameNetworkingClient.codeDisplay.updateConnectionCode(joinGameNetworkingClient.roomId);
         }
 
         if(joinGameNetworkingClient.gameInRestartingState)
@@ -65,10 +82,8 @@ public class CrewGameUpdateHandler : MonoBehaviour
     {
         foreach (CardFlipHandler card in cards)
         {
-            print("card is flipped: " + card.cardIsFlipped);
-            if (wordsSelectedOnBoard.allWordsSelected.Contains(card.cardText) && !card.cardIsFlipped)
+            if (wordsSelectedOnBoard.allWordsSelected.Contains(card.cardText) && !card.cardAlreadyFlipped)
             {
-                print("flipping card");
                 card.FlipCard();
             }
         }
@@ -87,6 +102,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
     private void OnJoiningScene(Scene scene, LoadSceneMode mode)
     {
         joinGameNetworkingClient = GameObject.Find("NetworkingClient").GetComponent<JoinGameNetworkingClient>();
+        joinGameNetworkingClient.codeDisplay = GameObject.Find("Game_Id").GetComponent<CodeTabScript>();
         setUpMainBoardForCrewMember();
         exitResultsCanvasIfDisplayed();
         print("on joining scene callback being called");
@@ -101,10 +117,10 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
             boardLayoutScript = GameObject.Find("MainBoardCanvas").GetComponent<BoardLayoutScript>();
             crewMemberGameState = joinGameNetworkingClient.initialGameState;
+            crewMemberCurrentGameState = crewMemberGameState.currentGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
             
-            var rt = gameObject.GetComponent<RectTransform>();
-            rt.DOAnchorPosY(0, 0.5f, false).Play().SetEase(Ease.Linear);
+            boardLayoutScript.runMainBoardAnimation();
 
             cards = gameObject.GetComponentsInChildren<CardFlipHandler>();
 
@@ -112,7 +128,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             {
                 foreach (CardFlipHandler card in cards)
                 {
-                    card.cardIsFlipped = false;
+                    card.cardAlreadyFlipped = false;
                 }
             }
         }

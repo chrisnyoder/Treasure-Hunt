@@ -12,38 +12,47 @@ public class BoardLayoutScript : MonoBehaviour
     public CodeTabScript codeTabScript;
     public Canvas mainBoard;
     public Canvas eogBoard;
+    public TurnIndicatorScript turnIndicator; 
     public GameObject buttonParentObject;
     public GameObject collectionView;
-    public GameObject musicButton; 
-    public GameObject exitButton; 
-
+    
     RectTransform mainBoardRT;
     RectTransform collectionViewRT;
     RectTransform buttonParentRT;
+    public RectTransform codeDisplayRT; 
+    public RectTransform menuButtonRt; 
+    public RectTransform endTurnButtonRT; 
+    public RectTransform menuParentRT; 
+
+    public WSNetworkingClient networkingClient;
+    public EndTurnHandler endTurnHandler;
+    public ScoreDisplayHandler scoreDisplay;
 
     float boardHeight;
     float boardWidth;
 
     int numberOfCards = 25;
 
-    GameState initialGameState;
+    GameState _initialGameState;
     CardType[] cardTypes;
     RectTransform[] cardPositions;
     float cardHeight;
     float cardWidth;
 
+    private void Awake() 
+    {
+        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
+    }
+
     private void Start() 
     {
-        musicButton.GetComponent<RectTransform>().sizeDelta = exitButton.GetComponent<RectTransform>().sizeDelta;
-        musicButton.GetComponent<RectTransform>().localPosition = new Vector2(exitButton.GetComponent<RectTransform>().localPosition.x, (exitButton.GetComponent<RectTransform>().localPosition.y - (exitButton.GetComponent<RectTransform>().sizeDelta.y/2)) - 75);
-
-
         if(GlobalDefaults.Instance.isTablet)
         {
             var backgroundImage = this.GetComponent<Image>();
             var tabletBackgroundImage = Resources.Load<Sprite>("Images/Backgrounds/iPad_12_MB_Background");
-            exitButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -60);
-            musicButton.GetComponent<RectTransform>().localPosition = new Vector2(exitButton.GetComponent<RectTransform>().localPosition.x - 80, exitButton.GetComponent<RectTransform>().localPosition.y);
+            resizeMenuButton();
+            moveEndTurnButton();
+            rotateEndTurnButton();
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
@@ -54,12 +63,14 @@ public class BoardLayoutScript : MonoBehaviour
 
     public void receiveGameStateObject(GameState initialGameState)
     {
-        this.initialGameState = initialGameState;
+        this._initialGameState = initialGameState;
 
         mainBoardRT = mainBoard.GetComponent<RectTransform>();
         
         collectionViewRT = collectionView.GetComponent<RectTransform>();
         buttonParentRT = buttonParentObject.GetComponent<RectTransform>();
+        endTurnHandler.gameState = initialGameState;
+        scoreDisplay.receiveInitialGameState(initialGameState);
         determineIfTablet();
     }
 
@@ -80,17 +91,17 @@ public class BoardLayoutScript : MonoBehaviour
             print("is tablet");
             boardWidth = mainBoardRT.rect.width;
             cardWidth = (boardWidth * 0.9f) / 5;
-            cardHeight = (float)(cardWidth*0.6);
-            totalSpacing = mainBoardRT.rect.width - (cardWidth * 5);
+            cardHeight = (float)(cardWidth*0.6316);
+            totalSpacing = mainBoardRT.rect.width - (cardWidth * 5) - 100;
 
-            collectionViewRT.sizeDelta = new Vector2(boardWidth, boardWidth*0.6f);
+            collectionViewRT.sizeDelta = new Vector2((boardWidth-totalSpacing), (boardWidth-totalSpacing)*0.6316f);
         }
         else
         {
             print("is phone");
             boardHeight = mainBoardRT.rect.height;
             cardHeight = (boardHeight*0.9f) / 5;
-            cardWidth = (float)(cardHeight * 1.66);
+            cardWidth = (float)(cardHeight * 1.583);
             totalSpacing = mainBoardRT.rect.height-(cardHeight*5);
 
             collectionViewRT.sizeDelta = new Vector2((cardWidth * 5)+totalSpacing, boardHeight);
@@ -98,8 +109,6 @@ public class BoardLayoutScript : MonoBehaviour
         }
 
         buttonParentRT.sizeDelta = new Vector2(cardWidth, cardHeight);
-        var image = buttonParentObject.GetComponentsInChildren<Image>();
-        image[1].rectTransform.sizeDelta = buttonParentRT.sizeDelta;
 
         createCardPrefabs();    
     }
@@ -127,15 +136,15 @@ public class BoardLayoutScript : MonoBehaviour
             cardPositions[n] = cardCloneRT;
 
             var buttonData = cardClone.GetComponentInChildren<CardFlipHandler>();
-            buttonData.cardType = initialGameState.hiddenBoardList[n].cardType;
-            buttonData.cardText = initialGameState.hiddenBoardList[n].labelText;
+            buttonData.cardType = _initialGameState.hiddenBoardList[n].cardType;
+            buttonData.cardText = _initialGameState.hiddenBoardList[n].labelText;
 
             var cardText = cardClone.GetComponentInChildren<Text>();
             cardText.text = buttonData.cardText;
 
-            buttonData.gameState = initialGameState;
+            buttonData.gameState = _initialGameState;
 
-            if(initialGameState.wordsAlreadySelected.Contains(cardText.text))
+            if(_initialGameState.wordsAlreadySelected.Contains(cardText.text))
             {
                 buttonData.startCardFaceUp();
             }
@@ -148,27 +157,29 @@ public class BoardLayoutScript : MonoBehaviour
     {
         if(isTablet)
         {
-            float xOrigin = 0 + (totalSpacing / 6); 
-            float yOrigin = 0;
+            var vertSpacing = collectionViewRT.sizeDelta.y - (buttonParentRT.sizeDelta.y*5);
+            var horSpacing = collectionViewRT.sizeDelta.x - (buttonParentRT.sizeDelta.x*5);
+            float xOrigin = 0 + (horSpacing / 6); 
+            float yOrigin = 0 + (-vertSpacing / 6);
             float rowNumber = 1;
 
             foreach (RectTransform card in cardPositions)
             {
                 if (rowNumber > 5)
                 {
-                    xOrigin += cardWidth + totalSpacing / 6;
+                    xOrigin += cardWidth + horSpacing / 6;
                     rowNumber = 1;
 
-                    yOrigin = 0;
+                    yOrigin = 0 + (-totalSpacing / 6);
 
                     card.anchoredPosition = new Vector2(xOrigin, yOrigin);
 
-                    yOrigin -= (cardHeight + totalSpacing / 6);
+                    yOrigin -= (cardHeight + vertSpacing / 6);
                     rowNumber += 1;
                     continue;
                 }
                 card.anchoredPosition = new Vector2(xOrigin, yOrigin);
-                yOrigin -= (cardHeight + totalSpacing / 6);
+                yOrigin -= (cardHeight + vertSpacing / 6);
                 rowNumber += 1;
             }
             buttonParentObject.SetActive(false);
@@ -202,8 +213,38 @@ public class BoardLayoutScript : MonoBehaviour
         }
     }
 
+    void resizeMenuButton()
+    {
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 30, menuParentRT.localPosition.y);
+        menuButtonRt.sizeDelta = new Vector2(menuButtonRt.sizeDelta.x, 86);
+    }
+
+    void moveEndTurnButton()
+    {
+        endTurnButtonRT.anchorMin = new Vector2(0.5f, 0);
+        endTurnButtonRT.anchorMax = new Vector2(0.5f, 0);
+        endTurnButtonRT.anchoredPosition = new Vector2(0, 0);
+    }
+
+    void rotateEndTurnButton()
+    {
+        endTurnButtonRT.transform.Rotate(0, 0, 90f);
+    }
+
+    public void dismissCodeDisplay()
+    {
+        if(codeDisplayRT != null) 
+        {
+            codeDisplayRT.DOAnchorPosY(-2000, 1f, false);
+            codeDisplayRT.GetComponent<Image>().DOFade(0, 0.3f);
+        }
+
+        turnIndicator.displayTurn(_initialGameState.currentGameState);
+    }
+
     public void runMainBoardAnimation()
     {
+        print("run main board function being called");
         var codeDisplayBackground = GameObject.Find("CodeDisplayBackground");
         var mainBoardRT = GameObject.Find("MainBoardCanvas").GetComponent<RectTransform>();
         
@@ -217,8 +258,21 @@ public class BoardLayoutScript : MonoBehaviour
                 codeDisplayBackground.GetComponent<Image>().DOFade(0.7f, 0.1f);
                 codeDisplayBackground.GetComponentInChildren<Text>().DOFade(1, 0.1f);
             }
-            codeTabScript.showTab();
+
+            if(codeDisplayRT == null)
+            {
+                turnIndicator.displayTurn(_initialGameState.currentGameState);
+            } else if(codeDisplayRT.anchoredPosition.y != 0) 
+            {
+                turnIndicator.displayTurn(_initialGameState.currentGameState);
+            }
+
+            codeTabScript.displayRoomId();
+
+            print("run main board animation completion handler called");
         });
+
+        codeTabScript.displayRoomId();
 
         anim.SetDelay(0.4f);
         anim.Play();

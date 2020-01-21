@@ -8,10 +8,11 @@ using System.IO;
 
 public enum CurrentGameState
 {
-    gameInPlay,
     blueWins,
     redWins,
-    loses
+    loses, 
+    redTurn, 
+    blueTurn
 }
 
 public class CurrentGameStateAsObject
@@ -28,11 +29,11 @@ public class GameState
     public List<CardObject> hiddenBoardList;
     List<string> wordList = new List<string>(){};
     public List<string> wordsAlreadySelected = new List<string>(){};
-    int numberOfCards;
-    int numberOfRedCards;
-    int numberOfBlueCards;
-    int numberOfNeutralCards;
-    int numberOfShipWreckCards;
+    public int numberOfCards;
+    public int numberOfRedCards;
+    public int numberOfBlueCards;
+    public int numberOfNeutralCards;
+    public int numberOfShipWreckCards;
 
     public int redTeamScore = 0;
     public int blueTeamScore = 0;
@@ -41,7 +42,7 @@ public class GameState
     public bool isTutorial; 
     public int playerIndex;  
 
-    public CurrentGameState currentGameState;
+    public CurrentGameState currentGameState = CurrentGameState.blueTurn;
 
     public GameState(int numberOfCards, List<WordPackProduct> wordPacksToUse)
     {

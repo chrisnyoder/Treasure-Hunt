@@ -14,7 +14,6 @@ public class StoreLayoutScript : MonoBehaviour
     public GameObject wordPackButton; 
     public ProductLanguage languageSelected = ProductLanguage.English; 
     public GameObject restorePurchaseButton;
-    public CodeTabScript codeTab;
     
     List<WordPackProduct> wordPacks = new List<WordPackProduct>{};
     List<WordPackProduct> selectedWordPacks = new List<WordPackProduct>{};

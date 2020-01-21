@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class JoinGameNetworkingClient : WSNetworkingClient
 {    
     public CodeProviderHandler codeProviderHandler;
+    public CodeTabScript codeDisplay;
     public Role role;
     public bool mainBoardRunningTutorial;
     public bool gameInRestartingState = false;
@@ -84,16 +85,12 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         });
 
         On("wordsSelected", (wordsSelected) => {
-            print("words selected callback received for joining client");
             base.wordsSelected = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
         });
 
         On("newGameState", (gameState) => {   
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());  
-            CurrentGameState newGameState = currentGameStateAsObject.currentGameState;
             gameInRestartingState = false;
-
-            print("print new game state: " + currentGameStateAsObject.currentGameState);
         });
 
         On("disconnect", (e) => {

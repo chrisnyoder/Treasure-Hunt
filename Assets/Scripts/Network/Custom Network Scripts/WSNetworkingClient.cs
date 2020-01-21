@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
@@ -9,14 +10,16 @@ public abstract class WSNetworkingClient : SocketIOComponent
     protected CodeHandlerAbstract codeHandler; 
     public GameState initialGameState;
     public WordsSelectedAsObject wordsSelected = new WordsSelectedAsObject();
+    public TimerAsObject timer = new TimerAsObject();
     public CurrentGameStateAsObject currentGameStateAsObject;
-    protected string roomId; 
+    public TimerAsObject timerObject;
+    public string roomId; 
 
     public List<string> wordsSelectedQueue = new List<string>(){}; 
 
     public Team team = Team.BlueTeam;
     protected bool isHosting;
-    protected bool isConnected = false;
+    public bool isConnected = false;
     protected bool wasDisconnected = false;
 
     // Start is called before the first frame update
@@ -89,6 +92,11 @@ public abstract class WSNetworkingClient : SocketIOComponent
         {
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
         });
+
+        On("timer", (timerData) => 
+        {
+            timer = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
+        });
     }
 
     public virtual void sendGameDictionary()
@@ -129,6 +137,11 @@ public abstract class WSNetworkingClient : SocketIOComponent
             print("sending that room id");
             Emit("reconnecting", new JSONObject(JsonUtility.ToJson(connectionCodeAsObject)));
         }
+    }
+
+    public virtual void pauseGame(Action<JSONObject> callback)
+    {
+        Emit("pausing", callback);
     }
 
     public void OnApplicationPause(bool pauseStatus)

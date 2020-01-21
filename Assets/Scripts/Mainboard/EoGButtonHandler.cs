@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class EoGButtonHandler : MonoBehaviour
 {
-
+    public EndTurnHandler endTurn;
+    public Timer timer; 
     public MainBoardNetworkingClient mainBoardNetworkingClient; 
     public CodeTabScript codeTabScript;
 
@@ -26,9 +27,10 @@ public class EoGButtonHandler : MonoBehaviour
 
         mainBoardNetworkingClient.sendGameRestartingMessage();
         mainBoardNetworkingClient.initialGameState = null;
-        mainBoardNetworkingClient.gameStateSent = false;
-        codeTabScript.gameObject.SetActive(false);
-    }
+        mainBoardNetworkingClient.dictionarySent = false;
+        endTurn.resetImages();
+        timer.resetTimer();
+    }   
     
     public void showBoard()
     {

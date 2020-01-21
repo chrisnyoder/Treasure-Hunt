@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7751084886757135749}
   - component: {fileID: 7431130622734950985}
   - component: {fileID: 1711370488299085796}
-  - component: {fileID: 3461825042561418602}
   - component: {fileID: 8622185611469033807}
   m_Layer: 0
   m_Name: MainBoardButton
@@ -36,10 +35,10 @@ RectTransform:
   m_Father: {fileID: 5037618529178320490}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: 0.5}
-  m_SizeDelta: {x: 0, y: 225}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7751084886757135749
 CanvasRenderer:
@@ -69,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1ede0e1d4813642a8b7fc02f65005221, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4b9d6476e36747e9b7bc7d615771e40, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -117,23 +116,42 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7431130622734950985}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8622185611469033807}
+        m_MethodName: FlipCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8622185611469033807}
+        m_MethodName: changeTurnIfNecessary
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8622185611469033807}
+        m_MethodName: updateClients
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &3461825042561418602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4122107211062064425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 2
-  m_AspectRatio: 1.6666666
 --- !u!114 &8622185611469033807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2f65fe868c8448a884408d639a90b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardIsFlipped: 0
+  turnIndicator: {fileID: 0}
+  cardAlreadyFlipped: 0
+  endTurnHandler: {fileID: 0}
+  scoreDisplay: {fileID: 0}
   cardType: 0
   cardText: 
   buttonParentObject: {fileID: 5448850801748092012}
@@ -268,7 +289,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 225}
+  m_SizeDelta: {x: 0, y: 240}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1988937346771068833
 CanvasRenderer:
@@ -291,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 2
-  m_AspectRatio: 1.6666666
+  m_AspectRatio: 1.5833334
 --- !u!114 &6066428377087840175
 MonoBehaviour:
   m_ObjectHideFlags: 0

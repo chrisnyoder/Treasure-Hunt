@@ -27,6 +27,7 @@ public class HiddenBoardViewController : MonoBehaviour
     public GameObject collectionView;
     private RectTransform collectionViewRT;
     public GameObject textObject;
+    public TurnIndicatorScript turnIndicator;
 
     public Sprite blueScrollImage;
     public Sprite redScrollImage;
@@ -70,6 +71,8 @@ public class HiddenBoardViewController : MonoBehaviour
         print("hiddenboard is being initialized");
         tabSelected = tab;
         animateTab(tab);
+
+        turnIndicator.displayTurn(CurrentGameState.blueTurn);
 
         redWords = new List<string>(){"searching"};
         blueWords = new List<string>(){"searching"};
@@ -279,12 +282,26 @@ public class HiddenBoardViewController : MonoBehaviour
     public void gameStateChanged(CurrentGameState newGameState)
     {
         print("new game state is: " + newGameState);
-        if(newGameState != CurrentGameState.gameInPlay) 
+
+        switch(newGameState) 
         {
-            eoGScript.DisplayEOGCanvas(newGameState);
-        } else 
-        {
-            getTextObjectSize();
+            case CurrentGameState.blueTurn:
+                turnIndicator.displayTurn(newGameState);
+                getTextObjectSize();
+                break; 
+            case CurrentGameState.redTurn:
+                turnIndicator.displayTurn(newGameState);
+                getTextObjectSize();
+                break;
+            case CurrentGameState.blueWins:
+                eoGScript.DisplayEOGCanvas(newGameState);
+                break;
+            case CurrentGameState.redWins:
+                eoGScript.DisplayEOGCanvas(newGameState);
+                break;
+            case CurrentGameState.loses:
+                eoGScript.DisplayEOGCanvas(newGameState);
+                break; 
         }
     }
 
