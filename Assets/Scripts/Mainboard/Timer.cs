@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     public RectTransform parent; 
     public RectTransform mask;
+    public Image pauseButton; 
     public bool timerStarted = false; 
     public EndTurnHandler endTurn; 
 
@@ -34,8 +35,10 @@ public class Timer : MonoBehaviour
         if(timerStarted)
         {
             timerStarted = false;
+            pauseButton.sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon_selected");
         } else {
             timerStarted = true;
+            pauseButton.sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon");
         }
     }
 
