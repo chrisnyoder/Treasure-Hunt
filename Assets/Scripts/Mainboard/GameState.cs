@@ -8,11 +8,12 @@ using System.IO;
 
 public enum CurrentGameState
 {
+    none, 
+    blueTurn,
+    redTurn,
     blueWins,
     redWins,
-    loses, 
-    redTurn, 
-    blueTurn
+    loses 
 }
 
 public class CurrentGameStateAsObject

@@ -102,5 +102,10 @@ public class JoinGameNetworkingClient : WSNetworkingClient
             print("restart message received on client machines");
             gameInRestartingState = true; 
         });
+
+        On("timer", (timerData) =>
+        {
+            timerObject = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
+        });
     }
 }

@@ -111,7 +111,8 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 
         On("newGameState", (newGameState) => {} );
 
-        On("timer", (timerData) => {
+        On("timer", (timerData) => 
+        {
             timerObject = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
         });
     }

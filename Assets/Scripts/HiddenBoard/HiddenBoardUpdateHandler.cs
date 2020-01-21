@@ -14,13 +14,9 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
     private Vector2 initialRestartCanvasPos;
 
     private List<CardObject> hiddenBoardGameDictionary = new List<CardObject>(); 
-    private CurrentGameState currentGameState;
+    private CurrentGameState currentGameState = CurrentGameState.none;
     private List<string> wordsSelected = new List<string>(){};  
     private JoinGameNetworkingClient joinGameNetworkingClient;
-
-    private void Awake() {
-        currentGameState = CurrentGameState.blueTurn;
-    }
 
     private void Start() {
         initialRestartCanvasPos = restartingCanvas.GetComponent<RectTransform>().anchoredPosition;
@@ -55,7 +51,8 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
 
             if (currentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
             {
-                print("game state is different");
+                print("current game state: " + currentGameState);
+                print("new game state: " + joinGameNetworkingClient.currentGameStateAsObject.currentGameState);
                 currentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
                 hiddenBoardViewController.gameStateChanged(currentGameState);
             }
@@ -103,8 +100,6 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
     {
         if (joinGameNetworkingClient.initialGameState.hiddenBoardList.Count > 0)
         {
-            print("hidden board list greater than 1");
-
             var tmpBlueWords = new List<string>();
             var tmpRedWords = new List<string>();
             var tmpNeutralWords = new List<string>();
@@ -112,8 +107,6 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
 
             foreach (var card in joinGameNetworkingClient.initialGameState.hiddenBoardList)
             {
-                print("label text is: " + card.labelText);
-
                 if (card.cardType == CardType.blueCard) { tmpBlueWords.Add(card.labelText); }
                 if (card.cardType == CardType.redCard) { tmpRedWords.Add(card.labelText); }
                 if (card.cardType == CardType.neutralCard) { tmpNeutralWords.Add(card.labelText); }

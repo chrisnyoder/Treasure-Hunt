@@ -9,24 +9,22 @@ public class TurnIndicatorScript : MonoBehaviour
     public Image turnIndicatorBackground; 
     public Text turnIndicatorText; 
     public Timer timer; 
+    public Image timerImage; 
     public EndTurnHandler endTurn; 
     private bool gameHasStarted = false; 
+    private CurrentGameState _currentGameState; 
 
     public void displayTurn(CurrentGameState currentGameState)
     {
+        _currentGameState = currentGameState;
+
         turnIndicatorBackground.gameObject.SetActive(true);
         turnIndicatorText.gameObject.SetActive(true);
 
-        switch (currentGameState)
+        displayTurnIndicators();
+        if (!gameHasStarted)
         {
-            case CurrentGameState.blueTurn:
-                turnIndicatorText.text = "Blue team's turn";
-                turnIndicatorBackground.color = new Color32(0, 171, 184, 0);
-                break;
-            case CurrentGameState.redTurn:
-                turnIndicatorText.text = "Red team's turn";
-                turnIndicatorBackground.color = new Color32(138, 18, 46, 0);
-                break;
+            beginTimerOnServer();
         }
 
         turnIndicatorBackground.DOFade(0.313f, 1f).SetDelay(1).OnComplete(() => {
@@ -34,23 +32,6 @@ public class TurnIndicatorScript : MonoBehaviour
                 turnIndicatorBackground.gameObject.SetActive(false);
                 timer.timerStarted = true;
                 timer.resetTimer();
-
-                if (!gameHasStarted)
-                {
-                    beginTimerOnServer();
-                }
-
-                switch (currentGameState)
-                {
-                    case CurrentGameState.blueTurn:
-                        turnIndicatorText.text = "Blue team's turn";
-                        turnIndicatorBackground.color = new Color32(0, 171, 184, 0);
-                        break;
-                    case CurrentGameState.redTurn:
-                        turnIndicatorText.text = "Red team's turn";
-                        turnIndicatorBackground.color = new Color32(138, 18, 46, 0);
-                        break;
-                }
             });
         });
 
@@ -59,21 +40,26 @@ public class TurnIndicatorScript : MonoBehaviour
                 turnIndicatorText.gameObject.SetActive(false);
                 timer.timerStarted = true;
                 timer.resetTimer();
-
-                switch (currentGameState)
-                {
-                    case CurrentGameState.blueTurn:
-                        endTurn.border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_blue");
-                        endTurn.timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
-                        break;
-                    case CurrentGameState.redTurn:
-                        endTurn.border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_red");
-                        endTurn.timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
-                        break;
-                }
             });
         });
     } 
+
+    private void displayTurnIndicators()
+    {
+        switch (_currentGameState)
+        {
+            case CurrentGameState.blueTurn:
+                turnIndicatorText.text = "Blue team's turn";
+                turnIndicatorBackground.color = new Color32(0, 171, 184, 0);
+                timerImage.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
+                break;
+            case CurrentGameState.redTurn:
+                turnIndicatorText.text = "Red team's turn";
+                turnIndicatorBackground.color = new Color32(138, 18, 46, 0);
+                timerImage.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
+                break;
+        }
+    }
 
     private void beginTimerOnServer()
     {

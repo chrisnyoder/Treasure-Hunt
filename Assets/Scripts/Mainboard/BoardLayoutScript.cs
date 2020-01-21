@@ -53,6 +53,7 @@ public class BoardLayoutScript : MonoBehaviour
             resizeMenuButton();
             moveEndTurnButton();
             rotateEndTurnButton();
+            makeEndTurnButtonAppropriatelyColor();
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
@@ -229,6 +230,19 @@ public class BoardLayoutScript : MonoBehaviour
     void rotateEndTurnButton()
     {
         endTurnButtonRT.transform.Rotate(0, 0, 90f);
+    }
+
+    void makeEndTurnButtonAppropriatelyColor()
+    {
+        switch(_initialGameState.currentGameState)
+        {
+            case CurrentGameState.blueTurn:
+                endTurnHandler.timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
+                break;
+            case CurrentGameState.redTurn:
+                endTurnHandler.timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
+                break;
+        }
     }
 
     public void dismissCodeDisplay()
