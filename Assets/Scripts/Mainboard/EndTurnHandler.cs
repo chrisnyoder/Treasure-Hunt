@@ -41,6 +41,7 @@ public class EndTurnHandler : MonoBehaviour
                     break;
             }
             turnIndicator.displayTurn(gameState.currentGameState);
+            timer.timerStarted = false;
         }
     }
 

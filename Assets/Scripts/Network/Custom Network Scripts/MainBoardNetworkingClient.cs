@@ -16,7 +16,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
     public ConnectionCodeAsObject connectionCodeAsObject;
     public CodeDisplayHandler codeDisplayHandler;
     
-    public bool gameStateSent = false;
+    public bool dictionarySent = false;
     private bool roomFetched = false;
 
     // Start is called before the first frame update
@@ -36,12 +36,11 @@ public class MainBoardNetworkingClient : WSNetworkingClient
     
         if (isConnected == true && initialGameState != null && !string.IsNullOrEmpty(roomId))
         {
-            if (!gameStateSent && initialGameState.hiddenBoardList.Count > 0)
+            if (!dictionarySent && initialGameState.hiddenBoardList.Count > 0)
             {
                 print("about to send dictionary");
                 sendGameDictionary();
-                sendCurrentGameState(CurrentGameState.blueTurn);
-                gameStateSent = true;
+                dictionarySent = true;
             }
         }
     }

@@ -10,6 +10,7 @@ public class TurnIndicatorScript : MonoBehaviour
     public Text turnIndicatorText; 
     public Timer timer; 
     public EndTurnHandler endTurn; 
+    private bool gameHasStarted = false; 
 
     public void displayTurn(CurrentGameState currentGameState)
     {
@@ -32,6 +33,12 @@ public class TurnIndicatorScript : MonoBehaviour
             turnIndicatorBackground.DOFade(0, 1f).SetDelay(0.5f).OnComplete(() => {
                 turnIndicatorBackground.gameObject.SetActive(false);
                 timer.timerStarted = true;
+                timer.resetTimer();
+
+                if (!gameHasStarted)
+                {
+                    beginTimerOnServer();
+                }
 
                 switch (currentGameState)
                 {
@@ -43,7 +50,7 @@ public class TurnIndicatorScript : MonoBehaviour
                         turnIndicatorText.text = "Red team's turn";
                         turnIndicatorBackground.color = new Color32(138, 18, 46, 0);
                         break;
-                }       
+                }
             });
         });
 
@@ -51,6 +58,7 @@ public class TurnIndicatorScript : MonoBehaviour
             turnIndicatorText.DOFade(0, 1f).SetDelay(0.5f).OnComplete(() => {
                 turnIndicatorText.gameObject.SetActive(false);
                 timer.timerStarted = true;
+                timer.resetTimer();
 
                 switch (currentGameState)
                 {
@@ -66,4 +74,10 @@ public class TurnIndicatorScript : MonoBehaviour
             });
         });
     } 
+
+    private void beginTimerOnServer()
+    {
+        timer.networkingClient.sendCurrentGameState(CurrentGameState.blueTurn);
+        gameHasStarted = true;
+    }
 }

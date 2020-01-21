@@ -240,7 +240,6 @@ public class BoardLayoutScript : MonoBehaviour
         }
 
         turnIndicator.displayTurn(_initialGameState.currentGameState);
-        networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
     }
 
     public void runMainBoardAnimation()

@@ -45,18 +45,19 @@ public class Timer : MonoBehaviour
 
         if (networkingClient.timerObject != null)
         {
-            if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 5 && timerStarted)
+            if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 16 && timerStarted)
             {
+                print("timer on server is: " + float.Parse(networkingClient.timerObject.timeTakenOnTurn) + " timer on client is " + secondsElapsed);
                 secondsElapsed = float.Parse(networkingClient.timerObject.timeTakenOnTurn);
             }
         };
 
-        if(timerStarted && secondsElapsed <= 30)
+        if(timerStarted && secondsElapsed <= 180)
         {
             secondsElapsed += Time.deltaTime;
-            float percentTimeLeft = secondsElapsed / 30;
+            float percentTimeLeft = secondsElapsed / 180;
             mask.offsetMin = new Vector2(0, parent.sizeDelta.y * percentTimeLeft);
-        } else if(timerStarted && secondsElapsed >= 30) 
+        } else if(timerStarted && secondsElapsed >= 180) 
         {
             timerStarted = false;
             resetTimer();

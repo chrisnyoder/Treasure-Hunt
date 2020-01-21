@@ -26,6 +26,7 @@ public class TutorialMainScreenScript : MonoBehaviour
     public Text continueText; 
     public GameObject continueButton;
     public GameObject exitTutorialButton; 
+    public TurnIndicatorScript turnIndicator;
 
     public GameObject tutorialCircleImage;
     public GameObject verticalLayoutGroup;  
@@ -95,6 +96,7 @@ public class TutorialMainScreenScript : MonoBehaviour
             initialWordList.GetComponent<RectTransform>().anchorMax = initialMaxAnchorsForStarterPack;
         }
 
+        turnIndicator.displayTurn(CurrentGameState.blueTurn);
         gameObject.SetActive(false);
     }
 

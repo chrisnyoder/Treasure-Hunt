@@ -27,7 +27,7 @@ public class EoGButtonHandler : MonoBehaviour
 
         mainBoardNetworkingClient.sendGameRestartingMessage();
         mainBoardNetworkingClient.initialGameState = null;
-        mainBoardNetworkingClient.gameStateSent = false;
+        mainBoardNetworkingClient.dictionarySent = false;
         endTurn.resetImages();
         timer.resetTimer();
     }   
