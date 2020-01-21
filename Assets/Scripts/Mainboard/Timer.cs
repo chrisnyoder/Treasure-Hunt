@@ -7,13 +7,16 @@ public class Timer : MonoBehaviour
 {
     public RectTransform parent; 
     public RectTransform mask;
-    public Image pauseButton; 
     public bool timerStarted = false; 
-    public EndTurnHandler endTurn; 
 
-    public MainBoardNetworkingClient networkingClient;
+    public WSNetworkingClient networkingClient;
 
     public float secondsElapsed = 0; 
+
+    private void Awake() 
+    {
+        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();    
+    }
 
     private void Start() 
     {
@@ -22,30 +25,18 @@ public class Timer : MonoBehaviour
 
     public void resetTimer()
     {
-        secondsElapsed = 0;
-    }
-
-    public void toggleTimer()
-    {
-        networkingClient.pauseGame(pauseGameCallback);
-    }
-
-    private void pauseGameCallback(JSONObject data)
-    {
-        if(timerStarted)
+        if(networkingClient != null)
         {
-            timerStarted = false;
-            pauseButton.sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon_selected");
-        } else {
-            timerStarted = true;
-            pauseButton.sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon");
+            secondsElapsed = float.Parse(networkingClient.timerObject.timeTakenOnTurn); 
+        } else 
+        {
+            secondsElapsed = 0;
         }
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()   
     {
-
         if (networkingClient.timerObject != null)
         {
             if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 16 && timerStarted)
@@ -58,15 +49,13 @@ public class Timer : MonoBehaviour
         if(timerStarted && secondsElapsed <= 180)
         {
             secondsElapsed += Time.deltaTime;
-            float percentTimeLeft = secondsElapsed / 180;
+            float percentTimeLeft = (180 - secondsElapsed) / 180;
             mask.offsetMin = new Vector2(0, parent.sizeDelta.y * percentTimeLeft);
         } else if(timerStarted && secondsElapsed >= 180) 
         {
             timerStarted = false;
             resetTimer();
             networkingClient.timerObject.timeTakenOnTurn = "0";
-            endTurn.changeTurns();
-            endTurn.sendTurnChangeToClients();
         }
     }
 }

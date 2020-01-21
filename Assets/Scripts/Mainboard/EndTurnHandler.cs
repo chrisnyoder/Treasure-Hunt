@@ -19,7 +19,6 @@ public class EndTurnHandler : MonoBehaviour
 
     public void resetImages()
     {
-        border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_blue");
         timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
     }
 
@@ -31,13 +30,9 @@ public class EndTurnHandler : MonoBehaviour
             {
                 case CurrentGameState.redTurn:
                     gameState.currentGameState = CurrentGameState.blueTurn;
-                    border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_blue");
-                    timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
                     break;
                 case CurrentGameState.blueTurn:
                     gameState.currentGameState = CurrentGameState.redTurn;
-                    border.sprite = Resources.Load<Sprite>("Images/MainBoard/timer_border_red");
-                    timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
                     break;
             }
             turnIndicator.displayTurn(gameState.currentGameState);
@@ -48,5 +43,14 @@ public class EndTurnHandler : MonoBehaviour
     public void sendTurnChangeToClients()
     {
         networkingClient.sendCurrentGameState(gameState.currentGameState);
+    }
+
+    private void Update() 
+    {
+        if(timer.timerStarted && timer.secondsElapsed >= 180)
+        {
+            changeTurns();
+            sendTurnChangeToClients();
+        }    
     }
 }

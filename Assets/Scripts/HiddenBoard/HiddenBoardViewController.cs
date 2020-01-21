@@ -22,6 +22,7 @@ public class HiddenBoardViewController : MonoBehaviour
     private Tabs tabSelected;
     private int numberOfWordObjectsToBeCreated;
     private List<string> wordList;
+    public Timer timer; 
 
     public Image scrollImage;
     public GameObject collectionView;
@@ -36,6 +37,7 @@ public class HiddenBoardViewController : MonoBehaviour
     public Button redButton;
     public Button blueButton;
     public Button neutralButton;
+    public Image timerFill; 
 
     public Tween downTween;
 
@@ -71,8 +73,6 @@ public class HiddenBoardViewController : MonoBehaviour
         print("hiddenboard is being initialized");
         tabSelected = tab;
         animateTab(tab);
-
-        turnIndicator.displayTurn(CurrentGameState.blueTurn);
 
         redWords = new List<string>(){"searching"};
         blueWords = new List<string>(){"searching"};
@@ -146,11 +146,8 @@ public class HiddenBoardViewController : MonoBehaviour
 
         resetTextList();
 
-        print("number of word objects to be created: " + numberOfWordObjectsToBeCreated);
-
         for (int n = 0; n < numberOfWordObjectsToBeCreated; ++n)
         {
-            print("clones being instantiated");
             GameObject textClone = Instantiate(textObject, new Vector3(0, 0, 0), Quaternion.identity, collectionView.transform);
             var textObjectRT = textClone.GetComponent<RectTransform>();
             textClone.transform.SetParent(collectionView.transform, false);
@@ -281,16 +278,18 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public void gameStateChanged(CurrentGameState newGameState)
     {
-        print("new game state is: " + newGameState);
-
         switch(newGameState) 
         {
             case CurrentGameState.blueTurn:
                 turnIndicator.displayTurn(newGameState);
+                timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
+                timer.timerStarted = false;
                 getTextObjectSize();
                 break; 
-            case CurrentGameState.redTurn:
+            case CurrentGameState.redTurn: 
                 turnIndicator.displayTurn(newGameState);
+                timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
+                timer.timerStarted = false;
                 getTextObjectSize();
                 break;
             case CurrentGameState.blueWins:
