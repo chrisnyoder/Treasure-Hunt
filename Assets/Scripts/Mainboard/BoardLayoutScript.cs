@@ -10,6 +10,7 @@ public class BoardLayoutScript : MonoBehaviour
     private float totalSpacing; 
 
     public CodeTabScript codeTabScript;
+    public RectTransform roomCodeRT; 
     public Canvas mainBoard;
     public Canvas eogBoard;
     public TurnIndicatorScript turnIndicator; 
@@ -28,6 +29,8 @@ public class BoardLayoutScript : MonoBehaviour
     public EndTurnHandler endTurnHandler;
     public ScoreDisplayHandler scoreDisplay;
 
+    private List<string> notchedDevices; 
+
     float boardHeight;
     float boardWidth;
 
@@ -42,6 +45,8 @@ public class BoardLayoutScript : MonoBehaviour
     private void Awake() 
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
+
+        notchedDevices = new List<string>(){"iPhone10,3", "iPhone10,6", "iPhone10,8", "iPhone11,2", "iPhone11,6", "iPhone11,4", "iPhone12,1", "iPhone12,3", "iPhone12,5"};
     }
 
     private void Start() 
@@ -59,7 +64,12 @@ public class BoardLayoutScript : MonoBehaviour
             {
                 backgroundImage.sprite = tabletBackgroundImage;
             }
-        }    
+        }
+
+        if(notchedDevices.Contains(SystemInfo.deviceModel))
+        {
+            layoutForNotchedDevices();
+        }; 
     }
 
     public void receiveGameStateObject(GameState initialGameState)
@@ -86,7 +96,6 @@ public class BoardLayoutScript : MonoBehaviour
 
     void getButtonSizes()
     {
-
         if(isTablet)
         {
             print("is tablet");
@@ -212,6 +221,12 @@ public class BoardLayoutScript : MonoBehaviour
             }
             buttonParentObject.SetActive(false);
         }
+    }
+
+    private void layoutForNotchedDevices()
+    {
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 80, menuParentRT.localPosition.y);
+        roomCodeRT.localPosition = new Vector2(roomCodeRT.localPosition.x - 80, roomCodeRT.localPosition.y);
     }
 
     void resizeMenuButton()
