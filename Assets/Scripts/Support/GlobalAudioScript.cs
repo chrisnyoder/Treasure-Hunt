@@ -52,11 +52,15 @@ public class GlobalAudioScript : MonoBehaviour
         ambientSounds.Play();
     }
 
+    
     public void playSfxSound(string soundName)
     {
         audioClip = (AudioClip) Resources.Load("Audio/" + soundName);
         soundfx.clip = audioClip;
         soundfx.Play();
+
+        
+
     }
 
     public void playSfxSound2(string soundName)

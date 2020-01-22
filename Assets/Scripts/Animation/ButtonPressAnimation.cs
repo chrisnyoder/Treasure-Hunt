@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class ButtonPressWithSfx : MonoBehaviour,IPointerEnterHandler , IPointerUpHandler, IPointerExitHandler, IPointerDownHandler
+public class ButtonPressAnimation : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler, IPointerDownHandler
 {
     RectTransform rectTransform;
 
@@ -25,26 +25,30 @@ public class ButtonPressWithSfx : MonoBehaviour,IPointerEnterHandler , IPointerU
         rectTransform = GetComponent<RectTransform>();
         pushedScale = initialScale * 0.85f;
         transform.DOScale(pushedScale, 1.0f).SetEase(Ease.OutExpo);
-        GlobalAudioScript.Instance.playSfxSound2("click2");
+      
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        GlobalAudioScript.Instance.playSfxSound("click2");
+        rectTransform = GetComponent<RectTransform>();
+        pushedScale = initialScale * 0.85f;
+        transform.DOScale(pushedScale, 1.0f).SetEase(Ease.OutExpo);
+
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
 
-        GlobalAudioScript.Instance.playSfxSound2("open_swish");
-  
+       // var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
+       // scaleBack.Play();
+
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
-        scaleBack.Play();
-        GlobalAudioScript.Instance.playSfxSound2("drop");
-  }
+        //var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
+        //scaleBack.Play();
+        
+    }
 
 
 }

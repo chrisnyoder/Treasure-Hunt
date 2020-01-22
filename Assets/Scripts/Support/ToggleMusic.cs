@@ -19,7 +19,7 @@ public class ToggleMusic : MonoBehaviour
     {
 
         GlobalAudioScript.Instance.toggleMusic();
-        GlobalAudioScript.Instance.playSfxSound("togglePack2");
+        
         selectCorrectMusicIcon();
     }
 
