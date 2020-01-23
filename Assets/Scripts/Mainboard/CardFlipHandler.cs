@@ -214,7 +214,7 @@ public class CardFlipHandler : MonoBehaviour
     {
         print("unpress to reveal event being called");
         playFirstHalfOfCardFlipAnimation();
-        GlobalAudioScript.Instance.playSfxSound2("drop");
+        GlobalAudioScript.Instance.playSfxSound3("drop");
     }
 
     IEnumerator LaunchEoGAfterDelay()

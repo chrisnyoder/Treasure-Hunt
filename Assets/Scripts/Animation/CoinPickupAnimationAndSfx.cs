@@ -58,7 +58,7 @@ public class CoinPickupAnimationAndSfx : MonoBehaviour, IDragHandler, IEndDragHa
         rectTransform = GetComponent<RectTransform>();
         pushedScale = initialScale * 1.3f;
         transform.DOScale(pushedScale, 1.0f).SetEase(Ease.InOutBack);
-        GlobalAudioScript.Instance.playSfxSound2("pickup2");
+        GlobalAudioScript.Instance.playSfxSound3("pickup2");
         GlobalAudioScript.Instance.playSfxSound("metal_drag");
     }
 
@@ -67,6 +67,6 @@ public class CoinPickupAnimationAndSfx : MonoBehaviour, IDragHandler, IEndDragHa
         var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
         scaleBack.Play();
         GlobalAudioScript.Instance.playSfxSound2("coin_drop");
-        GlobalAudioScript.Instance.playSfxSound("metal_drag");
+        
     }
 }

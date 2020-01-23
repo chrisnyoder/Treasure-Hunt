@@ -9,7 +9,7 @@ public class CoinDropAudio : MonoBehaviour, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GlobalAudioScript.Instance.playSfxSound("coin_drop");
+        GlobalAudioScript.Instance.playSfxSound3("coin_drop");
     }
 
 
