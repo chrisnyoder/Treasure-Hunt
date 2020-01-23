@@ -69,28 +69,14 @@ public class ScoreDisplayHandler : MonoBehaviour
     {
         for(var i = 0; i < _gameState.blueTeamScore; ++i)
         {
-            print("score in button handler: " + _gameState.blueTeamScore);
             var coin = blueScorePrefabList[i].GetComponentsInChildren<Image>()[1];
             coin.enabled = true; 
         }
 
         for (var i = 0; i < _gameState.redTeamScore; ++i)
         {
-            print("score in button handler: " + _gameState.redTeamScore);
             var coin = redScorePrefabList[i].GetComponentsInChildren<Image>()[1];
             coin.enabled = true;
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

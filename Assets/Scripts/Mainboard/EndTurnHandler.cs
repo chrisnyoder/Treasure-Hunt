@@ -24,20 +24,20 @@ public class EndTurnHandler : MonoBehaviour
 
     public void changeTurns()
     {
-        if (gameState.currentGameState == CurrentGameState.redTurn || gameState.currentGameState == CurrentGameState.blueTurn)
+        switch (gameState.currentGameState)
         {
-            switch (gameState.currentGameState)
-            {
-                case CurrentGameState.redTurn:
-                    gameState.currentGameState = CurrentGameState.blueTurn;
-                    break;
-                case CurrentGameState.blueTurn:
-                    gameState.currentGameState = CurrentGameState.redTurn;
-                    break;
-            }
-            turnIndicator.displayTurn(gameState.currentGameState);
-            timer.timerStarted = false;
+            case CurrentGameState.redTurn:
+                gameState.currentGameState = CurrentGameState.blueTurn;
+                break;
+            case CurrentGameState.blueTurn:
+                gameState.currentGameState = CurrentGameState.redTurn;
+                break;
+            default:
+                gameState.currentGameState = CurrentGameState.blueTurn;
+                break; 
         }
+        turnIndicator.displayTurn(gameState.currentGameState);
+        timer.timerStarted = false;
     }
 
     public void sendTurnChangeToClients()

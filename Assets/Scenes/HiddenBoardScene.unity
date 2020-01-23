@@ -976,6 +976,7 @@ MonoBehaviour:
   collectionView: {fileID: 760523965}
   textObject: {fileID: 1505776495932198185}
   turnIndicator: {fileID: 129361151}
+  restartingCanvasRt: {fileID: 1406919751}
   blueScrollImage: {fileID: 21300000, guid: 463b980304e6b41a09cf6dc4126c88df, type: 3}
   redScrollImage: {fileID: 21300000, guid: 431a52f8a74674b6591b0e7751db4e01, type: 3}
   neutralScrollImage: {fileID: 21300000, guid: 55a9cc238219d4049a8380a8a0583c61, type: 3}
@@ -2681,7 +2682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 0.5625
+  m_AspectRatio: 0.46182266
 --- !u!114 &1075341245
 MonoBehaviour:
   m_ObjectHideFlags: 0

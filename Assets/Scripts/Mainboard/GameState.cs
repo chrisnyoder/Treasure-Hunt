@@ -9,6 +9,7 @@ using System.IO;
 public enum CurrentGameState
 {
     none, 
+    restarting, 
     blueTurn,
     redTurn,
     blueWins,
@@ -43,7 +44,7 @@ public class GameState
     public bool isTutorial; 
     public int playerIndex;  
 
-    public CurrentGameState currentGameState = CurrentGameState.blueTurn;
+    public CurrentGameState currentGameState = CurrentGameState.none;
 
     public GameState(int numberOfCards, List<WordPackProduct> wordPacksToUse)
     {

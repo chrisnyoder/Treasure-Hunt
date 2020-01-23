@@ -12,8 +12,6 @@ public class MainboardMenuHandler : MonoBehaviour
     public RectTransform exitIcon;
     public RectTransform restartIcon;
 
-    // Start is called before the first frame update
-
     private void Awake() 
     {
         if(GlobalDefaults.Instance.isTablet)
@@ -70,11 +68,5 @@ public class MainboardMenuHandler : MonoBehaviour
                 s.Join(exitIcon.DOAnchorPosY(0, 0.3f, false));
             }
         }    
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

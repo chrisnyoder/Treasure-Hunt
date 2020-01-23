@@ -7,15 +7,9 @@ public class ScreenOrientationLandscape : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
-        Screen.autorotateToLandscapeLeft = true;
+        Screen.orientation = ScreenOrientation.LandscapeRight;
+        Screen.autorotateToLandscapeRight = true;
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
