@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class ButtonPressWithSfx : MonoBehaviour,IPointerEnterHandler , IPointerUpHandler, IPointerExitHandler, IPointerDownHandler
+public class ButtonPressSfxNoSwish : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     RectTransform rectTransform;
 
@@ -33,18 +33,24 @@ public class ButtonPressWithSfx : MonoBehaviour,IPointerEnterHandler , IPointerU
         GlobalAudioScript.Instance.playSfxSound("click2");
     }
 
+
     public void OnPointerUp(PointerEventData eventData)
     {
+        var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
+        scaleBack.Play();
+        GlobalAudioScript.Instance.playSfxSound2("click2");
 
-        GlobalAudioScript.Instance.playSfxSound2("open_swish");
-  
     }
+
+
+
+
     public void OnPointerExit(PointerEventData eventData)
     {
         var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
         scaleBack.Play();
         GlobalAudioScript.Instance.playSfxSound2("drop");
-  }
+    }
 
 
 }
