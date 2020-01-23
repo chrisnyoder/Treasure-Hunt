@@ -57,25 +57,6 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
                 hiddenBoardViewController.gameStateChanged(currentGameState);
             }
         }
-
-        if (joinGameNetworkingClient.gameInRestartingState)
-        {
-            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
-            restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
-            {
-                restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
-            });
-
-            exitResultsCanvasIfDisplayed();
-        }
-        else
-        {
-            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
-            restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
-            {
-                restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
-            });
-        }
     }
 
     private void OnJoiningScene(Scene scene, LoadSceneMode mode)
@@ -139,24 +120,6 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
         {
             TutorialHiddenBoardScript tutorialHiddenBoardScript = GameObject.Find("TutorialCanvas").GetComponent<TutorialHiddenBoardScript>();
             tutorialHiddenBoardScript.beginTutorial(joinGameNetworkingClient.team);
-        }
-    }
-
-    private void exitResultsCanvasIfDisplayed()
-    {
-        var rt = eoGScript.GetComponent<RectTransform>();
-        if (rt.anchoredPosition.y == 0)
-        {
-            var EoGCanvasObject = eoGScript.gameObject;
-            EoGCanvasObject.GetComponent<Image>().DOFade(0, 0.1f).Play();
-            if (Screen.width < Screen.height)
-            {
-                EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(3000, 1f).Play();
-            }
-            else
-            {
-                EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(1500, 0.7f).Play();
-            }
         }
     }
 }

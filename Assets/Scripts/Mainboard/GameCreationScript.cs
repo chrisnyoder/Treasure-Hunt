@@ -17,6 +17,8 @@ public class GameCreationScript : MonoBehaviour
     [HideInInspector]
     public MainBoardNetworkingClient networkingClient; 
 
+    private bool restarting = false; 
+
     void Start()
     {
         generateGameStateButton = GetComponent<Button>();
@@ -24,7 +26,21 @@ public class GameCreationScript : MonoBehaviour
 
     public void generateGameState()
     {
+        if(initialGameState != null)
+        {
+            restarting = true; 
+        }
+
         initialGameState = new GameState(25, wordPacksToUse);
+        if(restarting)
+        {
+            initialGameState.currentGameState = CurrentGameState.blueTurn;
+            networkingClient.sendCurrentGameState(CurrentGameState.blueTurn);
+        } else 
+        {
+            initialGameState.currentGameState = CurrentGameState.none;
+        }
+
         boardLayoutScript.receiveGameStateObject(initialGameState);
 
         networkingClient.initialGameState = initialGameState;

@@ -361,8 +361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49964e556f37d4e96ac815de9224bf2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endTurn: {fileID: 0}
-  timer: {fileID: 0}
+  endTurn: {fileID: 867951450}
+  timer: {fileID: 867951448}
   mainBoardNetworkingClient: {fileID: 0}
   codeTabScript: {fileID: 0}
 --- !u!1 &140355153
@@ -931,7 +931,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0}
-  m_SizeDelta: {x: 80, y: 684.8}
+  m_SizeDelta: {x: 100, y: 700}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &316296872
 MonoBehaviour:
@@ -1042,7 +1042,6 @@ GameObject:
   - component: {fileID: 415090935}
   - component: {fileID: 415090934}
   - component: {fileID: 415090933}
-  - component: {fileID: 415090936}
   - component: {fileID: 415090937}
   m_Layer: 5
   m_Name: MainBoardCanvas
@@ -1134,31 +1133,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &415090936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415090931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c909633917ae4d68be96005eeb3a370, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  codeTabScript: {fileID: 855794556}
-  mainBoard: {fileID: 415090935}
-  eogBoard: {fileID: 1594670873}
-  turnIndicator: {fileID: 1166930214}
-  buttonParentObject: {fileID: 1778022516}
-  collectionView: {fileID: 636488461}
-  codeDisplayRT: {fileID: 0}
-  menuButtonRt: {fileID: 1175235885}
-  endTurnButtonRT: {fileID: 867951447}
-  menuParentRT: {fileID: 851492139}
-  networkingClient: {fileID: 0}
-  endTurnHandler: {fileID: 867951450}
-  scoreDisplay: {fileID: 867951449}
 --- !u!114 &415090937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,7 +1147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EoGCanvas: {fileID: 1594670868}
   restartingCanvas: {fileID: 1184362433}
-  boardLayoutScript: {fileID: 415090936}
+  boardLayoutScript: {fileID: 2047168060}
 --- !u!1001 &431552368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1962,6 +1936,7 @@ GameObject:
   - component: {fileID: 619372754}
   - component: {fileID: 619372753}
   - component: {fileID: 619372752}
+  - component: {fileID: 619372756}
   m_Layer: 5
   m_Name: ToggleMusic
   m_TagString: Untagged
@@ -2079,8 +2054,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 619372756}
+        m_MethodName: toggleMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2092,6 +2067,20 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &619372756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619372750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c18ccb4c5a64e969d7acf3f8706e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicOn: {fileID: 21300000, guid: ee0916da22571654583784ee4c4785dd, type: 3}
+  musicOff: {fileID: 21300000, guid: 8c6daba5e1675604bb0a7984ed2f9b78, type: 3}
 --- !u!1 &633288123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,7 +2478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179d96f1c58434f26be15d21641e3be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulloutIcon: {fileID: 0}
+  pulloutIcon: {fileID: 1175235885}
   musicIcon: {fileID: 619372751}
   pauseIcon: {fileID: 513787428}
   exitIcon: {fileID: 1134959362}
@@ -2533,10 +2522,10 @@ RectTransform:
   m_Father: {fileID: 2047168057}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.93700004, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00024414062, y: -56.999878}
-  m_SizeDelta: {x: -40, y: 0}
+  m_AnchorMin: {x: 0.93, y: 1}
+  m_AnchorMax: {x: 0.99, y: 1}
+  m_AnchoredPosition: {x: 0, y: -70}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &855794554
 GameObject:
@@ -2678,7 +2667,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: 684.8}
+  m_SizeDelta: {x: 80, y: 680}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &867951448
 MonoBehaviour:
@@ -3212,7 +3201,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -684.8}
+  m_SizeDelta: {x: 0, y: -680}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1041831309
 MonoBehaviour:
@@ -3394,8 +3383,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: toggleMusic
+      - m_Target: {fileID: 936496549}
+        m_MethodName: bringUpExitPopUpOnMainboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3512,6 +3501,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonParentObject
       objectReference: {fileID: 0}
+    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: networkingClient
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: shipwreckImage
+      value: 
+      objectReference: {fileID: 21300000, guid: e938686faef73ad4cbf329c9b3cfafa5,
+        type: 3}
+    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: turnIndicator
+      value: 
+      objectReference: {fileID: 1166930214}
+    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: endTurnHandler
+      value: 
+      objectReference: {fileID: 867951450}
+    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: scoreDisplay
+      value: 
+      objectReference: {fileID: 867951449}
     - target: {fileID: 5037618529178320490, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3636,32 +3651,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AspectRatio
       value: 1.58333
-      objectReference: {fileID: 0}
-    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
-        type: 3}
-      propertyPath: networkingClient
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
-        type: 3}
-      propertyPath: shipwreckImage
-      value: 
-      objectReference: {fileID: 21300000, guid: e938686faef73ad4cbf329c9b3cfafa5,
-        type: 3}
-    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
-        type: 3}
-      propertyPath: turnIndicator
-      value: 
-      objectReference: {fileID: 1166930214}
-    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
-        type: 3}
-      propertyPath: endTurnHandler
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
-        type: 3}
-      propertyPath: scoreDisplay
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 511840314901458711, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
@@ -4969,7 +4958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7777778
+  m_AspectRatio: 1.3339844
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10144,6 +10133,7 @@ GameObject:
   - component: {fileID: 2047168053}
   - component: {fileID: 2047168059}
   - component: {fileID: 2047168058}
+  - component: {fileID: 2047168060}
   m_Layer: 5
   m_Name: BackgroundCanvas
   m_TagString: Untagged
@@ -10289,6 +10279,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047168052}
   m_CullTransparentMesh: 0
+--- !u!114 &2047168060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047168052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c909633917ae4d68be96005eeb3a370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  codeTabScript: {fileID: 855794556}
+  roomCodeRT: {fileID: 855794555}
+  mainBoard: {fileID: 415090935}
+  eogBoard: {fileID: 1594670873}
+  turnIndicator: {fileID: 1166930214}
+  buttonParentObject: {fileID: 1778022516}
+  collectionView: {fileID: 636488461}
+  codeDisplayRT: {fileID: 0}
+  menuButtonRt: {fileID: 1175235885}
+  endTurnButtonRT: {fileID: 867951447}
+  menuParentRT: {fileID: 851492139}
+  networkingClient: {fileID: 0}
+  endTurnHandler: {fileID: 867951450}
+  scoreDisplay: {fileID: 867951449}
 --- !u!1 &2088867912
 GameObject:
   m_ObjectHideFlags: 0

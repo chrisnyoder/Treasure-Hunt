@@ -29,6 +29,7 @@ public class HiddenBoardViewController : MonoBehaviour
     private RectTransform collectionViewRT;
     public GameObject textObject;
     public TurnIndicatorScript turnIndicator;
+    public RectTransform restartingCanvasRt;
 
     public Sprite blueScrollImage;
     public Sprite redScrollImage;
@@ -47,6 +48,7 @@ public class HiddenBoardViewController : MonoBehaviour
     public Vector2 redButtonInitialPos;
     [HideInInspector]
     public Vector2 neutralButtonInitialPos;
+    private Vector2 initialRestartCanvasPos;
 
     private List<GameObject> textObjects;
     private List<RectTransform> textPositions;
@@ -63,6 +65,7 @@ public class HiddenBoardViewController : MonoBehaviour
         blueButtonInitialPos = blueButton.GetComponent<RectTransform>().anchoredPosition;
         redButtonInitialPos = redButton.GetComponent<RectTransform>().anchoredPosition;
         neutralButtonInitialPos = neutralButton.GetComponent<RectTransform>().anchoredPosition;
+        initialRestartCanvasPos = restartingCanvasRt.GetComponent<RectTransform>().anchoredPosition;
 
         GlobalAudioScript globalAudioScript = GameObject.Find("GlobalAudioSource").GetComponent<GlobalAudioScript>();
         globalAudioScript.backgroundMusic.enabled = false;
@@ -280,7 +283,15 @@ public class HiddenBoardViewController : MonoBehaviour
     {
         switch(newGameState) 
         {
+            case CurrentGameState.restarting:
+                restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
+                {
+                    restartingCanvasRt.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
+                });
+                moveResultsCanvasToOriginalPosition();
+                break; 
             case CurrentGameState.blueTurn:
+                moveRestartCanvasToOriginalPosition();
                 turnIndicator.displayTurn(newGameState);
                 timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
                 timer.timerStarted = false;
@@ -308,6 +319,34 @@ public class HiddenBoardViewController : MonoBehaviour
     {
         this.wordsSelected = wordsSelected;
         setStrikethroughsOnWords();
+    }
+
+    private void moveResultsCanvasToOriginalPosition()
+    {
+        var rt = eoGScript.GetComponent<RectTransform>();
+        if (rt.anchoredPosition.y == 0)
+        {
+            var EoGCanvasObject = eoGScript.gameObject;
+            EoGCanvasObject.GetComponent<Image>().DOFade(0, 0.1f).Play();
+            if (Screen.width < Screen.height)
+            {
+                EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(3000, 1f).Play();
+            }
+            else
+            {
+                EoGCanvasObject.GetComponent<RectTransform>().DOAnchorPosY(1500, 0.7f).Play();
+            }
+        }
+    }
+
+    private void moveRestartCanvasToOriginalPosition()
+    {
+        print("resarting canvas moving function being called");
+        restartingCanvasRt = restartingCanvasRt.GetComponent<RectTransform>();
+        restartingCanvasRt.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
+        {
+            restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
+        });
     }
 
     public void newLanguage()

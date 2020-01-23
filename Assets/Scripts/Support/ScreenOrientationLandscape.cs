@@ -12,10 +12,4 @@ public class ScreenOrientationLandscape : MonoBehaviour
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

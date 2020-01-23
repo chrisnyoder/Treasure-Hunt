@@ -90,6 +90,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
         On("newGameState", (gameState) =>
         {
+            print("game state received via ws networking client " + gameState.data.ToString());
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
         });
 

@@ -1566,12 +1566,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.19268, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.23027, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.19268, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.23027, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -3597,10 +3597,10 @@ RectTransform:
   m_Father: {fileID: 2047168057}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.93700004, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -96, y: -57}
-  m_SizeDelta: {x: -150, y: 0}
+  m_AnchorMin: {x: 0.93, y: 1}
+  m_AnchorMax: {x: 0.99, y: 1}
+  m_AnchoredPosition: {x: 0, y: -70}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &502138306
 CanvasRenderer:
@@ -4089,7 +4089,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: 684.8}
+  m_SizeDelta: {x: 80, y: 680}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &586872736
 MonoBehaviour:
@@ -4369,7 +4369,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0}
-  m_SizeDelta: {x: 80, y: 684.8}
+  m_SizeDelta: {x: 100, y: 700}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &607106304
 MonoBehaviour:
@@ -4741,7 +4741,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -684.8}
+  m_SizeDelta: {x: 0, y: -680}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &758509585
 MonoBehaviour:
@@ -8313,7 +8313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.1653333
+  m_AspectRatio: 1.3339844
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0

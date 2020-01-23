@@ -53,12 +53,13 @@ public class BoardLayoutScript : MonoBehaviour
     {
         if(GlobalDefaults.Instance.isTablet)
         {
+            print("global defaults detecting tablet");
+
             var backgroundImage = this.GetComponent<Image>();
             var tabletBackgroundImage = Resources.Load<Sprite>("Images/Backgrounds/iPad_12_MB_Background");
-            resizeMenuButton();
+            moveMenu();
             moveEndTurnButton();
             rotateEndTurnButton();
-            makeEndTurnButtonAppropriatelyColor();
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
@@ -83,6 +84,7 @@ public class BoardLayoutScript : MonoBehaviour
         endTurnHandler.gameState = initialGameState;
         scoreDisplay.receiveInitialGameState(initialGameState);
         determineIfTablet();
+        makeEndTurnButtonAppropriatelyColor();
     }
 
     void determineIfTablet()
@@ -225,14 +227,13 @@ public class BoardLayoutScript : MonoBehaviour
 
     private void layoutForNotchedDevices()
     {
-        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 80, menuParentRT.localPosition.y);
-        roomCodeRT.localPosition = new Vector2(roomCodeRT.localPosition.x - 80, roomCodeRT.localPosition.y);
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 120, menuParentRT.localPosition.y);
+        roomCodeRT.localPosition = new Vector2(roomCodeRT.localPosition.x - 120, roomCodeRT.localPosition.y);
     }
 
-    void resizeMenuButton()
+    void moveMenu()
     {
-        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 30, menuParentRT.localPosition.y);
-        menuButtonRt.sizeDelta = new Vector2(menuButtonRt.sizeDelta.x, 86);
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 30, menuParentRT.localPosition.y+20);
     }
 
     void moveEndTurnButton()
@@ -249,6 +250,7 @@ public class BoardLayoutScript : MonoBehaviour
 
     void makeEndTurnButtonAppropriatelyColor()
     {
+        print("end turn button being changed to the correct color");
         switch(_initialGameState.currentGameState)
         {
             case CurrentGameState.blueTurn:
@@ -268,6 +270,8 @@ public class BoardLayoutScript : MonoBehaviour
             codeDisplayRT.GetComponent<Image>().DOFade(0, 0.3f);
         }
 
+        _initialGameState.currentGameState = CurrentGameState.blueTurn;
+        networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
         turnIndicator.displayTurn(_initialGameState.currentGameState);
     }
 
@@ -290,10 +294,10 @@ public class BoardLayoutScript : MonoBehaviour
 
             if(codeDisplayRT == null)
             {
-                turnIndicator.displayTurn(_initialGameState.currentGameState);
+                // turnIndicator.displayTurn(_initialGameState.currentGameState);
             } else if(codeDisplayRT.anchoredPosition.y != 0) 
             {
-                turnIndicator.displayTurn(_initialGameState.currentGameState);
+                // turnIndicator.displayTurn(_initialGameState.currentGameState);
             }
 
             codeTabScript.displayRoomId();
