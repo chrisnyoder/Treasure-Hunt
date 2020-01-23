@@ -9,7 +9,7 @@ public class StoneEnterAudio : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-         GlobalAudioScript.Instance.playSfxSound2("stone_drop");
+         GlobalAudioScript.Instance.playSfxSound3("stone_drop");
     }
 
 
