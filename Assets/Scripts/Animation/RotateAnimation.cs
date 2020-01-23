@@ -7,34 +7,45 @@ using DG.Tweening;
 public class RotateAnimation : MonoBehaviour, IPointerDownHandler
 {
 
-   public bool ButtonState = true;
+    public bool ButtonState = true;
     public void OnPointerDown(PointerEventData eventData)
     {
 
-  
-        if (ButtonState == true)
+        if (GlobalDefaults.Instance.isTablet)
         {
-            var rotate = transform.DORotate(new Vector3(0, 0, 180), 0.7f, RotateMode.Fast);
-            ButtonState = false;
-            print("Buttonstate is false");
-        }
 
-        else 
+            if (ButtonState == true)
+            {
+                var rotate = transform.DORotate(new Vector3(0, 0, 90), 0.7f, RotateMode.Fast);
+                ButtonState = false;
+                print("Buttonstate is false");
+            }
+
+            else
+            {
+                var rotateBack = transform.DORotate(new Vector3(0, 0, 270), 0.7f, RotateMode.Fast);
+                ButtonState = true;
+                print("ButtonState is true");
+            }
+        }
+        else
         {
-            var rotateBack = transform.DORotate(new Vector3(0, 0, 360), 0.7f, RotateMode.Fast);
-            ButtonState = true;
-            print("ButtonState is true");
+
+            if (ButtonState == true)
+            {
+                var rotate = transform.DORotate(new Vector3(0, 0, 180), 0.7f, RotateMode.Fast);
+                ButtonState = false;
+                print("Buttonstate is false");
+            }
+
+            else
+            {
+                var rotateBack = transform.DORotate(new Vector3(0, 0, 360), 0.7f, RotateMode.Fast);
+                ButtonState = true;
+                print("ButtonState is true");
+            }
         }
-
-
-
-        
-
     }
-
-
-
-
 }
 
 

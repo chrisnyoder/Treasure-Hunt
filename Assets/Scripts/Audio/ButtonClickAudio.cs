@@ -12,5 +12,4 @@ public class ButtonClickAudio : MonoBehaviour, IPointerDownHandler
         GlobalAudioScript.Instance.playSfxSound("click2");
     }
 
-
 }
