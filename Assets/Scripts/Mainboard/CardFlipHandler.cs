@@ -27,6 +27,7 @@ public class CardFlipHandler : MonoBehaviour
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
         gameObject.GetComponent<Button>().onClick.AddListener(FlipCard);
+        print("listener added");
         buttonParentObject.GetComponent<EventTrigger>().enabled = false; 
     }
 
@@ -50,7 +51,6 @@ public class CardFlipHandler : MonoBehaviour
             case CardType.blueCard:
                 GlobalAudioScript.Instance.playSfxSound("coin_flip");
                 gameState.blueTeamScore += 1;
-                print("score in button handler: " + gameState.blueTeamScore);
                 scoreDisplay.displayScore();
                 if (gameState.blueTeamScore >= 8)
                 {
@@ -61,7 +61,6 @@ public class CardFlipHandler : MonoBehaviour
             case CardType.redCard:
                 GlobalAudioScript.Instance.playSfxSound("correct");
                 gameState.redTeamScore += 1;
-                print("score in button handler: " + gameState.redTeamScore);
                 scoreDisplay.displayScore();
                 if (gameState.redTeamScore >= 7)
                 {

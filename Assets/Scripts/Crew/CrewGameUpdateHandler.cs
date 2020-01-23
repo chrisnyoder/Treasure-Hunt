@@ -43,38 +43,42 @@ public class CrewGameUpdateHandler : MonoBehaviour
         {
             var gameStateFromServer = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
 
+            print("current game state: " + crewMemberCurrentGameState);
+            print("incoming game state: " + gameStateFromServer);
+            
             if(gameStateFromServer == CurrentGameState.blueTurn || gameStateFromServer == CurrentGameState.redTurn)
             {
-                boardLayoutScript.endTurnHandler.gameState.currentGameState = crewMemberCurrentGameState;
-                crewMemberCurrentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
                 boardLayoutScript.endTurnHandler.changeTurns();
+                boardLayoutScript.endTurnHandler.gameState.currentGameState = gameStateFromServer;
             }
+
+            if(gameStateFromServer == CurrentGameState.restarting)
+            {
+                var mainBoardRT = gameObject.GetComponent<RectTransform>();
+                mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
+
+                var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+                restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
+                {
+                    restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
+                });
+
+                exitResultsCavnas();
+            } else 
+            {
+                var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+                restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
+                {
+                    restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
+                });
+            }
+
+            crewMemberCurrentGameState = gameStateFromServer;
         }   
 
         if(joinGameNetworkingClient.roomId != joinGameNetworkingClient.codeDisplay.connectionCodeText.text && joinGameNetworkingClient.isConnected)
         {
             joinGameNetworkingClient.codeDisplay.updateConnectionCode(joinGameNetworkingClient.roomId);
-        }
-
-        if(joinGameNetworkingClient.gameInRestartingState)
-        {
-            var mainBoardRT = gameObject.GetComponent<RectTransform>();
-            mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
-
-            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
-            restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
-            {
-                restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
-            });
-
-            exitResultsCanvasIfDisplayed();
-        } else 
-        {
-            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
-            restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() => 
-            {
-                restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
-            });
         }
     }
 
@@ -104,7 +108,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
         joinGameNetworkingClient = GameObject.Find("NetworkingClient").GetComponent<JoinGameNetworkingClient>();
         joinGameNetworkingClient.codeDisplay = GameObject.Find("Game_Id").GetComponent<CodeTabScript>();
         setUpMainBoardForCrewMember();
-        exitResultsCanvasIfDisplayed();
+        exitResultsCavnas();
         print("on joining scene callback being called");
     }
 
@@ -115,7 +119,6 @@ public class CrewGameUpdateHandler : MonoBehaviour
             wordsSelectedOnBoard = new WordsSelectedAsObject();
             wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.initialGameState.wordsAlreadySelected;
 
-            boardLayoutScript = GameObject.Find("MainBoardCanvas").GetComponent<BoardLayoutScript>();
             crewMemberGameState = joinGameNetworkingClient.initialGameState;
             crewMemberCurrentGameState = crewMemberGameState.currentGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
@@ -133,15 +136,12 @@ public class CrewGameUpdateHandler : MonoBehaviour
             }
         }
 
-        exitResultsCanvasIfDisplayed();
+        exitResultsCavnas();
     }
 
-    private void exitResultsCanvasIfDisplayed()
+    private void exitResultsCavnas()
     {
-        if (EoGCanvas.GetComponent<RectTransform>().anchoredPosition.y == 0)
-        {
-            EoGCanvas.GetComponent<RectTransform>().DOAnchorPosY(1500, 0.7f).Play();
-            EoGCanvas.GetComponent<Image>().DOFade(0, 0.1f).Play();
-        }
+        EoGCanvas.GetComponent<RectTransform>().DOAnchorPosY(1500, 0.7f).Play();
+        EoGCanvas.GetComponent<Image>().DOFade(0, 0.1f).Play();
     }
 }

@@ -36,7 +36,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
     
         if (isConnected == true && initialGameState != null && !string.IsNullOrEmpty(roomId))
         {
-            if (!dictionarySent && initialGameState.hiddenBoardList.Count > 0)
+            if (!dictionarySent && initialGameState.hiddenBoardList.Count > 0 && initialGameState.currentGameState != CurrentGameState.restarting)
             {
                 print("about to send dictionary");
                 sendGameDictionary();
@@ -115,12 +115,5 @@ public class MainBoardNetworkingClient : WSNetworkingClient
         {
             timerObject = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
         });
-    }
-
-    public void sendGameRestartingMessage()
-    {
-        if(isConnected)
-            print("sending restart messages");
-            Emit("restarting");
     }
 }

@@ -10,6 +10,7 @@ public class BoardLayoutScript : MonoBehaviour
     private float totalSpacing; 
 
     public CodeTabScript codeTabScript;
+    public RectTransform roomCodeRT; 
     public Canvas mainBoard;
     public Canvas eogBoard;
     public TurnIndicatorScript turnIndicator; 
@@ -28,6 +29,8 @@ public class BoardLayoutScript : MonoBehaviour
     public EndTurnHandler endTurnHandler;
     public ScoreDisplayHandler scoreDisplay;
 
+    private List<string> notchedDevices; 
+
     float boardHeight;
     float boardWidth;
 
@@ -42,24 +45,32 @@ public class BoardLayoutScript : MonoBehaviour
     private void Awake() 
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
+
+        notchedDevices = new List<string>(){"iPhone10,3", "iPhone10,6", "iPhone10,8", "iPhone11,2", "iPhone11,6", "iPhone11,4", "iPhone12,1", "iPhone12,3", "iPhone12,5"};
     }
 
     private void Start() 
     {
         if(GlobalDefaults.Instance.isTablet)
         {
+            print("global defaults detecting tablet");
+
             var backgroundImage = this.GetComponent<Image>();
             var tabletBackgroundImage = Resources.Load<Sprite>("Images/Backgrounds/iPad_12_MB_Background");
-            resizeMenuButton();
+            moveMenu();
             moveEndTurnButton();
             rotateEndTurnButton();
-            makeEndTurnButtonAppropriatelyColor();
 
             if(tabletBackgroundImage != null && backgroundImage != null)
             {
                 backgroundImage.sprite = tabletBackgroundImage;
             }
-        }    
+        }
+
+        if(notchedDevices.Contains(SystemInfo.deviceModel))
+        {
+            layoutForNotchedDevices();
+        }; 
     }
 
     public void receiveGameStateObject(GameState initialGameState)
@@ -73,6 +84,7 @@ public class BoardLayoutScript : MonoBehaviour
         endTurnHandler.gameState = initialGameState;
         scoreDisplay.receiveInitialGameState(initialGameState);
         determineIfTablet();
+        makeEndTurnButtonAppropriatelyColor();
     }
 
     void determineIfTablet()
@@ -86,7 +98,6 @@ public class BoardLayoutScript : MonoBehaviour
 
     void getButtonSizes()
     {
-
         if(isTablet)
         {
             print("is tablet");
@@ -214,10 +225,15 @@ public class BoardLayoutScript : MonoBehaviour
         }
     }
 
-    void resizeMenuButton()
+    private void layoutForNotchedDevices()
     {
-        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 30, menuParentRT.localPosition.y);
-        menuButtonRt.sizeDelta = new Vector2(menuButtonRt.sizeDelta.x, 86);
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 120, menuParentRT.localPosition.y);
+        roomCodeRT.localPosition = new Vector2(roomCodeRT.localPosition.x - 120, roomCodeRT.localPosition.y);
+    }
+
+    void moveMenu()
+    {
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 30, menuParentRT.localPosition.y+20);
     }
 
     void moveEndTurnButton()
@@ -234,6 +250,7 @@ public class BoardLayoutScript : MonoBehaviour
 
     void makeEndTurnButtonAppropriatelyColor()
     {
+        print("end turn button being changed to the correct color");
         switch(_initialGameState.currentGameState)
         {
             case CurrentGameState.blueTurn:
@@ -253,6 +270,8 @@ public class BoardLayoutScript : MonoBehaviour
             codeDisplayRT.GetComponent<Image>().DOFade(0, 0.3f);
         }
 
+        _initialGameState.currentGameState = CurrentGameState.blueTurn;
+        networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
         turnIndicator.displayTurn(_initialGameState.currentGameState);
     }
 
@@ -275,10 +294,10 @@ public class BoardLayoutScript : MonoBehaviour
 
             if(codeDisplayRT == null)
             {
-                turnIndicator.displayTurn(_initialGameState.currentGameState);
+                // turnIndicator.displayTurn(_initialGameState.currentGameState);
             } else if(codeDisplayRT.anchoredPosition.y != 0) 
             {
-                turnIndicator.displayTurn(_initialGameState.currentGameState);
+                // turnIndicator.displayTurn(_initialGameState.currentGameState);
             }
 
             codeTabScript.displayRoomId();

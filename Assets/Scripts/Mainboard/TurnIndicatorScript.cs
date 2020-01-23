@@ -14,6 +14,12 @@ public class TurnIndicatorScript : MonoBehaviour
     private bool gameHasStarted = false; 
     private CurrentGameState _currentGameState; 
 
+    private void Start() 
+    {
+        turnIndicatorBackground.gameObject.SetActive(false);
+        turnIndicatorText.gameObject.SetActive(false);
+    }
+
     public void displayTurn(CurrentGameState currentGameState)
     {
         _currentGameState = currentGameState;

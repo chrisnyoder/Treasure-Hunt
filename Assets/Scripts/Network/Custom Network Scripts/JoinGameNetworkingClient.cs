@@ -11,8 +11,6 @@ public class JoinGameNetworkingClient : WSNetworkingClient
     public CodeTabScript codeDisplay;
     public Role role;
     public bool mainBoardRunningTutorial;
-    public bool gameInRestartingState = false;
-
     public Tabs tab = Tabs.BlueTab;
 
     public override void Start()
@@ -81,7 +79,6 @@ public class JoinGameNetworkingClient : WSNetworkingClient
             }
 
             codeProviderHandler.onJoinedRoom(role);
-            gameInRestartingState = false;
         });
 
         On("wordsSelected", (wordsSelected) => {
@@ -90,17 +87,11 @@ public class JoinGameNetworkingClient : WSNetworkingClient
 
         On("newGameState", (gameState) => {   
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());  
-            gameInRestartingState = false;
         });
 
         On("disconnect", (e) => {
             wasDisconnected = true;
             Connect();
-        });
-
-        On("restarting", (e) => {
-            print("restart message received on client machines");
-            gameInRestartingState = true; 
         });
 
         On("timer", (timerData) =>
