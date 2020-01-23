@@ -201,15 +201,20 @@ public class CardFlipHandler : MonoBehaviour
             gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/MainBoard/beige_card");
             Sequence se = DOTween.Sequence();
 
+            GlobalAudioScript.Instance.playSfxSound2("pickup2");
+
             se.Append(rt.DORotate(new Vector3(0f, 0f, 0), 0.3f, RotateMode.Fast));
             se.Join(rt.DOScale(new Vector3(1f, 1f, 1f), 0.3f));
         });
+
+        
     }
 
     public void unpressToHide()
     {
         print("unpress to reveal event being called");
         playFirstHalfOfCardFlipAnimation();
+        GlobalAudioScript.Instance.playSfxSound2("drop");
     }
 
     IEnumerator LaunchEoGAfterDelay()
