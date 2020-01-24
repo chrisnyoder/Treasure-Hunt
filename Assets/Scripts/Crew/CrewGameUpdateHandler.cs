@@ -48,6 +48,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             
             if(gameStateFromServer == CurrentGameState.blueTurn || gameStateFromServer == CurrentGameState.redTurn)
             {
+                print("game state either red or blue, changing turns");
                 boardLayoutScript.endTurnHandler.changeTurnTo(gameStateFromServer);
                 boardLayoutScript.endTurnHandler.gameState.currentGameState = gameStateFromServer;
             }

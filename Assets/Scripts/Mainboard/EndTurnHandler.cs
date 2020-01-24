@@ -40,11 +40,8 @@ public class EndTurnHandler : MonoBehaviour
 
     public void changeTurnTo(CurrentGameState newGameState)
     {
-        if(gameState.currentGameState != newGameState)
-        {
-            timer.timerStarted = false;
-            turnIndicator.displayTurn(newGameState);
-        }
+        timer.timerStarted = false;
+        turnIndicator.displayTurn(newGameState);
         gameState.currentGameState = newGameState;
     }
 
