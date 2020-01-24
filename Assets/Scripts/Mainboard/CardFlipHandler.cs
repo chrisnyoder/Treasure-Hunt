@@ -211,6 +211,7 @@ public class CardFlipHandler : MonoBehaviour
 
             se.Append(rt.DORotate(new Vector3(0f, 0f, 0), 0.3f, RotateMode.Fast));
             se.Join(rt.DOScale(new Vector3(1f, 1f, 1f), 0.3f));
+            GlobalAudioScript.Instance.playSfxSound3("pickup2");
         });
     }
 
@@ -218,6 +219,7 @@ public class CardFlipHandler : MonoBehaviour
     {
         print("unpress to reveal event being called");
         playFirstHalfOfCardFlipAnimation();
+        GlobalAudioScript.Instance.playSfxSound3("drop");
     }
 
     IEnumerator LaunchEoGAfterDelay()

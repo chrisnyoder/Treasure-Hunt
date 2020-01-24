@@ -1722,12 +1722,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.22791, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.21479, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.22791, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.21479, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -3676,7 +3676,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 97.231964}
+  m_SizeDelta: {x: 280, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &472764521
 MonoBehaviour:
@@ -6976,10 +6976,40 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1172453764}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1172453766}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f2f65fe868c8448a884408d639a90b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1172453766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4122107211062064425, guid: e1ebf312dac034ffaae6c7a6b4472651,
+    type: 3}
+  m_PrefabInstance: {fileID: 1172453764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1172453767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172453766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e477c77773c5d1419ca1b572d43ced2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1172453768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172453766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed321be29cb34543b183d2524c9aa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1193816730
@@ -7595,7 +7625,6 @@ MonoBehaviour:
     wordSelected: 
   timerObject:
     timeTakenOnTurn: 0
-    currentGameState: 0
   roomId: 
   wordsSelectedQueue: []
   team: 1
@@ -14165,7 +14194,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 97.231964}
+  m_SizeDelta: {x: 280, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1856425648
 MonoBehaviour:
