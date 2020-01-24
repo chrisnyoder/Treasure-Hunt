@@ -14,7 +14,7 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
     private Vector2 initialRestartCanvasPos;
 
     private List<CardObject> hiddenBoardGameDictionary = new List<CardObject>(); 
-    private CurrentGameState _hiddenBoardGameState = CurrentGameState.none;
+    private CurrentGameState _hiddenBoardCurrentGameState = CurrentGameState.none;
     private List<string> wordsSelected = new List<string>(){};  
     private JoinGameNetworkingClient joinGameNetworkingClient;
 
@@ -49,12 +49,12 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
                 hiddenBoardViewController.wordSelected(wordsSelected);
             }
 
-            if (_hiddenBoardGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
+            if (_hiddenBoardCurrentGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
             {
-                print("current game state: " + _hiddenBoardGameState);
+                print("current game state: " + _hiddenBoardCurrentGameState);
                 print("new game state: " + joinGameNetworkingClient.networkedGameState.currentGameState);
-                _hiddenBoardGameState = joinGameNetworkingClient.networkedGameState.currentGameState;
-                hiddenBoardViewController.gameStateChanged(_hiddenBoardGameState);
+                _hiddenBoardCurrentGameState = joinGameNetworkingClient.networkedGameState.currentGameState;
+                hiddenBoardViewController.gameStateChanged(_hiddenBoardCurrentGameState);
             }
         }
     }
@@ -69,7 +69,7 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
         }
         
         hiddenBoardViewController.initializeHiddenBoard(joinGameNetworkingClient.tab);
-        _hiddenBoardGameState = joinGameNetworkingClient.networkedGameState.currentGameState;
+        _hiddenBoardCurrentGameState = joinGameNetworkingClient.networkedGameState.currentGameState;
         hiddenBoardGameDictionary = joinGameNetworkingClient.networkedGameState.hiddenBoardList;
         hiddenBoardViewController.wordsSelected = wordsSelected;
 

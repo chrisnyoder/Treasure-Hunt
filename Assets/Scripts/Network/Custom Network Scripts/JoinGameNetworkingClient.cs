@@ -88,8 +88,8 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         On("newGameState", (gameState) => {
             CurrentGameStateAsObject currentGameStateAsObject = new CurrentGameStateAsObject(CurrentGameState.none);
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
-            print("new game state received in join game client: " + currentGameStateAsObject.currentGameState);
             networkedGameState.currentGameState = currentGameStateAsObject.currentGameState;
+            print("new game state received in join game client: " + currentGameStateAsObject.currentGameState);
         });
 
         On("disconnect", (e) => {

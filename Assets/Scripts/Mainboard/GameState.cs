@@ -9,7 +9,8 @@ using System.IO;
 public enum CurrentGameState
 {
     none, 
-    restarting, 
+    restarting,
+    restarted,  
     blueTurn,
     redTurn,
     blueWins,

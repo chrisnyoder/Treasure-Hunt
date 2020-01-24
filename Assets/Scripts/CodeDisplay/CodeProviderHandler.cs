@@ -110,14 +110,30 @@ public class CodeProviderHandler : CodeHandlerAbstract
         searchingForRoom = false;
         resetSearchingTimer();
 
-        switch(role)
+        // switch (role)
+        // {
+        //     case Role.captain:
+        //         uIManager.GoToHiddenBoard();
+        //         break;
+        //     case Role.crew:
+        //         uIManager.GoToMainBoardAsCrew();
+        //         break;
+        // }
+
+        StartCoroutine(goToScene(role));
+    }
+
+    IEnumerator goToScene(Role role)
+    {
+        yield return new WaitForSeconds(0.3f);
+        switch (role)
         {
             case Role.captain:
                 uIManager.GoToHiddenBoard();
                 break;
             case Role.crew:
                 uIManager.GoToMainBoardAsCrew();
-                break;   
+                break;
         }
     }
 

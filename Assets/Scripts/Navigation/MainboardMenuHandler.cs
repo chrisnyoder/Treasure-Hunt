@@ -36,7 +36,7 @@ public class MainboardMenuHandler : MonoBehaviour
         if(restartIcon != null)
         {
             restartIcon.anchoredPosition = new Vector2(0, 0);
-            icons.Add(restartIcon);
+            icons.Insert(icons.Count-1, restartIcon);
         }
     }
 

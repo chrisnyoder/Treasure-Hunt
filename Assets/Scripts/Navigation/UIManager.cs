@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
 
         hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() =>
         {
-            SceneManager.LoadScene("JoinMainBoardContainer");
+            SceneManager.LoadSceneAsync("JoinMainBoardContainer");
         });
     }
 

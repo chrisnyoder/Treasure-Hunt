@@ -10,77 +10,94 @@ public class CrewGameUpdateHandler : MonoBehaviour
     JoinGameNetworkingClient joinGameNetworkingClient;
     WordsSelectedAsObject wordsSelectedOnBoard;
     GameState crewMemberGameState; 
-    CurrentGameState crewMemberCurrentGameState = CurrentGameState.blueTurn; 
+    CurrentGameState crewMemberCurrentGameState = CurrentGameState.none; 
 
     public GameObject EoGCanvas;
     public GameObject restartingCanvas; 
     private Vector2 initialMainboardPos; 
     private Vector2 initialRestartCanvasPos; 
 
-    CardFlipHandler[] cards;
+    private bool gameSetUp = false; 
+
+    List<CardFlipHandler> cards;
     public BoardLayoutScript boardLayoutScript;
+
+    // private void Awake() {
+    //     print("awake function being called on gameobject: " + gameObject.name + " " + gameObject.GetInstanceID());
+    // }
 
     private void Start() 
     {
         initialMainboardPos = gameObject.GetComponent<RectTransform>().anchoredPosition;
         initialRestartCanvasPos = restartingCanvas.GetComponent<RectTransform>().anchoredPosition;
+        print("name of game object");
+        print(gameObject.name);
     }
 
     private void Update() 
     {
+        
         if(wordsSelectedOnBoard.allWordsSelected != joinGameNetworkingClient.wordsSelected.allWordsSelected)
         {
+            print("words seleted are different, updating");
             wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.wordsSelected.allWordsSelected;
             updateWordsSelected();
         }
 
-        if(crewMemberGameState != joinGameNetworkingClient.networkedGameState)
-        {
-            setUpMainBoardForCrewMember();
-        }
-
         if(crewMemberCurrentGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
         {
-            var gameStateFromServer = joinGameNetworkingClient.networkedGameState.currentGameState;
+            var currentGameStateFromServer = joinGameNetworkingClient.networkedGameState.currentGameState;
+            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
 
-            print("current game state: " + crewMemberCurrentGameState);
-            print("incoming game state: " + gameStateFromServer);
-            
-            if(gameStateFromServer == CurrentGameState.blueTurn || gameStateFromServer == CurrentGameState.redTurn)
+            switch(currentGameStateFromServer)
             {
-                print("game state either red or blue, changing turns");
-                boardLayoutScript.endTurnHandler.changeTurnTo(gameStateFromServer);
-                boardLayoutScript.endTurnHandler.gameState.currentGameState = gameStateFromServer;
+                case CurrentGameState.blueTurn:
+                    boardLayoutScript.endTurnHandler.changeTurnTo(currentGameStateFromServer);
+                    boardLayoutScript.endTurnHandler.gameState.currentGameState = currentGameStateFromServer;
+                    break;
+                case CurrentGameState.redTurn:
+                    boardLayoutScript.endTurnHandler.changeTurnTo(currentGameStateFromServer);
+                    boardLayoutScript.endTurnHandler.gameState.currentGameState = currentGameStateFromServer;
+                    break;
+                case CurrentGameState.blueWins:
+                    break;
+                case CurrentGameState.redWins:
+                    break;
+                case CurrentGameState.loses:
+                    break;
+                case CurrentGameState.restarting:
+                    gameSetUp = false; 
+                    var mainBoardRT = gameObject.GetComponent<RectTransform>();
+                    mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
+
+                    restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
+                    {
+                        restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
+                    });
+
+                    exitResultsCavnas();
+                    break;
+                case CurrentGameState.restarted:
+                    restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
+                    {
+                        restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
+                    });
+                    break;
             }
 
-            if(gameStateFromServer == CurrentGameState.restarting)
+            if(crewMemberGameState != joinGameNetworkingClient.networkedGameState)
             {
-                var mainBoardRT = gameObject.GetComponent<RectTransform>();
-                mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
-
-                var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
-                restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
-                {
-                    restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
-                });
-
-                exitResultsCavnas();
-            } else 
-            {
-                var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
-                restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
-                {
-                    restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
-                });
+                if(crewMemberGameState != null)
+                {   
+                    print("game state different, setting up crew board");
+                    print("crew member game state: " + crewMemberGameState.currentGameState);
+                    print("networked game state: " + joinGameNetworkingClient.networkedGameState.currentGameState);
+                    setUpMainBoardForCrewMember();
+                }
             }
 
-            crewMemberCurrentGameState = gameStateFromServer;
+            crewMemberCurrentGameState = currentGameStateFromServer;
         }   
-
-        if(joinGameNetworkingClient.roomId != joinGameNetworkingClient.codeDisplay.connectionCodeText.text && joinGameNetworkingClient.isConnected)
-        {
-            joinGameNetworkingClient.codeDisplay.updateConnectionCode(joinGameNetworkingClient.roomId);
-        }
     }
 
     private void updateWordsSelected()
@@ -89,7 +106,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
         {
             if (wordsSelectedOnBoard.allWordsSelected.Contains(card.cardText) && !card.cardAlreadyFlipped)
             {
-                card.FlipCard();
+                card.flipCard();
             }
         }
     }
@@ -115,29 +132,43 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
     private void setUpMainBoardForCrewMember()
     {
-        if (joinGameNetworkingClient.networkedGameState.hiddenBoardList.Count > 0)
+        if(!gameSetUp)
         {
-            wordsSelectedOnBoard = new WordsSelectedAsObject();
-            wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.networkedGameState.wordsAlreadySelected;
-
-            crewMemberGameState = joinGameNetworkingClient.networkedGameState;
-            crewMemberCurrentGameState = crewMemberGameState.currentGameState;
-            boardLayoutScript.receiveGameStateObject(crewMemberGameState);
+            print("game has been set up: " + gameSetUp);
+            gameSetUp = true;
+            print("Game has not been set up and so crew set up function being called");
             
-            boardLayoutScript.runMainBoardAnimation();
 
-            cards = gameObject.GetComponentsInChildren<CardFlipHandler>();
-
-            if(cards.Length > 0) 
+            if (joinGameNetworkingClient.networkedGameState.hiddenBoardList.Count > 0)
             {
-                foreach (CardFlipHandler card in cards)
+                wordsSelectedOnBoard = new WordsSelectedAsObject();
+                wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.networkedGameState.wordsAlreadySelected;
+
+                crewMemberGameState = joinGameNetworkingClient.networkedGameState;
+                crewMemberCurrentGameState = crewMemberGameState.currentGameState;
+                boardLayoutScript.receiveGameStateObject(crewMemberGameState);
+
+                boardLayoutScript.runMainBoardAnimation();
+
+                if (cards != null)
                 {
-                    card.cardAlreadyFlipped = false;
+                    cards.Clear();
+                }
+
+                cards = new List<CardFlipHandler>(gameObject.GetComponentsInChildren<CardFlipHandler>());
+
+                print("the number of cards is: " + cards.Count);
+
+                if (cards.Count > 0)
+                {
+                    foreach (CardFlipHandler card in cards)
+                    {
+                        card.cardAlreadyFlipped = false;
+                    }
                 }
             }
-        }
-
-        exitResultsCavnas();
+            exitResultsCavnas();    
+        }      
     }
 
     private void exitResultsCavnas()
