@@ -22,9 +22,9 @@ public class CrewGameUpdateHandler : MonoBehaviour
     List<CardFlipHandler> cards;
     public BoardLayoutScript boardLayoutScript;
 
-    // private void Awake() {
-    //     print("awake function being called on gameobject: " + gameObject.name + " " + gameObject.GetInstanceID());
-    // }
+    private void Awake() {
+        print("awake function being called on gameobject: " + gameObject.name + " " + gameObject.GetInstanceID());
+    }
 
     private void Start() 
     {
