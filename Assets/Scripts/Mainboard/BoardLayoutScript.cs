@@ -301,6 +301,7 @@ public class BoardLayoutScript : MonoBehaviour
             }
 
             codeTabScript.displayRoomId();
+            menuParentRT.gameObject.SetActive(true);
 
             print("run main board animation completion handler called");
         });

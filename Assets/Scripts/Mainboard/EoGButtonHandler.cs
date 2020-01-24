@@ -25,7 +25,7 @@ public class EoGButtonHandler : MonoBehaviour
         var mainBoardrt = MainBoardCanvasObject.GetComponent<RectTransform>();
         mainBoardrt.DOAnchorPosY(-1500, 0.7f, false);
 
-        mainBoardNetworkingClient.initialGameState.currentGameState = CurrentGameState.restarting;
+        mainBoardNetworkingClient.networkedGameState.currentGameState = CurrentGameState.restarting;
         mainBoardNetworkingClient.sendCurrentGameState(CurrentGameState.restarting);
         mainBoardNetworkingClient.dictionarySent = false;
         endTurn.resetImages();

@@ -34,21 +34,21 @@ public class CrewGameUpdateHandler : MonoBehaviour
             updateWordsSelected();
         }
 
-        if(crewMemberGameState != joinGameNetworkingClient.initialGameState)
+        if(crewMemberGameState != joinGameNetworkingClient.networkedGameState)
         {
             setUpMainBoardForCrewMember();
         }
 
-        if(crewMemberCurrentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
+        if(crewMemberCurrentGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
         {
-            var gameStateFromServer = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
+            var gameStateFromServer = joinGameNetworkingClient.networkedGameState.currentGameState;
 
             print("current game state: " + crewMemberCurrentGameState);
             print("incoming game state: " + gameStateFromServer);
             
             if(gameStateFromServer == CurrentGameState.blueTurn || gameStateFromServer == CurrentGameState.redTurn)
             {
-                boardLayoutScript.endTurnHandler.changeTurns();
+                boardLayoutScript.endTurnHandler.changeTurnTo(gameStateFromServer);
                 boardLayoutScript.endTurnHandler.gameState.currentGameState = gameStateFromServer;
             }
 
@@ -114,12 +114,12 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
     private void setUpMainBoardForCrewMember()
     {
-        if (joinGameNetworkingClient.initialGameState.hiddenBoardList.Count > 0)
+        if (joinGameNetworkingClient.networkedGameState.hiddenBoardList.Count > 0)
         {
             wordsSelectedOnBoard = new WordsSelectedAsObject();
-            wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.initialGameState.wordsAlreadySelected;
+            wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.networkedGameState.wordsAlreadySelected;
 
-            crewMemberGameState = joinGameNetworkingClient.initialGameState;
+            crewMemberGameState = joinGameNetworkingClient.networkedGameState;
             crewMemberCurrentGameState = crewMemberGameState.currentGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
             

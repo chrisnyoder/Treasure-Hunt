@@ -22,22 +22,30 @@ public class EndTurnHandler : MonoBehaviour
         timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
     }
 
-    public void changeTurns()
+    public void toggleTurns()
     {
         switch (gameState.currentGameState)
         {
             case CurrentGameState.redTurn:
-                gameState.currentGameState = CurrentGameState.blueTurn;
+                changeTurnTo(CurrentGameState.blueTurn);
                 break;
             case CurrentGameState.blueTurn:
-                gameState.currentGameState = CurrentGameState.redTurn;
+                changeTurnTo(CurrentGameState.redTurn);
                 break;
             default:
-                gameState.currentGameState = CurrentGameState.blueTurn;
-                break; 
+                changeTurnTo(CurrentGameState.blueTurn);
+                break;
         }
-        turnIndicator.displayTurn(gameState.currentGameState);
-        timer.timerStarted = false;
+    }
+
+    public void changeTurnTo(CurrentGameState newGameState)
+    {
+        if(gameState.currentGameState != newGameState)
+        {
+            timer.timerStarted = false;
+            turnIndicator.displayTurn(newGameState);
+        }
+        gameState.currentGameState = newGameState;
     }
 
     public void sendTurnChangeToClients()
@@ -49,8 +57,8 @@ public class EndTurnHandler : MonoBehaviour
     {
         if(timer.timerStarted && timer.secondsElapsed >= 180)
         {
-            changeTurns();
+            toggleTurns();
             sendTurnChangeToClients();
-        }    
+        }
     }
 }
