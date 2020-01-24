@@ -43,7 +43,7 @@ public class GameCreationScript : MonoBehaviour
 
         boardLayoutScript.receiveGameStateObject(initialGameState);
 
-        networkingClient.initialGameState = initialGameState;
+        networkingClient.networkedGameState = initialGameState;
         codeDisplayHandler.displayWaitingForGameIndicator();
 
         var storeCanvasAnimator = GameObject.Find("StoreCanvas").GetComponent<Animator>();

@@ -11,6 +11,8 @@ public class MainBoardNetworkingClient : WSNetworkingClient
 {
     public CodeTabScript codeTab;
     public GameObject collectionView; 
+    public EndTurnHandler endTurn;
+    private CurrentGameState _previousGameState = CurrentGameState.none; 
 
     [HideInInspector]
     public ConnectionCodeAsObject connectionCodeAsObject;
@@ -22,7 +24,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
     // Start is called before the first frame update
     public override void Start()
     {
-        initialGameState = null;
+        networkedGameState = null;
 
         base.Start();
         setupEvents();
@@ -34,13 +36,26 @@ public class MainBoardNetworkingClient : WSNetworkingClient
     {
         base.Update(); 
     
-        if (isConnected == true && initialGameState != null && !string.IsNullOrEmpty(roomId))
+        if (isConnected == true && networkedGameState != null && !string.IsNullOrEmpty(roomId))
         {
-            if (!dictionarySent && initialGameState.hiddenBoardList.Count > 0 && initialGameState.currentGameState != CurrentGameState.restarting)
+            if (!dictionarySent && networkedGameState.hiddenBoardList.Count > 0 && networkedGameState.currentGameState != CurrentGameState.restarting)
             {
                 print("about to send dictionary");
                 sendGameDictionary();
                 dictionarySent = true;
+            }
+        }
+
+        if(networkedGameState != null)
+        {
+            if(_previousGameState != networkedGameState.currentGameState)
+            {
+                var gamerServerState = networkedGameState.currentGameState;
+                if(gamerServerState == CurrentGameState.blueTurn || gamerServerState == CurrentGameState.redTurn)
+                {
+                    endTurn.changeTurnTo(gamerServerState);
+                }
+                _previousGameState = networkedGameState.currentGameState;
             }
         }
     }
@@ -109,7 +124,12 @@ public class MainBoardNetworkingClient : WSNetworkingClient
             }
         });
 
-        On("newGameState", (newGameState) => {} );
+        On("newGameState", (newGameState) => 
+        {
+            CurrentGameStateAsObject currentGameStateAsObject = new CurrentGameStateAsObject(CurrentGameState.none);
+            currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(newGameState.data.ToString());
+            networkedGameState.currentGameState = currentGameStateAsObject.currentGameState;
+        });
 
         On("timer", (timerData) => 
         {

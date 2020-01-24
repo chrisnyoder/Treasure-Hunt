@@ -12,8 +12,13 @@ public class MainboardMenuHandler : MonoBehaviour
     public RectTransform exitIcon;
     public RectTransform restartIcon;
 
+    private int iconDistanceFromOrigin = -130;
+    private List<RectTransform> icons; 
+
     private void Awake() 
     {
+        gameObject.SetActive(false);
+
         if(GlobalDefaults.Instance.isTablet)
         {
             pulloutIcon.transform.Rotate(0, 0, 270);
@@ -25,48 +30,56 @@ public class MainboardMenuHandler : MonoBehaviour
         musicIcon.anchoredPosition = new Vector2(0, 0);
         pauseIcon.anchoredPosition = new Vector2(0, 0);
         exitIcon.anchoredPosition = new Vector2(0, 0);
-        restartIcon.anchoredPosition = new Vector2(0, 0);
+
+        icons = new List<RectTransform>() {musicIcon, pauseIcon, exitIcon};
+
+        if(restartIcon != null)
+        {
+            restartIcon.anchoredPosition = new Vector2(0, 0);
+            icons.Add(restartIcon);
+        }
     }
 
     public void toggleMenu()
     {
+        Sequence s = DOTween.Sequence();
+
         if(GlobalDefaults.Instance.isTablet)
         {
             if (musicIcon.anchoredPosition.x == 0)
             {
-                Sequence s = DOTween.Sequence();
-                s.Join(musicIcon.DOAnchorPosX(-130, 0.3f, false));
-                s.Join(pauseIcon.DOAnchorPosX(-250, 0.3f, false));
-                s.Join(restartIcon.DOAnchorPosX(-370, 0.3f, false));
-                s.Join(exitIcon.DOAnchorPosX(- 490, 0.3f, false));
+                foreach(RectTransform icon in icons)
+                {
+                    s.Join(icon.DOAnchorPosX(iconDistanceFromOrigin, 0.3f, false));
+                    iconDistanceFromOrigin -= 130;
+                }
             }
             else
             {
-                Sequence s = DOTween.Sequence();
-                s.Join(musicIcon.DOAnchorPosX(0, 0.3f, false));
-                s.Join(pauseIcon.DOAnchorPosX(0, 0.3f, false));
-                s.Join(restartIcon.DOAnchorPosX(0, 0.3f, false)); 
-                s.Join(exitIcon.DOAnchorPosX(0, 0.3f, false));
+                foreach (RectTransform icon in icons)
+                {
+                    s.Join(icon.DOAnchorPosX(0, 0.3f, false));
+                }
             }
         }
         else
         {
             if (musicIcon.anchoredPosition.y == 0)
             {
-                Sequence s = DOTween.Sequence();
-                s.Join(musicIcon.DOAnchorPosY(-130, 0.3f, false));
-                s.Join(pauseIcon.DOAnchorPosY(-250, 0.3f, false));
-                s.Join(restartIcon.DOAnchorPosY(-370, 0.3f, false));
-                s.Join(exitIcon.DOAnchorPosY(-490, 0.3f, false));
+                foreach (RectTransform icon in icons)
+                {
+                    s.Join(icon.DOAnchorPosY(iconDistanceFromOrigin, 0.3f, false));
+                    iconDistanceFromOrigin -= 130;
+                }
             }
             else
             {
-                Sequence s = DOTween.Sequence();
-                s.Join(musicIcon.DOAnchorPosY(0, 0.3f, false));
-                s.Join(pauseIcon.DOAnchorPosY(0, 0.3f, false));
-                s.Join(restartIcon.DOAnchorPosY(0, 0.3f, false));
-                s.Join(exitIcon.DOAnchorPosY(0, 0.3f, false));
+                foreach (RectTransform icon in icons)
+                {
+                    s.Join(icon.DOAnchorPosY(0, 0.3f, false));
+                }
             }
-        }    
+        }
+        iconDistanceFromOrigin = -130;
     }
 }

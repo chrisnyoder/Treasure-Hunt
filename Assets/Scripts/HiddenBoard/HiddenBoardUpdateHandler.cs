@@ -14,7 +14,7 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
     private Vector2 initialRestartCanvasPos;
 
     private List<CardObject> hiddenBoardGameDictionary = new List<CardObject>(); 
-    private CurrentGameState currentGameState = CurrentGameState.none;
+    private CurrentGameState _hiddenBoardGameState = CurrentGameState.none;
     private List<string> wordsSelected = new List<string>(){};  
     private JoinGameNetworkingClient joinGameNetworkingClient;
 
@@ -34,10 +34,10 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
     {
         if(joinGameNetworkingClient != null) 
         {
-            if (hiddenBoardGameDictionary != joinGameNetworkingClient.initialGameState.hiddenBoardList)
+            if (hiddenBoardGameDictionary != joinGameNetworkingClient.networkedGameState.hiddenBoardList)
             {
                 print("hidden board is different");
-                hiddenBoardGameDictionary = joinGameNetworkingClient.initialGameState.hiddenBoardList;
+                hiddenBoardGameDictionary = joinGameNetworkingClient.networkedGameState.hiddenBoardList;
                 hiddenBoardViewController.wordSelected(wordsSelected);
                 setUpHiddenBoard();
             }
@@ -49,12 +49,12 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
                 hiddenBoardViewController.wordSelected(wordsSelected);
             }
 
-            if (currentGameState != joinGameNetworkingClient.currentGameStateAsObject.currentGameState)
+            if (_hiddenBoardGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
             {
-                print("current game state: " + currentGameState);
-                print("new game state: " + joinGameNetworkingClient.currentGameStateAsObject.currentGameState);
-                currentGameState = joinGameNetworkingClient.currentGameStateAsObject.currentGameState;
-                hiddenBoardViewController.gameStateChanged(currentGameState);
+                print("current game state: " + _hiddenBoardGameState);
+                print("new game state: " + joinGameNetworkingClient.networkedGameState.currentGameState);
+                _hiddenBoardGameState = joinGameNetworkingClient.networkedGameState.currentGameState;
+                hiddenBoardViewController.gameStateChanged(_hiddenBoardGameState);
             }
         }
     }
@@ -69,7 +69,8 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
         }
         
         hiddenBoardViewController.initializeHiddenBoard(joinGameNetworkingClient.tab);
-        hiddenBoardGameDictionary = joinGameNetworkingClient.initialGameState.hiddenBoardList;
+        _hiddenBoardGameState = joinGameNetworkingClient.networkedGameState.currentGameState;
+        hiddenBoardGameDictionary = joinGameNetworkingClient.networkedGameState.hiddenBoardList;
         hiddenBoardViewController.wordsSelected = wordsSelected;
 
         setUpHiddenBoard();
@@ -79,14 +80,14 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
 
     private void setUpHiddenBoard()
     {
-        if (joinGameNetworkingClient.initialGameState.hiddenBoardList.Count > 0)
+        if (joinGameNetworkingClient.networkedGameState.hiddenBoardList.Count > 0)
         {
             var tmpBlueWords = new List<string>();
             var tmpRedWords = new List<string>();
             var tmpNeutralWords = new List<string>();
             var tmpShipwreck = new List<string>();
 
-            foreach (var card in joinGameNetworkingClient.initialGameState.hiddenBoardList)
+            foreach (var card in joinGameNetworkingClient.networkedGameState.hiddenBoardList)
             {
                 if (card.cardType == CardType.blueCard) { tmpBlueWords.Add(card.labelText); }
                 if (card.cardType == CardType.redCard) { tmpRedWords.Add(card.labelText); }

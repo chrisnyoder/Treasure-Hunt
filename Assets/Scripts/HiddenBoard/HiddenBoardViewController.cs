@@ -221,7 +221,7 @@ public class HiddenBoardViewController : MonoBehaviour
 
     private void setStrikethroughsOnWords()
     {
-        foreach (GameObject textObject in textObjects)
+        foreach(GameObject textObject in textObjects)
         {
             var strikethroughImage = textObject.GetComponentInChildren<Image>();
             var wordOnHiddenboard = textObject.GetComponent<Text>();
@@ -283,12 +283,16 @@ public class HiddenBoardViewController : MonoBehaviour
     {
         switch(newGameState) 
         {
+            case CurrentGameState.none:
+                getTextObjectSize();
+                break;
             case CurrentGameState.restarting:
                 restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
                 {
                     restartingCanvasRt.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
                 });
                 moveResultsCanvasToOriginalPosition();
+                wordsSelected.Clear();
                 break; 
             case CurrentGameState.blueTurn:
                 moveRestartCanvasToOriginalPosition();

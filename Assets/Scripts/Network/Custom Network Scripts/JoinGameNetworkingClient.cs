@@ -68,11 +68,11 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         });
 
         On("gameDictionary", (dictionary) => {
-            initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
-            mainBoardRunningTutorial = initialGameState.isTutorial;
-            wordsSelected.allWordsSelected = initialGameState.wordsAlreadySelected; 
+            networkedGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
+            mainBoardRunningTutorial = networkedGameState.isTutorial;
+            wordsSelected.allWordsSelected = networkedGameState.wordsAlreadySelected; 
 
-            if (initialGameState.playerIndex == 1)
+            if (networkedGameState.playerIndex == 1)
             {
                 team = Team.RedTeam;
                 tab = Tabs.RedTab;
@@ -85,8 +85,11 @@ public class JoinGameNetworkingClient : WSNetworkingClient
             base.wordsSelected = JsonUtility.FromJson<WordsSelectedAsObject>(wordsSelected.data.ToString());
         });
 
-        On("newGameState", (gameState) => {   
-            currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());  
+        On("newGameState", (gameState) => {
+            CurrentGameStateAsObject currentGameStateAsObject = new CurrentGameStateAsObject(CurrentGameState.none);
+            currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
+            print("new game state received in join game client: " + currentGameStateAsObject.currentGameState);
+            networkedGameState.currentGameState = currentGameStateAsObject.currentGameState;
         });
 
         On("disconnect", (e) => {

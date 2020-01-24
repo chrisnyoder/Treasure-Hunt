@@ -24,7 +24,8 @@ public class CodeDisplayHandler : CodeHandlerAbstract
     private bool waitingForCodeTimedOut = false;
 
     void Start()
-    {    
+    {
+        beginButton.SetActive(false);
         checkIfTutorialOn();
         initialTextBoxSize = gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta;
         playerTag.SetActive(false);
@@ -46,6 +47,7 @@ public class CodeDisplayHandler : CodeHandlerAbstract
     {
         if(codeRecieved)
         {
+            beginButton.SetActive(true);
             hideWaitingForGameIdIndicator();
         } else 
         {
@@ -59,7 +61,6 @@ public class CodeDisplayHandler : CodeHandlerAbstract
         if(waitingForCodeTimedOut)
         {
             spinner.SetActive(false);
-            beginButton.SetActive(false);
             goBackButton.SetActive(true);
             gameIdText.text = "We couldn't get a game ID. This might be a problem with our server or your internet connection";
             gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta = (initialTextBoxSize * 1.5f);
@@ -116,7 +117,7 @@ public class CodeDisplayHandler : CodeHandlerAbstract
 
     private void setBeginGameButtonToActive()
     {
-        if(!GlobalDefaults.Instance.tutorialIsOn)
+        if(!GlobalDefaults.Instance.tutorialIsOn && codeRecieved)
             beginButton.SetActive(true);
     }
 }
