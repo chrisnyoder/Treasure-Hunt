@@ -89,17 +89,25 @@ public class CardFlipHandler : MonoBehaviour
             case CardType.blueCard:
                 if (gameState.currentGameState == CurrentGameState.redTurn)
                 {
-                    endTurnHandler.changeTurns();
+                    endTurnHandler.changeTurnTo(CurrentGameState.blueTurn);
                 }
                 break;
             case CardType.redCard:
                 if (gameState.currentGameState == CurrentGameState.blueTurn)
                 {
-                    endTurnHandler.changeTurns();
+                    endTurnHandler.changeTurnTo(CurrentGameState.redTurn);
                 }
                 break;
             case CardType.neutralCard:
-                endTurnHandler.changeTurns();
+                switch(gameState.currentGameState)
+                {
+                    case CurrentGameState.blueTurn:
+                        endTurnHandler.changeTurnTo(CurrentGameState.redTurn);
+                        break;
+                    case CurrentGameState.redTurn:
+                        endTurnHandler.changeTurnTo(CurrentGameState.blueTurn);
+                        break;
+                }
                 break;
         }
     }
