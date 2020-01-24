@@ -227,7 +227,7 @@ public class BoardLayoutScript : MonoBehaviour
 
     private void layoutForNotchedDevices()
     {
-        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 120, menuParentRT.localPosition.y);
+        menuParentRT.localPosition = new Vector2(menuParentRT.localPosition.x - 90, menuParentRT.localPosition.y);
         roomCodeRT.localPosition = new Vector2(roomCodeRT.localPosition.x - 120, roomCodeRT.localPosition.y);
     }
 
@@ -301,6 +301,7 @@ public class BoardLayoutScript : MonoBehaviour
             }
 
             codeTabScript.displayRoomId();
+            menuParentRT.gameObject.SetActive(true);
 
             print("run main board animation completion handler called");
         });

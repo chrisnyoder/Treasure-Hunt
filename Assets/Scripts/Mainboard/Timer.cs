@@ -39,7 +39,7 @@ public class Timer : MonoBehaviour
     {
         if (networkingClient.timerObject != null)
         {
-            if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 16 && timerStarted)
+            if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 5 && timerStarted)
             {
                 print("timer on server is: " + float.Parse(networkingClient.timerObject.timeTakenOnTurn) + " timer on client is " + secondsElapsed);
                 secondsElapsed = float.Parse(networkingClient.timerObject.timeTakenOnTurn);

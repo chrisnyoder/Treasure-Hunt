@@ -8,11 +8,9 @@ using System.Linq;
 public abstract class WSNetworkingClient : SocketIOComponent
 {
     protected CodeHandlerAbstract codeHandler; 
-    public GameState initialGameState;
+    public GameState networkedGameState;
     public WordsSelectedAsObject wordsSelected = new WordsSelectedAsObject();
-    public TimerAsObject timer = new TimerAsObject();
-    public CurrentGameStateAsObject currentGameStateAsObject;
-    public TimerAsObject timerObject;
+    public TimerAsObject timerObject = new TimerAsObject();
     public string roomId; 
 
     public List<string> wordsSelectedQueue = new List<string>(){}; 
@@ -80,7 +78,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
         On("gameDictionary", (dictionary) =>
         {
-            initialGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
+            networkedGameState = JsonUtility.FromJson<GameState>(dictionary.data.ToString());
         });
 
         On("wordsSelected", (wordsSelected) =>
@@ -90,19 +88,16 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
         On("newGameState", (gameState) =>
         {
-            print("game state received via ws networking client " + gameState.data.ToString());
-            currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
         });
 
         On("timer", (timerData) => 
         {
-            timer = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
         });
     }
 
     public virtual void sendGameDictionary()
     {
-        var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(initialGameState));
+        var gameStateAsJSONObject = new JSONObject(JsonUtility.ToJson(networkedGameState));
 
         if(isConnected)
             Emit("gameDictionary", gameStateAsJSONObject);
