@@ -52,7 +52,6 @@ public class CardFlipHandler : MonoBehaviour
             cardAlreadyFlipped = true;
             tallyScore();
             playFirstHalfOfCardFlipAnimation();
-            timer.timerStarted = false; 
         }
     }
 
@@ -66,6 +65,7 @@ public class CardFlipHandler : MonoBehaviour
                 scoreDisplay.displayScore();
                 if (gameState.blueTeamScore >= 8)
                 {
+                    timer.timerStarted = false;
                     gameState.currentGameState = CurrentGameState.blueWins;
                     StartCoroutine(LaunchEoGAfterDelay());
                 }
@@ -76,6 +76,7 @@ public class CardFlipHandler : MonoBehaviour
                 scoreDisplay.displayScore();
                 if (gameState.redTeamScore >= 7)
                 {
+                    timer.timerStarted = false;
                     gameState.currentGameState = CurrentGameState.redWins;
                     StartCoroutine(LaunchEoGAfterDelay());
                 }
@@ -85,6 +86,7 @@ public class CardFlipHandler : MonoBehaviour
                 break;
             case CardType.shipwreckCard:
                 GlobalAudioScript.Instance.playSfxSound("sad_violin");
+                timer.timerStarted = false;
                 gameState.currentGameState = CurrentGameState.loses;
                 StartCoroutine(LaunchEoGAfterDelay());
                 break;
