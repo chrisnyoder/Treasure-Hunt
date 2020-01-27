@@ -110,14 +110,14 @@ public class CodeProviderHandler : CodeHandlerAbstract
         searchingForRoom = false;
         resetSearchingTimer();
 
-        switch(role)
+        switch (role)
         {
             case Role.captain:
                 uIManager.GoToHiddenBoard();
                 break;
             case Role.crew:
                 uIManager.GoToMainBoardAsCrew();
-                break;   
+                break;
         }
     }
 

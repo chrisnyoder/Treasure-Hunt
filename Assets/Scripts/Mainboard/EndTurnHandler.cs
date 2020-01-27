@@ -49,13 +49,4 @@ public class EndTurnHandler : MonoBehaviour
     {
         networkingClient.sendCurrentGameState(gameState.currentGameState);
     }
-
-    private void Update() 
-    {
-        if(timer.timerStarted && timer.secondsElapsed >= 180)
-        {
-            toggleTurns();
-            sendTurnChangeToClients();
-        }
-    }
 }

@@ -28,15 +28,20 @@ public class MainboardMenuHandler : MonoBehaviour
     void Start()
     {
         musicIcon.anchoredPosition = new Vector2(0, 0);
-        pauseIcon.anchoredPosition = new Vector2(0, 0);
         exitIcon.anchoredPosition = new Vector2(0, 0);
 
-        icons = new List<RectTransform>() {musicIcon, pauseIcon, exitIcon};
+        icons = new List<RectTransform>() {musicIcon, exitIcon};
+
+        if (pauseIcon != null)
+        {
+            pauseIcon.anchoredPosition = new Vector2(0, 0);
+            icons.Insert(icons.Count - 1, pauseIcon);
+        }
 
         if(restartIcon != null)
         {
             restartIcon.anchoredPosition = new Vector2(0, 0);
-            icons.Add(restartIcon);
+            icons.Insert(icons.Count-1, restartIcon);
         }
     }
 

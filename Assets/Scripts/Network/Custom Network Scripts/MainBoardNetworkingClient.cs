@@ -40,7 +40,6 @@ public class MainBoardNetworkingClient : WSNetworkingClient
         {
             if (!dictionarySent && networkedGameState.hiddenBoardList.Count > 0 && networkedGameState.currentGameState != CurrentGameState.restarting)
             {
-                print("about to send dictionary");
                 sendGameDictionary();
                 dictionarySent = true;
             }
@@ -118,8 +117,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
             foreach(CardFlipHandler card in cards) {
                 if(wordsSelectedAsObject.allWordsSelected.Contains(card.cardText) && !card.cardAlreadyFlipped) 
                 {
-                    card.FlipCard();
-                    card.changeTurnIfNecessary();
+                    card.flipCard();
                 }
             }
         });

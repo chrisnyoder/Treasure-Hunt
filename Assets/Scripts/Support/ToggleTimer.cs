@@ -20,21 +20,17 @@ public class ToggleTimer : MonoBehaviour
 
     private void pauseGameCallback(JSONObject data)
     {
-        if (timer.timerStarted)
+        if(timer.timerPaused)
         {
-            timer.timerStarted = false;
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon_selected");
+            timer.timerPaused = false;
+            networkingClient.gamePaused = false; 
+            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon");
         }
         else
         {
-            timer.timerStarted = true;
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon");
+            timer.timerPaused = true;
+            networkingClient.gamePaused = true; 
+            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon_selected");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

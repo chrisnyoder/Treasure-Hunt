@@ -309,12 +309,15 @@ public class HiddenBoardViewController : MonoBehaviour
                 break;
             case CurrentGameState.blueWins:
                 eoGScript.DisplayEOGCanvas(newGameState);
+                timer.timerStarted = false; 
                 break;
             case CurrentGameState.redWins:
                 eoGScript.DisplayEOGCanvas(newGameState);
+                timer.timerStarted = false;
                 break;
             case CurrentGameState.loses:
                 eoGScript.DisplayEOGCanvas(newGameState);
+                timer.timerStarted = false;
                 break; 
         }
     }
@@ -345,7 +348,6 @@ public class HiddenBoardViewController : MonoBehaviour
 
     private void moveRestartCanvasToOriginalPosition()
     {
-        print("resarting canvas moving function being called");
         restartingCanvasRt = restartingCanvasRt.GetComponent<RectTransform>();
         restartingCanvasRt.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
         {

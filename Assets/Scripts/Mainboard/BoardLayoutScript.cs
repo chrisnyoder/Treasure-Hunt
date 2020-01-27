@@ -100,7 +100,6 @@ public class BoardLayoutScript : MonoBehaviour
     {
         if(isTablet)
         {
-            print("is tablet");
             boardWidth = mainBoardRT.rect.width;
             cardWidth = (boardWidth * 0.9f) / 5;
             cardHeight = (float)(cardWidth*0.6316);
@@ -110,7 +109,6 @@ public class BoardLayoutScript : MonoBehaviour
         }
         else
         {
-            print("is phone");
             boardHeight = mainBoardRT.rect.height;
             cardHeight = (boardHeight*0.9f) / 5;
             cardWidth = (float)(cardHeight * 1.583);
@@ -128,17 +126,23 @@ public class BoardLayoutScript : MonoBehaviour
     void createCardPrefabs()
     {
         buttonParentObject.SetActive(true);
+
+        Debug.Log("objects being destroyed");
+
         if (cardPositions == null)
         {
             cardPositions = new RectTransform[numberOfCards];
         } 
-            else
+        else
         {
+            Debug.Log("number of objects in the rectransfom array: " + cardPositions.Length);
             foreach(RectTransform rt in cardPositions)
-            {
+            { 
                 Destroy(rt.gameObject);
             }
         }
+
+        Debug.Log("creating cards");
     
         for (int n = 0; n < numberOfCards; ++n)
         {
@@ -161,6 +165,8 @@ public class BoardLayoutScript : MonoBehaviour
                 buttonData.startCardFaceUp();
             }
         }
+
+        Debug.Log("objects being destroyed");
 
         layoutCards();
     }
@@ -270,14 +276,11 @@ public class BoardLayoutScript : MonoBehaviour
             codeDisplayRT.GetComponent<Image>().DOFade(0, 0.3f);
         }
 
-        _initialGameState.currentGameState = CurrentGameState.blueTurn;
-        networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
-        turnIndicator.displayTurn(_initialGameState.currentGameState);
+        startGame();
     }
 
     public void runMainBoardAnimation()
     {
-        print("run main board function being called");
         var codeDisplayBackground = GameObject.Find("CodeDisplayBackground");
         var mainBoardRT = GameObject.Find("MainBoardCanvas").GetComponent<RectTransform>();
         
@@ -294,21 +297,36 @@ public class BoardLayoutScript : MonoBehaviour
 
             if(codeDisplayRT == null)
             {
-                // turnIndicator.displayTurn(_initialGameState.currentGameState);
+                if(_initialGameState.currentGameState == CurrentGameState.blueTurn || _initialGameState.currentGameState == CurrentGameState.redTurn) 
+                {
+                    joinGame();
+                }
             } else if(codeDisplayRT.anchoredPosition.y != 0) 
             {
-                // turnIndicator.displayTurn(_initialGameState.currentGameState);
+                startGame();
             }
 
             codeTabScript.displayRoomId();
             menuParentRT.gameObject.SetActive(true);
 
-            print("run main board animation completion handler called");
         });
 
         codeTabScript.displayRoomId();
 
         anim.SetDelay(0.4f);
         anim.Play();
+    }
+
+    private void startGame()
+    {
+        _initialGameState.currentGameState = CurrentGameState.blueTurn;
+        networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
+        turnIndicator.displayTurn(_initialGameState.currentGameState);
+        turnIndicator.beginTimerOnServer();
+    }
+
+    private void joinGame()
+    {
+        turnIndicator.displayTurn(_initialGameState.currentGameState);
     }
 }

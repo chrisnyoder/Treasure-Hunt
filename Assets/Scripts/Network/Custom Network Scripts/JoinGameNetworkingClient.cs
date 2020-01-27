@@ -78,7 +78,13 @@ public class JoinGameNetworkingClient : WSNetworkingClient
                 tab = Tabs.RedTab;
             }
 
-            codeProviderHandler.onJoinedRoom(role);
+            if(codeProviderHandler != null)
+            {
+                print("code provider handler is not null");
+                codeProviderHandler.onJoinedRoom(role);
+            } else {
+                Debug.Log("code provider handler is null");
+            }
         });
 
         On("wordsSelected", (wordsSelected) => {
@@ -88,8 +94,8 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         On("newGameState", (gameState) => {
             CurrentGameStateAsObject currentGameStateAsObject = new CurrentGameStateAsObject(CurrentGameState.none);
             currentGameStateAsObject = JsonUtility.FromJson<CurrentGameStateAsObject>(gameState.data.ToString());
-            print("new game state received in join game client: " + currentGameStateAsObject.currentGameState);
             networkedGameState.currentGameState = currentGameStateAsObject.currentGameState;
+            print("new game state received in join game client: " + currentGameStateAsObject.currentGameState);
         });
 
         On("disconnect", (e) => {
@@ -100,6 +106,18 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         On("timer", (timerData) =>
         {
             timerObject = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
+        });
+
+        On("unpausing", (data) =>
+        {
+            print("game unpausing");
+            gamePaused = false;
+        });
+
+        On("pausing", (data) =>
+        {
+            print("game pausing");
+            gamePaused = true; 
         });
     }
 }

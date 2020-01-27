@@ -12,6 +12,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
     public WordsSelectedAsObject wordsSelected = new WordsSelectedAsObject();
     public TimerAsObject timerObject = new TimerAsObject();
     public string roomId; 
+    public bool gamePaused = false; 
 
     public List<string> wordsSelectedQueue = new List<string>(){}; 
 

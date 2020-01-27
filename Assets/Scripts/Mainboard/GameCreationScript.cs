@@ -32,10 +32,11 @@ public class GameCreationScript : MonoBehaviour
         }
 
         initialGameState = new GameState(25, wordPacksToUse);
+        
         if(restarting)
         {
-            initialGameState.currentGameState = CurrentGameState.blueTurn;
-            networkingClient.sendCurrentGameState(CurrentGameState.blueTurn);
+            initialGameState.currentGameState = CurrentGameState.restarted;
+            networkingClient.sendCurrentGameState(CurrentGameState.restarted);
         } else 
         {
             initialGameState.currentGameState = CurrentGameState.none;

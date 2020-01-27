@@ -12,9 +12,12 @@ public class CardFlipHandler : MonoBehaviour
     
     [HideInInspector]
     public bool cardAlreadyFlipped;
+    private bool cardAlreadySentToClient;
     public GameState gameState;
+    private CurrentGameState _previousGameState = CurrentGameState.blueTurn; 
     public EndTurnHandler endTurnHandler;
     public ScoreDisplayHandler scoreDisplay;
+    public Timer timer; 
 
     public CardType cardType;
     public string cardText;
@@ -26,21 +29,30 @@ public class CardFlipHandler : MonoBehaviour
     private void Awake() 
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
-        gameObject.GetComponent<Button>().onClick.AddListener(FlipCard);
-        print("listener added");
         buttonParentObject.GetComponent<EventTrigger>().enabled = false; 
     }
 
-    public void FlipCard()
+    public void selectCardOnBoard()
+    {
+        if (gameState.currentGameState == CurrentGameState.blueTurn || gameState.currentGameState == CurrentGameState.redTurn)
+        {
+            flipCard();
+            changeTurnIfNecessary();
+            sendCardSelectionToClients();
+
+            print("sennding this game state: " + gameState.currentGameState);
+            networkingClient.sendCurrentGameState(gameState.currentGameState);
+        }
+    }
+
+    public void flipCard()
     {
         if(!cardAlreadyFlipped)
         {
             cardAlreadyFlipped = true;
-            if (gameState.currentGameState == CurrentGameState.blueTurn || gameState.currentGameState == CurrentGameState.redTurn)
-            {
-                tallyScore();
-                playFirstHalfOfCardFlipAnimation();
-            }
+            tallyScore();
+            playFirstHalfOfCardFlipAnimation();
+            timer.timerStarted = false; 
         }
     }
 
@@ -78,12 +90,12 @@ public class CardFlipHandler : MonoBehaviour
                 break;
         }
 
-        gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
         gameState.wordsAlreadySelected.Add(cardText);
     }
 
-    public void changeTurnIfNecessary()
+    private void changeTurnIfNecessary()
     {
+        print("changing turns, if necesary");
         switch (cardType)
         {
             case CardType.blueCard:
@@ -110,11 +122,20 @@ public class CardFlipHandler : MonoBehaviour
                 }
                 break;
         }
+
+        sendNewGameStateToClient();
     }
 
-    public void updateClients()
+    private void sendCardSelectionToClients()
     {
-        networkingClient.wordsSelectedQueue.Add(cardText);
+        if(!cardAlreadySentToClient)
+            networkingClient.wordsSelectedQueue.Add(cardText);
+
+        cardAlreadySentToClient = true;
+    }
+
+    private void sendNewGameStateToClient()
+    {
         networkingClient.sendCurrentGameState(gameState.currentGameState);
     }
 
@@ -191,7 +212,7 @@ public class CardFlipHandler : MonoBehaviour
         }
 
         gameObject.GetComponentInChildren<Text>().enabled = false;
-        gameObject.GetComponent<Button>().onClick.RemoveListener(FlipCard);
+        gameObject.GetComponent<Button>().onClick.RemoveListener(flipCard);
         cardAlreadyFlipped = true;
     }
 

@@ -28,10 +28,6 @@ public class TurnIndicatorScript : MonoBehaviour
         turnIndicatorText.gameObject.SetActive(true);
 
         displayTurnIndicators();
-        if (!gameHasStarted)
-        {
-            beginTimerOnServer();
-        }
 
         turnIndicatorBackground.DOFade(0.313f, 1f).SetDelay(1).OnComplete(() => {
             turnIndicatorBackground.DOFade(0, 1f).SetDelay(0.5f).OnComplete(() => {
@@ -67,9 +63,12 @@ public class TurnIndicatorScript : MonoBehaviour
         }
     }
 
-    private void beginTimerOnServer()
+    public void beginTimerOnServer()
     {
-        timer.networkingClient.sendCurrentGameState(CurrentGameState.blueTurn);
-        gameHasStarted = true;
+        if (!gameHasStarted)
+        {
+            timer.networkingClient.sendCurrentGameState(CurrentGameState.blueTurn);
+            gameHasStarted = true;
+        }
     }
 }
