@@ -40,7 +40,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.wordsSelected.allWordsSelected;
             updateWordsSelected();
         }
-
+        
         if(crewMemberCurrentGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
         {
             var currentGameStateFromServer = joinGameNetworkingClient.networkedGameState.currentGameState;

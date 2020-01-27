@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
     public RectTransform parent; 
     public RectTransform mask;
     public bool timerStarted = false; 
+    public bool timerPaused = false; 
 
     public WSNetworkingClient networkingClient;
 
@@ -39,23 +40,28 @@ public class Timer : MonoBehaviour
     {
         if (networkingClient.timerObject != null)
         {
-            if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 5 && timerStarted)
+            if (Mathf.Abs((float.Parse(networkingClient.timerObject.timeTakenOnTurn) - secondsElapsed)) > 5 && timerStarted && !timerPaused)
             {
                 print("timer on server is: " + float.Parse(networkingClient.timerObject.timeTakenOnTurn) + " timer on client is " + secondsElapsed);
                 secondsElapsed = float.Parse(networkingClient.timerObject.timeTakenOnTurn);
             }
         };
 
-        if(timerStarted && secondsElapsed <= 180)
+        if(timerStarted && !timerPaused && secondsElapsed <= 180)
         {
             secondsElapsed += Time.deltaTime;
             float percentTimeLeft = (180 - secondsElapsed) / 180;
             mask.offsetMin = new Vector2(0, parent.sizeDelta.y * percentTimeLeft);
-        } else if(timerStarted && secondsElapsed >= 180) 
+        } else if(timerStarted && secondsElapsed >= 180 && !timerPaused) 
         {
             timerStarted = false;
             resetTimer();
             networkingClient.timerObject.timeTakenOnTurn = "0";
+        }
+
+        if(timerPaused != networkingClient.gamePaused)
+        {
+            timerPaused = networkingClient.gamePaused;
         }
     }
 }

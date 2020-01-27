@@ -107,5 +107,17 @@ public class JoinGameNetworkingClient : WSNetworkingClient
         {
             timerObject = JsonUtility.FromJson<TimerAsObject>(timerData.data.ToString());
         });
+
+        On("unpausing", (data) =>
+        {
+            print("game unpausing");
+            gamePaused = false;
+        });
+
+        On("pausing", (data) =>
+        {
+            print("game pausing");
+            gamePaused = true; 
+        });
     }
 }
