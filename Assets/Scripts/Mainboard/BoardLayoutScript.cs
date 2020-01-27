@@ -297,7 +297,10 @@ public class BoardLayoutScript : MonoBehaviour
 
             if(codeDisplayRT == null)
             {
-                // do nothing
+                if(_initialGameState.currentGameState == CurrentGameState.blueTurn || _initialGameState.currentGameState == CurrentGameState.redTurn) 
+                {
+                    joinGame();
+                }
             } else if(codeDisplayRT.anchoredPosition.y != 0) 
             {
                 startGame();
@@ -318,6 +321,12 @@ public class BoardLayoutScript : MonoBehaviour
     {
         _initialGameState.currentGameState = CurrentGameState.blueTurn;
         networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
+        turnIndicator.displayTurn(_initialGameState.currentGameState);
+        turnIndicator.beginTimerOnServer();
+    }
+
+    private void joinGame()
+    {
         turnIndicator.displayTurn(_initialGameState.currentGameState);
     }
 }

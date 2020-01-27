@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     private Scene scene;
 
     public Canvas backToMainMenuCanvas;
+    public Canvas restartCanvas;
     public Canvas infoPopUp;
     public Image hiddenBoardTransitionImage; 
 
@@ -84,6 +85,30 @@ public class UIManager : MonoBehaviour
             exitPopUpCanvasRT.GetComponent<Image>().DOFade(0.627f, 0.3f).Play();
         }
         );
+    }
+
+    public void bringUpRestartPopUpOnMainboard()
+    {
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
+
+        var restartCanvasRT = restartCanvas.GetComponent<RectTransform>();
+
+        restartCanvasRT.anchoredPosition = new Vector2(0, 1500);
+        restartCanvasRT.DOAnchorPosY(0, 0.7f).Play().OnComplete(() =>
+        {
+            restartCanvasRT.GetComponent<Image>().DOFade(0.627f, 0.3f).Play();
+        }
+        );
+    }
+
+    public void dismissRestartCanvasOnMainboard()
+    {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
+
+        var restartCanvasRT = restartCanvas.GetComponent<RectTransform>();
+
+        restartCanvasRT.DOAnchorPosY(1500, 0.7f).Play();
+        restartCanvasRT.GetComponent<Image>().DOFade(0f, 0.1f).Play();
     }
 
     public void DismissExitMenuPopUpOnMainboard()

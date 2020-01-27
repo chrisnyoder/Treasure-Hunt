@@ -40,7 +40,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.wordsSelected.allWordsSelected;
             updateWordsSelected();
         }
-        
+
         if(crewMemberCurrentGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
         {
             var currentGameStateFromServer = joinGameNetworkingClient.networkedGameState.currentGameState;
@@ -142,7 +142,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             crewMemberCurrentGameState = crewMemberGameState.currentGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
 
-            boardLayoutScript.runMainBoardAnimation();
+            boardLayoutScript.runMainBoardAnimation();            
 
             cards = new List<CardFlipHandler>(gameObject.GetComponentsInChildren<CardFlipHandler>());
 

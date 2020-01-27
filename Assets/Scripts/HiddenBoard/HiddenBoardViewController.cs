@@ -309,12 +309,15 @@ public class HiddenBoardViewController : MonoBehaviour
                 break;
             case CurrentGameState.blueWins:
                 eoGScript.DisplayEOGCanvas(newGameState);
+                timer.timerStarted = false; 
                 break;
             case CurrentGameState.redWins:
                 eoGScript.DisplayEOGCanvas(newGameState);
+                timer.timerStarted = false;
                 break;
             case CurrentGameState.loses:
                 eoGScript.DisplayEOGCanvas(newGameState);
+                timer.timerStarted = false;
                 break; 
         }
     }

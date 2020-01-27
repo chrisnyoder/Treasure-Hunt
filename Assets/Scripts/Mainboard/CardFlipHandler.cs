@@ -17,6 +17,7 @@ public class CardFlipHandler : MonoBehaviour
     private CurrentGameState _previousGameState = CurrentGameState.blueTurn; 
     public EndTurnHandler endTurnHandler;
     public ScoreDisplayHandler scoreDisplay;
+    public Timer timer; 
 
     public CardType cardType;
     public string cardText;
@@ -51,6 +52,7 @@ public class CardFlipHandler : MonoBehaviour
             cardAlreadyFlipped = true;
             tallyScore();
             playFirstHalfOfCardFlipAnimation();
+            timer.timerStarted = false; 
         }
     }
 

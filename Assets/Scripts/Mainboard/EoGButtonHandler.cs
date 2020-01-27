@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class EoGButtonHandler : MonoBehaviour
 {
     public EndTurnHandler endTurn;
+    public GameObject menuParentObject; 
     public Timer timer; 
     public MainBoardNetworkingClient mainBoardNetworkingClient; 
     public CodeTabScript codeTabScript;
@@ -19,6 +20,7 @@ public class EoGButtonHandler : MonoBehaviour
         var StoreCanvasObject = GameObject.Find("StoreCanvas");
         var StoreCanvasAnimator = StoreCanvasObject.GetComponent<Animator>();
         StoreCanvasAnimator.Play("StoreAnimationReverse");
+        menuParentObject.SetActive(false);
     
         var MainBoardCanvasObject = GameObject.Find("MainBoardCanvas");
 

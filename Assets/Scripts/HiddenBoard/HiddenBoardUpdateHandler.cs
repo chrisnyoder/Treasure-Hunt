@@ -70,6 +70,7 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
         
         hiddenBoardViewController.initializeHiddenBoard(joinGameNetworkingClient.tab);
         _hiddenBoardCurrentGameState = joinGameNetworkingClient.networkedGameState.currentGameState;
+        hiddenBoardViewController.gameStateChanged(_hiddenBoardCurrentGameState);
         hiddenBoardGameDictionary = joinGameNetworkingClient.networkedGameState.hiddenBoardList;
         hiddenBoardViewController.wordsSelected = wordsSelected;
 
