@@ -15,6 +15,7 @@ public class GlobalAudioScript : MonoBehaviour
 
     public AudioSource soundfx;
     public AudioSource soundfx2;
+    public AudioSource soundfx3;
     public AudioSource ambientSounds;
     public AudioSource backgroundMusic;
     private AudioClip audioClip;
@@ -38,6 +39,7 @@ public class GlobalAudioScript : MonoBehaviour
         ambientSounds = GetComponents<AudioSource>()[1];
         backgroundMusic = GetComponents<AudioSource>()[2];
         soundfx2 = GetComponents<AudioSource>()[3];
+        soundfx3 = GetComponents<AudioSource>()[4];
 
         playAmbientSounds("jungle_sfx");
 
@@ -70,7 +72,14 @@ public class GlobalAudioScript : MonoBehaviour
         soundfx2.clip = audioClip;
         soundfx2.Play();
     }
-    
+
+    public void playSfxSound3(string soundName)
+    {
+
+        audioClip = (AudioClip)Resources.Load("Audio/" + soundName);
+        soundfx3.clip = audioClip;
+        soundfx3.Play();
+    }
 
     public void toggleMusic()
     {
