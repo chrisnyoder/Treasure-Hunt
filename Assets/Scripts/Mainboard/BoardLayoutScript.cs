@@ -126,17 +126,23 @@ public class BoardLayoutScript : MonoBehaviour
     void createCardPrefabs()
     {
         buttonParentObject.SetActive(true);
+
+        Debug.Log("objects being destroyed");
+
         if (cardPositions == null)
         {
             cardPositions = new RectTransform[numberOfCards];
         } 
         else
         {
+            Debug.Log("number of objects in the rectransfom array: " + cardPositions.Length);
             foreach(RectTransform rt in cardPositions)
             { 
                 Destroy(rt.gameObject);
             }
         }
+
+        Debug.Log("creating cards");
     
         for (int n = 0; n < numberOfCards; ++n)
         {
@@ -159,6 +165,8 @@ public class BoardLayoutScript : MonoBehaviour
                 buttonData.startCardFaceUp();
             }
         }
+
+        Debug.Log("objects being destroyed");
 
         layoutCards();
     }

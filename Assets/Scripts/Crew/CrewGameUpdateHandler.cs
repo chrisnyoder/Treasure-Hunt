@@ -17,13 +17,11 @@ public class CrewGameUpdateHandler : MonoBehaviour
     private Vector2 initialMainboardPos; 
     private Vector2 initialRestartCanvasPos; 
 
-    private bool gameSetUp = false; 
-
     List<CardFlipHandler> cards;
     public BoardLayoutScript boardLayoutScript;
 
     private void Awake() {
-        print("awake function being called on gameobject: " + gameObject.name + " " + gameObject.GetInstanceID());
+        Debug.Log("awake function being called on gameobject: " + gameObject.name + " " + gameObject.GetInstanceID());
     }
 
     private void Start() 
@@ -35,8 +33,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
     }
 
     private void Update() 
-    {
-        
+    {   
         if(wordsSelectedOnBoard.allWordsSelected != joinGameNetworkingClient.wordsSelected.allWordsSelected)
         {
             print("words seleted are different, updating");
@@ -66,7 +63,6 @@ public class CrewGameUpdateHandler : MonoBehaviour
                 case CurrentGameState.loses:
                     break;
                 case CurrentGameState.restarting:
-                    gameSetUp = false; 
                     var mainBoardRT = gameObject.GetComponent<RectTransform>();
                     mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
 
@@ -89,9 +85,6 @@ public class CrewGameUpdateHandler : MonoBehaviour
             {
                 if(crewMemberGameState != null)
                 {   
-                    print("game state different, setting up crew board");
-                    print("crew member game state: " + crewMemberGameState.currentGameState);
-                    print("networked game state: " + joinGameNetworkingClient.networkedGameState.currentGameState);
                     setUpMainBoardForCrewMember();
                 }
             }
@@ -132,43 +125,43 @@ public class CrewGameUpdateHandler : MonoBehaviour
 
     private void setUpMainBoardForCrewMember()
     {
-        if(!gameSetUp)
+        if (joinGameNetworkingClient.networkedGameState.hiddenBoardList.Count > 0)
         {
-            print("game has been set up: " + gameSetUp);
-            gameSetUp = true;
-            print("Game has not been set up and so crew set up function being called");
-            
+            wordsSelectedOnBoard = new WordsSelectedAsObject();
+            wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.networkedGameState.wordsAlreadySelected;
 
-            if (joinGameNetworkingClient.networkedGameState.hiddenBoardList.Count > 0)
+            if (cards != null)
             {
-                wordsSelectedOnBoard = new WordsSelectedAsObject();
-                wordsSelectedOnBoard.allWordsSelected = joinGameNetworkingClient.networkedGameState.wordsAlreadySelected;
-
-                crewMemberGameState = joinGameNetworkingClient.networkedGameState;
-                crewMemberCurrentGameState = crewMemberGameState.currentGameState;
-                boardLayoutScript.receiveGameStateObject(crewMemberGameState);
-
-                boardLayoutScript.runMainBoardAnimation();
-
-                if (cards != null)
+                foreach(CardFlipHandler card in cards) 
                 {
-                    cards.Clear();
-                }
-
-                cards = new List<CardFlipHandler>(gameObject.GetComponentsInChildren<CardFlipHandler>());
-
-                print("the number of cards is: " + cards.Count);
-
-                if (cards.Count > 0)
-                {
-                    foreach (CardFlipHandler card in cards)
-                    {
-                        card.cardAlreadyFlipped = false;
-                    }
+                    Destroy(card.gameObject);
                 }
             }
-            exitResultsCavnas();    
-        }      
+
+            crewMemberGameState = joinGameNetworkingClient.networkedGameState;
+            crewMemberCurrentGameState = crewMemberGameState.currentGameState;
+            boardLayoutScript.receiveGameStateObject(crewMemberGameState);
+
+            boardLayoutScript.runMainBoardAnimation();
+
+            cards = new List<CardFlipHandler>(gameObject.GetComponentsInChildren<CardFlipHandler>());
+
+            cards.Reverse();
+            cards = cards.GetRange(0, 25);
+
+            print("the number of cards is: " + cards.Count);
+
+            var otherCards = cards[cards.Count - 1];
+
+            if (cards.Count > 0)
+            {
+                foreach (CardFlipHandler card in cards)
+                {
+                    card.cardAlreadyFlipped = false;
+                }
+            }
+        }
+        exitResultsCavnas();    
     }
 
     private void exitResultsCavnas()

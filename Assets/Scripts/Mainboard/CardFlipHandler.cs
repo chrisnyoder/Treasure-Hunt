@@ -14,6 +14,7 @@ public class CardFlipHandler : MonoBehaviour
     public bool cardAlreadyFlipped;
     private bool cardAlreadySentToClient;
     public GameState gameState;
+    private CurrentGameState _previousGameState = CurrentGameState.blueTurn; 
     public EndTurnHandler endTurnHandler;
     public ScoreDisplayHandler scoreDisplay;
 
@@ -35,7 +36,11 @@ public class CardFlipHandler : MonoBehaviour
         if (gameState.currentGameState == CurrentGameState.blueTurn || gameState.currentGameState == CurrentGameState.redTurn)
         {
             flipCard();
+            changeTurnIfNecessary();
             sendCardSelectionToClients();
+
+            print("sennding this game state: " + gameState.currentGameState);
+            networkingClient.sendCurrentGameState(gameState.currentGameState);
         }
     }
 
@@ -46,7 +51,6 @@ public class CardFlipHandler : MonoBehaviour
             cardAlreadyFlipped = true;
             tallyScore();
             playFirstHalfOfCardFlipAnimation();
-            changeTurnIfNecessary();
         }
     }
 

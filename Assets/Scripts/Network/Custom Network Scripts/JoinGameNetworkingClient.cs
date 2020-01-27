@@ -78,7 +78,13 @@ public class JoinGameNetworkingClient : WSNetworkingClient
                 tab = Tabs.RedTab;
             }
 
-            codeProviderHandler.onJoinedRoom(role);
+            if(codeProviderHandler != null)
+            {
+                print("code provider handler is not null");
+                codeProviderHandler.onJoinedRoom(role);
+            } else {
+                Debug.Log("code provider handler is null");
+            }
         });
 
         On("wordsSelected", (wordsSelected) => {
