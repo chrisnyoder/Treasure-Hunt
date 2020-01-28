@@ -33,7 +33,7 @@ public class GlobalDefaults : MonoBehaviour
                 setFrameRate();
                 determineIfTablet();
                 increcmentAppCounter();
-                // keepScreenOn();
+                keepScreenOn();
             }
             globalSettingsSet = true;
 
@@ -117,12 +117,10 @@ public class GlobalDefaults : MonoBehaviour
             _appOpenCounter = newCounter;
 
             PlayerPrefs.SetString("appOpenCounter", newCounter.ToString());
-            print("app has opened this number of times: " + appOpenCounter);
         }
         else
         {
             PlayerPrefs.SetString("appOpenCounter", "0");
-            print("app counter set 0");
             _appOpenCounter = 0;
         }
     }
