@@ -28,6 +28,7 @@ public class JoinGameNetworkingClient : WSNetworkingClient
 
     public void joinGameWithCode(string connectionCode)
     {
+        print("joining with code");
         roomId = connectionCode;
         ConnectionCodeAsObject connectionCodeAsObject = new ConnectionCodeAsObject();
         connectionCodeAsObject.roomId = connectionCode;
