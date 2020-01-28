@@ -18,6 +18,7 @@ public class EoGScript : MonoBehaviour
     public Slam slam;
 
     private CurrentGameState currentGameState;
+    private int _playCounter; 
 
     private void Start() {
         card.SetActive(false);
@@ -103,15 +104,34 @@ public class EoGScript : MonoBehaviour
                 cards.Add(cardClone);
             }
             card.SetActive(false);
-        } else 
+        } else if (currentGameState == CurrentGameState.loses) 
         {
             slam.animateEoGCursedCoin();
         }
 
-        if (GlobalDefaults.Instance.appOpenCounter == 1)
+        determineGameCount();
+    }
+
+    void determineGameCount()
+    {
+        if (PlayerPrefs.HasKey("gamesPlayed"))
+        {
+            string previousCounter = PlayerPrefs.GetString("gamesPlayed");
+            int newCounter = int.Parse(previousCounter) + 1;
+            _playCounter = newCounter;
+
+            PlayerPrefs.SetString("gamesPlayed", newCounter.ToString());
+        }
+        else
+        {
+            PlayerPrefs.SetString("gamesPlayed", "0");
+            _playCounter = 0;
+        }
+
+        if (_playCounter == 1)
         {
             callForReview();
-        }       
+        }
     }
 
     void callForReview()
