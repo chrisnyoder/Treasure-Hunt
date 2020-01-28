@@ -57,6 +57,7 @@ public class CardFlipHandler : MonoBehaviour
 
     private void tallyScore()
     {
+        print("card flipped");
         switch (cardType)
         {
             case CardType.blueCard:

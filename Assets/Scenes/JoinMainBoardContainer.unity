@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endTurn: {fileID: 867951450}
+  menuParentObject: {fileID: 0}
   timer: {fileID: 867951448}
   mainBoardNetworkingClient: {fileID: 0}
   codeTabScript: {fileID: 0}
@@ -2288,6 +2289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 867951447}
   mask: {fileID: 1041831308}
+  endTurn: {fileID: 867951450}
   timerStarted: 0
   timerPaused: 0
   networkingClient: {fileID: 0}
@@ -2557,6 +2559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backToMainMenuCanvas: {fileID: 1757797695}
+  restartCanvas: {fileID: 0}
   infoPopUp: {fileID: 0}
   hiddenBoardTransitionImage: {fileID: 0}
   networkingClient: {fileID: 0}

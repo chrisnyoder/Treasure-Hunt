@@ -20,6 +20,7 @@ public class CodeProviderHandler : CodeHandlerAbstract
     private bool searchingForRoom = false;
     private float searchingForRoomTimeOutTimer = 5f;
     private bool searchingForRoomTimedOut = false;
+    private bool roomFound; 
 
     private Scene scene;
 
@@ -105,19 +106,24 @@ public class CodeProviderHandler : CodeHandlerAbstract
 
     public void onJoinedRoom(Role role)
     {
-        confirmCodeButton.interactable = true;
-        gameObject.GetComponent<RectTransform>().DOAnchorPosY(-3000, 1f, false);
-        searchingForRoom = false;
-        resetSearchingTimer();
-
-        switch (role)
+        if(!roomFound)
         {
-            case Role.captain:
-                uIManager.GoToHiddenBoard();
-                break;
-            case Role.crew:
-                uIManager.GoToMainBoardAsCrew();
-                break;
+            roomFound = true; 
+
+            confirmCodeButton.interactable = true;
+            gameObject.GetComponent<RectTransform>().DOAnchorPosY(-3000, 1f, false);
+            searchingForRoom = false;
+            resetSearchingTimer();
+
+            switch (role)
+            {
+                case Role.captain:
+                    uIManager.GoToHiddenBoard();
+                    break;
+                case Role.crew:
+                    uIManager.GoToMainBoardAsCrew();
+                    break;
+            }
         }
     }
 

@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
 
         hiddenBoardTransitionImage.DOFade(1, 0.2f).Play().OnComplete(() =>
         {
+            print("launching crew board");
             SceneManager.LoadSceneAsync("JoinMainBoardContainer");
         });
     }
