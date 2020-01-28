@@ -61,12 +61,13 @@ public class ScoreDisplayHandler : MonoBehaviour
             coinImages[1].enabled = false;
             redScorePrefabList.Add(redScoreClone);
         }
-
-        displayScore();
     }
 
     public void displayScore()
     {
+        print("blue team score is: " + _gameState.blueTeamScore);
+        print("red teams score is: " + _gameState.redTeamScore);
+
         for(var i = 0; i < _gameState.blueTeamScore; ++i)
         {
             var coin = blueScorePrefabList[i].GetComponentsInChildren<Image>()[1];

@@ -27,18 +27,16 @@ public class EndTurnHandler : MonoBehaviour
         switch (gameState.currentGameState)
         {
             case CurrentGameState.redTurn:
-                timer.timerStarted = false;
                 changeTurnTo(CurrentGameState.blueTurn);
                 break;
             case CurrentGameState.blueTurn:
-                timer.timerStarted = false;
                 changeTurnTo(CurrentGameState.redTurn);
                 break;
             default:
-                timer.timerStarted = false;
                 changeTurnTo(CurrentGameState.blueTurn);
                 break;
         }
+        sendTurnChangeToClients();
     }
 
     public void changeTurnTo(CurrentGameState newGameState)

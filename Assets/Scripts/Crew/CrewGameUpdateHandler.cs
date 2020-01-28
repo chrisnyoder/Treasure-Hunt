@@ -85,6 +85,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
             {
                 if(crewMemberGameState != null)
                 {   
+                    print("game state is different");
                     setUpMainBoardForCrewMember();
                 }
             }
@@ -141,7 +142,6 @@ public class CrewGameUpdateHandler : MonoBehaviour
             crewMemberGameState = joinGameNetworkingClient.networkedGameState;
             crewMemberCurrentGameState = crewMemberGameState.currentGameState;
             boardLayoutScript.receiveGameStateObject(crewMemberGameState);
-
             boardLayoutScript.runMainBoardAnimation();            
 
             cards = new List<CardFlipHandler>(gameObject.GetComponentsInChildren<CardFlipHandler>());

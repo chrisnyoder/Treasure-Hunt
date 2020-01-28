@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     public RectTransform parent; 
     public RectTransform mask;
+    public EndTurnHandler endTurn; 
     public bool timerStarted = false; 
     public bool timerPaused = false; 
 
@@ -16,7 +17,9 @@ public class Timer : MonoBehaviour
 
     private void Awake() 
     {
-        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();    
+        networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
+
+        Debug.Log("awake function being called on timer: " + gameObject.name + " " + gameObject.GetInstanceID());
     }
 
     private void Start() 
@@ -26,13 +29,8 @@ public class Timer : MonoBehaviour
 
     public void resetTimer()
     {
-        if(networkingClient != null)
-        {
-            secondsElapsed = float.Parse(networkingClient.timerObject.timeTakenOnTurn); 
-        } else 
-        {
-            secondsElapsed = 0;
-        }
+        secondsElapsed = 0;
+        networkingClient.timerObject.timeTakenOnTurn = "0";
     }
 
     // Update is called once per frame
@@ -54,9 +52,12 @@ public class Timer : MonoBehaviour
             mask.offsetMin = new Vector2(0, parent.sizeDelta.y * percentTimeLeft);
         } else if(timerStarted && secondsElapsed >= 180 && !timerPaused) 
         {
-            timerStarted = false;
-            resetTimer();
             networkingClient.timerObject.timeTakenOnTurn = "0";
+
+            if(endTurn != null) 
+            {
+                endTurn.toggleTurns();
+            }
         }
 
         if(timerPaused != networkingClient.gamePaused)
