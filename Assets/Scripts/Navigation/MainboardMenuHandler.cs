@@ -15,8 +15,10 @@ public class MainboardMenuHandler : MonoBehaviour
     private int iconDistanceFromOrigin = -130;
     private List<RectTransform> icons; 
 
+
     private void Awake() 
     {
+
         gameObject.SetActive(false);
 
         if(GlobalDefaults.Instance.isTablet)
@@ -47,7 +49,10 @@ public class MainboardMenuHandler : MonoBehaviour
 
     public void toggleMenu()
     {
+
         Sequence s = DOTween.Sequence();
+
+ 
 
         if(GlobalDefaults.Instance.isTablet)
         {
