@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RotateAudio : MonoBehaviour, IPointerDownHandler
+public class RotateAudio : MonoBehaviour, IPointerClickHandler
 
 {
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
         GlobalAudioScript.Instance.playSfxSound("pickup");
     }
