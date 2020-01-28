@@ -36,6 +36,7 @@ public class EndTurnHandler : MonoBehaviour
                 changeTurnTo(CurrentGameState.blueTurn);
                 break;
         }
+
     }
 
     public void changeTurnTo(CurrentGameState newGameState)
@@ -43,6 +44,7 @@ public class EndTurnHandler : MonoBehaviour
         timer.timerStarted = false;
         turnIndicator.displayTurn(newGameState);
         gameState.currentGameState = newGameState;
+        GlobalAudioScript.Instance.playSfxSound3("end_turn");
     }
 
     public void sendTurnChangeToClients()
