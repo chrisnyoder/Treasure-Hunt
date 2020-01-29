@@ -104,6 +104,7 @@ public class CardFlipHandler : MonoBehaviour
             case CardType.blueCard:
                 if (gameState.currentGameState == CurrentGameState.redTurn)
                 {
+                    GlobalAudioScript.Instance.playSfxSound("Slam_Metal_03");
                     endTurnHandler.changeTurnTo(CurrentGameState.blueTurn);
                 }
                 break;
@@ -111,6 +112,7 @@ public class CardFlipHandler : MonoBehaviour
                 if (gameState.currentGameState == CurrentGameState.blueTurn)
                 {
                     endTurnHandler.changeTurnTo(CurrentGameState.redTurn);
+                    GlobalAudioScript.Instance.playSfxSound("Slam_Metal_03");
                 }
                 break;
             case CardType.neutralCard:
@@ -118,9 +120,11 @@ public class CardFlipHandler : MonoBehaviour
                 {
                     case CurrentGameState.blueTurn:
                         endTurnHandler.changeTurnTo(CurrentGameState.redTurn);
+                        GlobalAudioScript.Instance.playSfxSound("Slam_Metal_03");
                         break;
                     case CurrentGameState.redTurn:
                         endTurnHandler.changeTurnTo(CurrentGameState.blueTurn);
+                        GlobalAudioScript.Instance.playSfxSound("Slam_Metal_03");
                         break;
                 }
                 break;
