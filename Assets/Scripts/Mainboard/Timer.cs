@@ -56,7 +56,9 @@ public class Timer : MonoBehaviour
 
             if(endTurn != null) 
             {
+                GlobalAudioScript.Instance.playSfxSound2("Slam_Metal_03");
                 endTurn.toggleTurns();
+                
             }
         }
 
