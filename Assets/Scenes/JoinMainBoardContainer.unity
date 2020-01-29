@@ -678,6 +678,7 @@ GameObject:
   - component: {fileID: 226798866}
   - component: {fileID: 226798865}
   - component: {fileID: 226798864}
+  - component: {fileID: 226798867}
   m_Layer: 5
   m_Name: EndOfGameImage
   m_TagString: Untagged
@@ -755,6 +756,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226798862}
   m_CullTransparentMesh: 0
+--- !u!114 &226798867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226798862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff98ece51c5ec64ba266bab6fd319b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &241095122
 GameObject:
   m_ObjectHideFlags: 0
@@ -9843,7 +9856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7910083921d67f345b7379be19d2408d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonState: 1
+  MenuIsClosed: 1
 --- !u!114 &1777235177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9912,6 +9925,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1154762672}
         m_MethodName: toggleMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1777235176}
+        m_MethodName: rotateMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

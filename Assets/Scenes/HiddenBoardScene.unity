@@ -454,6 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endTurn: {fileID: 0}
+  menuParentObject: {fileID: 0}
   timer: {fileID: 0}
   mainBoardNetworkingClient: {fileID: 0}
   codeTabScript: {fileID: 0}
@@ -2682,7 +2683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 0.5625
+  m_AspectRatio: 0.46182266
 --- !u!114 &1075341245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9613,7 +9614,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 1668012586}
   mask: {fileID: 968553098}
+  endTurn: {fileID: 0}
   timerStarted: 0
+  timerPaused: 0
   networkingClient: {fileID: 0}
   secondsElapsed: 0
 --- !u!114 &1668012589
@@ -10096,6 +10099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backToMainMenuCanvas: {fileID: 1422287042}
+  restartCanvas: {fileID: 0}
   infoPopUp: {fileID: 0}
   hiddenBoardTransitionImage: {fileID: 0}
   networkingClient: {fileID: 0}
