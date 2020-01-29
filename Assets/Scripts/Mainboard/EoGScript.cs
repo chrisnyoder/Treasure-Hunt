@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+#if UNITY_IOS
 using UnityEngine.iOS;
+#endif
 
 public class EoGScript : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class EoGScript : MonoBehaviour
     public GameObject loseBanner;
     public GameObject winBanner;
     public GameObject gameOverText;
+    public Canvas rateTheAppCanvas; 
 
     public Slam slam;
 
@@ -24,6 +27,7 @@ public class EoGScript : MonoBehaviour
         card.SetActive(false);
         loseBanner.SetActive(false);
         winBanner.SetActive(false);
+        rateTheAppCanvas.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 3000);
     }
 
     public void DisplayEOGCanvas(CurrentGameState currentGameState)
@@ -108,7 +112,6 @@ public class EoGScript : MonoBehaviour
         {
             slam.animateEoGCursedCoin();
         }
-
         determineGameCount();
     }
 
@@ -139,9 +142,14 @@ public class EoGScript : MonoBehaviour
         #if UNITY_IOS
             Device.RequestStoreReview();
         #elif UNITY_ANDROID
-            // var url =  "http://play.google.com/store/apps/details?id=" + Application.identifier;
-            // Application.OpenURL(url);
+            rateTheAppCanvas.GetComponent<RectTransform>().DOAnchorPosY(0, 0.7f).SetDelay(1f).Play();
         #endif
+    }
+
+    public void rateAndroidGame()
+    {
+        var url = "https://play.google.com/store/apps/details?id=com.FriendlyPixel.TreasureHunt";
+        Application.OpenURL(url);
     }
 }
 
