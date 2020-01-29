@@ -23,6 +23,8 @@ public class IfClickToExitMenu : MonoBehaviour
         {
             rotateAnimationRef.rotateMenu();
             mainboardMenuHandlerRef.toggleMenu();
+            GlobalAudioScript.Instance.playSfxSound2("rotate");
+            AudioListener.volume = 0.3f;
             
             print("I'm rotating the arrow back to its starting position");
         }
