@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-#if UNITY_IOS
-using UnityEngine.iOS;
-#endif
 
 public class EoGScript : MonoBehaviour
 {
@@ -140,7 +137,7 @@ public class EoGScript : MonoBehaviour
     void callForReview()
     {
         #if UNITY_IOS
-            Device.RequestStoreReview();
+            UnityEngine.iOS.Device.RequestStoreReview();
         #elif UNITY_ANDROID
             rateTheAppCanvas.GetComponent<RectTransform>().DOAnchorPosY(0, 0.7f).SetDelay(1f).Play();
         #endif
