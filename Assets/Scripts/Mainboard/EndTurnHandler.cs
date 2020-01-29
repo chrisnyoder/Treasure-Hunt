@@ -28,15 +28,13 @@ public class EndTurnHandler : MonoBehaviour
         {
             case CurrentGameState.redTurn:
                 changeTurnTo(CurrentGameState.blueTurn);
+                sendTurnChangeToClients();
                 break;
             case CurrentGameState.blueTurn:
                 changeTurnTo(CurrentGameState.redTurn);
-                break;
-            default:
-                changeTurnTo(CurrentGameState.blueTurn);
+                sendTurnChangeToClients();
                 break;
         }
-        sendTurnChangeToClients();
     }
 
     public void changeTurnTo(CurrentGameState newGameState)
