@@ -6,16 +6,8 @@ using DG.Tweening;
 using UnityEngine.UI;
 public class IfClickToExitMenu : MonoBehaviour
 {
-
-
     public MainboardMenuHandler mainboardMenuHandlerRef;
     public RotateAnimation rotateAnimationRef;
-
-    void Start()
-    {
-        rotateAnimationRef = GameObject.Find("MenuPulloutToggle").GetComponent<RotateAnimation>();
-        mainboardMenuHandlerRef = GameObject.Find("MenuPulloutParent").GetComponent<MainboardMenuHandler>();
-    }
 
     public void ExitIfYouCan()
     {
@@ -33,12 +25,5 @@ public class IfClickToExitMenu : MonoBehaviour
         {
             print("I did nothing cos the menu wasn't out");
         }
-
     }
-
-    // Start is called before the first frame update
-
-
-
-
 }
