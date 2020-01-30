@@ -24,13 +24,13 @@ public class ToggleTimer : MonoBehaviour
         {
             timer.timerPaused = false;
             networkingClient.gamePaused = false; 
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon");
+            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/hourglass_icon_on");
         }
         else
         {
             timer.timerPaused = true;
             networkingClient.gamePaused = true; 
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/pause_icon_selected");
+            GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UIElements/hourglass_icon_off");
         }
     }
 }
