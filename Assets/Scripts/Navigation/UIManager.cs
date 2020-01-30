@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
 
     public Canvas backToMainMenuCanvas;
     public Canvas restartCanvas;
+    public Canvas rateCanvas; 
     public Canvas infoPopUp;
     public Image hiddenBoardTransitionImage; 
 
@@ -110,6 +111,26 @@ public class UIManager : MonoBehaviour
 
         restartCanvasRT.DOAnchorPosY(1500, 0.7f).Play();
         restartCanvasRT.GetComponent<Image>().DOFade(0f, 0.1f).Play();
+    }
+
+    public void dismissRateCanvas()
+    {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
+
+        var rateCanvasRT = rateCanvas.GetComponent<RectTransform>();
+
+        rateCanvasRT.DOAnchorPosY(1500, 0.7f).Play();
+        rateCanvasRT.GetComponent<Image>().DOFade(0f, 0.1f).Play();
+    }
+
+    public void dismissRateCanvasOnHiddenBoard()
+    {
+        GlobalAudioScript.Instance.playSfxSound("closeDrawer");
+
+        var rateCanvasRT = rateCanvas.GetComponent<RectTransform>();
+
+        rateCanvasRT.DOAnchorPosY(3000, 0.7f).Play();
+        rateCanvasRT.GetComponent<Image>().DOFade(0f, 0.1f).Play();
     }
 
     public void DismissExitMenuPopUpOnMainboard()
