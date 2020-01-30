@@ -27,6 +27,7 @@ public class TutorialMainScreenScript : MonoBehaviour
     public GameObject continueButton;
     public GameObject exitTutorialButton; 
     public TurnIndicatorScript turnIndicator;
+    private string _canvasName = "StoreCanvas";
 
     public GameObject tutorialCircleImage;
     public GameObject verticalLayoutGroup;  
@@ -96,6 +97,11 @@ public class TutorialMainScreenScript : MonoBehaviour
             initialWordList.GetComponent<RectTransform>().anchorMax = initialMaxAnchorsForStarterPack;
         }
 
+        if(_canvasName == "MainBoardCanvas")
+        {
+            backgroundCanvas.GetComponent<BoardLayoutScript>().startGame();
+        }
+        
         turnIndicator.displayTurn(CurrentGameState.blueTurn);
         gameObject.SetActive(false);
     }
@@ -153,6 +159,7 @@ public class TutorialMainScreenScript : MonoBehaviour
 
     private void animateTutorialScreens(string canvasName)
     {
+        _canvasName = canvasName;
         if(canvasName == "StoreCanvas")
         {   
             if (tutorialIndexNumber == 1)
