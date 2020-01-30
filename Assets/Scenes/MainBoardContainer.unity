@@ -7540,6 +7540,16 @@ PrefabInstance:
     - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
@@ -7567,20 +7577,41 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 7431130622734950985, guid: e1ebf312dac034ffaae6c7a6b4472651,
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
-      propertyPath: m_PreserveAspect
+      propertyPath: m_Delegates.Array.data[2].eventID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1931121269}
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitIfYouCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 412134368793024681, guid: e1ebf312dac034ffaae6c7a6b4472651,
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
-      propertyPath: m_Text
-      value: Scarlett Johansson
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 3461825042561418602, guid: e1ebf312dac034ffaae6c7a6b4472651,
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
-      propertyPath: m_AspectRatio
-      value: 1.5833334
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_TypeName
+      value: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI, Version=1.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1ebf312dac034ffaae6c7a6b4472651, type: 3}
@@ -9647,7 +9678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2
+  m_AspectRatio: 1.3333334
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
