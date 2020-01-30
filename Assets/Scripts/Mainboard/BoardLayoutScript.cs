@@ -317,7 +317,7 @@ public class BoardLayoutScript : MonoBehaviour
         anim.Play();
     }
 
-    private void startGame()
+    public void startGame()
     {
         _initialGameState.currentGameState = CurrentGameState.blueTurn;
         networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
