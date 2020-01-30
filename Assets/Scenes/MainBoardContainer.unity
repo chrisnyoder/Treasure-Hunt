@@ -1802,12 +1802,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.21479, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.30445, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.21479, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.30445, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -7516,11 +7516,6 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 7431130622734950985, guid: e1ebf312dac034ffaae6c7a6b4472651,
-        type: 3}
-      propertyPath: m_PreserveAspect
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6066428377087840175, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_TargetGraphic
@@ -7541,6 +7536,7 @@ PrefabInstance:
       propertyPath: m_AspectRatio
       value: 1.5833334
       objectReference: {fileID: 0}
+
     - target: {fileID: 2850230010964205319, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
@@ -22061,6 +22057,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 338618328053448036, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 338618328053448036, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8800765582694657878, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -22120,36 +22126,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnimationTriggers.m_DisabledTrigger
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 2493983589768534690, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_PreserveAspect
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2385423645605421619, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
@@ -22226,6 +22202,41 @@ PrefabInstance:
       propertyPath: onPurchaseFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2329785912880671855, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: purchaseFailedCanvas
+      value: 
+      objectReference: {fileID: 1268974372}
+    - target: {fileID: 2329785912880671855, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: failedReasonText
+      value: 
+      objectReference: {fileID: 985790488}
+    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1909753564919300428, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 858469839877463285, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -22245,6 +22256,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 24.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3301944484867852949, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+        type: 3}
+      propertyPath: m_Text
+      value: price
       objectReference: {fileID: 0}
     - target: {fileID: 967891480280306664, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
@@ -22276,16 +22292,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 2329785912880671855, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
+    - target: {fileID: 2493983589768534690, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
-      propertyPath: purchaseFailedCanvas
-      value: 
-      objectReference: {fileID: 1268974372}
-    - target: {fileID: 2329785912880671855, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: failedReasonText
-      value: 
-      objectReference: {fileID: 985790488}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1237508035333934876, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
         type: 3}
       propertyPath: m_Name
@@ -22346,21 +22357,6 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: 2b2bdad4a6e5e406ebcf86b63171b62e, type: 2}
-    - target: {fileID: 3301944484867852949, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_Text
-      value: price
-      objectReference: {fileID: 0}
-    - target: {fileID: 338618328053448036, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 338618328053448036, guid: 73c025780a45e4c10b1ef21ffc1b33ba,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73c025780a45e4c10b1ef21ffc1b33ba, type: 3}
 --- !u!114 &255411793082031486 stripped
