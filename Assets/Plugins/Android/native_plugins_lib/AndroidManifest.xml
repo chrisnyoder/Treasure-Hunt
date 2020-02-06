@@ -17,10 +17,6 @@
     </provider>
   </application>
   <!--Permissions-->
-  <!--Address Book-->
-  <uses-permission android:name="android.permission.READ_CONTACTS" />
-  <!--Network Connectivity-->
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <!--Notifications : Badge Permission for Samsung Devices-->
   <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
   <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
