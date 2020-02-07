@@ -15,8 +15,8 @@ MonoBehaviour:
   m_lastOpenedDateString: 
   m_applicationSettings:
     m_supportedFeatures:
-      m_usesAddressBook: 1
-      m_usesNetworkConnectivity: 1
+      m_usesAddressBook: 0
+      m_usesNetworkConnectivity: 0
       m_usesSharing: 1
     m_iOS:
       m_storeIdentifier: 
