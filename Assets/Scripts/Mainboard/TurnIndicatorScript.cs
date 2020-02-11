@@ -34,6 +34,7 @@ public class TurnIndicatorScript : MonoBehaviour
                 turnIndicatorBackground.gameObject.SetActive(false);
                 timer.timerStarted = true;
                 timer.resetTimer();
+                changeTimerBarColor();
             });
         });
 
@@ -42,6 +43,7 @@ public class TurnIndicatorScript : MonoBehaviour
                 turnIndicatorText.gameObject.SetActive(false);
                 timer.timerStarted = true;
                 timer.resetTimer();
+                changeTimerBarColor();
             });
         });
     } 
@@ -53,22 +55,37 @@ public class TurnIndicatorScript : MonoBehaviour
             case CurrentGameState.blueTurn:
                 turnIndicatorText.text = "Blue team's turn";
                 turnIndicatorBackground.color = new Color32(0, 171, 184, 0);
-                timerImage.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
                 break;
             case CurrentGameState.redTurn:
                 turnIndicatorText.text = "Red team's turn";
                 turnIndicatorBackground.color = new Color32(138, 18, 46, 0);
+                break;
+        }
+    }
+
+    private void changeTimerBarColor()
+    {
+        switch (_currentGameState)
+        {
+            case CurrentGameState.blueTurn:
+                timerImage.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
+                break;
+            case CurrentGameState.redTurn:
                 timerImage.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
                 break;
         }
     }
 
-    public void beginTimerOnServer()
+    public void sendInitialGameStateToServer()
     {
         if (!gameHasStarted)
         {
             timer.networkingClient.sendCurrentGameState(CurrentGameState.blueTurn);
             gameHasStarted = true;
+            if(GlobalDefaults.Instance.tutorialIsOn)
+            {
+                timer.toggleTimer();
+            }
         }
     }
 }

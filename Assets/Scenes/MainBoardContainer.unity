@@ -1187,7 +1187,6 @@ GameObject:
   - component: {fileID: 150390014}
   - component: {fileID: 150390013}
   - component: {fileID: 150390011}
-  - component: {fileID: 150390012}
   - component: {fileID: 150390020}
   - component: {fileID: 150390019}
   - component: {fileID: 150390018}
@@ -1234,19 +1233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1
---- !u!114 &150390012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150390009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a680ff0563a54865add2d74b4a70969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: {fileID: 586872742}
 --- !u!114 &150390013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1324,7 +1310,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 150390012}
+      - m_Target: {fileID: 586872742}
         m_MethodName: toggleTimer
         m_Mode: 1
         m_Arguments:
@@ -1802,12 +1788,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.19379, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.27881, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.19379, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.27881, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -4679,6 +4665,7 @@ MonoBehaviour:
   endTurn: {fileID: 586872741}
   timerStarted: 0
   timerPaused: 0
+  timerImage: {fileID: 150390013}
   networkingClient: {fileID: 1287908311}
   secondsElapsed: 0
 --- !u!114 &586872743
@@ -9677,7 +9664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7777778
+  m_AspectRatio: 2.1642513
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
     public EndTurnHandler endTurn; 
     public bool timerStarted = false; 
     public bool timerPaused = false; 
+    public Image timerImage; 
 
     public WSNetworkingClient networkingClient;
 
@@ -22,7 +23,7 @@ public class Timer : MonoBehaviour
         Debug.Log("awake function being called on timer: " + gameObject.name + " " + gameObject.GetInstanceID());
     }
 
-    private void Start() 
+    private void Start()    
     {
         resetTimer();
     }
@@ -31,6 +32,33 @@ public class Timer : MonoBehaviour
     {
         secondsElapsed = 0;
         networkingClient.timerObject.timeTakenOnTurn = "0";
+        mask.offsetMin = new Vector2(0, parent.sizeDelta.y);
+    }
+
+    public void toggleTimer()
+    {
+        if(networkingClient.networkedGameState.currentGameState == CurrentGameState.blueTurn || networkingClient.networkedGameState.currentGameState == CurrentGameState.redTurn)
+        {
+            networkingClient.pauseGame(pauseGameCallback);
+            print("timer is being paused");    
+        }
+    }
+
+    private void pauseGameCallback(JSONObject data)
+    {
+        print("pause timer callback received");
+        if (timerPaused)
+        {
+            timerPaused = false;
+            networkingClient.gamePaused = false;
+            timerImage.sprite = Resources.Load<Sprite>("Images/UIElements/hourglass_icon_on");
+        }
+        else
+        {
+            timerPaused = true;
+            networkingClient.gamePaused = true;
+            timerImage.sprite = Resources.Load<Sprite>("Images/UIElements/hourglass_icon_off");
+        }
     }
 
     // Update is called once per frame
