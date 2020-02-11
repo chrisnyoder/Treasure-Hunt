@@ -11,7 +11,7 @@ public class ShareSheetScript : MonoBehaviour
     {
         ShareSheet _shareSheet = new ShareSheet();
         _shareSheet.Text = "Stop being boring and come play Treasure Hunt with your friends"; 
-        _shareSheet.URL = "https://www.friendlypixel.com";
+        _shareSheet.URL = "https://friendlypixel.com/treasurehuntshare.html";
 
         _shareSheet.ExcludedShareOptions = m_excludedOptions; 
 

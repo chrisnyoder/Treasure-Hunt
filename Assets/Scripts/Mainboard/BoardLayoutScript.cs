@@ -322,7 +322,7 @@ public class BoardLayoutScript : MonoBehaviour
         _initialGameState.currentGameState = CurrentGameState.blueTurn;
         networkingClient.sendCurrentGameState(_initialGameState.currentGameState);
         turnIndicator.displayTurn(_initialGameState.currentGameState);
-        turnIndicator.beginTimerOnServer();
+        turnIndicator.sendInitialGameStateToServer();
     }
 
     private void joinGame()

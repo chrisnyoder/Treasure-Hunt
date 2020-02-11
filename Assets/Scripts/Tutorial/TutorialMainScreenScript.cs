@@ -86,8 +86,6 @@ public class TutorialMainScreenScript : MonoBehaviour
 
     public void turnTutorialOff()
     {
-        GlobalDefaults.Instance.tutorialIsOn = false;
-
         if(tutorialIndexNumber == 2)
         {
             var initialWordList = gameObject.transform.Find("initialWordList");
@@ -104,6 +102,8 @@ public class TutorialMainScreenScript : MonoBehaviour
         
         turnIndicator.displayTurn(CurrentGameState.blueTurn);
         gameObject.SetActive(false);
+
+        GlobalDefaults.Instance.tutorialIsOn = false;
     }
 
     public void continueTutorial()

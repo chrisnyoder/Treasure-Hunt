@@ -84,6 +84,7 @@ public class MainBoardNetworkingClient : WSNetworkingClient
         });
 
         On("disconnect", (e) => {
+            print("disconnect callback received");
             wasDisconnected = true;
             Connect();
         });
