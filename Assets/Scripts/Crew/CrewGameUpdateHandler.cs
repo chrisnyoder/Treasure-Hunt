@@ -16,6 +16,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
     public GameObject restartingCanvas; 
     private Vector2 initialMainboardPos; 
     private Vector2 initialRestartCanvasPos; 
+    public string roomID; 
 
     List<CardFlipHandler> cards;
     public BoardLayoutScript boardLayoutScript;

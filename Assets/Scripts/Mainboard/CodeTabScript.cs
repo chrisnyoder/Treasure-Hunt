@@ -16,8 +16,6 @@ public class CodeTabScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false);
-
         connectionCodeText = gameObject.GetComponent<Text>();
         connectionCodeText.text = "";
     }
@@ -29,6 +27,7 @@ public class CodeTabScript : MonoBehaviour
 
     public void displayRoomId()
     {
+        print("displaying room");
         gameObject.SetActive(true);
     }
 }

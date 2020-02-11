@@ -24,6 +24,15 @@ public class JoinGameNetworkingClient : WSNetworkingClient
     public override void Update()
     {
         base.Update();
+
+        if(codeDisplay != null)
+        {
+            if(codeDisplay.connectionCodeText.text != roomId)
+            {
+                print("updating code display");
+                codeDisplay.connectionCodeText.text = roomId;
+            }
+        }
     }
 
     public void joinGameWithCode(string connectionCode)

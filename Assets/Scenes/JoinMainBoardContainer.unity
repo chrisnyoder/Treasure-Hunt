@@ -2586,6 +2586,7 @@ MonoBehaviour:
   endTurn: {fileID: 867951450}
   timerStarted: 0
   timerPaused: 0
+  timerImage: {fileID: 0}
   networkingClient: {fileID: 0}
   secondsElapsed: 0
 --- !u!114 &867951449
@@ -5322,7 +5323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.3333334
+  m_AspectRatio: 1.7777778
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
