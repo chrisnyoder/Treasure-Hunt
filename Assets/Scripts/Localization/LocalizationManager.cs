@@ -5,14 +5,23 @@
 
  public class LocalizationManager : MonoBehaviour {
 
+     public static LocalizationManager instance;
+
      private Dictionary<string, string> localizedText;
+     private bool isReady = false;
 
-     void Start () {
+     void Awake () {
 
+         if (instance == null) {
+             instance = this;
+         } else if (instance != this) {
+             Destroy (gameObject);
+         }
+
+         DontDestroyOnLoad (gameObject);
      }
 
-     public void LoadLocalizedText (string fileName)
-      {
+     public void LoadLocalizedText (string fileName) {
          localizedText = new Dictionary<string, string> ();
          string filePath = Path.Combine (Application.streamingAssetsPath, fileName);
 
@@ -29,7 +38,11 @@
          } else {
              Debug.LogError ("Cannot find file!");
          }
+         isReady = true;
+     }
 
+     public bool GetIsReady () {
+         return isReady;
      }
 
  }
