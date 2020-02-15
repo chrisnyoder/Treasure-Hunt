@@ -9,6 +9,7 @@
 
      private Dictionary<string, string> localizedText;
      private bool isReady = false;
+     private string missingTextString = "Localized text not found";
 
      void Awake () {
 
@@ -39,6 +40,15 @@
              Debug.LogError ("Cannot find file!");
          }
          isReady = true;
+     }
+
+     public string GetLocalizedValue (string key) {
+         string result = missingTextString;
+         if (localizedText.ContainsKey (key)) {
+             result = localizedText[key];
+         }
+
+         return result;
      }
 
      public bool GetIsReady () {

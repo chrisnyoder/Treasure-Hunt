@@ -1,1 +1,1 @@
-{"items":[{"key":"game_title","value":"Treasure Hunt"},{"key":"start_button", "value":"Start Game!"}]}
+{"items":[{"key":"game_title","value":"Treasure Hunt"},{"key":"start_button","value":"Start Game!"},{"key":"timer_bar_text","value":"End Turn"},{"key":"blue_teams_turn","value":"Blue Team's Turn"},{"key":"red_teams_turn","value":"Red Team's Turn"}]}
