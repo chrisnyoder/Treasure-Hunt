@@ -83,7 +83,7 @@ public class CodeDisplayHandler : CodeHandlerAbstract
         connectionCode = receivedConnectionCode;
         gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta = initialTextBoxSize;
 
-        gameIdText.text = ("Game ID: " + receivedConnectionCode);
+        gameIdText.text = (LocalizationManager.instance.GetLocalizedText("game_id") + " " + receivedConnectionCode);
 
     }
 

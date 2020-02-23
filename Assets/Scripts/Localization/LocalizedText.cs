@@ -5,17 +5,11 @@ using UnityEngine.UI;
 
 public class LocalizedText : MonoBehaviour
 {
+    public string key;
 
-
-        public string key;
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        Text text = GetComponent<Text> ();
-        text.text = LocalizationManager.instance.GetLocalizedValue (key);
-        
+        Text text = GetComponent<Text>();
+        text.text = LocalizationManager.instance.GetLocalizedText(key);
     }
-
 }

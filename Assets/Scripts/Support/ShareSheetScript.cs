@@ -10,7 +10,7 @@ public class ShareSheetScript : MonoBehaviour
     public void shareURLUsingShareSheet()
     {
         ShareSheet _shareSheet = new ShareSheet();
-        _shareSheet.Text = "Stop being boring and come play Treasure Hunt with your friends"; 
+        _shareSheet.Text = LocalizationManager.instance.GetLocalizedText("share_text"); 
         _shareSheet.URL = "https://www.friendlypixel.com";
 
         _shareSheet.ExcludedShareOptions = m_excludedOptions; 

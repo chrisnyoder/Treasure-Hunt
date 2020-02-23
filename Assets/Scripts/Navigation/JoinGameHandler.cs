@@ -40,13 +40,13 @@ public class JoinGameHandler : MonoBehaviour
         {
             case Role.captain:
                 roleImage.sprite = Resources.Load<Sprite>("Images/UIElements/captain_button@2x");
-                roleText.text = "Team Captain";
-                roleDescription.text = "The team captain gives clues to their team. Each team must have one captain.";
+                roleText.text = LocalizationManager.instance.GetLocalizedText("team_captain");
+                roleDescription.text = LocalizationManager.instance.GetLocalizedText("team_captain_description");
                 break;
             case Role.crew:
                 roleImage.sprite = Resources.Load<Sprite>("Images/UIElements/crew_button@2x");
-                roleText.text = "Crew Member";
-                roleDescription.text = "Crew members guess which tiles to flip over. You can have as many crew members as you'd like.";
+                roleText.text = LocalizationManager.instance.GetLocalizedText("crew_member");
+                roleDescription.text = LocalizationManager.instance.GetLocalizedText("crew_member_description");
                 break;
         }
 

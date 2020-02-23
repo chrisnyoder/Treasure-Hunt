@@ -1,1 +1,324 @@
-{"items":[{"key":"game_title","value":"Treasure Hunt"},{"key":"start_button","value":"Start Game!"},{"key":"timer_bar_text","value":"End Turn"},{"key":"blue_teams_turn","value":"Blue Team's Turn"},{"key":"red_teams_turn","value":"Red Team's Turn"}]}
+{
+    "items": [
+        {
+            "key": "game_title",
+            "value": "Main_Logo@2x"
+        },
+        {
+            "key": "new_game",
+            "value": "New_Game@2x"
+        },
+        {
+            "key": "join_game",
+            "value": "Join_Game@2x"
+        },
+        {
+            "key": "share_text",
+            "value": "Stop being boring and come play Treasure Hunt with your friends"
+        },
+        {
+            "key": "exit_popup_menu",
+            "value": "Close"
+        },
+        {
+            "key": "toggle_music",
+            "value": "Toggle Music"
+        },
+        {
+            "key": "contact_us",
+            "value": "Contact Us"
+        },
+        {
+            "key": "privacy_policy",
+            "value": "Privacy Policy"
+        },
+        {
+            "key": "toggle_tutorial",
+            "value": "Toggle Tutorial"
+        },
+        {
+            "key": "facebook",
+            "value": "Facebook"
+        },
+        {
+            "key": "dev_website",
+            "value": "Dev Website"
+        },
+        {
+            "key": "starter_word_pack",
+            "value": "starter_pack@2x"
+        },
+        {
+            "key": "expansion_word_pack",
+            "value": "expansion_pack@2x"
+        },
+        {
+            "key": "sci-fi_fantasy_word_pack",
+            "value": "fantasy_pack@2x"
+        },
+        {
+            "key": "celebrity_word_pack",
+            "value": "celebrity_pack@2x"
+        },
+        {
+            "key": "confirmation_button",
+            "value": "Confirm"
+        },
+        {
+            "key": "restore_button",
+            "value": "Restore"
+        },
+        {
+            "key": "select_one_wordpack",
+            "value": "Select at least one wordpack"
+        },
+        {
+            "key": "starter_title",
+            "value": "Starter Word Pack"
+        },
+        {
+            "key": "expansion_title",
+            "value": "Expansion Word Pack"
+        },
+        {
+            "key": "sci-fi__fantasy_title",
+            "value": "Sci-Fi/Fantasy Word Pack"
+        },
+        {
+            "key": "celebrity_title",
+            "value": "Celebrity Word Pack"
+        },
+        {
+            "key": "starter_description",
+            "value": "The starter word pack provides the first set of 50 words you need to get playing. Example words: License, Jail, Reporter, Umbrella, Pinch, Jet, Rust."
+        },
+        {
+            "key": "expansion_description",
+            "value": "The Expansion Word Pack gives more game to game variation with 100 more words similar to those in the starter pack. Example Words: Graduation, Dress, New Year, Lipstick, Heart, Goalie."
+        },
+        {
+            "key": "sci-fi__fantasy_description",
+            "value": "The sci-fi and fantasy word pack has 50 words from across the most popular science fiction, fantasy, and comic book universes. Example Words: Hal 9000, Alien, Batman, Hellboy, Gandalf."
+        },
+        {
+            "key": "celebrity_description",
+            "value": "The Celebrity Word Pack consists of 50 names of the world's most popular celebrities. Example Words: Kanye West, Eminem, Usain Bolt, Queen Elizabeth II, J.K. Rowling."
+        },
+        {
+            "key": "game_id",
+            "value": "Game ID"
+        },
+        {
+            "key": "start_button",
+            "value": "Start"
+        },
+        {
+            "key": "restart_popup_conf",
+            "value": "Are you sure you want to restart?"
+        },
+        {
+            "key": "yes_button",
+            "value": "Yes"
+        },
+        {
+            "key": "no_button",
+            "value": "No"
+        },
+        {
+            "key": "quit_popup",
+            "value": "Are you sure you want to quit"
+        },
+        {
+            "key": "timer_bar_text",
+            "value": "End Turn"
+        },
+        {
+            "key": "blue_teams_turn",
+            "value": "Blue Team's Turn"
+        },
+        {
+            "key": "red_teams_turn",
+            "value": "Red Team's Turn"
+        },
+        {
+            "key": "select_role",
+            "value": "Select Role"
+        },
+        {
+            "key": "team_captain",
+            "value": "Team Captain"
+        },
+        {
+            "key": "crew_member",
+            "value": "Crew Member"
+        },
+        {
+            "key": "go_back_button",
+            "value": "Go Back"
+        },
+        {
+            "key": "team_captain_description",
+            "value": "The team captain gives clues to their team. Each team must have one captain."
+        },
+        {
+            "key": "crew_member_description",
+            "value": "Crew members guess which tiles to flip over. You can have as many crew members as you'd like."
+        },
+        {
+            "key": "game_id_input",
+            "value": "Enter 4 digit game ID"
+        },
+        {
+            "key": "enter_valid_id",
+            "value": "Enter valid 4-digit game ID"
+        },
+        {
+            "key": "blue_tab",
+            "value": "Blue Team's Words"
+        },
+        {
+            "key": "red_tab",
+            "value": "Red Team's Words"
+        },
+        {
+            "key": "yellow_tab",
+            "value": "Neutral Words"
+        },
+        {
+            "key": "danger_box",
+            "value": "danger@2x"
+        },
+        {
+            "key": "host_restarting",
+            "value": "The host is creating a new game..."
+        },
+        {
+            "key": "game_lose",
+            "value": "Game over"
+        },
+        {
+            "key": "restart_button",
+            "value": "Restart"
+        },
+        {
+            "key": "show_board_button",
+            "value": "Show Board"
+        },
+        {
+            "key": "game_win_blue",
+            "value": "EoG_Blue"
+        },
+        {
+            "key": "game_win_red",
+            "value": "EoG_Red"
+        },
+        {
+            "key": "tap_to_continue",
+            "value": "<tap to continue>"
+        },
+        {
+            "key": "tap_to_exit",
+            "value": "<tap anywhere to exit>"
+        },
+        {
+            "key": "tutorial_title_01",
+            "value": "Welcome to Treasure Hunt!"
+        },
+        {
+            "key": "tutorial_title_02",
+            "value": "4+ players required to play"
+        },
+        {
+            "key": "tutorial_title_03",
+            "value": "This is the pack selection screen"
+        },
+        {
+            "key": "tutorial_title_05",
+            "value": "Divide into 2 teams"
+        },
+        {
+            "key": "tutorial_title_06",
+            "value": "This is the Main Board"
+        },
+        {
+            "key": "tutorial_title_07",
+            "value": "Please Wait for the Team Captains"
+        },
+        {
+            "key": "tutorial_01",
+            "value": "We're going to walk you through the basics to get you started."
+        },
+        {
+            "key": "tutorial_02",
+            "value": "2 people will play as team captains, giving their teams clues. The other players will try and guess what cards they're supposed to turn over. Don't worry we'll explain later:)"
+        },
+        {
+            "key": "tutorial_03",
+            "value": "For your first game we're going to get you started wit hthe starter word pack."
+        },
+        {
+            "key": "tutorial_04",
+            "value": "Let's create the game room so the team captains can join."
+        },
+        {
+            "key": "tutorial_05",
+            "value": "Each team picks a team captain. Each captain opens Treasure Hunt on their personal device and selects <join game>, chooses the role of <captain>, and types in the following code: "
+        },
+        {
+            "key": "tutorial_06",
+            "value": "Here is where players will revewal words to see if their team's coins are hidden underneath"
+        },
+        {
+            "key": "tutorial_07",
+            "value": "The goal of Treasure Hunt is to be the first to find all your team's coins. Blue team has 8, red team has 7. The captains will give clues to help you flip over the right words. Good luck and have fun!"
+        },
+        {
+            "key": "tutorial_welcome",
+            "value": "Welcome Captain!"
+        },
+        {
+            "key": "tutorial_captain_01",
+            "value": "From this screen you can see which words your team has to guess in order to win the game  You can see the other team's words as well as the neutral words by clicking the tabs under the scroll."
+        },
+        {
+            "key": "tutorial_captain_02",
+            "value": "Blue Team goes first. Select the tab beneath the scroll."
+        },
+        {
+            "key": "tutorial_captain_03",
+            "value": "These are the words that your team needs to guess. It's time to give your team a clue."
+        },
+        {
+            "key": "tutorial_captain_04",
+            "value": "we're going to tgive you the first clue to get you started."
+        },
+        {
+            "key": "tutorial_captain_05",
+            "value": "2 of the words blue team needs to guess are Saturn and satellite. Blue Team's captain, go ahead and give your team the clue <Space-2>. <2> here refers to the amount of words you want your team to guess."
+        },
+        {
+            "key": "tutorial_captain_06",
+            "value": "As your team flips over words on the main board, you will see them get crossed out on the scroll. Hopefully, your team found Saturn and Satellite."
+        },
+        {
+            "key": "tutorial_captain_07",
+            "value": "In addition to your team's words , you can view the other team's words (as well as neutral words) by selecting the tabs along the bottom."
+        },
+        {
+            "key": "tutorial_captain_08",
+            "value": "Keep an eye on t hese words as well. If you flip over a card that is not yours, play passes to the next team."
+        },
+        {
+            "key": "tutorial_captain_09",
+            "value": "Be careful! if your team selects the words in the danger box, the game is over and the other team wins."
+        },
+        {
+            "key": "tutorial_captain_10",
+            "value": "You can continue this game or exit to start a new one. if you ever need a refresher, the tutorial can be turned back on from the home screen. Have fun!"
+        },
+        {
+            "key": "",
+            "value": ""
+        }
+    ]
+}

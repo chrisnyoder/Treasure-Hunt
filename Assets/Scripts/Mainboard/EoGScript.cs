@@ -51,14 +51,14 @@ public class EoGScript : MonoBehaviour
                 winBanner.SetActive(true);
                 loseBanner.SetActive(false);
                 GlobalAudioScript.Instance.playSfxSound("win_sfx");
-                winImage.sprite = Resources.Load<Sprite>("Images/Results/blue_team_wins@2x");
+                winImage.sprite = Resources.Load<Sprite>("Images/ImagesWithText" + LocalizationManager.instance.GetLocalizedText("game_win_blue"));
                 card.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Results/blue_card@2x");
                 break;
             case CurrentGameState.redWins:
                 winBanner.SetActive(true);
                 loseBanner.SetActive(false);
                 GlobalAudioScript.Instance.playSfxSound("win_sfx");
-                winImage.sprite = Resources.Load<Sprite>("Images/Results/red_team_wins@2x");
+                winImage.sprite = Resources.Load<Sprite>("Images/ImagesWithText" + LocalizationManager.instance.GetLocalizedText("game_win_red"));
                 card.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Results/red_card@2x");
                 break;
             case CurrentGameState.loses:
