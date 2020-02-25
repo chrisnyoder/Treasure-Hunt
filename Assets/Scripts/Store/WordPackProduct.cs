@@ -31,7 +31,7 @@ public class WordPackProduct
     public string wordPackProductTitle;
     public string wordPackDescription; 
     public Sprite wordPackImage;
-    public Language.Name language; 
+    public SystemLanguage language; 
     public bool isStarter;
     public string price; 
     public ProductState state;
@@ -46,42 +46,42 @@ public class WordPackProduct
             case "initialWordList":
                 this.wordPackProductTitle = LocalizationManager.instance.GetLocalizedText("starter_title");
                 this.wordPackDescription = LocalizationManager.instance.GetLocalizedText("starter_description");
-                this.language = Language.Name.English;
+                this.language = SystemLanguage.English;
                 this.isStarter = true;
                 this.wordPackImage = Resources.Load<Sprite>("Images/ImagesWithText/" + LocalizationManager.instance.GetLocalizedText("starter_word_pack"));
                 break;
             case "initialWordListExpansion":
                 this.wordPackProductTitle = LocalizationManager.instance.GetLocalizedText("expansion_title");
                 this.wordPackDescription = LocalizationManager.instance.GetLocalizedText("expansion_description");
-                this.language = Language.Name.English;
+                this.language = SystemLanguage.English;
                 this.isStarter = false;
                 this.wordPackImage = Resources.Load<Sprite>("Images/ImagesWithText/" + LocalizationManager.instance.GetLocalizedText("expansion_word_pack"));
                 break;
             case "fantasyWordList":
                 this.wordPackProductTitle = LocalizationManager.instance.GetLocalizedText("sci-fi__fantasy_title");
                 this.wordPackDescription = LocalizationManager.instance.GetLocalizedText("sci-fi__fantasy_description");
-                this.language = Language.Name.English;
+                this.language = SystemLanguage.English;
                 this.isStarter = false;
                 this.wordPackImage = Resources.Load<Sprite>("Images/ImagesWithText/" + LocalizationManager.instance.GetLocalizedText("sci-fi_fantasy_word_pack"));
                 break; 
             case "celebritiesWordList":
                 this.wordPackProductTitle = LocalizationManager.instance.GetLocalizedText("celebrity_title");
                 this.wordPackDescription = LocalizationManager.instance.GetLocalizedText("celebrity_description");
-                this.language = Language.Name.English;
+                this.language = SystemLanguage.English;
                 this.wordPackImage = Resources.Load<Sprite>("Images/ImagesWithText/" + LocalizationManager.instance.GetLocalizedText("celebrity_word_pack"));
                 this.isStarter = false;
                 break; 
             case "initialWordListJP":
                 this.wordPackProductTitle = LocalizationManager.instance.GetLocalizedText("starter_title");
                 this.wordPackDescription = LocalizationManager.instance.GetLocalizedText("starter_description"); 
-                this.language = Language.Name.Japanese;
+                this.language = SystemLanguage.Japanese;
                 this.wordPackImage = Resources.Load<Sprite>("Images/ImagesWithText/" + LocalizationManager.instance.GetLocalizedText("starter_word_pack"));
                 this.isStarter = true; 
                 break;
             case "initialWordListExpansionJP":
                 this.wordPackProductTitle = LocalizationManager.instance.GetLocalizedText("expansion_title");
                 this.wordPackDescription = LocalizationManager.instance.GetLocalizedText("expansion_description");
-                this.language = Language.Name.Japanese;
+                this.language = SystemLanguage.Japanese;
                 this.wordPackImage = Resources.Load<Sprite>("Images/ImagesWithText/" + LocalizationManager.instance.GetLocalizedText("expansion_word_pack"));
                 this.isStarter = false;
                 break; 

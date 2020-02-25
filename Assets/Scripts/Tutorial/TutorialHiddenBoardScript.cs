@@ -55,6 +55,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
     public void beginTutorial(Team team)
     {
+        GlobalDefaults.Instance.tutorialIsOn = true;
         this._team = team;
 
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
@@ -96,22 +97,30 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         foreach (Text text in texts)
         {
-            text.DOColor(new Color32(0, 0, 0, 255), 0.5f).Play();
+            if (text.gameObject.name == "BlueTabText" || text.gameObject.name == "RedTabText" || text.gameObject.name == "NeutralTabText")
+            {
+                text.GetComponent<Text>().DOColor(new Color32(255, 239, 210, 255), 0.5f).Play();
+            } else 
+            {
+                text.DOColor(new Color32(0, 0, 0, 255), 0.5f).Play();
+            }
         }
-
         gameObject.SetActive(false);
     }
 
     public void continueTutorial()
     {
-        tutorialIndexNumber += 1;
-        if (tutorialIndexNumber < totalNumberOfTutorialScreens && gameObject.activeSelf == true)
+        if(GlobalDefaults.Instance.tutorialIsOn)
         {
-            displayTutorialScreenData();
-        }
-        else
-        {
-            turnTutorialOff();
+            tutorialIndexNumber += 1;
+            if (tutorialIndexNumber < totalNumberOfTutorialScreens && gameObject.activeSelf == true)
+            {
+                displayTutorialScreenData();
+            }
+            else
+            {
+                turnTutorialOff();
+            }
         }
     }
 
@@ -141,6 +150,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
             tabToMove.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             tabToMove.GetComponent<Button>().enabled = true;
+            tabToMove.GetComponentInChildren<Text>().color = new Color32(255, 239, 210, 255);
             moveButton = tabToMove.GetComponent<RectTransform>().DOAnchorPosY(tabToMove.GetComponent<RectTransform>().anchoredPosition.y - 40, 0.6f, false);
             moveButton.SetEase(Ease.Linear);
             moveButton.SetLoops(-1, LoopType.Yoyo);
@@ -218,7 +228,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             dangerText.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
             skipTutorialButton.SetActive(false);
             pressToContinueText.GetComponent<LayoutElement>().minHeight = 200;
-            pressToContinueText.GetComponent<Text>().text = "press anywhere to exit";
+            pressToContinueText.GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedText("tap_to_exit");
         }
     }
 
@@ -333,7 +343,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             if (image.gameObject.name == "Panel")
             {
                 image.color = new Color32(255, 255, 255, 0);
-            }
+            } 
             else
             {
                 image.color = new Color32(90, 90, 90, 255);

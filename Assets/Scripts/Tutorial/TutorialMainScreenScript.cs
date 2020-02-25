@@ -138,11 +138,11 @@ public class TutorialMainScreenScript : MonoBehaviour
 
         continueText.DOFade(0, 0.5f).Play().OnComplete(() =>
             {
-                continueText.text = "<Tap to continue>";
+                continueText.text = LocalizationManager.instance.GetLocalizedText("tap_to_continue");
 
                 if(tutorialIndexNumber == (TutorialMainScreenData.numberOfScreens-1))
                 {
-                    continueText.text = "<Tap to exit>";
+                    continueText.text = LocalizationManager.instance.GetLocalizedText("tap_to_exit");
                 }
                 continueText.DOFade(1, 0.5f).Play();
             }
@@ -173,6 +173,11 @@ public class TutorialMainScreenScript : MonoBehaviour
             if (tutorialIndexNumber == 2)
             {
                 var initialWordList = GameObject.Find("initialWordList");
+                if(initialWordList == null)
+                {
+                    initialWordList = GameObject.Find("initialWordListJP");
+                }
+
                 initialWordList.transform.SetParent(this.gameObject.transform);
                 initialWordList.transform.SetSiblingIndex(2);
 
@@ -186,8 +191,12 @@ public class TutorialMainScreenScript : MonoBehaviour
             if(tutorialIndexNumber == 3)
             {
                 var initialWordList = gameObject.transform.Find("initialWordList");
-                initialWordList.SetParent(this.storeCollectionView.transform);
+                if (initialWordList == null)
+                {
+                    initialWordList = gameObject.transform.Find("initialWordListJP");
+                }
 
+                initialWordList.SetParent(this.storeCollectionView.transform);
                 mainText.fontSize = (mainText.fontSize) * 2;
 
                 initialWordList.GetComponent<RectTransform>().anchorMin = initialMinAnchorsForStarterPack;

@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LocalizationManager : MonoBehaviour 
@@ -9,9 +10,9 @@ public class LocalizationManager : MonoBehaviour
     public static LocalizationManager instance;
 
     private string _languageCode;
-    public string language;
 
-    public bool textReadyToBeLocalized = false; 
+    [HideInInspector]
+    public SystemLanguage language;
 
     public Dictionary<string, string> localizedText;
     private string missingTextString = "Localized text not found";
@@ -23,7 +24,6 @@ public class LocalizationManager : MonoBehaviour
         } else if (instance != this) {
             Destroy (gameObject);
         }
-
         DontDestroyOnLoad(gameObject);
     }
 
@@ -36,15 +36,15 @@ public class LocalizationManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("language"))
         {
-            language = PlayerPrefs.GetString("language");
+            language = (SystemLanguage)Enum.Parse(typeof(SystemLanguage), PlayerPrefs.GetString("language"));
         }
         else
         {          
-            language = Application.systemLanguage.ToString();
-            PlayerPrefs.SetString("language", language);
+            language = Application.systemLanguage;
+            PlayerPrefs.SetString("language", language.ToString());
         }
 
-        _languageCode = Language.getLanguageCode((SystemLanguage)Enum.Parse(typeof(SystemLanguage), language));
+        _languageCode = Language.getLanguageCode(language);
 
         LoadLocalizedText(_languageCode);
     }
@@ -72,7 +72,6 @@ public class LocalizationManager : MonoBehaviour
             print(gameObject.GetInstanceID());
 
             Debug.Log ("Data loaded, dictionary contains: " + localizedText.Count + " entries");
-            textReadyToBeLocalized = true; 
 
         } else {
             Debug.LogError ("Cannot find file!");

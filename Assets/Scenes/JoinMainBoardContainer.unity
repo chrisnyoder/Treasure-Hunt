@@ -2101,6 +2101,7 @@ GameObject:
   - component: {fileID: 633288126}
   - component: {fileID: 633288125}
   - component: {fileID: 633288124}
+  - component: {fileID: 633288128}
   m_Layer: 5
   m_Name: Restarting
   m_TagString: Untagged
@@ -2183,6 +2184,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -577.269}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &633288128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633288123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01534ef0ce020ea4fa93165287bb8b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: host_restarting
 --- !u!1 &636488461
 GameObject:
   m_ObjectHideFlags: 0
@@ -4876,6 +4890,7 @@ GameObject:
   - component: {fileID: 1479491191}
   - component: {fileID: 1479491193}
   - component: {fileID: 1479491192}
+  - component: {fileID: 1479491194}
   m_Layer: 5
   m_Name: RateText
   m_TagString: Untagged
@@ -4944,6 +4959,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479491190}
   m_CullTransparentMesh: 0
+--- !u!114 &1479491194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479491190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01534ef0ce020ea4fa93165287bb8b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: solicit_rating
 --- !u!1 &1501031571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5407,7 +5435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7777778
+  m_AspectRatio: 2
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11352,6 +11380,7 @@ GameObject:
   - component: {fileID: 2047168059}
   - component: {fileID: 2047168058}
   - component: {fileID: 2047168060}
+  - component: {fileID: 2047168061}
   m_Layer: 5
   m_Name: BackgroundCanvas
   m_TagString: Untagged
@@ -11524,6 +11553,18 @@ MonoBehaviour:
   networkingClient: {fileID: 0}
   endTurnHandler: {fileID: 867951450}
   scoreDisplay: {fileID: 867951449}
+--- !u!114 &2047168061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047168052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455859af2d3934c218fb2a2d1b061773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2088867912
 GameObject:
   m_ObjectHideFlags: 0

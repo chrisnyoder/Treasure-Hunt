@@ -12,7 +12,7 @@ public class StoreLayoutScript : MonoBehaviour
     public GameObject storeCollectionView;
     private RectTransform storeCollectionViewRT;
     public GameObject wordPackButton; 
-    public Language.Name languageSelected; 
+    public SystemLanguage languageSelected; 
     public GameObject restorePurchaseButton;
     
     List<WordPackProduct> wordPacks = new List<WordPackProduct>(){};
@@ -33,7 +33,7 @@ public class StoreLayoutScript : MonoBehaviour
 
     private void Awake() 
     {
-        languageSelected = (Language.Name)Enum.Parse(typeof(Language.Name), PlayerPrefs.GetString("language"));
+        languageSelected = LocalizationManager.instance.language;
     }
     
     // Start is called before the first frame update

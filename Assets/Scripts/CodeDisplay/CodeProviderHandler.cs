@@ -80,7 +80,7 @@ public class CodeProviderHandler : CodeHandlerAbstract
             sendCode();
         } else 
         {
-            string msg = "enter valid 4 digit code";
+            string msg = LocalizationManager.instance.GetLocalizedText("enter_valid_id");
             displayErrorMessage(msg, true);
         }
     }

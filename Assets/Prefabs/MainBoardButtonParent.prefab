@@ -146,6 +146,7 @@ MonoBehaviour:
   cardAlreadyFlipped: 0
   endTurnHandler: {fileID: 0}
   scoreDisplay: {fileID: 0}
+  timer: {fileID: 0}
   cardType: 0
   cardText: 
   buttonParentObject: {fileID: 5448850801748092012}
@@ -242,6 +243,7 @@ GameObject:
   - component: {fileID: 6066428377087840175}
   - component: {fileID: 30889853426626530}
   - component: {fileID: 2850230010964205319}
+  - component: {fileID: 9144119899326119339}
   m_Layer: 0
   m_Name: MainBoardButtonParent
   m_TagString: Untagged
@@ -410,3 +412,15 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &9144119899326119339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5448850801748092012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455859af2d3934c218fb2a2d1b061773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

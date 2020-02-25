@@ -36,31 +36,31 @@ public class TutorialMainScreenData
 
     public string referenceCanvas
     {
-        get {return referenceCanvases[_screenIndex]; }
+        get { return referenceCanvases[_screenIndex]; }
     }
 
     private static List<string> titleTexts = new List<string>
     {
-        "Welcome to Treasure Hunt!",
-        "4+ players required to play",
-        "This is the pack selection screen",
+        LocalizationManager.instance.GetLocalizedText("tutorial_title_01"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_title_02"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_title_03"),
         "",
-        "Creating Game Room...",
-        "Divide into 2 teams",
-        "This is the Main Board",
-        "Please wait for the team captains"
+        LocalizationManager.instance.GetLocalizedText("tutorial_title_04"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_title_05"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_title_06"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_title_07")
     };
 
     private static List<string> mainTexts = new List<string> 
     {
-        "We're going to walk you through the basics to get you started", 
-        "2 people will play as team captains, giving their teams clues. The other players will try and guess what cards they're supposed to turn over. Don't worry we'll explain later ;)",
-        "For your first game we're going to get you started with the Starter word pack",
-        "Let's create the game room so the team captains can join",
+        LocalizationManager.instance.GetLocalizedText("tutorial_01"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_02"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_03"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_04"),
         "",
-        "Each team picks a team captain. Each captain opens Treasure hunt on their personal device and selects <color=#FFEFD2><i> <join game> </i></color> , chooses the role of <color=#FFEFD2><i> <captain> </i></color>, and types in the following code:",
-        "Here is where players will reveal words to see if their team’s coins are hidden underneath",
-        "the goal of Treasure Hunt is to be the first to find all your team’s coins. Blue team has 8, Red team has 7. The captains will give clues to help you flip over the right words. Good luck and have fun!"
+        LocalizationManager.instance.GetLocalizedText("tutorial_05"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_06"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_07")
     }; 
 
     private static List<Vector3> circlePlacements = new List<Vector3>

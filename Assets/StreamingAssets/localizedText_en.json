@@ -45,6 +45,10 @@
             "value": "Dev Website"
         },
         {
+            "key": "change_language",
+            "value": "Language"
+        },
+        {
             "key": "starter_word_pack",
             "value": "starter_pack@2x"
         },
@@ -206,11 +210,11 @@
         },
         {
             "key": "game_win_blue",
-            "value": "EoG_Blue"
+            "value": "EoG_text_blue"
         },
         {
             "key": "game_win_red",
-            "value": "EoG_Red"
+            "value": "EoG_text_red"
         },
         {
             "key": "tap_to_continue",
@@ -231,6 +235,10 @@
         {
             "key": "tutorial_title_03",
             "value": "This is the pack selection screen"
+        },
+        {
+            "key": "tutorial_title_04",
+            "value": "Creating game room..."
         },
         {
             "key": "tutorial_title_05",
@@ -254,7 +262,7 @@
         },
         {
             "key": "tutorial_03",
-            "value": "For your first game we're going to get you started wit hthe starter word pack."
+            "value": "For your first game we're going to get you started with the starter word pack."
         },
         {
             "key": "tutorial_04",
@@ -262,7 +270,7 @@
         },
         {
             "key": "tutorial_05",
-            "value": "Each team picks a team captain. Each captain opens Treasure Hunt on their personal device and selects <join game>, chooses the role of <captain>, and types in the following code: "
+            "value": "Each team picks a team captain. Each captain opens Treasure hunt on their personal device and selects <color=#FFEFD2><i> <join game> </i></color> , chooses the role of <color=#FFEFD2><i> <captain> </i></color>, and types in the following code:"
         },
         {
             "key": "tutorial_06",
@@ -282,7 +290,7 @@
         },
         {
             "key": "tutorial_captain_02",
-            "value": "Blue Team goes first. Select the tab beneath the scroll."
+            "value": "<color=#00ACB9> Blue </color> team goes first. Select the tab beneath the scroll."
         },
         {
             "key": "tutorial_captain_03",
@@ -294,7 +302,7 @@
         },
         {
             "key": "tutorial_captain_05",
-            "value": "2 of the words blue team needs to guess are Saturn and satellite. Blue Team's captain, go ahead and give your team the clue <Space-2>. <2> here refers to the amount of words you want your team to guess."
+            "value": "2 of the words blue team needs to guess are <color=#00ACB9> Saturn </color> and <color=#00ACB9> satellite</color>. Blue Team's captain, go ahead and give your team the clue <color=#00ACB9> space - 2</color>. <2> here refers to the amount of words you want your team to guess."
         },
         {
             "key": "tutorial_captain_06",
@@ -317,8 +325,8 @@
             "value": "You can continue this game or exit to start a new one. if you ever need a refresher, the tutorial can be turned back on from the home screen. Have fun!"
         },
         {
-            "key": "",
-            "value": ""
+            "key": "solicit_rating",
+            "value": "Are you enjoying Treasure Hunt? Please let us know!"
         }
     ]
 }
