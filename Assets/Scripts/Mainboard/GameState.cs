@@ -70,7 +70,16 @@ public class GameState
 
         if(GlobalDefaults.Instance.tutorialIsOn)
         {
-            TextAsset textFile = Resources.Load<TextAsset>("WordLists/tutorialWordList");
+            TextAsset textFile;
+
+            if(LocalizationManager.instance.language == SystemLanguage.Japanese)
+            {
+                textFile = Resources.Load<TextAsset>("WordLists/tutorialWordListJP");
+            } else 
+            {
+                textFile = Resources.Load<TextAsset>("WordLists/tutorialWordList");
+            }
+
             var wordsAsList = ReadLinesFromTextFile(textFile).ToList();
             wordList = wordList.Concat(wordsAsList).ToList();
         } else 
