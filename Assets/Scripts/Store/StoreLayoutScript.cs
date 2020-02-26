@@ -117,7 +117,7 @@ public class StoreLayoutScript : MonoBehaviour
         price.enabled = false;
 
 
-        if (GlobalDefaults.Instance.tutorialIsOn && wordPackData.wordPackProductIdentifier == "initialWordList")
+        if (GlobalDefaults.Instance.tutorialIsOn && wordPackData.isStarter == true)
         {
             wordPackData.state = ProductState.enabled;
         }
