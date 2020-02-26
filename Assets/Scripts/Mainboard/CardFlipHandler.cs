@@ -36,6 +36,8 @@ public class CardFlipHandler : MonoBehaviour
     {
         if (gameState.currentGameState == CurrentGameState.blueTurn || gameState.currentGameState == CurrentGameState.redTurn)
         {
+            GetComponent<Button>().interactable = false; 
+
             flipCard();
             changeTurnIfNecessary();
             sendCardSelectionToClients();
