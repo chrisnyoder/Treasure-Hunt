@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -55,27 +56,35 @@ public class LocalizationManager : MonoBehaviour
         localizedText = new Dictionary<string, string> ();
 
         string fileName = "localizedText_" + languageCode + ".json";
-        string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+        string filePath = Path.Combine(Application.streamingAssetsPath + "/", fileName);
 
-        if (File.Exists (filePath)) {
-            string dataAsJson = File.ReadAllText(filePath);
-            LocalizationData loadedData = JsonUtility.FromJson<LocalizationData>(dataAsJson);
-            
-            localizedText.Clear();
+        string dataAsJson;
+        
+        #if UNITY_EDITOR || UNITY_IOS
+        dataAsJson = File.ReadAllText(filePath);
 
-            for(int i = 0; i < loadedData.items.Length; i++) {
-                localizedText.Add(loadedData.items[i].key, loadedData.items[i].value);
-                print(loadedData.items[i].key);
-                print(loadedData.items[i].value);
-            }
+        #elif UNITY_ANDROID 
+        UnityWebRequest r = UnityWebRequest.Get(filePath);
 
-            print(gameObject.GetInstanceID());
-
-            Debug.Log ("Data loaded, dictionary contains: " + localizedText.Count + " entries");
-
-        } else {
-            Debug.LogError ("Cannot find file!");
+        WWW reader = new WWW(filePath);
+        while(!reader.isDone){
         }
+        string dataAsJson = reader.text;
+        #endif
+
+        LocalizationData loadedData = JsonUtility.FromJson<LocalizationData>(dataAsJson);
+        
+        localizedText.Clear();
+
+        for(int i = 0; i < loadedData.items.Length; i++) {
+            localizedText.Add(loadedData.items[i].key, loadedData.items[i].value);
+            print(loadedData.items[i].key);
+            print(loadedData.items[i].value);
+        }
+
+        print(gameObject.GetInstanceID());
+
+        Debug.Log ("Data loaded, dictionary contains: " + localizedText.Count + " entries");
     }
 
     public string GetLocalizedText (string key)
