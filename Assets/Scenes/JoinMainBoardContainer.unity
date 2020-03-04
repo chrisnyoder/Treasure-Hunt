@@ -3648,6 +3648,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonParentObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5448850801748092012, guid: e1ebf312dac034ffaae6c7a6b4472651,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8622185611469033807, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: networkingClient
@@ -3747,7 +3752,7 @@ PrefabInstance:
     - target: {fileID: 5037618529178320490, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 379.9992
       objectReference: {fileID: 0}
     - target: {fileID: 5037618529178320490, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
@@ -5435,7 +5440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2
+  m_AspectRatio: 1.7777778
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
