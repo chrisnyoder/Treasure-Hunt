@@ -118,7 +118,7 @@
         },
         {
             "key": "game_id",
-            "value": "Game ID"
+            "value": "Game ID: "
         },
         {
             "key": "fetching_game_id",
@@ -206,15 +206,15 @@
         },
         {
             "key": "blue_tab",
-            "value": "Blue Team's Words"
+            "value": "Blue Team's\n Words"
         },
         {
             "key": "red_tab",
-            "value": "Red Team's Words"
+            "value": "Red Team's\n Words"
         },
         {
             "key": "yellow_tab",
-            "value": "Neutral Words"
+            "value": "Neutral\n Words"
         },
         {
             "key": "danger_box",
@@ -243,6 +243,10 @@
         {
             "key": "game_win_red",
             "value": "EoG_text_red"
+        },
+        {
+            "key": "exit_tutorial",
+            "value": "exit tutorial"
         },
         {
             "key": "tap_to_continue",

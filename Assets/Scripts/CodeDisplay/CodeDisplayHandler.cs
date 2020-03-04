@@ -33,6 +33,8 @@ public class CodeDisplayHandler : CodeHandlerAbstract
         spinner.SetActive(false);
         setBeginGameButtonToActive();
         goBackButton.SetActive(false);
+
+        displayPlayersInGame(new List<string>(){"player1"});
     }
 
     public void displayWaitingForGameIndicator()

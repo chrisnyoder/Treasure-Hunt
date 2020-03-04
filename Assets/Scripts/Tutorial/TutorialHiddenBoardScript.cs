@@ -30,6 +30,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
     public GameObject skipTutorialButton;
     public GameObject circleImage;
     public GameObject verticalLayoutGroup;
+    public GameObject timerObject; 
 
     private Vector2 circleInitialMinAnchor; 
     private Vector2 circleInitialMaxAnchor; 
@@ -72,6 +73,7 @@ public class TutorialHiddenBoardScript : MonoBehaviour
         GlobalDefaults.Instance.tutorialIsOn = false;
 
         var images = scrollPanel.GetComponentsInChildren<Image>();
+        var timerImages = timerObject.GetComponentsInChildren<Image>();
         var texts = scrollPanel.GetComponentsInChildren<Text>();
 
         backgroundCanvas.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
@@ -95,12 +97,24 @@ public class TutorialHiddenBoardScript : MonoBehaviour
             }
         }
 
+        foreach (Image image in timerImages)
+        {
+            image.DOColor(new Color32(255, 255, 255, 255), 0.5f).Play();
+        }
+
         foreach (Text text in texts)
         {
-            if (text.gameObject.name == "BlueTabText" || text.gameObject.name == "RedTabText" || text.gameObject.name == "NeutralTabText")
+            if (text.gameObject.name == "BlueTabText")
             {
-                text.GetComponent<Text>().DOColor(new Color32(255, 239, 210, 255), 0.5f).Play();
-            } else 
+                text.GetComponent<Text>().DOColor(new Color32(217, 217, 217, 255), 0.5f).Play();
+            } else if(text.gameObject.name == "RedTabText")
+            {
+                text.GetComponent<Text>().DOColor(new Color32(255, 194, 194, 255), 0.5f).Play();
+            } else if(text.gameObject.name == "NeutralTabText")
+            {
+                text.GetComponent<Text>().DOColor(new Color32(89, 89, 89, 255), 0.5f).Play();
+            }
+            else 
             {
                 text.DOColor(new Color32(0, 0, 0, 255), 0.5f).Play();
             }
@@ -337,6 +351,13 @@ public class TutorialHiddenBoardScript : MonoBehaviour
 
         var images = scrollPanel.GetComponentsInChildren<Image>();
         var texts = scrollPanel.GetComponentsInChildren<Text>();
+        var timerImages = timerObject.GetComponentsInChildren<Image>();
+
+        foreach(Image image in timerImages)
+        {
+            image.color = new Color32(90, 90, 90, 255);
+
+        }
 
         foreach (Image image in images)
         {
