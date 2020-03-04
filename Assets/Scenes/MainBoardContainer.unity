@@ -1844,12 +1844,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.16544, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.19903, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.16544, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.19903, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -4329,6 +4329,7 @@ GameObject:
   - component: {fileID: 550369276}
   - component: {fileID: 550369278}
   - component: {fileID: 550369277}
+  - component: {fileID: 550369279}
   m_Layer: 5
   m_Name: GameIdText
   m_TagString: Untagged
@@ -4397,6 +4398,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550369275}
   m_CullTransparentMesh: 0
+--- !u!114 &550369279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550369275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01534ef0ce020ea4fa93165287bb8b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: fetching_game_id
 --- !u!1 &576599411
 GameObject:
   m_ObjectHideFlags: 0
@@ -4409,6 +4423,7 @@ GameObject:
   - component: {fileID: 576599415}
   - component: {fileID: 576599414}
   - component: {fileID: 576599413}
+  - component: {fileID: 576599416}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -4491,6 +4506,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576599411}
   m_CullTransparentMesh: 0
+--- !u!114 &576599416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576599411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01534ef0ce020ea4fa93165287bb8b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: store_error
 --- !u!1 &577628826
 GameObject:
   m_ObjectHideFlags: 0
@@ -7064,6 +7092,7 @@ GameObject:
   - component: {fileID: 985790488}
   - component: {fileID: 985790487}
   - component: {fileID: 985790486}
+  - component: {fileID: 985790490}
   m_Layer: 5
   m_Name: DescriptionText
   m_TagString: Untagged
@@ -7167,6 +7196,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985790484}
   m_CullTransparentMesh: 0
+--- !u!114 &985790490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985790484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01534ef0ce020ea4fa93165287bb8b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: store_error_description
 --- !u!1 &1039027853
 GameObject:
   m_ObjectHideFlags: 0

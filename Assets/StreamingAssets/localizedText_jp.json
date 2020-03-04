@@ -30,15 +30,15 @@
         },
         {
             "key": "privacy_policy",
-            "value": "個人情報"
+            "value": "プライバシーポリシー"
         },
         {
             "key": "toggle_tutorial",
-            "value": "やり方"
+            "value": "あそびかた"
         },
         {
             "key": "facebook",
-            "value": "フェイスブック"
+            "value": "Facebook"
         },
         {
             "key": "dev_website",
@@ -66,7 +66,7 @@
         },
         {
             "key": "confirmation_button",
-            "value": "確定"
+            "value": "決定"
         },
         {
             "key": "restore_button",
@@ -74,7 +74,7 @@
         },
         {
             "key": "select_one_wordpack",
-            "value": "選択必須"
+            "value": "パックを選んでください"
         },
         {
             "key": "starter_title",
@@ -94,11 +94,11 @@
         },
         {
             "key": "starter_description",
-            "value": "スターターパックにはゲームに必要な最低の５０語が入っています。例："
+            "value": "スターターパックにはゲームに最低限必要な５０の言葉が入っています。"
         },
         {
             "key": "expansion_description",
-            "value": "スーパーパックにはゲームをますます楽しくさせる１００語以上の言葉が入っています。例："
+            "value": "スーパーパックにはゲームをますます楽しくさせる１００以上の言葉が入っています。"
         },
         {
             "key": "sci-fi__fantasy_description",
@@ -109,8 +109,28 @@
             "value": "著名人パックには世界の最も人気のある著名人の名前５０人分が入っています。例："
         },
         {
+            "key": "store_error",
+            "value": "エラー!"
+        },
+        {
+            "key": "store_error_description",
+            "value": "アイテムの購入に失敗しました。インターネットへ接続されていることを確認の上もう一度お試しください。"
+        },
+        {
             "key": "game_id",
             "value": "ゲームID"
+        },
+        {
+            "key": "fetching_game_id",
+            "value": "ゲームID"
+        },
+        {
+            "key": "error_fetching_game_id",
+            "value": "サーバーに接続できませんでした"
+        },
+        {
+            "key": "player_joined",
+            "value": "プレイヤー が参加しました"
         },
         {
             "key": "start_button",
@@ -134,7 +154,7 @@
         },
         {
             "key": "timer_bar_text",
-            "value": "ターンエンド"
+            "value": "次のチームへ"
         },
         {
             "key": "blue_teams_turn",
@@ -150,11 +170,11 @@
         },
         {
             "key": "team_captain",
-            "value": "チームキャプテン"
+            "value": "キャプテン"
         },
         {
             "key": "crew_member",
-            "value": "チームメンバー"
+            "value": "クルー"
         },
         {
             "key": "go_back_button",
@@ -162,7 +182,7 @@
         },
         {
             "key": "team_captain_description",
-            "value": "チームキャプテンは他のチームメンバーにヒントをあげます。１チームに一人のキャプテンが入ります。"
+            "value": "チームキャプテンはチームメンバーにヒントを出します。１チームに一人のキャプテンが必要です。"
         },
         {
             "key": "crew_member_description",
@@ -170,11 +190,19 @@
         },
         {
             "key": "game_id_input",
-            "value": "４桁のゲームIDを入力下さい"
+            "value": "４桁のゲームIDを入力してください"
         },
         {
             "key": "enter_valid_id",
-            "value": "有効な４桁のゲームIDを入力下さい"
+            "value": "有効な４桁のゲームIDを入力して下さい"
+        },
+        {
+            "key": "searching_game_id",
+            "value": "ゲームIDを検索中"
+        },
+        {
+            "key": "no_game_id",
+            "value": "ゲームIDが見つかりませんでした"
         },
         {
             "key": "blue_tab",
@@ -190,7 +218,7 @@
         },
         {
             "key": "danger_box",
-            "value": "danger_JP@2x"
+            "value": "danger_jp"
         },
         {
             "key": "host_restarting",
@@ -202,7 +230,7 @@
         },
         {
             "key": "restart_button",
-            "value": "再生"
+            "value": "もう一度"
         },
         {
             "key": "show_board_button",
@@ -218,7 +246,7 @@
         },
         {
             "key": "exit_tutorial",
-            "value": "チュートリアルを終える"
+            "value": "チュートリアルを終了する"
         },
         {
             "key": "tap_to_continue",
@@ -242,7 +270,7 @@
         },
         {
             "key": "tutorial_title_04",
-            "value": "ゲームが作成中"
+            "value": "ゲームを作成中・・・"
         },
         {
             "key": "tutorial_title_05",
@@ -258,7 +286,7 @@
         },
         {
             "key": "tutorial_01",
-            "value": "基本のやり方のかんたんな説明を します。"
+            "value": "基本的なあそびかたを簡単に説明します。"
         },
         {
             "key": "tutorial_02",
@@ -274,7 +302,7 @@
         },
         {
             "key": "tutorial_05",
-            "value": "各チーム、キャプテンを選びます。キャプテンは自分の端末でトレジャーハントを開き、<color=#FFEFD2>〈参加する〉</color>、役割画面で<color=#FFEFD2>〈キャプテン〉</color>を選び、次ぎのコードを入力ください："
+            "value": "各チーム、キャプテンを選びます。キャプテンは自分の端末でトレジャーハントを開き、<color=#FFEFD2>〈参加する〉</color>、役割画面で<color=#FFEFD2>〈キャプテン〉</color>を選び、次のコードを入力してください："
         },
         {
             "key": "tutorial_06",
@@ -282,7 +310,7 @@
         },
         {
             "key": "tutorial_07",
-            "value": "トレジャーハントは青チームが８個、赤チームは７個、全てのコインを先に見つけた方が勝ちです。キャプテンはチームメートにヒントを与え、正解に導きます。Good luck"
+            "value": "トレジャーハントは青チームが８個、赤チームは７個、全てのコインを先に見つけた方が勝ちです。キャプテンはチームメートにヒントを与え、正解に導きます。Good luck！"
         },
         {
             "key": "tutorial_welcome",
@@ -302,7 +330,7 @@
         },
         {
             "key": "tutorial_captain_04",
-            "value": "ます手始めにこちらから第一ヒントをあげます。"
+            "value": "まず手始めにこちらからひとつめのヒントをあげましょう"
         },
         {
             "key": "tutorial_captain_05",
@@ -310,7 +338,7 @@
         },
         {
             "key": "tutorial_captain_06",
-            "value": "メインボードでチームが選んだタイルには取り消し線が表示されます。正解の火星と衛星の答えが選ばれたかな?"
+            "value": "メインボードでチームが選んだタイルには取り消し線が表示されます。あなたのチームは正解の火星と衛星の答えを選ぶことができたかな？"
         },
         {
             "key": "tutorial_captain_07",
@@ -322,11 +350,11 @@
         },
         {
             "key": "tutorial_captain_09",
-            "value": "もしDanger ワードを選んでしまうとゲームオーバーになり、相手チームの勝利になってしまうので気をつけて！"
+            "value": "もし地雷ワードを選んでしまうとゲームオーバーになり、相手チームの勝利になってしまいます。気をつけて！"
         },
         {
             "key": "tutorial_captain_10",
-            "value": "このゲームを継続するか、スタートに戻って新しいゲームを始めることもできます。もし分からないないことがあればホーム画面からチュートリアルを開いてね。楽しんで！"
+            "value": "このゲームを継続する、または新しいゲームを始めることができます。分からないことがあればホーム画面からチュートリアルをチェックしてみてください。それでは、楽しんで！"
         },
         {
             "key": "solicit_rating",

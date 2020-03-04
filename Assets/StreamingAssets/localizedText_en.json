@@ -109,8 +109,28 @@
             "value": "The Celebrity Word Pack consists of 50 names of the world's most popular celebrities. Example Words: Kanye West, Eminem, Usain Bolt, Queen Elizabeth II, J.K. Rowling."
         },
         {
+            "key": "store_error",
+            "value": "Whoops!"
+        },
+        {
+            "key": "store_error_description",
+            "value": "Looks like we couldn't complete your purchase. It could be that you're not connected to the Internet, or that the app isn't working properly."
+        },
+        {
             "key": "game_id",
             "value": "Game ID"
+        },
+        {
+            "key": "fetching_game_id",
+            "value": "Fetching game ID"
+        },
+        {
+            "key": "error_fetching_game_id",
+            "value": "We couldn't get a game ID. This might be a problem with our server or your internet connection"
+        },
+        {
+            "key": "player_joined",
+            "value": "player joined"
         },
         {
             "key": "start_button",
@@ -175,6 +195,14 @@
         {
             "key": "enter_valid_id",
             "value": "Enter valid 4-digit game ID"
+        },
+        {
+            "key": "searching_game_id",
+            "value": "Searching for game ID"
+        },
+        {
+            "key": "no_game_id",
+            "value": "Could not find game ID"
         },
         {
             "key": "blue_tab",

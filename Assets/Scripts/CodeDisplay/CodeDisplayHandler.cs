@@ -62,7 +62,7 @@ public class CodeDisplayHandler : CodeHandlerAbstract
         {
             spinner.SetActive(false);
             goBackButton.SetActive(true);
-            gameIdText.text = "We couldn't get a game ID. This might be a problem with our server or your internet connection";
+            gameIdText.text = LocalizationManager.instance.GetLocalizedText("error_fetching_game_id");
             gameIdText.gameObject.GetComponent<RectTransform>().sizeDelta = (initialTextBoxSize * 1.5f);
         }
     }
@@ -104,7 +104,14 @@ public class CodeDisplayHandler : CodeHandlerAbstract
         {
             var playerTagClone = GameObject.Instantiate(playerTag, listOfJoinedPlayersDisplay.transform);
             playerTagClone.SetActive(true);
-            playerTagClone.GetComponent<Text>().text = ("Player " + i + " joined");
+            string[] playerJoinedStrings = LocalizationManager.instance.GetLocalizedText("player_joined").Split();
+            playerTagClone.GetComponent<Text>().text = (playerJoinedStrings[0] + " " + i + " " + playerJoinedStrings[1]);
+
+            if (LocalizationManager.instance.language == SystemLanguage.Japanese)
+            {
+                playerTagClone.GetComponent<Text>().font = Resources.Load<Font>("Fonts/NotoSansJP-Bold");
+            }
+           
             listOfJoinedPlayerObjects.Add(playerTagClone);
         }
     }

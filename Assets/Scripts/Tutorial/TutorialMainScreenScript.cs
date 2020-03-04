@@ -269,7 +269,7 @@ public class TutorialMainScreenScript : MonoBehaviour
 
         } else
         {
-            mainText.text = "We couldn't get a game ID. This might be a problem with our server or your internet connection";   
+            mainText.text = LocalizationManager.instance.GetLocalizedText("error_fetching_game_id");   
         }
     }
 
