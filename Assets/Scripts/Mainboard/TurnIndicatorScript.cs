@@ -30,17 +30,19 @@ public class TurnIndicatorScript : MonoBehaviour
         gameObject.SetActive(true);
         turnChangeImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         turnChangeImage.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1) * 2.1f;
-
+      
+        GetComponent<Image>().DOFade(0.5f, 1.0f).SetDelay(0.7f).Play();
         turnChangeImage.GetComponent<RectTransform>().DOScale(new Vector3(1, 1, 1), 1.0f).SetDelay(1.2f).OnPlay(() => {
-            GetComponent<Image>().DOFade(0.5f, 1.0f).Play();
+            
             GlobalAudioScript.Instance.playSfxSound("Slam_05");
             
             turnChangeImage.gameObject.SetActive(true);
             turnIndicatorText.gameObject.SetActive(true);
 
         }).SetEase(Ease.OutBounce).Play().OnComplete(() => {
+
             GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
-            turnChangeImage.GetComponent<RectTransform>().DOAnchorPosX(3000, 0.7f, false).SetDelay(0.3f).Play().OnComplete(() => {
+            turnChangeImage.GetComponent<RectTransform>().DOAnchorPosX(3000, 0.7f, false).SetDelay(0.7f).Play().OnComplete(() => {
                 gameObject.SetActive(false);
 
                 turnChangeImage.gameObject.SetActive(false);
@@ -49,6 +51,7 @@ public class TurnIndicatorScript : MonoBehaviour
                 timer.timerStarted = true;
                 timer.resetTimer();
                 changeTimerBarColor();
+
             });
         });
     } 
