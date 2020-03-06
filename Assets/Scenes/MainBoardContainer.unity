@@ -1857,12 +1857,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.37567, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.19014, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.37567, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.19014, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -5675,10 +5675,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7178d4e320a924607bcc6338b18727ca, type: 3}
-    m_FontSize: 50
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 34
+    m_MinSize: 6
     m_MaxSize: 280
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -7843,7 +7843,7 @@ PrefabInstance:
     - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.9
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
@@ -7858,7 +7858,7 @@ PrefabInstance:
     - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6066428377087840175, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
@@ -9992,7 +9992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.3339844
+  m_AspectRatio: 2.1653333
 --- !u!114 &1594670876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21049,7 +21049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -483, y: -200}
+  m_AnchoredPosition: {x: -530, y: -200}
   m_SizeDelta: {x: 1134, y: 1134}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1931121264

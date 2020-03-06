@@ -102,7 +102,11 @@ public class TutorialMainScreenScript : MonoBehaviour
             backgroundCanvas.GetComponent<BoardLayoutScript>().startGame();
         }
         
-        turnIndicator.displayTurn(CurrentGameState.blueTurn);
+        if(_canvasName == "MainBoardCanvas")
+        {
+            turnIndicator.displayTurn(CurrentGameState.blueTurn);
+        }
+        
         gameObject.SetActive(false);
     }
 
