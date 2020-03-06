@@ -56,10 +56,6 @@ public class HiddenBoardViewController : MonoBehaviour
 
     public EoGScript eoGScript;
 
-    private void Awake() {
-        print("hidden board view controller awake");
-    }
-
     private void Start() 
     {
         blueButtonInitialPos = blueButton.GetComponent<RectTransform>().anchoredPosition;
@@ -189,7 +185,7 @@ public class HiddenBoardViewController : MonoBehaviour
         textObject.SetActive(false);
     }
 
-     void animateTab(Tabs tab)
+    void animateTab(Tabs tab)
     {
         Tween upTween1 = redButton.GetComponent<RectTransform>().DOAnchorPosY(redButtonInitialPos.y, 0.3f, false); 
         Tween upTween2 = neutralButton.GetComponent<RectTransform>().DOAnchorPosY(neutralButtonInitialPos.y, 0.3f, false);

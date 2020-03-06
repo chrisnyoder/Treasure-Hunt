@@ -146,6 +146,7 @@ MonoBehaviour:
   cardAlreadyFlipped: 0
   endTurnHandler: {fileID: 0}
   scoreDisplay: {fileID: 0}
+  timer: {fileID: 0}
   cardType: 0
   cardText: 
   buttonParentObject: {fileID: 5448850801748092012}
@@ -160,6 +161,7 @@ GameObject:
   - component: {fileID: 3221330243884713895}
   - component: {fileID: 7247591891505846188}
   - component: {fileID: 412134368793024681}
+  - component: {fileID: 5329253557720109518}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -181,8 +183,8 @@ RectTransform:
   m_Father: {fileID: 511840314901458711}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0}
-  m_AnchorMax: {x: 0.9, y: 1}
+  m_AnchorMin: {x: 0.05, y: 0}
+  m_AnchorMax: {x: 0.95, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -228,6 +230,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Button
+--- !u!114 &5329253557720109518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266643781634982425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9425310915276428ba3b3c347370db76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5448850801748092012
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +256,7 @@ GameObject:
   - component: {fileID: 6066428377087840175}
   - component: {fileID: 30889853426626530}
   - component: {fileID: 2850230010964205319}
+  - component: {fileID: 9144119899326119339}
   m_Layer: 0
   m_Name: MainBoardButtonParent
   m_TagString: Untagged
@@ -410,3 +425,15 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &9144119899326119339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5448850801748092012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455859af2d3934c218fb2a2d1b061773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

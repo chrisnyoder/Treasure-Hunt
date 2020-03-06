@@ -41,16 +41,16 @@ public class HiddenBoardTutorialData
 
     private static List<string> mainTexts = new List<string>
     {
-        "From this screen you can see which words your team has to guess in order to win the game. You can see the other team’s words as well as the neutral words by clicking the tabs under the scroll.",
-        "<color=#00ACB9> Blue </color> team goes first. Select the tab beneath the scroll.",
-        "These are the words that your team needs to guess.\nIt's time to give your team a clue",
-        "We're going to give you the first clue to get you started.",
-        "2 of the words blue team needs to guess are <color=#00ACB9> Saturn </color> and <color=#00ACB9> satellite</color>. Blue Team's captain, go ahead and give your team the clue <color=#00ACB9> space - 2</color>. <2> here refers to the amount of words you want your team to guess",
-        "As your team flips over words on the main board, you will see them get crossed out on the scroll. Hopefully, your team found <color=#00ACB9> Saturn </color> and <color=#00ACB9> satellite </color>",
-        "In addition to your team's words, you can view the other team's words (as well as neutral words) by selecting the tabs along the bottom",
-        "Keep an eye on these words as well. If you flip over a card that is not yours, play passes to the next team",
-        "Be careful! If your team selects the word in the danger box the game is over and the other team wins",
-        "You can continue this game or exit to start a new one. If you ever need a refresher, the tutorial can be turned back on from the home screen. Have fun!"
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_01"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_02"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_03"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_04"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_05"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_06"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_07"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_08"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_09"),
+        LocalizationManager.instance.GetLocalizedText("tutorial_captain_10")
     };
 
     private static List<string> mainTextRed = new List<string>
