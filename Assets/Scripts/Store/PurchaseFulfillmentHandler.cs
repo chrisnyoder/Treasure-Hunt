@@ -22,15 +22,22 @@ public class PurchaseFulfillmentHandler : MonoBehaviour
         PlayerPrefs.SetString(productId, "enabled");
 
         var storeButtonHandler = this.GetComponent<StoreButtonHandler>();
-        storeButtonHandler.wordPackProduct.state = ProductState.enabled;
-
+        if(storeButtonHandler != null) 
+        {
+            storeButtonHandler.wordPackProduct.state = ProductState.enabled;
+        }
+        
         var storeLayout = this.GetComponentInParent<StoreLayoutScript>();
-        storeLayout.displayProductState(this.gameObject);
-        storeLayout.populateSelectedWordPacks();
+        if(storeLayout != null)
+        {
+            storeLayout.displayProductState(this.gameObject);
+            storeLayout.populateSelectedWordPacks();
+        }
     }
 
     public void purchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
+        print("purchase failed");
 
         if(failureReason == PurchaseFailureReason.UserCancelled)
         {

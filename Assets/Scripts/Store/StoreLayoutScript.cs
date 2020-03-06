@@ -12,11 +12,11 @@ public class StoreLayoutScript : MonoBehaviour
     public GameObject storeCollectionView;
     private RectTransform storeCollectionViewRT;
     public GameObject wordPackButton; 
-    public ProductLanguage languageSelected = ProductLanguage.English; 
+    public SystemLanguage languageSelected; 
     public GameObject restorePurchaseButton;
     
-    List<WordPackProduct> wordPacks = new List<WordPackProduct>{};
-    List<WordPackProduct> selectedWordPacks = new List<WordPackProduct>{};
+    List<WordPackProduct> wordPacks = new List<WordPackProduct>(){};
+    List<WordPackProduct> selectedWordPacks = new List<WordPackProduct>(){};
     List<Text> prices = new List<Text>{};
 
     public Sprite starterWordPackImage;
@@ -30,6 +30,11 @@ public class StoreLayoutScript : MonoBehaviour
     public Sprite enabledStar; 
     public Sprite disabledStar; 
     public Sprite lockImage; 
+
+    private void Awake() 
+    {
+        languageSelected = LocalizationManager.instance.language;
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -112,7 +117,7 @@ public class StoreLayoutScript : MonoBehaviour
         price.enabled = false;
 
 
-        if (GlobalDefaults.Instance.tutorialIsOn && wordPackData.wordPackProductIdentifier == "initialWordList")
+        if (GlobalDefaults.Instance.tutorialIsOn && wordPackData.isStarter == true)
         {
             wordPackData.state = ProductState.enabled;
         }

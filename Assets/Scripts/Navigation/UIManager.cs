@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public Canvas restartCanvas;
     public Canvas rateCanvas; 
     public Canvas infoPopUp;
+    public Canvas languagePopUp; 
     public Image hiddenBoardTransitionImage; 
 
     private Vector2 initialJoinGamePopUpPos;  
@@ -170,6 +171,7 @@ public class UIManager : MonoBehaviour
     {
 
         GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
+
         var infoRT = infoPopUp.GetComponent<RectTransform>();
         infoRT.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() => {
             infoRT.GetComponent<Image>().DOFade(0.627f, 0.3f);
@@ -185,6 +187,26 @@ public class UIManager : MonoBehaviour
         infoRT.GetComponent<Image>().DOFade(0, .001f);
     }
 
+    public void bringUplanguagePopUp()
+    {
+        GlobalAudioScript.Instance.playSfxSound("Locked_Down_06");
+
+        var languageRT = languagePopUp.GetComponent<RectTransform>();
+        languageRT.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
+        {
+            languageRT.GetComponent<Image>().DOFade(0.627f, 0.3f);
+        });
+    }
+
+    public void closeLanguageSelectionPopUp()
+    {
+        GlobalAudioScript.Instance.playSfxSound("Slam_Metal_03");
+
+        var languageRT = languagePopUp.GetComponent<RectTransform>();
+        languageRT.DOAnchorPosY(1500, 0.7f, false).Play();
+        languageRT.GetComponent<Image>().DOFade(0, .001f);
+    }
+
     private void closeNetworkingClient()
     {
         networkingClient = GameObject.Find("NetworkingClient").GetComponent<WSNetworkingClient>();
@@ -195,4 +217,6 @@ public class UIManager : MonoBehaviour
             Destroy(networkingClient.gameObject);
         }
     }
+
+
 }

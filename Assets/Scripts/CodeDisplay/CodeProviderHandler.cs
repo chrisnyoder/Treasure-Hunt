@@ -61,7 +61,7 @@ public class CodeProviderHandler : CodeHandlerAbstract
             searchingForRoom = false;
             searchingForRoomTimedOut = false;
             resetSearchingTimer();
-            string message = "could not find room";
+            string message = LocalizationManager.instance.GetLocalizedText("no_game_id");
             displayErrorMessage(message, true);
         }
     }
@@ -80,7 +80,7 @@ public class CodeProviderHandler : CodeHandlerAbstract
             sendCode();
         } else 
         {
-            string msg = "enter valid 4 digit code";
+            string msg = LocalizationManager.instance.GetLocalizedText("enter_valid_id");
             displayErrorMessage(msg, true);
         }
     }
@@ -129,7 +129,7 @@ public class CodeProviderHandler : CodeHandlerAbstract
 
     private void displaySearchingGameUI()
     {
-        string msg = "searching for game id";
+        string msg = LocalizationManager.instance.GetLocalizedText("searching_game_id");
         displayErrorMessage(msg, false);
         spinner.GetComponent<Image>().color = new Color(spinnerColor.r, spinnerColor.g, spinnerColor.b, 1); ;
         var anim = spinner.GetComponent<RectTransform>().DORotate(new Vector3(0, 0, -360), 3f, RotateMode.FastBeyond360);

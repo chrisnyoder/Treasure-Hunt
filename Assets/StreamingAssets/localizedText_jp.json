@@ -1,0 +1,364 @@
+{
+    "items": [
+        {
+            "key": "game_title",
+            "value": "Main_Logo_JP@2x"
+        },
+        {
+            "key": "new_game",
+            "value": "New_Game_JP@2x"
+        },
+        {
+            "key": "join_game",
+            "value": "Join_Game_JP@2x"
+        },
+        {
+            "key": "share_text",
+            "value": "皆で楽しもう"
+        },
+        {
+            "key": "exit_popup_menu",
+            "value": "閉じる"
+        },
+        {
+            "key": "toggle_music",
+            "value": "音楽"
+        },
+        {
+            "key": "contact_us",
+            "value": "お問い合わせ"
+        },
+        {
+            "key": "privacy_policy",
+            "value": "プライバシーポリシー"
+        },
+        {
+            "key": "toggle_tutorial",
+            "value": "あそびかた"
+        },
+        {
+            "key": "facebook",
+            "value": "Facebook"
+        },
+        {
+            "key": "dev_website",
+            "value": "ホームページ"
+        },
+        {
+            "key": "change_language",
+            "value": "言語"
+        },
+        {
+            "key": "starter_word_pack",
+            "value": "starter_pack_jp"
+        },
+        {
+            "key": "expansion_word_pack",
+            "value": "expansion_pack_jp"
+        },
+        {
+            "key": "sci-fi_fantasy_word_pack",
+            "value": "fantasy_pack@2x"
+        },
+        {
+            "key": "celebrity_word_pack",
+            "value": "celebrity_pack@2x"
+        },
+        {
+            "key": "confirmation_button",
+            "value": "決定"
+        },
+        {
+            "key": "restore_button",
+            "value": "リストア"
+        },
+        {
+            "key": "select_one_wordpack",
+            "value": "パックを選んでください"
+        },
+        {
+            "key": "starter_title",
+            "value": "スターターパック"
+        },
+        {
+            "key": "expansion_title",
+            "value": "拡張パック"
+        },
+        {
+            "key": "sci-fi__fantasy_title",
+            "value": "SF/ファンタジーパック"
+        },
+        {
+            "key": "celebrity_title",
+            "value": "著名人パック"
+        },
+        {
+            "key": "starter_description",
+            "value": "スターターパックにはゲームに\n最低限必要な５０の言葉が入っています。"
+        },
+        {
+            "key": "expansion_description",
+            "value": "スーパーパックにはゲームをますます楽しくさせる\n１００以上の言葉が入っています。"
+        },
+        {
+            "key": "sci-fi__fantasy_description",
+            "value": "SF/ファンタジーパックは世界で最も有名で最も人気のあるSF/ファンタジー関連の言葉を集めました。例："
+        },
+        {
+            "key": "celebrity_description",
+            "value": "著名人パックには世界の最も人気のある著名人の名前５０人分が入っています。例："
+        },
+        {
+            "key": "store_error",
+            "value": "エラー!"
+        },
+        {
+            "key": "store_error_description",
+            "value": "アイテムの購入に失敗しました。インターネットへ\n接続されていることを確認の上もう一度お試しください。"
+        },
+        {
+            "key": "game_id",
+            "value": "ゲームID:"
+        },
+        {
+            "key": "fetching_game_id",
+            "value": "ゲームID"
+        },
+        {
+            "key": "error_fetching_game_id",
+            "value": "サーバーに接続できませんでした"
+        },
+        {
+            "key": "player_joined",
+            "value": "プレイヤー が参加しました"
+        },
+        {
+            "key": "start_button",
+            "value": "スタート"
+        },
+        {
+            "key": "restart_popup_conf",
+            "value": "本当に再生しますか？"
+        },
+        {
+            "key": "yes_button",
+            "value": "はい"
+        },
+        {
+            "key": "no_button",
+            "value": "いいえ"
+        },
+        {
+            "key": "quit_popup",
+            "value": "本当にやめますか？"
+        },
+        {
+            "key": "timer_bar_text",
+            "value": "次のチームへ"
+        },
+        {
+            "key": "blue_teams_turn",
+            "value": "青チームのターン"
+        },
+        {
+            "key": "red_teams_turn",
+            "value": "赤チームのターン"
+        },
+        {
+            "key": "select_role",
+            "value": "役割を決める"
+        },
+        {
+            "key": "team_captain",
+            "value": "キャプテン"
+        },
+        {
+            "key": "crew_member",
+            "value": "クルー"
+        },
+        {
+            "key": "go_back_button",
+            "value": "戻る"
+        },
+        {
+            "key": "team_captain_description",
+            "value": "チームキャプテンはチームメンバーに\nヒントを出します。１チームに一人の\nキャプテンが必要です。"
+        },
+        {
+            "key": "crew_member_description",
+            "value": "チームメンバーはどのタイルを\nひっくり返すかを決める。"
+        },
+        {
+            "key": "game_id_input",
+            "value": "４桁のゲームIDを入力してください"
+        },
+        {
+            "key": "enter_valid_id",
+            "value": "有効な４桁のゲームIDを入力して下さい"
+        },
+        {
+            "key": "searching_game_id",
+            "value": "ゲームIDを検索中"
+        },
+        {
+            "key": "no_game_id",
+            "value": "ゲームIDが見つかりませんでした"
+        },
+        {
+            "key": "blue_tab",
+            "value": "青チーム\nの言葉"
+        },
+        {
+            "key": "red_tab",
+            "value": "赤チーム\nの言葉"
+        },
+        {
+            "key": "yellow_tab",
+            "value": "他の\n言葉"
+        },
+        {
+            "key": "danger_box",
+            "value": "danger_jp"
+        },
+        {
+            "key": "host_restarting",
+            "value": "ホストが新しいゲームを作成中…"
+        },
+        {
+            "key": "game_lose",
+            "value": "ゲームオーバー"
+        },
+        {
+            "key": "restart_button",
+            "value": "もう一度"
+        },
+        {
+            "key": "show_board_button",
+            "value": "公開"
+        },
+        {
+            "key": "game_win_blue",
+            "value": "EoG_text_blue_jp"
+        },
+        {
+            "key": "game_win_red",
+            "value": "EoG_text_red_jp"
+        },
+        {
+            "key": "exit_tutorial",
+            "value": "チュートリアルを終了する"
+        },
+        {
+            "key": "tap_to_continue",
+            "value": "次へ"
+        },
+        {
+            "key": "tap_to_exit",
+            "value": "ゲームを始める"
+        },
+        {
+            "key": "tutorial_title_01",
+            "value": "トレジャーハントへようこそ！"
+        },
+        {
+            "key": "tutorial_title_02",
+            "value": "ゲームを始めるには４人以上が必要です"
+        },
+        {
+            "key": "tutorial_title_03",
+            "value": "パック選択画面"
+        },
+        {
+            "key": "tutorial_title_04",
+            "value": "ゲームを作成中・・・"
+        },
+        {
+            "key": "tutorial_title_05",
+            "value": "２つのチームに分かれてください"
+        },
+        {
+            "key": "tutorial_title_06",
+            "value": "メインボード"
+        },
+        {
+            "key": "tutorial_title_07",
+            "value": "チームキャプテンをお待ちください"
+        },
+        {
+            "key": "tutorial_01",
+            "value": "基本的なあそびかたを\n簡単に説明します。"
+        },
+        {
+            "key": "tutorial_02",
+            "value": "各チームのキャプテンが\n自分のチームメンバーにヒントを与えます。\nメンバーは正解のタイルを推測します。\n後に詳しく説明するから心配しないで(^^)"
+        },
+        {
+            "key": "tutorial_03",
+            "value": "初めは基本のスターターパック\nから始めます。"
+        },
+        {
+            "key": "tutorial_04",
+            "value": "キャプテンが参加できるよう、\nゲームルームを作りましょう。"
+        },
+        {
+            "key": "tutorial_05",
+            "value": "各チーム、キャプテンを選びます。\nキャプテンは自分の端末で\nトレジャーハントを開き、<color=#FFEFD2>〈参加する〉</color>、役割画面で<color=#FFEFD2>〈キャプテン〉</color>を選び、\n次のコードを入力してください："
+        },
+        {
+            "key": "tutorial_06",
+            "value": "ここでプレーヤーはタイルを公開し、\n下にコインが隠れてないか確認します"
+        },
+        {
+            "key": "tutorial_07",
+            "value": "トレジャーハントは青チームが８個、\n赤チームは７個、全てのコインを先に見つけた方が勝ちです。\nキャプテンはチームメートにヒントを与え、正解に導きます。\nGood luck！"
+        },
+        {
+            "key": "tutorial_welcome",
+            "value": "ようこそキャプテン！"
+        },
+        {
+            "key": "tutorial_captain_01",
+            "value": "この画面からタイルを選び、\nその答えをチームメンバーに\n当ててもらいます。\n画面下のタブをクリックすると\n敵チームのタイル、他のタイル、\n禁止タイルも見れます。"
+        },
+        {
+            "key": "tutorial_captain_02",
+            "value": "<color=#00ACB9>青 </color>チームが先行です。\n画面下のタブを選択してください。"
+        },
+        {
+            "key": "tutorial_captain_03",
+            "value": "これが自分のチームが当てるタイルです。\nチームにヒントを出して下さい。"
+        },
+        {
+            "key": "tutorial_captain_04",
+            "value": "まず手始めにこちらからひとつめの\nヒントをあげましょう"
+        },
+        {
+            "key": "tutorial_captain_05",
+            "value": "青チームが当てるタイル２つは<color=#00ACB9>土星 </color>と<color=#00ACB9>衛星</color>です。\nまず青チームのキャプテンからチームにヒントを\n出してください <color=#00ACB9> <宇宙 - 2></color>。\nここでの<2>は当てる言葉の数を示しています。"
+        },
+        {
+            "key": "tutorial_captain_06",
+            "value": "メインボードでチームが選んだタイルには\n取り消し線が表示されます。\nあなたのチームは正解の火星と衛星の\n答えを選ぶことができたかな？"
+        },
+        {
+            "key": "tutorial_captain_07",
+            "value": "自分チームのタイル以外に、\n下のタブをクリックすると\n他チームのタイル、\n（選ばれなかったタイルも）\nも見れます。"
+        },
+        {
+            "key": "tutorial_captain_08",
+            "value": "相手チームのタイルにも注意して。\nもし相手チームのタイルを選ぶと\n相手チームの番になります。"
+        },
+        {
+            "key": "tutorial_captain_09",
+            "value": "もし地雷ワードを選んでしまうと\nゲームオーバーになり、\n相手チームの勝利になってしまいます 気をつけて！"
+        },
+        {
+            "key": "tutorial_captain_10",
+            "value": "このゲームを継続する、\nまたは新しいゲームを\n始めることができます。\n分からないことがあれば\nホーム画面からチュートリアルを\nチェックしてみてください。\nそれでは、楽しんで！"
+        },  
+        {
+            "key": "solicit_rating",
+            "value": "トレジャーハントはどうでしたか？\n意見を聞かせてください！"
+        }
+    ]
+}
