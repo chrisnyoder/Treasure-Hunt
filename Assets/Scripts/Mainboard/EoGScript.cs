@@ -62,7 +62,7 @@ public class EoGScript : MonoBehaviour
                 card.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Results/red_card@2x");
                 break;
             case CurrentGameState.loses:
-                slam.makeCoinBig();
+                slam.makeImageBig();
                 winBanner.SetActive(false);
                 loseBanner.SetActive(true);
                 gameOverText.SetActive(true);
@@ -107,7 +107,7 @@ public class EoGScript : MonoBehaviour
             card.SetActive(false);
         } else if (currentGameState == CurrentGameState.loses) 
         {
-            slam.animateEoGCursedCoin();
+            slam.animateSlamAnimation();
         }
         determineGameCount();
     }

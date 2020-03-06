@@ -16,12 +16,12 @@ public class Slam : MonoBehaviour
         initialScale = rectTransform.localScale;
     }
 
-    public void makeCoinBig()
+    public void makeImageBig()
     {
         rectTransform.localScale = initialScale * 2.1f;
     }
 
-    public void animateEoGCursedCoin()
+    public void animateSlamAnimation()
     {
         var scaleBack = rectTransform.DOScale(initialScale, 1.0f).SetEase(Ease.OutBounce);
         scaleBack.Play();
