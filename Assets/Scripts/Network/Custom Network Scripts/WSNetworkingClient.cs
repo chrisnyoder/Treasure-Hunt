@@ -145,6 +145,7 @@ public abstract class WSNetworkingClient : SocketIOComponent
     {
         if (pauseStatus && isConnected)
         {
+            print("on application paused called");
             Close();
             wasDisconnected = true;
             isConnected = false;
@@ -153,8 +154,10 @@ public abstract class WSNetworkingClient : SocketIOComponent
 
     public void OnApplicationFocus(bool focusStatus)
     {
+        print("on application focused called");
         if (focusStatus && !isConnected)
         {
+            print("connecting...");
             Connect();
         }
     }

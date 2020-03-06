@@ -2656,6 +2656,7 @@ MonoBehaviour:
   endTurn: {fileID: 867951450}
   timerStarted: 0
   timerPaused: 0
+  timerImage: {fileID: 0}
   networkingClient: {fileID: 0}
   secondsElapsed: 0
 --- !u!114 &867951449

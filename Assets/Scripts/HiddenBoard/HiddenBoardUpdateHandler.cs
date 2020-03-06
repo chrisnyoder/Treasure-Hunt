@@ -64,9 +64,12 @@ public class HiddenBoardUpdateHandler : MonoBehaviour
         print("on scene loading called");
         if(joinGameNetworkingClient == null)
         {
-            print("join game networkign client being asigned");
+            print("join game networking client being assigned");
             joinGameNetworkingClient = GameObject.Find("NetworkingClient").GetComponent<JoinGameNetworkingClient>();
         }
+
+        joinGameNetworkingClient.codeDisplay = GameObject.Find("Game_Id").GetComponent<CodeTabScript>();
+        joinGameNetworkingClient.codeDisplay.displayRoomId();
         
         hiddenBoardViewController.initializeHiddenBoard(joinGameNetworkingClient.tab);
         _hiddenBoardCurrentGameState = joinGameNetworkingClient.networkedGameState.currentGameState;

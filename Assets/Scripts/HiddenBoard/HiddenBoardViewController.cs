@@ -293,13 +293,11 @@ public class HiddenBoardViewController : MonoBehaviour
             case CurrentGameState.blueTurn:
                 moveRestartCanvasToOriginalPosition();
                 turnIndicator.displayTurn(newGameState);
-                timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_blue");
                 timer.timerStarted = false;
                 getTextObjectSize();
                 break; 
             case CurrentGameState.redTurn: 
                 turnIndicator.displayTurn(newGameState);
-                timerFill.sprite = Resources.Load<Sprite>("Images/MainBoard/timerbar_red");
                 timer.timerStarted = false;
                 getTextObjectSize();
                 break;

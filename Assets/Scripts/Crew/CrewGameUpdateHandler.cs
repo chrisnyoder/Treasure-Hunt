@@ -16,6 +16,7 @@ public class CrewGameUpdateHandler : MonoBehaviour
     public GameObject restartingCanvas; 
     private Vector2 initialMainboardPos; 
     private Vector2 initialRestartCanvasPos; 
+    public string roomID; 
 
     List<CardFlipHandler> cards;
     public BoardLayoutScript boardLayoutScript;
@@ -44,7 +45,6 @@ public class CrewGameUpdateHandler : MonoBehaviour
         if(crewMemberCurrentGameState != joinGameNetworkingClient.networkedGameState.currentGameState)
         {
             var currentGameStateFromServer = joinGameNetworkingClient.networkedGameState.currentGameState;
-            var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
 
             switch(currentGameStateFromServer)
             {
@@ -63,21 +63,12 @@ public class CrewGameUpdateHandler : MonoBehaviour
                 case CurrentGameState.loses:
                     break;
                 case CurrentGameState.restarting:
-                    var mainBoardRT = gameObject.GetComponent<RectTransform>();
-                    mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
-
-                    restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
-                    {
-                        restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
-                    });
-
+                    moveMainBoardCanvas();
+                    displayRestartingCanvas();
                     exitResultsCavnas();
                     break;
                 case CurrentGameState.restarted:
-                    restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
-                    {
-                        restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
-                    });
+                    moveRestartingCanvas();
                     break;
             }
 
@@ -162,6 +153,32 @@ public class CrewGameUpdateHandler : MonoBehaviour
             }
         }
         exitResultsCavnas();    
+    }
+
+    private void displayRestartingCanvas()
+    {
+        var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+
+        restartingCanvasRt.DOAnchorPosY(0, 0.5f, false).Play().OnComplete(() =>
+        {
+            restartingCanvas.GetComponent<Image>().DOFade(0.627f, 0.3f).SetDelay(0.2f);
+        });
+    }
+
+    private void moveRestartingCanvas()
+    {
+        var restartingCanvasRt = restartingCanvas.GetComponent<RectTransform>();
+
+        restartingCanvas.GetComponent<Image>().DOFade(0.0f, 0.3f).OnComplete(() =>
+        {
+            restartingCanvasRt.DOAnchorPosY(initialRestartCanvasPos.y, 0.5f, false).Play();
+        });
+    }
+
+    private void moveMainBoardCanvas()
+    {
+        var mainBoardRT = gameObject.GetComponent<RectTransform>();
+        mainBoardRT.DOAnchorPosY(initialMainboardPos.y, 0.5f, false).Play().SetEase(Ease.Linear);
     }
 
     private void exitResultsCavnas()
