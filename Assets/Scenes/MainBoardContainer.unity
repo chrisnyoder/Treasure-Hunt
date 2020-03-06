@@ -1843,12 +1843,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.27881, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.18853, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPButton+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.27881, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.18853, Culture=neutral, PublicKeyToken=null
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -7830,6 +7830,7 @@ PrefabInstance:
     - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
         type: 3}
       propertyPath: m_AnchorMax.x
+
       value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 3221330243884713895, guid: e1ebf312dac034ffaae6c7a6b4472651,
