@@ -34,12 +34,18 @@ public class TurnIndicatorScript : MonoBehaviour
         turnChangeImage.GetComponent<RectTransform>().DOScale(new Vector3(1, 1, 1), 1.0f).SetDelay(1.2f).OnPlay(() => {
             GetComponent<Image>().DOFade(0.5f, 1.0f).Play();
             GlobalAudioScript.Instance.playSfxSound("Slam_05");
+            
             turnChangeImage.gameObject.SetActive(true);
-            }).SetEase(Ease.OutBounce).Play().OnComplete(() => {
+            turnIndicatorText.gameObject.SetActive(true);
+
+        }).SetEase(Ease.OutBounce).Play().OnComplete(() => {
             GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
             turnChangeImage.GetComponent<RectTransform>().DOAnchorPosX(3000, 0.7f, false).SetDelay(0.3f).Play().OnComplete(() => {
                 gameObject.SetActive(false);
+
                 turnChangeImage.gameObject.SetActive(false);
+                turnIndicatorText.gameObject.SetActive(false);
+
                 timer.timerStarted = true;
                 timer.resetTimer();
                 changeTimerBarColor();
@@ -54,10 +60,12 @@ public class TurnIndicatorScript : MonoBehaviour
             case CurrentGameState.blueTurn:
                 GetComponent<Image>().color = new Color32(0, 171, 184, 0);
                 turnChangeImage.sprite = Resources.Load<Sprite>("Images/MainBoard/blue_bg");
+                turnIndicatorText.text = LocalizationManager.instance.GetLocalizedText("blue_teams_turn");
                 break;
             case CurrentGameState.redTurn:
                 GetComponent<Image>().color = new Color32(138, 18, 46, 0);
                 turnChangeImage.sprite = Resources.Load<Sprite>("Images/MainBoard/red_bg");
+                turnIndicatorText.text = LocalizationManager.instance.GetLocalizedText("red_teams_turn");
                 break;
         }
     }
