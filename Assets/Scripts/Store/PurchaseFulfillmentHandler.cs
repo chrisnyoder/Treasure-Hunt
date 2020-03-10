@@ -16,7 +16,7 @@ public class PurchaseFulfillmentHandler : MonoBehaviour
 
     public void purchaseFulfilled(Product product)
     {
-        print("purchase fulfilled being called");
+        print("purchase fulfilled being called for product: " + product.definition.id);
         
         var productId = product.definition.id;
         PlayerPrefs.SetString(productId, "enabled");
@@ -31,7 +31,7 @@ public class PurchaseFulfillmentHandler : MonoBehaviour
         if(storeLayout != null)
         {
             storeLayout.displayProductState(this.gameObject);
-            storeLayout.populateSelectedWordPacks();
+            storeLayout.populateSelectedWordPacks();  
         }
     }
 

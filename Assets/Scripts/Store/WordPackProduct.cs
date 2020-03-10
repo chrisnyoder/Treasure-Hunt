@@ -39,8 +39,7 @@ public class WordPackProduct
     public WordPackProduct(string wordPackIdentifier)
     {
         this.wordPackProductIdentifier = wordPackIdentifier;
-        this.state = (ProductState) Enum.Parse(typeof(ProductState), PlayerPrefs.GetString(wordPackIdentifier));
-        
+
         switch (wordPackIdentifier)
         {
             case "initialWordList":
@@ -85,6 +84,24 @@ public class WordPackProduct
                 this.wordPackImage = Resources.Load<Sprite>("Images/ImagesWithText/" + LocalizationManager.instance.GetLocalizedText("expansion_word_pack"));
                 this.isStarter = false;
                 break; 
+        }
+
+        string savedState = PlayerPrefs.GetString(wordPackIdentifier);
+        Debug.Log("saved state is: " + savedState);
+
+        if (!String.IsNullOrEmpty(savedState))
+        {
+            Debug.Log("saved state is not null or empty");
+            this.state = (ProductState)Enum.Parse(typeof(ProductState), savedState);
+        } else if(this.isStarter && this.language != LocalizationManager.instance.language)
+        {
+            this.state = ProductState.disabled;
+        } else if(this.isStarter && this.language == LocalizationManager.instance.language)
+        {
+            this.state = ProductState.enabled;   
+        } else
+        {
+            this.state = ProductState.unpurchased;
         }
     }
 }
