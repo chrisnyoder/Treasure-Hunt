@@ -332,8 +332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7dd963c1a8b427b96975fa211478a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumePurchase: 1
-  dontDestroyOnLoad: 0
+  consumePurchase: 0
+  dontDestroyOnLoad: 1
   onPurchaseComplete:
     m_PersistentCalls:
       m_Calls:
@@ -349,12 +349,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseCompletedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.35824, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.17278, Culture=neutral, PublicKeyToken=null
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Purchasing.IAPListener+OnPurchaseFailedEvent, Assembly-CSharp-firstpass,
-      Version=1.0.2.35824, Culture=neutral, PublicKeyToken=null
+      Version=1.0.2.17278, Culture=neutral, PublicKeyToken=null
 --- !u!4 &957077755
 Transform:
   m_ObjectHideFlags: 0

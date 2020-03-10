@@ -69,7 +69,7 @@ public class LocalizationManager : MonoBehaviour
         WWW reader = new WWW(filePath);
         while(!reader.isDone){
         }
-        string dataAsJson = reader.text;
+        dataAsJson = reader.text;
         #endif
 
         LocalizationData loadedData = JsonUtility.FromJson<LocalizationData>(dataAsJson);

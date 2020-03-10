@@ -52,6 +52,8 @@ namespace UnityEngine.Purchasing
             Debug.Log(string.Format("IAPListener.ProcessPurchase(PurchaseEventArgs {0} - {1})", e,
                 e.purchasedProduct.definition.id));
 
+            Debug.Log("purchase being processed");
+            
             onPurchaseComplete.Invoke(e.purchasedProduct);
 
             return (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;

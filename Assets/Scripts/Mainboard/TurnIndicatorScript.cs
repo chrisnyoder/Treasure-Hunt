@@ -23,6 +23,12 @@ public class TurnIndicatorScript : MonoBehaviour
 
     public void displayTurn(CurrentGameState currentGameState)
     {
+        if(_currentGameState == currentGameState)
+        {
+            _currentGameState = currentGameState;
+            return;
+        }
+
         _currentGameState = currentGameState;
 
         displayTurnIndicators();

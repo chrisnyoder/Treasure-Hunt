@@ -59,16 +59,6 @@ public class GlobalDefaults : MonoBehaviour
         else
         {
             PlayerPrefs.SetString("appHasStartedBefore", "true");
-            print("app is starting up for first time");
-
-            PlayerPrefs.SetString("initialWordList", "enabled");
-            PlayerPrefs.SetString("initialWordListExpansion", "unpurchased");
-            PlayerPrefs.SetString("fantasyWordList", "unpurchased");
-            PlayerPrefs.SetString("celebritiesWordList", "unpurchased");
-
-            PlayerPrefs.SetString("initialWordListJP", "disabled");
-            PlayerPrefs.SetString("initialWordListExpansionJP", "unpurchased");
-            
             tutorialIsOn = true;
         }
     }
