@@ -93,12 +93,9 @@ public class WordPackProduct
         {
             Debug.Log("saved state is not null or empty");
             this.state = (ProductState)Enum.Parse(typeof(ProductState), savedState);
-        } else if(this.isStarter && this.language != LocalizationManager.instance.language)
+        } else if(this.isStarter)
         {
-            this.state = ProductState.disabled;
-        } else if(this.isStarter && this.language == LocalizationManager.instance.language)
-        {
-            this.state = ProductState.enabled;   
+            this.state = ProductState.enabled;
         } else
         {
             this.state = ProductState.unpurchased;
