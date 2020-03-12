@@ -157,7 +157,7 @@ PlayerSettings:
     Standalone: com.Company.ProductName
     iOS: app.treasure-hunt.v1.0
   buildNumber:
-    iOS: 19
+    iOS: 20
   AndroidBundleVersionCode: 17
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
