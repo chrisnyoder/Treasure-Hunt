@@ -23,6 +23,8 @@ public class TurnIndicatorScript : MonoBehaviour
 
     public void displayTurn(CurrentGameState currentGameState)
     {
+        gameObject.SetActive(true);
+
         if(_currentGameState == currentGameState)
         {
             _currentGameState = currentGameState;

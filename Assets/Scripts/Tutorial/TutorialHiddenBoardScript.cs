@@ -23,6 +23,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
     public Text mainText;
     public GameObject pressToContinueText;
 
+    public TurnIndicatorScript turnIndicator;
+
     public GameObject backgroundCanvas;
     public GameObject backToMainMenuButton;
     public GameObject scrollPanel;
@@ -58,6 +60,8 @@ public class TutorialHiddenBoardScript : MonoBehaviour
     {
         GlobalDefaults.Instance.tutorialIsOn = true;
         this._team = team;
+
+        turnIndicator.gameObject.SetActive(false);
 
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         displayTutorialScreenData();

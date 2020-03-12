@@ -82,6 +82,8 @@ public class JoinGameNetworkingClient : WSNetworkingClient
             mainBoardRunningTutorial = networkedGameState.isTutorial;
             wordsSelected.allWordsSelected = networkedGameState.wordsAlreadySelected; 
 
+            Debug.Log("player index is: " + networkedGameState.playerIndex);
+
             if (networkedGameState.playerIndex == 1)
             {
                 team = Team.RedTeam;

@@ -10737,6 +10737,7 @@ MonoBehaviour:
   titleText: {fileID: 874864226}
   mainText: {fileID: 797543944}
   pressToContinueText: {fileID: 923537587}
+  turnIndicator: {fileID: 129361151}
   backgroundCanvas: {fileID: 592629730}
   backToMainMenuButton: {fileID: 1281688856}
   scrollPanel: {fileID: 1442223646}
