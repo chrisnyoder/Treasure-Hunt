@@ -25,12 +25,6 @@ public class TurnIndicatorScript : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        if(_currentGameState == currentGameState)
-        {
-            _currentGameState = currentGameState;
-            return;
-        }
-
         _currentGameState = currentGameState;
 
         displayTurnIndicators();
