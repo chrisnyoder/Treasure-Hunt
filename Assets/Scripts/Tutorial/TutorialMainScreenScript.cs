@@ -105,6 +105,7 @@ public class TutorialMainScreenScript : MonoBehaviour
             turnIndicator.displayTurn(CurrentGameState.blueTurn);
         }
         
+        codeDisplayCanvas.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -2000);
         gameObject.SetActive(false);
 
         GlobalDefaults.Instance.tutorialIsOn = false;

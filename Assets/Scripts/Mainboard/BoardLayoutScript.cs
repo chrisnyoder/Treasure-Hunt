@@ -7,7 +7,8 @@ using DG.Tweening;
 public class BoardLayoutScript : MonoBehaviour
 {
     private bool isTablet = false; 
-    private float totalSpacing; 
+    private bool isCrew; 
+    private float totalSpacing;
 
     public CodeTabScript codeTabScript;
     public RectTransform roomCodeRT; 
@@ -297,13 +298,16 @@ public class BoardLayoutScript : MonoBehaviour
 
             if(codeDisplayRT == null)
             {
+                isCrew = true;
                 if(_initialGameState.currentGameState == CurrentGameState.blueTurn || _initialGameState.currentGameState == CurrentGameState.redTurn) 
                 {
                     joinGame();
                 }
-            } else if(codeDisplayRT.anchoredPosition.y != 0) 
+            } 
+
+            if(!isCrew)
             {
-                startGame();
+                checkIfResartingGame(mainBoardRT);
             }
 
             codeTabScript.displayRoomId();
@@ -315,6 +319,20 @@ public class BoardLayoutScript : MonoBehaviour
 
         anim.SetDelay(0.4f);
         anim.Play();
+    }
+
+    private void checkIfResartingGame(RectTransform mainBoardRT)
+    {
+        bool isRestarting = false;
+        if (codeDisplayRT.anchoredPosition.y != 0)
+        {
+            isRestarting = true;
+        }
+
+        if(isRestarting)
+        {
+            startGame();
+        }
     }
 
     public void startGame()
