@@ -34,6 +34,7 @@ public class CardFlipHandler : MonoBehaviour
 
     public void selectCardOnBoard()
     {
+        print("game state is..." + gameState.currentGameState);
         if (gameState.currentGameState == CurrentGameState.blueTurn || gameState.currentGameState == CurrentGameState.redTurn)
         {
             GetComponent<Button>().interactable = false; 
